@@ -22,7 +22,8 @@ platform :android do
     sh "cd .. && flutter pub get"
 
     # Build signed APK (ensure android/key.properties exists via CI step)
-    sh "./gradlew assembleRelease"
+    # sh "./gradlew assembleRelease"
+    sh "cd .. && flutter build apk --release"
 
     # Upload to Firebase App Distribution
     # Requires: FIREBASE_TOKEN or service account env, APP_ID, TESTERS/GROUPS
