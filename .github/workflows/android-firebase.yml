@@ -52,12 +52,16 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Install Fastlane
-        run: gem install fastlane --no-document
+      - name: Install gems (Fastlane + plugins)
+        run: |
+          bundle lock --add-platform x86_64-linux || true
+          bundle config set force_ruby_platform true
+          bundle install --jobs 4 --retry 3
+          
 
       - name: Deploy via Fastlane → Firebase
         working-directory: android
-        run: fastlane android android_firebase
+        run: bundle exec fastlane android android_firebase
         env:
           FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_TESTERS: ${{ secrets.FIREBASE_TESTERS }}

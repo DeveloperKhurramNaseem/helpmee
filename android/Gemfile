@@ -1,3 +1,10 @@
 source "https://rubygems.org"
 
 gem "fastlane"
+
+# Load plugins from either root/fastlane or android/fastlane (covers both layouts)
+[ File.join(__dir__, "fastlane", "Pluginfile"),
+  File.join(__dir__, "android", "fastlane", "Pluginfile")
+].each do |pf|
+  eval_gemfile(pf) if File.exist?(pf)
+end
