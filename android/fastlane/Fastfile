@@ -19,10 +19,10 @@ platform :android do
   desc "Build & ship Android release to Firebase App Distribution"
   lane :android_firebase do
     # Ensure flutter is available on CI (we'll install in the workflow)
-    sh "flutter pub get"
+    sh "cd .. && flutter pub get"
 
     # Build signed APK (ensure android/key.properties exists via CI step)
-    sh "cd android && ./gradlew assembleRelease"
+    sh "./gradlew assembleRelease"
 
     # Upload to Firebase App Distribution
     # Requires: FIREBASE_TOKEN or service account env, APP_ID, TESTERS/GROUPS
