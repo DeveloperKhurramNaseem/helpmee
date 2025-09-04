@@ -31,7 +31,7 @@ platform :android do
       testers: ENV["FIREBASE_TESTERS"],              # comma-separated emails
       release_notes: "CI auto-build #{Time.now.utc}",
       apk_path: "android/app/build/outputs/apk/release/app-release.apk",
-      firebase_cli_path: "firebase"                  # we install firebase cli in CI
+      firebase_cli_token: ENV["FIREBASE_TOKEN"]                 # we install firebase cli in CI
     )
   end
 
