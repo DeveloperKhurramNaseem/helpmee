@@ -53,10 +53,10 @@ jobs:
           bundler-cache: true
 
       - name: Install Fastlane
-        run: bundle install
+        run: gem install fastlane --no-document
 
       - name: Deploy via Fastlane → Firebase
-        run: bundle exec fastlane android android_firebase
+        run: fastlane android android_firebase
         env:
           FIREBASE_APP_ID_ANDROID: ${{ secrets.FIREBASE_APP_ID_ANDROID }}
           FIREBASE_TESTERS: ${{ secrets.FIREBASE_TESTERS }}
