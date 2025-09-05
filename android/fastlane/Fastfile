@@ -18,16 +18,39 @@ default_platform(:android)
 platform :android do
   desc "Build & ship APK to Firebase App Distribution"
   lane :android_firebase do
-    sh "flutter pub get"
-    sh "flutter build apk --release"
+    sh "cd #{root_dir} && flutter pub get"
+    sh "cd #{root_dir} && flutter build apk --release"   # add --flavor myFlavor if needed
+
+    # 2) Find a release APK regardless of working dir / flavors / split-per-abi
+    apk_candidates = Dir[File.join(root_dir, "build/app/outputs/**/*.apk")]
+                     .select { |p| p.include?("release") && !p.end_with?("-unsigned.apk") }
+
+    # Prefer the universal 'app-release.apk' if present
+    apk_path = apk_candidates.find { |p| File.basename(p) == "app-release.apk" } ||
+               apk_candidates.max_by { |p| File.size(p) rescue 0 }
+
+    UI.user_error!("No release APK found under #{root_dir}/build/app/outputs. Candidates: #{apk_candidates.inspect}") unless apk_path
+    UI.message("Using APK: #{apk_path}")
 
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
       testers: ENV["FIREBASE_TESTERS"],
       release_notes: "CI build #{Time.now.utc}",
-      apk_path: "build/app/outputs/flutter-apk/app-release.apk",
+      apk_path: apk_path,                                # 👈 pass explicit absolute path
       firebase_cli_token: ENV["FIREBASE_TOKEN"]
     )
+
+    ###########################################################################
+    # sh "flutter pub get"
+    # sh "flutter build apk --release"
+    # firebase_app_distribution(
+    #   app: ENV["FIREBASE_APP_ID_ANDROID"],
+    #   testers: ENV["FIREBASE_TESTERS"],
+    #   release_notes: "CI build #{Time.now.utc}",
+    #   apk_path: "build/app/outputs/flutter-apk/app-release.apk",
+    #   firebase_cli_token: ENV["FIREBASE_TOKEN"]
+    # )
+    ###########################################################################
     # fastlane_dir  = __dir__                                 # android/fastlane
     # android_dir   = File.expand_path("..", fastlane_dir)     # android/
     # project_root  = File.expand_path("..", android_dir)      # repo root
