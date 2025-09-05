@@ -18,14 +18,39 @@ default_platform(:android)
 platform :android do
   desc "Build & ship APK to Firebase App Distribution"
   lane :android_firebase do
-    sh "flutter pub get"
-    sh "./gradlew assembleRelease"
+    # sh "flutter pub get"
+    # sh "./gradlew assembleRelease"
 
+    # firebase_app_distribution(
+    #   app: ENV["FIREBASE_APP_ID_ANDROID"],
+    #   testers: ENV["FIREBASE_TESTERS"],
+    #   release_notes: "CI build #{Time.now.utc}",
+    #   apk_path: "android/app/build/outputs/apk/release/app-release.apk",
+    #   firebase_cli_token: ENV["FIREBASE_TOKEN"]
+    # )
+    fastlane_dir  = __dir__                                 # android/fastlane
+    android_dir   = File.expand_path("..", fastlane_dir)     # android/
+    project_root  = File.expand_path("..", android_dir)      # repo root
+
+    # Sanity checks (helpful logs if something is wrong)
+    UI.user_error!("android folder not found at #{android_dir}") unless Dir.exist?(android_dir)
+    UI.user_error!("gradlew missing at #{android_dir}/gradlew") unless File.exist?(File.join(android_dir, "gradlew"))
+
+    # 1) Get Flutter deps from repo root
+    sh "cd #{project_root} && flutter pub get"
+
+    # 2A) Build via Gradle (signed release)
+    sh "cd #{android_dir} && chmod +x ./gradlew && ./gradlew clean assembleRelease"
+    apk_path = File.join(android_dir, "app/build/outputs/apk/release/app-release.apk")
+
+    UI.user_error!("APK not found at: #{apk_path}") unless File.exist?(apk_path)
+
+    # 3) Upload to Firebase (plugin)  — or call the CLI directly if you prefer
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
       testers: ENV["FIREBASE_TESTERS"],
       release_notes: "CI build #{Time.now.utc}",
-      apk_path: "android/app/build/outputs/apk/release/app-release.apk",
+      apk_path: apk_path,
       firebase_cli_token: ENV["FIREBASE_TOKEN"]
     )
   end
