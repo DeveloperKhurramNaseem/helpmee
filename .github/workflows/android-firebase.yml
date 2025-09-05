@@ -1,16 +1,25 @@
 name: Android → Firebase App Distribution
 
 on:
-  push:
-    branches: [ "main" ]   # ← change to the branch you want to trigger on
+  pull_request:
+    branches: [ main ]
+    types: [ closed ] 
+
+concurrency:
+  group: deploy-android-main
+  cancel-in-progress: true
 
 jobs:
   android_release_to_firebase:
+    if: ${{ github.event.pull_request.merged == true }}
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha }}
+          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v4
