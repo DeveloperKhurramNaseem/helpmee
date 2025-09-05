@@ -18,6 +18,11 @@ default_platform(:android)
 platform :android do
   desc "Build & ship APK to Firebase App Distribution"
   lane :android_firebase do
+
+    fastlane_dir  = __dir__                              # android/fastlane
+    android_dir   = File.expand_path("..", fastlane_dir)  # android/
+    root_dir      = File.expand_path("..", android_dir)   
+
     sh "cd #{root_dir} && flutter pub get"
     sh "cd #{root_dir} && flutter build apk --release"   # add --flavor myFlavor if needed
 
