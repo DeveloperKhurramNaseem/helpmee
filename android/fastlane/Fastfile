@@ -19,7 +19,7 @@ platform :android do
   desc "Build & ship APK to Firebase App Distribution"
   lane :android_firebase do
     sh "flutter pub get"
-    sh "cd android && ./gradlew assembleRelease"
+    sh "./gradlew assembleRelease"
 
     firebase_app_distribution(
       app: ENV["FIREBASE_APP_ID_ANDROID"],
