@@ -11,7 +11,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Test Mode'),),
+      appBar: AppBar(title: Text('Test Mode (Develop Branch)'),),
       body: Center(child: Text('Home Screen'),),
     );
   }
