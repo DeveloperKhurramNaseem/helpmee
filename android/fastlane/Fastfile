@@ -16,23 +16,17 @@
 default_platform(:android)
 
 platform :android do
-  desc "Build & ship Android release to Firebase App Distribution"
+  desc "Build & ship APK to Firebase App Distribution"
   lane :android_firebase do
-    # Ensure flutter is available on CI (we'll install in the workflow)
-    sh "cd .. && flutter pub get"
+    sh "flutter pub get"
+    sh "cd android && ./gradlew assembleRelease"
 
-    # Build signed APK (ensure android/key.properties exists via CI step)
-    # sh "./gradlew assembleRelease"
-    sh "cd .. && flutter build apk --release"
-
-    # Upload to Firebase App Distribution
-    # Requires: FIREBASE_TOKEN or service account env, APP_ID, TESTERS/GROUPS
     firebase_app_distribution(
-      app: ENV["FIREBASE_APP_ID_ANDROID"],           # e.g. 1:1234567890:android:abc...
-      testers: ENV["FIREBASE_TESTERS"],              # comma-separated emails
-      release_notes: "CI auto-build #{Time.now.utc}",
+      app: ENV["FIREBASE_APP_ID_ANDROID"],
+      testers: ENV["FIREBASE_TESTERS"],
+      release_notes: "CI build #{Time.now.utc}",
       apk_path: "android/app/build/outputs/apk/release/app-release.apk",
-      firebase_cli_token: ENV["FIREBASE_TOKEN"]                 # we install firebase cli in CI
+      firebase_cli_token: ENV["FIREBASE_TOKEN"]
     )
-  end  
+  end
 end
