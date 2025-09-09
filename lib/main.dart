@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:help_mee/presentation/screens/home/home_screen/home_screen.dart';
+import 'package:help_mee/presentation/screens/auth/create_account_screen/create_account_screen.dart';
+import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/theme/light_theme/light_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,8 +12,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(      
-      home: const HomeScreen(),      
+    AppSize(MediaQuery.of(context).size);   
+    return MaterialApp(
+      theme: LightTheme.data,
+      themeMode: ThemeMode.light,
+      home: const CreateAccountScreen(),
     );
   }
 }

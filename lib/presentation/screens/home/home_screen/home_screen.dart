@@ -10,9 +10,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Test Mode (Develop Branch)'),),
-      body: Center(child: Text('Home Screen'),),
+    return SafeArea(
+      child: Scaffold(
+        body: Stack(
+          children: [            
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_back_arrow.dart';
+
+class ForgotPasswordScreen extends StatefulWidget {
+  const ForgotPasswordScreen({super.key});
+
+  @override
+  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
+}
+
+class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.only(left: 14.0,
+                right: 14.0,
+                top: MediaQuery.of(context).padding.top,),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [FpArrowBack()],
+          ),
+        ),
+      ),
+    );
+  }
+}
