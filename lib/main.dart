@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     AppSize(MediaQuery.of(context).size);
     return MaterialApp(
+      title: 'HelpMee',
       theme: LightTheme.data,
       themeMode: ThemeMode.light,
       home: const CreateAccountScreen(),
