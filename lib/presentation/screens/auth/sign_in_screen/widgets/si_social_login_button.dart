@@ -7,15 +7,18 @@ class SISocialLoginsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Spacer(),
-        Expanded(child: SISocialFbLoginButton()),
-        Expanded(child: SISocialGoogleLoginButton()),
-        Expanded(child: SISocialAppleLoginButton()),
-        Spacer(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Spacer(),
+          Expanded(child: SISocialFbLoginButton()),
+          Expanded(child: SISocialGoogleLoginButton()),
+          Expanded(child: SISocialAppleLoginButton()),
+          Spacer(),
+        ],
+      ),
     );
   }
 }

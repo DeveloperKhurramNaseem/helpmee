@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/util/constants/icons.dart';
 
-class FpArrowBack extends StatelessWidget {
-  const FpArrowBack({super.key});
+class EcArrowBack extends StatelessWidget {
+  const EcArrowBack({super.key});
 
   @override
   Widget build(BuildContext context) {

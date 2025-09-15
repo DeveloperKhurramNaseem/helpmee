@@ -25,7 +25,7 @@ class CAScreenCheckField extends StatelessWidget {
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               fillColor: WidgetStateProperty.resolveWith((states) {
                 if (states.contains(WidgetState.selected)) {
-                  return AppLightThemeColors.blue;
+                  return Theme.of(context).colorScheme.primary;
                 }
                 return Colors.transparent;
               }),

@@ -7,13 +7,15 @@ class SiForgetPassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0, right: 12),
+      padding: const EdgeInsets.only(bottom: 16.0, right: 12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()));
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+              );
             },
             child: Text(
               'Forgot password',

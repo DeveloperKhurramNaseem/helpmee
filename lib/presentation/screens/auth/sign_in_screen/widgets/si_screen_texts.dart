@@ -18,7 +18,7 @@ class SIScreenCreateAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Log in to your account',
+      'Sign in to your account',
       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
     );
   }

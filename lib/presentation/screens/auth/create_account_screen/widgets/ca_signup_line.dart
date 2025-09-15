@@ -17,7 +17,7 @@ class CASignInLine extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Do you have a profile ? ',
+                  text: 'Do you have an account? ',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                   ),

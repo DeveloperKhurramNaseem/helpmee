@@ -7,15 +7,18 @@ class CASocialLoginsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Spacer(),
-        Expanded(child: CASocialFbLoginButton()),
-        Expanded(child: CASocialGoogleLoginButton()),
-        Expanded(child: CASocialAppleLoginButton()),
-        Spacer(),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 14.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Spacer(),
+          Expanded(child: CASocialFbLoginButton()),
+          Expanded(child: CASocialGoogleLoginButton()),
+          Expanded(child: CASocialAppleLoginButton()),
+          Spacer(),
+        ],
+      ),
     );
   }
 }

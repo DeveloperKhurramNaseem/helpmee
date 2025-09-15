@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AppSize(MediaQuery.of(context).size);   
+    AppSize(MediaQuery.of(context).size);
     return MaterialApp(
       theme: LightTheme.data,
       themeMode: ThemeMode.light,

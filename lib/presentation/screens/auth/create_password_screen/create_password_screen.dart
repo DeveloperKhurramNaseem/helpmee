@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_back_arrow.dart';
-import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_field_and_button.dart';
-import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_text.dart';
+import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_arrow_back.dart';
+import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_button.dart';
+import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_fields.dart';
+import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_text.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
-class ForgotPasswordScreen extends StatefulWidget {
-  const ForgotPasswordScreen({super.key});
+class CreatePasswordScreen extends StatelessWidget {
+  const CreatePasswordScreen({super.key});
 
-  @override
-  State<ForgotPasswordScreen> createState() => _ForgotPasswordScreenState();
-}
-
-class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,11 +22,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                FpArrowBack(),
+                CpArrowBack(),
                 SizedBox(height: AppSize.instance.height * 0.05),
-                FpText(),
+                CpText(),
                 SizedBox(height: AppSize.instance.height * 0.05),
-                FpFieldAndButton(),
+                CpFields(),
+                SizedBox(height: AppSize.instance.height * 0.01),
+                CpButton(),
               ],
             ),
           ),
