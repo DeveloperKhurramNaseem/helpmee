@@ -1,7 +1,13 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:nfc_manager/nfc_manager.dart';
+import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
 
 class AmCard extends StatelessWidget {
   final String title, description, imagePath;
@@ -52,11 +58,66 @@ class AmNfcScanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AmCard(
-      title: 'NFC',
-      description: 'Tap to activate via NFC',
-      imagePath: AppImages.nfcScannerImage,
-      isSelected: true,
+    return GestureDetector(
+      onTap: () async {
+        final available = await NfcManager.instance.isAvailable();
+        if (!available) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('NFC not available on this device')),
+          );
+          return;
+        }
+        try {
+          // await NfcManager.instance.stopSession();
+          NfcManager.instance
+              .startSession(
+                pollingOptions: {
+                  NfcPollingOption.iso14443,
+                  NfcPollingOption.iso15693,
+                },
+                onDiscovered: (NfcTag tag) async {
+                  try {
+                    final ndef = Ndef.from(tag);
+                    if (ndef == null) {
+                      await NfcManager.instance.stopSession(
+                        errorMessageIos: 'This tag does not contain NDEF.',
+                      );
+                      return;
+                    }
+
+                    final message = await ndef.read();
+                    log('NDEF records: ${message!.records.length}');
+                    for (final r in message.records) {
+                      log(
+                        'type=${r.typeNameFormat} id=${r.identifier} payloadLen=${r.payload.length}',
+                      );
+                    }
+
+                    await NfcManager.instance.stopSession(
+                      alertMessageIos: 'Tag read successfully.',
+                    );
+                  } catch (e) {
+                    await NfcManager.instance.stopSession(
+                      errorMessageIos: '$e',
+                    );
+                  }
+                },
+                alertMessageIos: 'Hold your iPhone near the NFC tag.',
+              )
+              .then((_) {
+                NfcManager.instance.stopSession();
+              });
+        } catch (e) {
+          // If capabilities or plist are missing, we’ll see it here
+          log('startSession failed: $e');
+        }
+      },
+      child: AmCard(
+        title: 'NFC',
+        description: 'Tap to activate via NFC',
+        imagePath: AppImages.nfcScannerImage,
+        isSelected: true,
+      ),
     );
   }
 }
@@ -66,11 +127,16 @@ class AmQRScanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AmCard(
-      title: 'QR Code',
-      description: 'Scan to activate via QR Code',
-      imagePath: AppImages.qrCodeScanner,
-      isSelected: false,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
+      },
+      child: AmCard(
+        title: 'QR Code',
+        description: 'Scan to activate via QR Code',
+        imagePath: AppImages.qrCodeScanner,
+        isSelected: false,
+      ),
     );
   }
 }
