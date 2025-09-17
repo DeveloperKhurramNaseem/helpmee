@@ -11,4 +11,6 @@ class AppIcons{
   static const String homeSelected = "assets/icons/home_sel.svg";
   static const String plusSelected = "assets/icons/plus_selected.svg";
   static const String notificationSelected = "assets/icons/notification_selected.svg"; 
+  // Profile and Products Screen Icon
+  static const String add = "assets/icons/add.svg";
 }

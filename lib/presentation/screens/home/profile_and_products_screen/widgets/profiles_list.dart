@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/presentation/screens/home/profile_and_products_screen/widgets/product_tile.dart';
+import 'package:help_mee/util/constants/app_size.dart';
 
 class ProfilesList extends StatelessWidget {
   const ProfilesList({super.key});
@@ -96,6 +98,22 @@ class ProfileTile extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5.0),
+              child: SizedBox(
+                height: AppSize.instance.height * 0.2,
+                child: ListView.builder(
+                  itemCount: 5,
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, index) {
+                    if (index == 5 - 1) {
+                      return AddNewProductTile();
+                    }
+                    return ProductTile();
+                  },
+                ),
               ),
             ),
           ],
