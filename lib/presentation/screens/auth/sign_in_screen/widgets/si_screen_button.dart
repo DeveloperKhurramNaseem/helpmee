@@ -14,7 +14,7 @@ class SIScreenButton extends StatelessWidget {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            showDragHandle: true,          
+            showDragHandle: true,
             builder: (context) {
               return ProductMapBottomSheet();
             },

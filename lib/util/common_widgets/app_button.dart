@@ -76,3 +76,36 @@ class AppButtonOutlined extends StatelessWidget {
     );
   }
 }
+
+class AppButtonNoBorder extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  const AppButtonNoBorder({
+    super.key,
+    required this.onPressed,
+    required this.child,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
+        splashFactory: NoSplash.splashFactory,
+        backgroundColor: Colors.transparent, // Important
+        foregroundColor: Theme.of(context).colorScheme.secondary,
+        shadowColor: Colors.transparent, // Important
+      ),
+      onPressed: onPressed,
+      child: Ink(
+        decoration: BoxDecoration(),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          child: child,
+        ),
+      ),
+    );
+  }
+}

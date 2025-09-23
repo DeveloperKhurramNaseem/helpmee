@@ -13,4 +13,6 @@ class AppIcons{
   static const String notificationSelected = "assets/icons/notification_selected.svg"; 
   // Profile and Products Screen Icon
   static const String add = "assets/icons/add.svg";
+  static const String info = 'assets/icons/info_icon.svg';
+  static const String edit = 'assets/icons/edit_icon.svg';
 }
