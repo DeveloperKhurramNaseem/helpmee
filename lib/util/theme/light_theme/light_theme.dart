@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_color_scheme.dart';
+import 'package:help_mee/util/theme/light_theme/theme_data/light_switch_theme.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_text_theme.dart';
 
 class LightTheme {
@@ -28,6 +29,7 @@ class LightTheme {
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
     ),
+    switchTheme: LightSwitchTheme.data,
     splashColor: AppLightThemeColors.secondaryColor.withAlpha(100),
     extensions: [
       AppGradients(

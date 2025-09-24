@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/create_account_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/localication_util/localization_util.dart';
 import 'package:help_mee/util/theme/light_theme/light_theme.dart';
 
 void main() {
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
       title: 'HelpMee',
       theme: LightTheme.data,
       themeMode: ThemeMode.light,
+      localizationsDelegates: LocalizationUtil.delegates,
+      supportedLocales: LocalizationUtil.locales.values,
+      locale: LocalizationUtil.clear
+      locales[LocalizationUtil.english],
       home: const CreateAccountScreen(),
     );
   }

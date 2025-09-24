@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:help_mee/util/constants/app_size.dart';
 
 class SettingsBaseTile extends StatelessWidget {
   final bool showIcon;
@@ -26,8 +27,7 @@ class SettingsBaseTile extends StatelessWidget {
             color: Color(0xFFF6F6F6),
             shape: BoxShape.circle,
           ),
-          padding: const EdgeInsets.all(15),
-          child: SvgPicture.asset(image, width: 20),
+          child: SvgPicture.asset(image, width: AppSize.instance.width * 0.11),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.all(Radius.circular(14)),

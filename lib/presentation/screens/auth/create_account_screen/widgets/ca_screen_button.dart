@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
@@ -14,8 +15,9 @@ class CAScreenButton extends StatelessWidget {
         onPressed: () {},
         gradient: gradients?.primaryButton,
         child: Text(
-          'Sign up',
-          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+          // 'Sign up',
+          AppLocalizations.of(context)!.helpmee,
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),
     );
