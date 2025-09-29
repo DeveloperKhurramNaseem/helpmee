@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 
 class SISignInLine extends StatelessWidget {
   const SISignInLine({super.key});
@@ -16,13 +17,14 @@ class SISignInLine extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Don\'t have an account? ',
+                  text:
+                      '${AppLocalizations.of(context)!.dontHaveAccountLabel} ',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 TextSpan(
-                  text: 'Sign up',
+                  text: AppLocalizations.of(context)!.signUpTitle,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.w600,

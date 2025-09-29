@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 
 class CaScreenLetsStart extends StatelessWidget {
   const CaScreenLetsStart({super.key});
@@ -6,7 +7,7 @@ class CaScreenLetsStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Let\'s start',
+      AppLocalizations.of(context)!.letsStart,
       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
     );
   }
@@ -16,9 +17,10 @@ class CaScreenCreateAccount extends StatelessWidget {
   const CaScreenCreateAccount({super.key});
 
   @override
+
   Widget build(BuildContext context) {
     return Text(
-      'Create an account',
+      AppLocalizations.of(context)!.createAccountTitle,
       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
     );
   }

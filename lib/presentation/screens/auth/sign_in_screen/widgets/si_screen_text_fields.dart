@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class SIScreenTextEmailField extends StatelessWidget {
@@ -15,7 +16,7 @@ class SIScreenTextEmailField extends StatelessWidget {
       child: TextFormField(
         decoration: InputDecoration(
           border: TextFieldsConstants.border,
-          labelText: 'Email',
+          labelText: AppLocalizations.of(context)!.emailLabel,
           helperText: '',
           focusedBorder: TextFieldsConstants.border,
           labelStyle: labelStyle,
@@ -41,7 +42,7 @@ class SIScreenTextPasswordField extends StatelessWidget {
         return TextFormField(
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: 'Password',
+            labelText: AppLocalizations.of(context)!.passwordLabel,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,

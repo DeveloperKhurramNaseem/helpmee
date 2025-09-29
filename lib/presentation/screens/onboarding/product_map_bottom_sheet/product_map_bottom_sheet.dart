@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
@@ -18,7 +20,7 @@ class ProductMapBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Do you have a product?',
+                  AppLocalizations.of(context)!.askProductPrompt,
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 20,
@@ -41,7 +43,7 @@ class ProductMapBottomSheet extends StatelessWidget {
                 context,
               ).extension<AppGradients>()?.primaryButton,
               child: Text(
-                'Yes, let\'s start the product activation',
+                AppLocalizations.of(context)!.yesStartProductActivation,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
@@ -49,9 +51,13 @@ class ProductMapBottomSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
             child: AppButtonOutlined(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => Dashboard()));
+              },
               child: Text(
-                'No, let\'s go to the HelpMee shop',
+                AppLocalizations.of(context)!.goToHelpMeeShop,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),

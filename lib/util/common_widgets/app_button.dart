@@ -42,8 +42,51 @@ class AppButton extends StatelessWidget {
 class AppButtonOutlined extends StatelessWidget {
   final VoidCallback onPressed;
   final Widget child;
+  final Color color;
+  final Color? borderColor;
 
   const AppButtonOutlined({
+    super.key,
+    required this.onPressed,
+    required this.child,
+    this.color = Colors.transparent, 
+    this.borderColor,   
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var border = borderColor ?? Theme.of(context).colorScheme.secondary.withAlpha(100);
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.zero,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        backgroundColor: color, // Important
+        foregroundColor: Theme.of(context).colorScheme.secondary,
+        shadowColor: Colors.transparent, // Important
+      ),
+      onPressed: onPressed,
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: border,
+          ),
+        ),
+        child: Container(
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          child: child,
+        ),
+      ),
+    );
+  }
+}
+
+class AppButtonNoBorder extends StatelessWidget {
+  final VoidCallback onPressed;
+  final Widget child;
+
+  const AppButtonNoBorder({
     super.key,
     required this.onPressed,
     required this.child,
@@ -54,19 +97,14 @@ class AppButtonOutlined extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        splashFactory: NoSplash.splashFactory,
         backgroundColor: Colors.transparent, // Important
         foregroundColor: Theme.of(context).colorScheme.secondary,
         shadowColor: Colors.transparent, // Important
       ),
       onPressed: onPressed,
       child: Ink(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.secondary.withAlpha(100),
-          ),
-        ),
+        decoration: BoxDecoration(),
         child: Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),

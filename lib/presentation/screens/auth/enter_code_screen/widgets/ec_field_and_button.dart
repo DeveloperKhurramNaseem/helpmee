@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/auth/create_password_screen/create_password_screen.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_fields_row.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
@@ -20,13 +21,15 @@ class EcFieldAndButton extends StatelessWidget {
             width: AppSize.instance.width * 0.58,
             child: AppButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => CreatePasswordScreen()));
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (_) => CreatePasswordScreen()),
+                );
               },
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,
               child: Text(
-                'Verify',
+                AppLocalizations.of(context)!.verifyButton,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
             ),

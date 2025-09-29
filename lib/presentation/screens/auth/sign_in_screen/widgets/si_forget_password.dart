@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/forgot_password_screen.dart';
 
 class SiForgetPassword extends StatelessWidget {
@@ -18,7 +19,7 @@ class SiForgetPassword extends StatelessWidget {
               );
             },
             child: Text(
-              'Forgot password',
+              AppLocalizations.of(context)!.forgotPasswordLabel,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.secondary.withAlpha(100),
                 fontWeight: FontWeight.w600,

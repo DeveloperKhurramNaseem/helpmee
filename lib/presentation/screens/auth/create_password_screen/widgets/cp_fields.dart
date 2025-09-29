@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class CpFields extends StatelessWidget {
@@ -6,13 +7,9 @@ class CpFields extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      CpPasswordField(),
-      CpConfirmPasswordField(),
-    ],);
+    return Column(children: [CpPasswordField(), CpConfirmPasswordField()]);
   }
 }
-
 
 class CpPasswordField extends StatelessWidget {
   const CpPasswordField({super.key});
@@ -29,7 +26,7 @@ class CpPasswordField extends StatelessWidget {
         return TextFormField(
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: 'Password',
+            labelText: AppLocalizations.of(context)!.passwordLabel,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,
@@ -65,7 +62,7 @@ class CpConfirmPasswordField extends StatelessWidget {
         return TextFormField(
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: 'Confirm Password',
+            labelText: AppLocalizations.of(context)!.confirmPasswordLabel,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,

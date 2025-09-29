@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 
 class EcText extends StatelessWidget {
   const EcText({super.key});
@@ -11,14 +12,14 @@ class EcText extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: Text(
-            'Enter Code',
+            AppLocalizations.of(context)!.enterCodeTitle,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: Text(
-            'We have sent a 6 digit code to your email address',
+            AppLocalizations.of(context)!.enterCodeDescription,
             style: TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,

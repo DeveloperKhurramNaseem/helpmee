@@ -24,25 +24,30 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SizedBox(
-        height: AppSize.instance.height,
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: Builder(
-                builder: (context) {
-                  final kb = MediaQuery.of(context).viewInsets.bottom;
-                  return Transform.translate(
-                    offset: Offset(0, kb),
-                    child: SvgPicture.asset(AppImages.bottomClippedCircle),
-                  );
-                },
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: AppSize.instance.height,
+          child: Stack(
+            children: [
+              SizedBox(
+                height: AppSize.instance.height,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      right: 0,
+                      bottom: 0,
+                      child: Builder(
+                        builder: (context) {
+                          return SvgPicture.asset(
+                            AppImages.bottomClippedCircle,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            SingleChildScrollView(
-              child: Padding(
+              Padding(
                 padding: EdgeInsets.only(
                   left: 14.0,
                   right: 14.0,
@@ -74,8 +79,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
