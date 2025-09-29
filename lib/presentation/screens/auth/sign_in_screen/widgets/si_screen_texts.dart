@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 
 class SIScreenLetsStart extends StatelessWidget {
   const SIScreenLetsStart({super.key});
@@ -6,7 +7,7 @@ class SIScreenLetsStart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Welcome back',
+      AppLocalizations.of(context)!.welcomeBackTitle,
       style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
     );
   }
@@ -18,7 +19,7 @@ class SIScreenCreateAccount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      'Sign in to your account',
+      AppLocalizations.of(context)!.signInPrompt,
       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
     );
   }

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_restore_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/settings_screen/bottom_sheets/language_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/settings_screen/bottom_sheets/notifications_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/settings_screen/widgets/settings_app_bar.dart';
 import 'package:help_mee/presentation/screens/settings/settings_screen/widgets/settings_base_tile.dart';
@@ -22,36 +26,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
         slivers: [
           SettingsHeader(),
           SettingsDivider(),
-          SettingsCategoryText(category: 'Products & services'),
+          SettingsCategoryText(
+            category: AppLocalizations.of(context)!.productsAndServices,
+          ),
           SettingsBaseTile(
             titleText: 'Products & Profiles',
             image: AppIcons.plusSettings,
             onTap: () {},
           ),
           SettingsBaseTile(
-            titleText: 'Buy HelpMee products',
+            titleText: AppLocalizations.of(context)!.orderHelpMeeProductsLabel,
             image: AppIcons.sos,
             onTap: () {},
           ),
           SettingsBaseTile(
-            titleText: 'Feedback',
+            titleText: AppLocalizations.of(context)!.feedbackLabel,
             image: AppIcons.feedback,
             onTap: () {},
           ),
-          SettingsCategoryText(category: 'Account settings'),
+          SettingsCategoryText(
+            category: AppLocalizations.of(context)!.accountSettingsLabel,
+          ),
           SettingsBaseTile(
-            titleText: 'Add / switch profile',
+            titleText: AppLocalizations.of(context)!.switchAccountOrAddProfile,
             image: AppIcons.switchIcon,
             onTap: () {},
           ),
           SettingsBaseTile(
-            titleText: 'Notifications',
+            titleText: AppLocalizations.of(context)!.notificationsLabel,
             image: AppIcons.lock,
             onTap: () {
               showModalBottomSheet(
                 context: context,
                 showDragHandle: true,
-                  isScrollControlled: true,
+                isScrollControlled: true,
+                builder: (context) {
+                  return ProductRestoreSheet();
+                },
+              );
+            },
+          ),
+          SettingsBaseTile(
+            titleText: AppLocalizations.of(context)!.changePasswordButton,
+            image: AppIcons.lock,
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
                 builder: (context) {
                   return NotificationsSheet();
                 },
@@ -59,49 +81,66 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           SettingsBaseTile(
-            titleText: 'Change password',
-            image: AppIcons.lock,
-            onTap: () {},
-          ),
-          SettingsBaseTile(
-            titleText: 'Language',
+            titleText: AppLocalizations.of(context)!.languageLabel,
             image: AppIcons.language,
-            onTap: () {},
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
+                builder: (context) {
+                  return LanguageBottomSheet();
+                },
+              );
+            },
           ),
           SettingsBaseTile(
-            titleText: 'Profile validity',
+            titleText: AppLocalizations.of(context)!.profileValidityLabel,
             image: AppIcons.profileValidity,
-            onTap: () {},
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
+                builder: (context) {
+                  return DemoProfileSheet();
+                },
+              );
+            },
           ),
           SettingsBaseTile(
-            titleText: 'Delete profile',
+            titleText: AppLocalizations.of(context)!.deleteProfilLabel,
             image: AppIcons.delete,
             onTap: () {},
           ),
-          SettingsCategoryText(category: 'Legal'),
+          SettingsCategoryText(
+            category: AppLocalizations.of(context)!.legalLabel,
+          ),
           SettingsBaseTile(
-            titleText: 'Privacy policy',
+            titleText: AppLocalizations.of(context)!.privacyPolicyLabel,
             image: AppIcons.privacyIcon,
             onTap: () {},
           ),
           SettingsBaseTile(
-            titleText: 'Terms & Conditions',
+            titleText: AppLocalizations.of(context)!.termsAndConditionsLabel,
             image: AppIcons.privacyIcon,
             onTap: () {},
           ),
           SettingsBaseTile(
-            titleText: 'End User License Agreement',
+            titleText: AppLocalizations.of(context)!.endUserAgreementTitle,
             image: AppIcons.privacyIcon,
             onTap: () {},
           ),
           SettingsDivider(),
           SettingsBaseTile(
-            titleText: 'Sign out',
+            titleText: AppLocalizations.of(context)!.signOutLabel,
             image: AppIcons.signOutIcon,
             onTap: () {},
           ),
 
-          SettingsVersionText(version: 'Version 3.5.0'),
+          SettingsVersionText(
+            version: '${AppLocalizations.of(context)!.version} 3.5.0',
+          ),
         ],
       ),
     );

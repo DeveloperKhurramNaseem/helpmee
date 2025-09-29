@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 class NotificationAppBar extends StatelessWidget
@@ -19,7 +20,7 @@ class NotificationAppBar extends StatelessWidget
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Notifications',
+                  AppLocalizations.of(context)!.notificationsLabel,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
               ],

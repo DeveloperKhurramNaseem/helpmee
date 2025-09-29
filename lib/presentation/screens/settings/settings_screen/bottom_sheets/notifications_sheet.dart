@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
@@ -17,7 +18,7 @@ class NotificationsSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Notifications settings',
+                  AppLocalizations.of(context)!.notificationSettingLabel,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
@@ -26,7 +27,7 @@ class NotificationsSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
             child: Text(
-              'Here you can decide how you want to be notified by the app.',
+              AppLocalizations.of(context)!.genericNotificationSettingLabel,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.42),
@@ -36,11 +37,11 @@ class NotificationsSheet extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'Push notification',
+              AppLocalizations.of(context)!.pushNotificationLabel,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             subtitle: Text(
-              'Throws a push message, even if the app is closed',
+              AppLocalizations.of(context)!.sendNotificationsMessageLabel,
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.42),
                 fontSize: 12,
@@ -50,11 +51,11 @@ class NotificationsSheet extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'In-app notification',
+              AppLocalizations.of(context)!.inAppNotification,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             subtitle: Text(
-              'Shows notifications in the home menu\'s notification center',
+              AppLocalizations.of(context)!.sendNotificationsMessageLabel,
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.42),
                 fontSize: 12,
@@ -64,11 +65,11 @@ class NotificationsSheet extends StatelessWidget {
           ),
           ListTile(
             title: Text(
-              'Email notification',
+              AppLocalizations.of(context)!.emailNotification,
               style: TextStyle(fontWeight: FontWeight.w500, fontSize: 16),
             ),
             subtitle: Text(
-              'Allows to send you emails',
+              AppLocalizations.of(context)!.sendEmailMessageLabel,
               style: TextStyle(
                 color: Color.fromRGBO(0, 0, 0, 0.42),
                 fontSize: 12,
@@ -85,7 +86,7 @@ class NotificationsSheet extends StatelessWidget {
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,
-              child: Text('Save'),
+              child: Text(AppLocalizations.of(context)!.saveButton),
             ),
           ),
         ],

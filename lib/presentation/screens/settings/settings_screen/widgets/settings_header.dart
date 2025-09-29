@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/profile_settings_screen/profile_settings_screen.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class SettingsHeader extends StatelessWidget {
@@ -57,7 +59,7 @@ class SettingsHeader extends StatelessWidget {
                             alignment: Alignment.center,
                             padding: EdgeInsets.symmetric(vertical: 8),
                             child: Text(
-                              'Profile preview',
+                              AppLocalizations.of(context)!.profilePreviewLabel,
                               style: TextStyle(
                                 color: Theme.of(context).colorScheme.secondary,
                                 fontWeight: FontWeight.w500,
@@ -69,21 +71,32 @@ class SettingsHeader extends StatelessWidget {
                       Spacer(flex: 4),
                       Expanded(
                         flex: 46,
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            gradient: Theme.of(
-                              context,
-                            ).extension<AppGradients>()?.primaryButton,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              'Edit Profile',
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                                fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => ProfileSettingsScreen(),
+                              ),
+                            );
+                          },
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              gradient: Theme.of(
+                                context,
+                              ).extension<AppGradients>()?.primaryButton,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              padding: EdgeInsets.symmetric(vertical: 8),
+                              child: Text(
+                                AppLocalizations.of(context)!.editProfileLabel,
+                                style: TextStyle(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.onPrimary,
+                                  fontWeight: FontWeight.w500,
+                                ),
                               ),
                             ),
                           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 
@@ -16,7 +17,7 @@ class DashboardBottomBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: AppSize.instance.height * 0.09,
-      width: AppSize.instance.width * 0.86,
+      width: AppSize.instance.width * 0.9,
       decoration: BoxDecoration(
         color: Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(15),
@@ -34,7 +35,7 @@ class DashboardBottomBar extends StatelessWidget {
                 child: ColoredBox(
                   color: Colors.transparent,
                   child: DashboardBottomBarIcon(
-                    title: 'Home',
+                    title: AppLocalizations.of(context)!.homeLabel,
                     isSelected: selectedIndex == 0,
                     selectedIcon: AppIcons.homeSelected,
                     icon: AppIcons.home,
@@ -44,7 +45,7 @@ class DashboardBottomBar extends StatelessWidget {
             ),
             VerticalDivider(color: Colors.white, indent: 10, endIndent: 10),
             Expanded(
-              flex: 40,
+              flex: 30,
               child: GestureDetector(
                 onTap: () => onTap(1),
                 child: ColoredBox(
@@ -66,7 +67,7 @@ class DashboardBottomBar extends StatelessWidget {
                 child: ColoredBox(
                   color: Colors.transparent,
                   child: DashboardBottomBarIcon(
-                    title: 'Notifications',
+                    title: AppLocalizations.of(context)!.notificationsLabel,
                     isSelected: selectedIndex == 2,
                     selectedIcon: AppIcons.notificationSelected,
                     icon: AppIcons.notification,
@@ -108,7 +109,7 @@ class DashboardBottomBarIcon extends StatelessWidget {
           title,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            fontSize: 10,
+            fontSize: 9,
             color: isSelected
                 ? Theme.of(context).colorScheme.secondary
                 : Color.fromRGBO(0, 0, 0, 0.7),

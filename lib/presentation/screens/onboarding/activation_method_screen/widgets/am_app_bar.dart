@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 class AmAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -18,7 +19,7 @@ class AmAppBar extends StatelessWidget implements PreferredSizeWidget {
             ),
           ),
           Text(
-            'Choose Activation Method',
+            AppLocalizations.of(context)!.chooseActivationMethod,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
           ),
         ],

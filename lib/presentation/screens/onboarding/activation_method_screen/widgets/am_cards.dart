@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
@@ -114,7 +115,7 @@ class AmNfcScanCard extends StatelessWidget {
       },
       child: AmCard(
         title: 'NFC',
-        description: 'Tap to activate via NFC',
+        description: AppLocalizations.of(context)!.tapToActivateNfc,
         imagePath: AppImages.nfcScannerImage,
         isSelected: true,
       ),
@@ -129,11 +130,13 @@ class AmQRScanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
       },
       child: AmCard(
-        title: 'QR Code',
-        description: 'Scan to activate via QR Code',
+        title: AppLocalizations.of(context)!.qrCodeLabel,
+        description: AppLocalizations.of(context)!.scanQrCode,
         imagePath: AppImages.qrCodeScanner,
         isSelected: false,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 
 class CpText extends StatelessWidget {
   const CpText({super.key});
@@ -11,7 +12,7 @@ class CpText extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: Text(
-            'Create Password',
+            AppLocalizations.of(context)!.createPasswordLabel,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -22,7 +23,7 @@ class FpFieldAndButton extends StatelessWidget {
           child: TextFormField(
             decoration: InputDecoration(
               border: TextFieldsConstants.border,
-              labelText: 'Email',
+              labelText: AppLocalizations.of(context)!.emailLabel,
               helperText: '',
               focusedBorder: TextFieldsConstants.border,
               labelStyle: labelStyle,
@@ -36,13 +37,15 @@ class FpFieldAndButton extends StatelessWidget {
             width: AppSize.instance.width * 0.58,
             child: AppButton(
               onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (_) => EnterCodeScreen()));
+                Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen()));
               },
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,
               child: Text(
-                'Continue',
+                AppLocalizations.of(context)!.continueButton,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
               ),
             ),

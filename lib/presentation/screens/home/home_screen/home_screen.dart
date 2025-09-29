@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/home/home_screen/widgets/hs_app_bar.dart';
 import 'package:help_mee/presentation/screens/home/home_screen/widgets/hs_notification_list.dart';
 import 'package:help_mee/presentation/screens/home/home_screen/widgets/hs_recent_notification_text.dart';
@@ -21,7 +22,9 @@ class _HomeScreenState extends State<HomeScreen> {
           SliverToBoxAdapter(
             child: SizedBox(height: AppSize.instance.height * 0.03),
           ),
-          NotificationsText(text: 'Recent Notifications',),
+          NotificationsText(
+            text: AppLocalizations.of(context)!.recentNotificationsLabel,
+          ),
           HsNotificationList(),
         ],
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
@@ -22,7 +23,7 @@ class SIScreenButton extends StatelessWidget {
         },
         gradient: Theme.of(context).extension<AppGradients>()?.primaryButton,
         child: Text(
-          'Sign in',
+          AppLocalizations.of(context)!.signInTitle,
           style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
         ),
       ),

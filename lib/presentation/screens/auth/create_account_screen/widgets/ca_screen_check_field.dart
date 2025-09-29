@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class CAScreenCheckField extends StatelessWidget {
@@ -34,38 +35,42 @@ class CAScreenCheckField extends StatelessWidget {
             );
           },
         ),
-        RichText(
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: 'Agree to ',
-                style: TextStyle(
-                  fontSize: fontSize,
-                  color: Theme.of(context).colorScheme.secondary,
+        Expanded(
+          child: RichText(
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: '${AppLocalizations.of(context)!.agreeToLabel} ',
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: 'Privacy Policy ',
-                style: TextStyle(
-                  color: AppLightThemeColors.blue,
-                  fontSize: fontSize,
+                TextSpan(
+                  text: '${AppLocalizations.of(context)!.privacyPolicyLabel} ',
+                  style: TextStyle(
+                    color: AppLightThemeColors.blue,
+                    fontSize: fontSize,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: 'and ',
-                style: TextStyle(
-                  fontSize: fontSize,
-                  color: Theme.of(context).colorScheme.secondary,
+                TextSpan(
+                  text: '${AppLocalizations.of(context)!.andLabel} ',
+                  style: TextStyle(
+                    fontSize: fontSize,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: 'Terms & Conditions',
-                style: TextStyle(
-                  color: AppLightThemeColors.blue,
-                  fontSize: fontSize,
+                TextSpan(
+                  text: AppLocalizations.of(context)!.termsAndConditionsLabel,
+                  style: TextStyle(
+                    color: AppLightThemeColors.blue,
+                    fontSize: fontSize,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

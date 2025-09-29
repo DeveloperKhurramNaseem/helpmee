@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/home/home_screen/widgets/hs_recent_notification_text.dart';
 import 'package:help_mee/presentation/screens/home/notifications_screen/widgets/notification_app_bar.dart';
 import 'package:help_mee/presentation/screens/home/notifications_screen/widgets/notifications_list.dart';
@@ -21,7 +22,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           SliverToBoxAdapter(
             child: SizedBox(height: AppSize.instance.height * 0.01),
           ),
-          NotificationsText(text: 'Recent Notifications'),
+          NotificationsText(
+            text: AppLocalizations.of(context)!.recentNotificationsLabel,
+          ),
           RecentNotificationsList(),
           NotificationsText(text: 'Last 7 days'),
           OldNotificationsList(),

@@ -42,6 +42,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  flutter_bloc: ^9.1.1
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
 
 class CASignInLine extends StatelessWidget {
@@ -17,20 +18,23 @@ class CASignInLine extends StatelessWidget {
             text: TextSpan(
               children: [
                 TextSpan(
-                  text: 'Do you have an account? ',
+                  text: AppLocalizations.of(context)!.doYouHaveAccountLabel,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                   ),
                 ),
                 TextSpan(
-                  text: 'Sign in',
+                  text: AppLocalizations.of(context)!.signInTitle,
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.secondary,
                     fontWeight: FontWeight.w600,
                   ),
-                  recognizer: TapGestureRecognizer()..onTap = () {
-                    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SignInScreen()));
-                  },
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (_) => const SignInScreen()),
+                      );
+                    },
                 ),
               ],
             ),
