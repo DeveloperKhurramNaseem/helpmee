@@ -190,7 +190,7 @@ class EcTextField extends StatelessWidget {
         border: TextFieldsConstants.border,
         labelText: '',
         helperText: '',
-        focusedBorder: TextFieldsConstants.border,
+        focusedBorder: TextFieldsConstants.focusedBorder,
         labelStyle: labelStyle,
       ),
       cursorColor: Theme.of(context).colorScheme.secondary,

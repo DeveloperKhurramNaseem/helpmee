@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/util/constants/app_size.dart';
 
 class AppButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -29,7 +30,7 @@ class AppButton extends StatelessWidget {
           gradient: gradient,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Container(
+        child: Container(          
           alignment: Alignment.center,
           padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
@@ -49,13 +50,14 @@ class AppButtonOutlined extends StatelessWidget {
     super.key,
     required this.onPressed,
     required this.child,
-    this.color = Colors.transparent, 
-    this.borderColor,   
+    this.color = Colors.transparent,
+    this.borderColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    var border = borderColor ?? Theme.of(context).colorScheme.secondary.withAlpha(100);
+    var border =
+        borderColor ?? Theme.of(context).colorScheme.secondary.withAlpha(100);
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.zero,
@@ -68,9 +70,7 @@ class AppButtonOutlined extends StatelessWidget {
       child: Ink(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: border,
-          ),
+          border: Border.all(color: border),
         ),
         child: Container(
           alignment: Alignment.center,

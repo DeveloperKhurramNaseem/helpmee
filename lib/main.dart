@@ -4,11 +4,14 @@ import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/create_account_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
 import 'package:help_mee/util/providers/bloc_providers.dart';
 import 'package:help_mee/util/theme/light_theme/light_theme.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(const MyApp());
 }
 
@@ -43,7 +46,7 @@ class ProvidersWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...getUniversalBlocProviders()],
+      providers: [...getUniversalBlocProviders(), ...getAuthBlocProviders()],
       child: child,
     );
   }

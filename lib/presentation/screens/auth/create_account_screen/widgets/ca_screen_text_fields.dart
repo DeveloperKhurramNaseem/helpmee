@@ -3,7 +3,8 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class CAScreenTextEmailField extends StatelessWidget {
-  const CAScreenTextEmailField({super.key});
+  final TextEditingController controller;
+  const CAScreenTextEmailField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class CAScreenTextEmailField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           border: TextFieldsConstants.border,
           labelText: AppLocalizations.of(context)!.emailLabel,
@@ -28,7 +30,8 @@ class CAScreenTextEmailField extends StatelessWidget {
 }
 
 class CAScreenTextPasswordField extends StatelessWidget {
-  const CAScreenTextPasswordField({super.key});
+  final TextEditingController controller;
+  const CAScreenTextPasswordField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class CAScreenTextPasswordField extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
             labelText: AppLocalizations.of(context)!.passwordLabel,
@@ -55,7 +59,7 @@ class CAScreenTextPasswordField extends StatelessWidget {
             ),
           ),
           obscureText: isObscure,
-          obscuringCharacter: TextFieldsConstants.obscuringCharacter,
+          // obscuringCharacter: TextFieldsConstants.obscuringCharacter,
           cursorColor: Theme.of(context).colorScheme.secondary,
         );
       },
@@ -64,7 +68,8 @@ class CAScreenTextPasswordField extends StatelessWidget {
 }
 
 class CAScreenTextConfirmPasswordField extends StatelessWidget {
-  const CAScreenTextConfirmPasswordField({super.key});
+  final TextEditingController controller;
+  const CAScreenTextConfirmPasswordField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +81,7 @@ class CAScreenTextConfirmPasswordField extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
             labelText: AppLocalizations.of(context)!.confirmPasswordLabel,
@@ -91,7 +97,7 @@ class CAScreenTextConfirmPasswordField extends StatelessWidget {
             ),
           ),
           obscureText: isObscure,
-          obscuringCharacter: TextFieldsConstants.obscuringCharacter,
+          // obscuringCharacter: TextFieldsConstants.obscuringCharacter,
           cursorColor: Theme.of(context).colorScheme.secondary,
         );
       },
