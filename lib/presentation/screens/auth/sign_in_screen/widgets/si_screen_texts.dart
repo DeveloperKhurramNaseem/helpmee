@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 
 class SIScreenLetsStart extends StatelessWidget {
   const SIScreenLetsStart({super.key});
@@ -26,35 +28,41 @@ class SIScreenCreateAccount extends StatelessWidget {
 }
 
 class SIScreenErrorText extends StatelessWidget {
-  final bool hasError;
-  const SIScreenErrorText({super.key, required this.hasError});
+  const SIScreenErrorText({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: hasError ? 1 : 0,
-      child: Padding(
-        padding: EdgeInsets.symmetric(vertical: hasError ? 5.0 : 0.0),
-        child: Row(
-          children: [
-            Icon(
-              Icons.error_outline,
-              color: Theme.of(context).colorScheme.error,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Text(
-                'Something went wrong',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Theme.of(context).colorScheme.error,
-                ),
+    return BlocBuilder<SigninBloc, SigninState>(
+      builder: (context, state) {
+        if (state is SigninErrorState) {
+          return Opacity(
+            opacity: 1,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 5.0),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.error_outline,
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
+                    child: Text(
+                      state.message,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Theme.of(context).colorScheme.error,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
+          );
+        }
+        return SizedBox();
+      },
     );
   }
 }

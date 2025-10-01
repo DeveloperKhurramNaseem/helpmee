@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class FpFieldAndButton extends StatelessWidget {
-  const FpFieldAndButton({super.key});
+  final TextEditingController controller;
+  final void Function() onPressed;
+  const FpFieldAndButton({super.key , required this.controller ,required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class FpFieldAndButton extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 5.0),
           child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
               border: TextFieldsConstants.border,
               labelText: AppLocalizations.of(context)!.emailLabel,
@@ -36,11 +38,7 @@ class FpFieldAndButton extends StatelessWidget {
           child: SizedBox(
             width: AppSize.instance.width * 0.58,
             child: AppButton(
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen()));
-              },
+              onPressed: onPressed,
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,

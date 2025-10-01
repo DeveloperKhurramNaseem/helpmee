@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:help_mee/util/network/network_constants.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ApiService {
@@ -7,7 +8,7 @@ abstract class ApiService {
 
   String get apiUrl;
 
-  Future<dynamic> get({
+  Future<DecodedResponse?> get({
     String endPoint = '',
     Map<String, String>? header,
   }) async {
@@ -15,15 +16,15 @@ abstract class ApiService {
       Uri.parse(baseUrl + apiUrl + endPoint),
       headers: header,
     );
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body);
+    if (response.statusCode == 500) {
+      return null;
     }
-    return null;
+    return decodeResponse(response.body);
   }
 
-  Future<dynamic> post(
-    Map<String, dynamic> body, {
-    String endPoint = '',
+  Future<DecodedResponse?> post(
+    String endPoint,
+    Map<String, dynamic> body, {    
     Map<String, String>? header,
   }) async {
     var response = await http.post(
@@ -31,9 +32,9 @@ abstract class ApiService {
       body: jsonEncode(body),
       headers: header,
     );
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      return jsonDecode(response.body);
+    if (response.statusCode == 500) {
+      return null;
     }
-    return null;
+    return decodeResponse(response.body);
   }
 }

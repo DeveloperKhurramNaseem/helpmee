@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_back_arrow.dart';
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_field_and_button.dart';
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/widgets/fp_text.dart';
@@ -12,6 +13,20 @@ class ForgotPasswordScreen extends StatefulWidget {
 }
 
 class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
+  late TextEditingController emailController;
+
+  @override
+  void initState() {   
+    super.initState();
+    emailController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,7 +45,14 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                 SizedBox(height: AppSize.instance.height * 0.05),
                 FpText(),
                 SizedBox(height: AppSize.instance.height * 0.05),
-                FpFieldAndButton(),
+                FpFieldAndButton(
+                  controller: emailController,
+                  onPressed: () {
+                    Navigator.of(
+                  context,
+                ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen(email: emailController.text.trim(),)));
+                  },
+                ),
               ],
             ),
           ),

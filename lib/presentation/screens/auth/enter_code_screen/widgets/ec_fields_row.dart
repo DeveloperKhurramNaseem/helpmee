@@ -3,7 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class EcFieldsRow extends StatefulWidget {
-  const EcFieldsRow({super.key});
+  final void Function(String value) onUpdate;
+  const EcFieldsRow({super.key , required this.onUpdate});
 
   @override
   State<EcFieldsRow> createState() => _EcFieldsRowState();
@@ -86,9 +87,9 @@ class _EcFieldsRowState extends State<EcFieldsRow> {
   }
 
   _updateCode() {
-    // widget.onCodeChanged(
-    //   '${firstController.text}${secondController.text}${thirdController.text}${fourthController.text}${fifthController.text}${sixthController.text}',
-    // );
+    widget.onUpdate(
+      '${firstController.text}${secondController.text}${thirdController.text}${fourthController.text}${fifthController.text}${sixthController.text}',
+    );
   }
 
   @override

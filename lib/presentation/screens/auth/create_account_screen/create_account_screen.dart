@@ -174,7 +174,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     if (state is SignupDoneState) {
       Navigator.of(
         context,
-      ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen()));
+      ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen(email: emailController.text.trim(),)));
     }
   }
 }

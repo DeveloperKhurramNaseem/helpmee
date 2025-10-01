@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:help_mee/domain/entities/notification_data.dart';
+import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/images.dart';
 
 class HsNotificationList extends StatelessWidget {
-  const HsNotificationList({super.key});
+  final List<NotificationData> notifications;
+  const HsNotificationList({super.key , required this.notifications});
 
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverList.builder(
-        itemCount: 4,
+        itemCount: notifications.length,
         itemBuilder: (context, index) {
-          return NotificationTile();
+          return NotificationTile(notification: notifications[index],);
         },
       ),
     );
@@ -21,7 +24,8 @@ class HsNotificationList extends StatelessWidget {
 
 class NotificationTile extends StatelessWidget {
   final bool isRecent;
-  const NotificationTile({super.key, this.isRecent = false});
+  final NotificationData notification;
+  const NotificationTile({super.key, this.isRecent = false, required this.notification});
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +53,7 @@ class NotificationTile extends StatelessWidget {
           ),
         ),
         title: Text(
-          'Someone has viewed your profile',
+          notification.title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.secondary,
             fontWeight: FontWeight.w400,
@@ -63,7 +67,7 @@ class NotificationTile extends StatelessWidget {
             spacing: 8,
             children: [
               Text(
-                isRecent ? '3h ago' : 'Yesterday\n2:45pm',
+                DateFormatting.formatDateForNotification(notification.createdAt),
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   fontSize: 10,
@@ -84,3 +88,5 @@ class NotificationTile extends StatelessWidget {
     );
   }
 }
+
+

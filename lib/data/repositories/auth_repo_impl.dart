@@ -7,9 +7,8 @@ class AuthRepoImpl extends AuthRepo{
   AuthRepoImpl(this.authService);
 
   @override
-  Future<void> signIn(String email, String password) {
-    // TODO: implement signIn
-    throw UnimplementedError();
+  Future<(bool, String)> signIn(String email, String password) {
+    return authService.signIn(email, password);
   }
 
 
@@ -17,4 +16,12 @@ class AuthRepoImpl extends AuthRepo{
   Future<(bool, String)> signUp(String email, String password) {
     return authService.signUp(email, password);   
   }
+
+
+  @override
+  Future<(bool, String)> verifySignUpOtp(String email, String password) {
+    return authService.verifySignUpOtp(email, password);   
+  }
+
+
 }
