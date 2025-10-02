@@ -4,7 +4,7 @@ import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart'
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_arrow_back.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_field_and_button.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_text.dart';
-import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 class EnterCodeScreen extends StatefulWidget {
@@ -47,10 +47,14 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   }
 
   void _verifyOtpListener(BuildContext context, VerifyOtpState state) {
-    if (state is VerifyOtpDoneState) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => Dashboard()),
-        (_) => false,
+    if (state is VerifyOtpDoneState) {      
+      showModalBottomSheet(
+        context: context,
+        isDismissible: false,        
+        isScrollControlled: true,
+        builder: (context) {
+          return ProductMapBottomSheet();
+        },
       );
     }
   }

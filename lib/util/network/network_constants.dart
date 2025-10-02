@@ -31,4 +31,12 @@ class DecodedResponse{
   factory DecodedResponse.fromMap(Map<String, dynamic> map) {
     return DecodedResponse(success: map['success'], message: map['message'], data: map['data']);
   }
+
+  Map<String, dynamic> toMap(){
+    return {
+      'success': success,
+      'message': message,
+      'data': data,
+    };
+  }
 }

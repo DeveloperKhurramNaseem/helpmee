@@ -36,8 +36,8 @@ dependencies:
   cupertino_icons: ^1.0.8
   firebase_core: ^4.1.0
   flutter_svg: ^2.2.1
-  nfc_manager: ^4.0.2
-  nfc_manager_ndef: ^1.0.1
+  nfc_manager: ^4.1.1
+  nfc_manager_ndef: ^1.1.0
   mobile_scanner: ^7.0.1
   flutter_localizations:
     sdk: flutter
@@ -45,6 +45,7 @@ dependencies:
   flutter_bloc: ^9.1.1
   get_it: ^8.2.0
   go_router: ^16.2.4
+  flutter_secure_storage: ^9.2.4
 
 dev_dependencies:
   flutter_test:

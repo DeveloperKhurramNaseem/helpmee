@@ -2,8 +2,10 @@ import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
@@ -85,7 +87,6 @@ class AmNfcScanCard extends StatelessWidget {
                       );
                       return;
                     }
-
                     final message = await ndef.read();
                     log('NDEF records: ${message!.records.length}');
                     for (final r in message.records) {
@@ -133,6 +134,7 @@ class AmQRScanCard extends StatelessWidget {
         Navigator.of(
           context,
         ).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
+        // context.read<ActivateProductBloc>().add(ActivateNewProductEvent(code: '79FAD9', device: 's'));
       },
       child: AmCard(
         title: AppLocalizations.of(context)!.qrCodeLabel,

@@ -36,4 +36,17 @@ class UserService extends ApiService {
     }
     return (false, (recentNotifications: <NotificationModel>[], oldNotifications: <NotificationModel>[]));
   }
+
+  Future<(bool,String)> activateProduct(String code,  String device, String token) async{
+    var result = await post(EndPoints.activateProduct, {
+      'code': code,
+      'device': device,
+    }, header: {'Authorization': 'Bearer $token',...NetworkConstants.headers});
+
+    if(result != null){
+      return (result.success , result.message);
+    }
+
+    return (false , 'Something went wrong');
+  }
 }

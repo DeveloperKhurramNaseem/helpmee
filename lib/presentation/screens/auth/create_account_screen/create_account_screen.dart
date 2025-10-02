@@ -90,7 +90,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CaScreenCreateAccount(),
                       // Error Text
                       CaScreenErrorText(),
-
+                      
                       // Input Fields
                       CAScreenTextEmailField(controller: emailController),
                       CAScreenTextPasswordField(controller: passwordController),

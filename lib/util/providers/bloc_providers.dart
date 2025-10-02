@@ -6,6 +6,7 @@ import 'package:help_mee/presentation/blocs/home/all_notifications/all_notificat
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
+import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
 
@@ -39,6 +40,17 @@ List<BlocProvider> getAuthBlocProviders(){
     ),
   ];
 }
+
+List<BlocProvider> getActivateProductBlocProviders() {
+  return [
+    BlocProvider<ActivateProductBloc>(
+      create: (context) => ActivateProductBloc(
+        sl()
+      ),
+    ),
+  ];
+}
+
 
 
 List<BlocProvider> getDashboardBlocProviders(){
