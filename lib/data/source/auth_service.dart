@@ -46,4 +46,15 @@ class AuthService extends ApiService {
     }    
     return TokenResponse(success: false, message: 'Something went wrong', data: TokenModel.empty());
   }
+
+
+    Future<TokenResponse> forgetPassword(String email) async {
+    var result = await post(EndPoints.forgetPassword, {
+      'email': email,      
+    }, header: NetworkConstants.headers);
+    if (result != null) {      
+      return TokenResponse.fromMap(result.toMap());
+    }    
+    return TokenResponse(success: false, message: 'Something went wrong', data: TokenModel.empty());
+  }
 }

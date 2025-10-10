@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_forget_password.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_logo_bar.dart';
@@ -12,11 +13,12 @@ import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_scr
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_signup_line.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_social_login_button.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_space.dart';
-import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 
 class SignInScreen extends StatefulWidget {
+  static const path = '/sign-in-screen';
   const SignInScreen({super.key});
 
   @override
@@ -92,7 +94,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       SiForgetPassword(),
                       // Sign up button
                       SIScreenButton(
-                        onPressed: () {
+                        onPressed: () {                          
                           var bloc = context.read<SigninBloc>();
                           if (emailController.text.isEmpty) {
                             bloc.add(
@@ -131,15 +133,8 @@ class _SignInScreenState extends State<SignInScreen> {
   }
 
   void _handleSignInBlocListener(BuildContext context, SigninState state) {
-    if(state is SigninLoadedState){
-      showModalBottomSheet(
-        context: context,
-        isDismissible: false,        
-        isScrollControlled: true,
-        builder: (context) {
-          return ProductMapBottomSheet();
-        },
-      );
+    if (state is SigninLoadedState) {
+      context.go(Dashboard.path);
     }
   }
 }

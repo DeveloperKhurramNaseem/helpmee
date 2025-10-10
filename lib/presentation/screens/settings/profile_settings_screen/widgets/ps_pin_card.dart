@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/profile_settings_screen/bottom_sheets/set_pin_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 
 class PsPinCard extends StatelessWidget {
@@ -56,7 +57,25 @@ class PsPinCard extends StatelessWidget {
                     Expanded(
                       flex: 80,
                       child: AppButtonOutlined(
-                        onPressed: () {},
+                        onPressed: () {
+                          showModalBottomSheet(
+                            context: context,
+                            isScrollControlled: true,
+                            isDismissible: true,
+                            enableDrag: true,
+                            showDragHandle: true,
+                            builder: (context) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.of(
+                                    context,
+                                  ).viewInsets.bottom,
+                                ),
+                                child: SetPinSheet(),
+                              );
+                            },
+                          );
+                        },
                         color: Theme.of(context).colorScheme.onPrimary,
                         child: Text(AppLocalizations.of(context)!.managePIN),
                       ),

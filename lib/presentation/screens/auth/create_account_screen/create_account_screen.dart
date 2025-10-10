@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_logo_bar.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_screen_button.dart';
@@ -16,6 +17,7 @@ import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 
 class CreateAccountScreen extends StatefulWidget {
+  static const path = '/create-account-screen';
   const CreateAccountScreen({super.key});
 
   @override
@@ -90,7 +92,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CaScreenCreateAccount(),
                       // Error Text
                       CaScreenErrorText(),
-                      
+
                       // Input Fields
                       CAScreenTextEmailField(controller: emailController),
                       CAScreenTextPasswordField(controller: passwordController),
@@ -172,9 +174,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
-      Navigator.of(
-        context,
-      ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen(email: emailController.text.trim(),)));
+      context.push(EnterCodeScreen.path , extra: emailController.text.trim());
     }
   }
 }

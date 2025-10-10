@@ -679,6 +679,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check out the Cooperation Partners'**
   String get checkCooperationPartners;
+
+  /// No description provided for @congratulationsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Congratulations!'**
+  String get congratulationsMessage;
+
+  /// No description provided for @productActivated.
+  ///
+  /// In en, this message translates to:
+  /// **'The product and your time period have been successfully activated!'**
+  String get productActivated;
+
+  /// No description provided for @firstNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'First Name'**
+  String get firstNameLabel;
+
+  /// No description provided for @lastNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last Name'**
+  String get lastNameLabel;
+
+  /// No description provided for @enterNamePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter name'**
+  String get enterNamePrompt;
+
+  /// No description provided for @setPIN.
+  ///
+  /// In en, this message translates to:
+  /// **'Set PIN'**
+  String get setPIN;
+
+  /// No description provided for @updatePIN.
+  ///
+  /// In en, this message translates to:
+  /// **'Update PIN'**
+  String get updatePIN;
+
+  /// No description provided for @set.
+  ///
+  /// In en, this message translates to:
+  /// **'Set'**
+  String get set;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @setPinDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure profile items you locked by setting up your PIN code'**
+  String get setPinDescription;
+
+  /// No description provided for @updatePinDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Secure profile items you locked by setting up your PIN code'**
+  String get updatePinDescription;
+
+  /// No description provided for @pinReminderTextOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'PIN reminder text (optional)'**
+  String get pinReminderTextOptional;
 }
 
 class _AppLocalizationsDelegate

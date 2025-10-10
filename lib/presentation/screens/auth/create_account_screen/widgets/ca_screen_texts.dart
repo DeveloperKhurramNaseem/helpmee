@@ -64,7 +64,10 @@ class CaScreenErrorText extends StatelessWidget {
             ),
           );
         }
-        return SizedBox();
+        return Padding(
+          padding: const EdgeInsets.only(top: 5.0),
+          child: SizedBox(),
+        );
       },
     );
   }

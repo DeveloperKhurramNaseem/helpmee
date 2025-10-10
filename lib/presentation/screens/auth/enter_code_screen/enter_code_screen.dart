@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_arrow_back.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_field_and_button.dart';
@@ -8,6 +9,7 @@ import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_shee
 import 'package:help_mee/util/constants/app_size.dart';
 
 class EnterCodeScreen extends StatefulWidget {
+  static const path = '/enter-code-screen';
   final String email;
   const EnterCodeScreen({super.key, required this.email});
 
@@ -47,15 +49,19 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   }
 
   void _verifyOtpListener(BuildContext context, VerifyOtpState state) {
-    if (state is VerifyOtpDoneState) {      
+    if (state is VerifyOtpDoneState) {
       showModalBottomSheet(
         context: context,
-        isDismissible: false,        
-        isScrollControlled: true,
+        isDismissible: false,
+        isScrollControlled: true, 
+        enableDrag: false,
+        showDragHandle: true,
         builder: (context) {
-          return ProductMapBottomSheet();
+          return PopScope(canPop: false,child: ProductMapBottomSheet());
         },
       );
+    } else if (state is VerifyOtpErrorState) {
+      Fluttertoast.showToast(msg: state.message);
     }
   }
 }

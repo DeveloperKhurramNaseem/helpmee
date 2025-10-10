@@ -103,5 +103,17 @@
 "cooperationPartnersLabel" : "Kooperationspartner",
 "cooperationPartnersFirstLabel" : "Genießen Sie eine Vielzahl von Kooperationspartnern, die mit HelpMee zusammenarbeiten, um Ihr Leben sicherer zu machen.",
 "cooperationPartnersLastLabel" : "Sie können den Dienst des Kooperationspartners in Ihrem HelpMee-Profil anzeigen lassen, um im Notfall seinen Dienst anzubieten.",
-"checkCooperationPartners" : "Sehen Sie sich die Kooperationspartner an"
+"checkCooperationPartners" : "Sehen Sie sich die Kooperationspartner an",
+"congratulationsMessage" : "Herzlichen Glückwunsch!",
+"productActivated" : "Das Produkt und Ihr Zeitraum wurden erfolgreich aktiviert!",
+"firstNameLabel" : "Vorname",
+"lastNameLabel" : "Nachname",
+"enterNamePrompt" : "Namen eingeben",
+"setPIN" : "PIN setzen",
+"updatePIN" : "PIN aktualisieren",
+"set" : "Speichern",
+"update" : "Aktualisieren",
+"setPinDescription" : "Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten",
+"updatePinDescription" : "Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten",
+"pinReminderTextOptional" :  "PIN Erinnerungstext (optional)"
 }

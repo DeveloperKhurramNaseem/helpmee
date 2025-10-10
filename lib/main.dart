@@ -36,9 +36,9 @@ class MyApp extends StatelessWidget {
               localizationsDelegates: LocalizationUtil.delegates,
               supportedLocales: LocalizationUtil.locales.values,
               locale: state.locale,
-              routerConfig: Routing.routerConfig,              
+              routerConfig: Routing.routerConfig,
             );
-          }
+          },
         );
       },
     );
@@ -52,7 +52,13 @@ class ProvidersWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [...getUniversalBlocProviders(), ...getAuthBlocProviders(),...getDashboardBlocProviders(),...getActivateProductBlocProviders()],
+      providers: [
+        ...getUniversalBlocProviders(),
+        ...getAuthBlocProviders(),
+        ...getDashboardBlocProviders(),
+        ...getActivateProductBlocProviders(),
+        ...getSettingsBlocProviders()
+      ],
       child: child,
     );
   }

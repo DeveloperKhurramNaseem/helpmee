@@ -61,7 +61,10 @@ class SIScreenErrorText extends StatelessWidget {
             ),
           );
         }
-        return SizedBox();
+        return Padding(
+          padding: const EdgeInsets.only(top: 10.0),
+          child: SizedBox(),
+        );
       },
     );
   }

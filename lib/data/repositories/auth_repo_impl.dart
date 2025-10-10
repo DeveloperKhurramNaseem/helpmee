@@ -29,4 +29,10 @@ class AuthRepoImpl extends AuthRepo{
     return (result.success , result.message); 
   }
 
+  @override
+  Future<(bool, String)> forgetPassword(String email) async{
+    var result = await authService.forgetPassword(email);   
+    return (result.success , result.message);
+  }
+
 }

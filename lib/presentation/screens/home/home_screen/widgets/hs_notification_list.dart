@@ -6,7 +6,7 @@ import 'package:help_mee/util/constants/images.dart';
 
 class HsNotificationList extends StatelessWidget {
   final List<NotificationData> notifications;
-  const HsNotificationList({super.key , required this.notifications});
+  const HsNotificationList({super.key, required this.notifications});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,10 @@ class HsNotificationList extends StatelessWidget {
       sliver: SliverList.builder(
         itemCount: notifications.length,
         itemBuilder: (context, index) {
-          return NotificationTile(notification: notifications[index],);
+          return NotificationTile(
+            notification: notifications[index],
+            isRecent: true,
+          );
         },
       ),
     );
@@ -25,7 +28,11 @@ class HsNotificationList extends StatelessWidget {
 class NotificationTile extends StatelessWidget {
   final bool isRecent;
   final NotificationData notification;
-  const NotificationTile({super.key, this.isRecent = false, required this.notification});
+  const NotificationTile({
+    super.key,
+    this.isRecent = false,
+    required this.notification,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +74,9 @@ class NotificationTile extends StatelessWidget {
             spacing: 8,
             children: [
               Text(
-                DateFormatting.formatDateForNotification(notification.createdAt),
+                DateFormatting.formatDateForNotification(
+                  notification.createdAt,
+                ),
                 textAlign: TextAlign.end,
                 style: TextStyle(
                   fontSize: 10,
@@ -88,5 +97,3 @@ class NotificationTile extends StatelessWidget {
     );
   }
 }
-
-
