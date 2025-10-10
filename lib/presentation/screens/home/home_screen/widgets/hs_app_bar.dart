@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:help_mee/presentation/screens/settings/settings_screen/settings_screen.dart';
+import 'package:help_mee/presentation/screens/settings/app_settings_screen/settings_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 

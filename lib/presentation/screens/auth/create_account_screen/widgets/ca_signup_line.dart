@@ -1,7 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
 
 class CASignInLine extends StatelessWidget {
   const CASignInLine({super.key});
@@ -31,9 +31,7 @@ class CASignInLine extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => const SignInScreen()),
-                      );
+                      context.pop();
                     },
                 ),
               ],

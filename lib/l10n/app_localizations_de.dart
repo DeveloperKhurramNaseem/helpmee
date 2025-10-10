@@ -320,4 +320,43 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get checkCooperationPartners =>
       'Sehen Sie sich die Kooperationspartner an';
+
+  @override
+  String get congratulationsMessage => 'Herzlichen Glückwunsch!';
+
+  @override
+  String get productActivated =>
+      'Das Produkt und Ihr Zeitraum wurden erfolgreich aktiviert!';
+
+  @override
+  String get firstNameLabel => 'Vorname';
+
+  @override
+  String get lastNameLabel => 'Nachname';
+
+  @override
+  String get enterNamePrompt => 'Namen eingeben';
+
+  @override
+  String get setPIN => 'PIN setzen';
+
+  @override
+  String get updatePIN => 'PIN aktualisieren';
+
+  @override
+  String get set => 'Speichern';
+
+  @override
+  String get update => 'Aktualisieren';
+
+  @override
+  String get setPinDescription =>
+      'Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten';
+
+  @override
+  String get updatePinDescription =>
+      'Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten';
+
+  @override
+  String get pinReminderTextOptional => 'PIN Erinnerungstext (optional)';
 }

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProductMapBottomSheet extends StatelessWidget {
   const ProductMapBottomSheet({super.key});
@@ -35,9 +36,7 @@ class ProductMapBottomSheet extends StatelessWidget {
             child: AppButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (_) => ActivationMethodScreen()),
-                );
+                context.push(ActivationMethodScreen.path);
               },
               gradient: Theme.of(
                 context,
@@ -52,9 +51,7 @@ class ProductMapBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
             child: AppButtonOutlined(
               onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (_) => Dashboard()));
+                launchUrl(Uri.parse("https://help-mee.com/collections/all"));
               },
               child: Text(
                 AppLocalizations.of(context)!.goToHelpMeeShop,

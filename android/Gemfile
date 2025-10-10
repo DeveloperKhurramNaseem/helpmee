@@ -1,5 +1,0 @@
-source "https://rubygems.org"
-
-gem "fastlane"
-
-eval_gemfile(File.join(__dir__, "fastlane", "Pluginfile")) if File.exist?(File.join(__dir__, "fastlane", "Pluginfile"))

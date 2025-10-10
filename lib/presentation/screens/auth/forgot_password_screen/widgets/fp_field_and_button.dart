@@ -1,13 +1,21 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
+import 'package:help_mee/presentation/blocs/auth/forget_password/forget_password_bloc.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class FpFieldAndButton extends StatelessWidget {
-  const FpFieldAndButton({super.key});
+  final TextEditingController controller;
+  final void Function() onPressed;
+  const FpFieldAndButton({
+    super.key,
+    required this.controller,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +29,7 @@ class FpFieldAndButton extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 5.0),
           child: TextFormField(
+            controller: controller,
             decoration: InputDecoration(
               border: TextFieldsConstants.border,
               labelText: AppLocalizations.of(context)!.emailLabel,
@@ -35,19 +44,19 @@ class FpFieldAndButton extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 5),
           child: SizedBox(
             width: AppSize.instance.width * 0.58,
-            child: AppButton(
-              onPressed: () {
-                Navigator.of(
-                  context,
-                ).push(MaterialPageRoute(builder: (_) => EnterCodeScreen()));
+            child: BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
+              builder: (context, state) {                
+                return AppButton(
+                  onPressed: state is ForgetPasswordLoadingState ? null : onPressed,
+                  gradient: Theme.of(
+                    context,
+                  ).extension<AppGradients>()?.primaryButton,
+                  child: state is ForgetPasswordLoadingState ? CupertinoActivityIndicator(color: Colors.white,) : Text(
+                    AppLocalizations.of(context)!.continueButton,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                  ),
+                );
               },
-              gradient: Theme.of(
-                context,
-              ).extension<AppGradients>()?.primaryButton,
-              child: Text(
-                AppLocalizations.of(context)!.continueButton,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-              ),
             ),
           ),
         ),

@@ -316,4 +316,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get checkCooperationPartners => 'Check out the Cooperation Partners';
+
+  @override
+  String get congratulationsMessage => 'Congratulations!';
+
+  @override
+  String get productActivated =>
+      'The product and your time period have been successfully activated!';
+
+  @override
+  String get firstNameLabel => 'First Name';
+
+  @override
+  String get lastNameLabel => 'Last Name';
+
+  @override
+  String get enterNamePrompt => 'Enter name';
+
+  @override
+  String get setPIN => 'Set PIN';
+
+  @override
+  String get updatePIN => 'Update PIN';
+
+  @override
+  String get set => 'Set';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get setPinDescription =>
+      'Secure profile items you locked by setting up your PIN code';
+
+  @override
+  String get updatePinDescription =>
+      'Secure profile items you locked by setting up your PIN code';
+
+  @override
+  String get pinReminderTextOptional => 'PIN reminder text (optional)';
 }

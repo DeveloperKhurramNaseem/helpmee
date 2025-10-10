@@ -3,7 +3,8 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class SIScreenTextEmailField extends StatelessWidget {
-  const SIScreenTextEmailField({super.key});
+  final TextEditingController controller;
+  const SIScreenTextEmailField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +15,7 @@ class SIScreenTextEmailField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 5.0),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           border: TextFieldsConstants.border,
           labelText: AppLocalizations.of(context)!.emailLabel,
@@ -28,7 +30,8 @@ class SIScreenTextEmailField extends StatelessWidget {
 }
 
 class SIScreenTextPasswordField extends StatelessWidget {
-  const SIScreenTextPasswordField({super.key});
+  final TextEditingController controller;
+  const SIScreenTextPasswordField({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,7 @@ class SIScreenTextPasswordField extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return TextFormField(
+          controller: controller,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
             labelText: AppLocalizations.of(context)!.passwordLabel,
@@ -55,7 +59,7 @@ class SIScreenTextPasswordField extends StatelessWidget {
             ),
           ),
           obscureText: isObscure,
-          obscuringCharacter: TextFieldsConstants.obscuringCharacter,
+          // obscuringCharacter: TextFieldsConstants.obscuringCharacter,
           cursorColor: Theme.of(context).colorScheme.secondary,
         );
       },

@@ -105,6 +105,22 @@
 "cooperationPartnersLabel" : "Cooperation Partners",
 "cooperationPartnersFirstLabel" : "Enjoy a variety of Cooperation Partners working together with HelpMee to make the life more safe.",
 "cooperationPartnersLastLabel" : "You can let the Cooperation Partner’s service being shown in your HelpMee profile to offer their service in an emergency case.",
-"checkCooperationPartners" : "Check out the Cooperation Partners"
+"checkCooperationPartners" : "Check out the Cooperation Partners",
+"congratulationsMessage" : "Congratulations!",
+"productActivated" : "The product and your time period have been successfully activated!",
+"firstNameLabel" : "First Name",
+"lastNameLabel" : "Last Name",
+
+"enterNamePrompt" : "Enter name",
+"setPIN" : "Set PIN",
+"updatePIN" : "Update PIN",
+"set" : "Set",
+"update" : "Update",
+
+"setPinDescription" : "Secure profile items you locked by setting up your PIN code",
+"updatePinDescription" : "Secure profile items you locked by setting up your PIN code",
+"pinReminderTextOptional" :  "PIN reminder text (optional)"
+
+   
 
 }

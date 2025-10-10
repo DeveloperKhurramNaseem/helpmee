@@ -1,6 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/auth/create_account_screen/create_account_screen.dart';
 
 class SISignInLine extends StatelessWidget {
   const SISignInLine({super.key});
@@ -31,7 +33,7 @@ class SISignInLine extends StatelessWidget {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () {
-                      Navigator.of(context).pop();
+                      context.push(CreateAccountScreen.path);
                     },
                 ),
               ],

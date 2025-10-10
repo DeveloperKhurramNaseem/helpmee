@@ -3,22 +3,19 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class CAScreenCheckField extends StatelessWidget {
-  const CAScreenCheckField({super.key});
+  final void Function(bool?) onChanged;
+  final bool isChecked;
+  const CAScreenCheckField({super.key, required this.onChanged, required this.isChecked});
 
   @override
   Widget build(BuildContext context) {
-    var fontSize = 14.0;
-    var isChecked = false;
+    var fontSize = 14.0;    
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        StatefulBuilder(
-          builder: (context, setState) {
-            return Checkbox(
+        Checkbox(
               value: isChecked,
-              onChanged: (value) {
-                setState(() => isChecked = value!);
-              },
+              onChanged: onChanged,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5),
                 side: BorderSide(width: 0.2),
@@ -32,9 +29,7 @@ class CAScreenCheckField extends StatelessWidget {
               }),
               checkColor: Colors.white,
               overlayColor: WidgetStatePropertyAll(Colors.white),
-            );
-          },
-        ),
+            ),
         Expanded(
           child: RichText(
             maxLines: 2,
