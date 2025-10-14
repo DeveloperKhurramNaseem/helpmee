@@ -89,7 +89,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get continueButton => 'Continue';
 
   @override
-  String get enterCodeTitle => 'Enter code';
+  String get enterCodeTitle => 'Enter Code';
 
   @override
   String get enterCodeDescription =>
@@ -355,4 +355,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pinReminderTextOptional => 'PIN reminder text (optional)';
+
+  @override
+  String get didntReceiveCodePrompt => 'Didn’t receive 6 digit code?';
+
+  @override
+  String get resendCode => 'Resend code';
+
+  @override
+  String get privacyPolicyLink =>
+      'https://help-mee.com/pages/privacy-policy-addmee-app';
+
+  @override
+  String get termsAndConditionsLink =>
+      'https://help-mee.com/pages/terms-and-conditions';
 }

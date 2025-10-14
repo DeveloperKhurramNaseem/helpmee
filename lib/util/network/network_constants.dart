@@ -17,6 +17,16 @@ DecodedResponse decodeResponse(String json) {
 }
 
 
+DecodedResponseWithMessagesList decodeResponseWithMessagesList(String json) {
+  var response = jsonDecode(json);
+  return DecodedResponseWithMessagesList(
+    success: response['success'] as bool,
+    message: List<String>.from(response['message'] as List),
+    data: response['data'] as dynamic,
+  );
+}
+
+
 class DecodedResponse{
   bool success;
   String message;
@@ -30,6 +40,30 @@ class DecodedResponse{
 
   factory DecodedResponse.fromMap(Map<String, dynamic> map) {
     return DecodedResponse(success: map['success'], message: map['message'], data: map['data']);
+  }
+
+  Map<String, dynamic> toMap(){
+    return {
+      'success': success,
+      'message': message,
+      'data': data,
+    };
+  }
+}
+
+class DecodedResponseWithMessagesList{
+  bool success;
+  List<String> message;
+  dynamic data;
+
+  DecodedResponseWithMessagesList({
+    required this.success,
+    required this.message,
+    required this.data,
+  });
+
+  factory DecodedResponseWithMessagesList.fromMap(Map<String, dynamic> map) {
+    return DecodedResponseWithMessagesList(success: map['success'], message: map['message'], data: map['data']);
   }
 
   Map<String, dynamic> toMap(){

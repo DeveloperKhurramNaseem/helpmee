@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @enterCodeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter code'**
+  /// **'Enter Code'**
   String get enterCodeTitle;
 
   /// No description provided for @enterCodeDescription.
@@ -751,6 +751,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PIN reminder text (optional)'**
   String get pinReminderTextOptional;
+
+  /// No description provided for @didntReceiveCodePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn’t receive 6 digit code?'**
+  String get didntReceiveCodePrompt;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendCode;
+
+  /// No description provided for @privacyPolicyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/privacy-policy-addmee-app'**
+  String get privacyPolicyLink;
+
+  /// No description provided for @termsAndConditionsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/terms-and-conditions'**
+  String get termsAndConditionsLink;
 }
 
 class _AppLocalizationsDelegate

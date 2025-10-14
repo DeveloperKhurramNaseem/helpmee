@@ -1,12 +1,16 @@
 import 'dart:convert' show ascii, utf8;
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/nfc_scan_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
+import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:nfc_manager/ndef_record.dart';
@@ -65,22 +69,31 @@ class AmNfcScanCard extends StatefulWidget {
 }
 
 class _AmNfcScanCardState extends State<AmNfcScanCard> {
-
   @override
   void dispose() {
-    NfcManager.instance.stopSession();
+    NfcManager.instance.checkAvailability().then((_){
+      NfcManager.instance.stopSession();
+    });    
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<ActivateProductBloc>();
     return GestureDetector(
       onTap: () async {
-        final available = await NfcManager.instance.isAvailable();
-        if (!available) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('NFC not available on this device')),
+        if (Platform.isAndroid) {
+          showModalBottomSheet(
+            context: context,
+            showDragHandle: true,
+            enableDrag: true,
+            isScrollControlled: true,
+            builder: (context) => NfcScanBottomSheet(),
           );
+        }
+        final availability = await NfcManager.instance.checkAvailability();
+        if (availability == NfcAvailability.unsupported) {
+          showToast('NFC not available on this device');
           return;
         }
         try {
@@ -90,7 +103,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
               NfcPollingOption.iso14443,
               NfcPollingOption.iso15693,
             },
-            onDiscovered: (NfcTag tag) async {              
+            onDiscovered: (NfcTag tag) async {
               try {
                 final ndef = Ndef.from(tag);
                 if (ndef == null) {
@@ -113,8 +126,13 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                     bloc.add(
                       ActivateNewProductEvent(code: code, device: device),
                     );
+                    if(Platform.isAndroid){
+                      if(mounted){
+                        context.pop();
+                      }                      
+                    }
                   }
-                }                
+                }
               } catch (e) {
                 await NfcManager.instance.stopSession(errorMessageIos: '$e');
               }

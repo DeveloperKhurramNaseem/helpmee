@@ -359,4 +359,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get pinReminderTextOptional => 'PIN Erinnerungstext (optional)';
+
+  @override
+  String get didntReceiveCodePrompt => 'Keinen 6-stelligen Code erhalten?';
+
+  @override
+  String get resendCode => 'Code erneut senden';
+
+  @override
+  String get privacyPolicyLink =>
+      'https://help-mee.com/pages/datenschutzerklaerung-addmee-app';
+
+  @override
+  String get termsAndConditionsLink => 'https://help-mee.com/pages/agb';
 }

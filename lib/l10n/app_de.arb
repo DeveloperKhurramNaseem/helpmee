@@ -115,5 +115,11 @@
 "update" : "Aktualisieren",
 "setPinDescription" : "Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten",
 "updatePinDescription" : "Sichern Sie Ihre gesperrten Profilelemente, indem Sie Ihren PIN-Code einrichten",
-"pinReminderTextOptional" :  "PIN Erinnerungstext (optional)"
+"pinReminderTextOptional" :  "PIN Erinnerungstext (optional)",
+"didntReceiveCodePrompt" : "Keinen 6-stelligen Code erhalten?",
+"resendCode" : "Code erneut senden",
+"privacyPolicyLink" : "https://help-mee.com/pages/datenschutzerklaerung-addmee-app",
+"termsAndConditionsLink" : "https://help-mee.com/pages/agb",
+"errorPasswordTooShort" : "Ihr Passwort muss mindestens 6 Zeichen lang sein",
+"errorPasswordMismatch" : "Passwort stimmt nicht überein"
 }

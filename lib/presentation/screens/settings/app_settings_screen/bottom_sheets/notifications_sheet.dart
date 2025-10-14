@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +7,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class NotificationsSheet extends StatelessWidget {
@@ -51,7 +54,7 @@ class NotificationsSheet extends StatelessWidget {
                       )!.genericNotificationSettingLabel,
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Color.fromRGBO(0, 0, 0, 0.42),
+                        color: AppLightThemeColors.secondaryTextColor,
                         fontSize: 13,
                       ),
                     ),
@@ -84,7 +87,12 @@ class NotificationsSheet extends StatelessWidget {
                     },
                   ),
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.fromLTRB(
+                      12,
+                      0,
+                      12,
+                      Platform.isAndroid ? 12 : 0,
+                    ),
                     child:
                         BlocBuilder<
                           UpdateNotificationSettingBloc,
@@ -150,7 +158,10 @@ class NotificationListTile extends StatelessWidget {
       ),
       subtitle: Text(
         label,
-        style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.42), fontSize: 12),
+        style: TextStyle(
+          color: AppLightThemeColors.secondaryTextColor,
+          fontSize: 12,
+        ),
       ),
       trailing: Switch(value: initialValue, onChanged: onChanged),
     );

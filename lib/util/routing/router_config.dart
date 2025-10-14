@@ -21,7 +21,11 @@ class Routing {
     },
     initialLocation: Dashboard.path,
     routes: [
-      GoRoute(path: Dashboard.path, builder: (context, state) => Dashboard(showNameSheet: (state.extra as bool?) ?? false,)),
+      GoRoute(
+        path: Dashboard.path,
+        builder: (context, state) =>
+            Dashboard(showNameSheet: (state.extra as bool?) ?? false),
+      ),
       GoRoute(
         path: SignInScreen.path,
         builder: (context, state) => SignInScreen(),
@@ -32,7 +36,8 @@ class Routing {
       ),
       GoRoute(
         path: EnterCodeScreen.path,
-        builder: (context, state) => EnterCodeScreen(email: (state.extra as String?) ?? '',),
+        builder: (context, state) =>
+            EnterCodeScreen(email: (state.extra as String?) ?? ''),
       ),
       GoRoute(
         path: ActivationMethodScreen.path,

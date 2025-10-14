@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
@@ -15,9 +17,10 @@ class UserService extends ApiService {
       header: {...NetworkConstants.headers, 'Authorization': 'Bearer $token'},
     );
     if (result != null) {
+      final decodedResponse = decodeResponse(result);
       return (
-        result.success,
-        (result.data['notifications'] as List)
+        decodedResponse.success,
+        (decodedResponse.data['notifications'] as List)
             .map((e) => NotificationModel.fromJson(e))
             .toList(),
       );
@@ -40,15 +43,18 @@ class UserService extends ApiService {
       header: {...NetworkConstants.headers, 'Authorization': 'Bearer $token'},
     );
     if (result != null) {
+      final decodedResponse = decodeResponse(result);
       return (
-        result.success,
+        decodedResponse.success,
         (
-          recentNotifications: (result.data['today_notifications'] as List)
-              .map((e) => NotificationModel.fromJson(e))
-              .toList(),
-          oldNotifications: (result.data['Seven_days_notifications'] as List)
-              .map((e) => NotificationModel.fromJson(e))
-              .toList(),
+          recentNotifications:
+              (decodedResponse.data['today_notifications'] as List)
+                  .map((e) => NotificationModel.fromJson(e))
+                  .toList(),
+          oldNotifications:
+              (decodedResponse.data['Seven_days_notifications'] as List)
+                  .map((e) => NotificationModel.fromJson(e))
+                  .toList(),
         ),
       );
     }
@@ -72,38 +78,59 @@ class UserService extends ApiService {
       header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
     );
     if (result != null) {
-      return (result.success, result.message);
+      final decodedResponse = decodeResponse(jsonDecode(result));
+      return (decodedResponse.success, decodedResponse.message);
     }
     return (false, 'Something went wrong');
   }
 
-  Future<(bool,NotificationSettingModel)> getNotificationSetting(String token) async{
+  Future<(bool, NotificationSettingModel)> getNotificationSetting(
+    String token,
+  ) async {
     var result = await get(
       endPoint: EndPoints.notificationSettings,
-      header:{'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
     );
     if (result != null) {
-      return (result.success, NotificationSettingModel.fromMap(result.data['generalNotificationSetting']));
+      final decodedResponse = decodeResponse(jsonDecode(result));
+      return (
+        decodedResponse.success,
+        NotificationSettingModel.fromMap(
+          decodedResponse.data['generalNotificationSetting'],
+        ),
+      );
     }
     return (false, NotificationSettingModel.empty());
   }
 
-  Future<(bool,String)> updateNotificationSetting(String token, NotificationSettingModel setting) async{
+  Future<(bool, String)> updateNotificationSetting(
+    String token,
+    NotificationSettingModel setting,
+  ) async {
     var result = await post(
       EndPoints.notificationSettingsChange,
       setting.toMap(),
       header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
     );
     if (result != null) {
-      return (result.success, result.message);
+      final decodedResponse = decodeResponse(jsonDecode(result));
+      return (decodedResponse.success, decodedResponse.message);
     }
     return (false, 'Something went wrong');
   }
 
-  Future<(bool, String)> setNewPin(String token ,PinDataModel pinData) async{
-    var result = await post(EndPoints.setNewPin, pinData.toMap(), header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers});
+  Future<(bool, String)> setNewPin(String token, PinDataModel pinData) async {
+    var result = await post(
+      EndPoints.setNewPin,
+      pinData.toMap(),
+      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+    );
     if (result != null) {
-      return (result.success, result.message);
+      final decodedResponse = decodeResponseWithMessagesList(result);
+      return (
+        decodedResponse.success,
+        decodedResponse.message.firstOrNull ?? '',
+      );
     }
     return (false, 'Something went wrong');
   }

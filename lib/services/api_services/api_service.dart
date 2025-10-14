@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:help_mee/util/network/network_constants.dart';
 import 'package:http/http.dart' as http;
 
 abstract class ApiService {
@@ -8,7 +6,7 @@ abstract class ApiService {
 
   String get apiUrl;
 
-  Future<DecodedResponse?> get({
+  Future<String?> get({
     String endPoint = '',
     Map<String, String>? header,
   }) async {
@@ -19,10 +17,10 @@ abstract class ApiService {
     if (response.statusCode == 500) {
       return null;
     }
-    return decodeResponse(response.body);
+    return response.body;
   }
 
-  Future<DecodedResponse?> post(
+  Future<String?> post(
     String endPoint,
     Map<String, dynamic> body, {    
     Map<String, String>? header,
@@ -35,6 +33,6 @@ abstract class ApiService {
     if (response.statusCode == 500) {
       return null;
     }
-    return decodeResponse(response.body);
+    return response.body;
   }
 }

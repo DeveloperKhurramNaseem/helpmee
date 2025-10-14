@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:help_mee/data/models/signin_response.dart';
@@ -15,10 +16,10 @@ class AuthService extends ApiService {
       'email': email,
       'password': password,
       'device_type': Platform.isAndroid ? 'ANDROID' : 'IOS',
-    }, header: NetworkConstants.headers);
-
+    }, header: NetworkConstants.headers);    
     if (result != null) {
-      return (result.success, result.message);
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
     }
     return (false, 'Something went wrong');
   }
@@ -30,7 +31,8 @@ class AuthService extends ApiService {
     }, header: NetworkConstants.headers);
 
     if (result != null) {
-      return SigninResponse.fromMap(result.toMap());
+      final decodedResponse = decodeResponse(result);
+      return SigninResponse.fromMap(decodedResponse.toMap());
     }
     return SigninResponse.empty();
   }
@@ -41,8 +43,8 @@ class AuthService extends ApiService {
       'otp': otp,
     }, header: NetworkConstants.headers);
     if (result != null) {
-      
-      return TokenResponse.fromMap(result.toMap());
+      final decodedResponse = decodeResponse(result);
+      return TokenResponse.fromMap(decodedResponse.toMap());
     }    
     return TokenResponse(success: false, message: 'Something went wrong', data: TokenModel.empty());
   }
@@ -53,7 +55,8 @@ class AuthService extends ApiService {
       'email': email,      
     }, header: NetworkConstants.headers);
     if (result != null) {      
-      return TokenResponse.fromMap(result.toMap());
+      final decodedResponse = decodeResponse(result);
+      return TokenResponse.fromMap(decodedResponse.toMap());
     }    
     return TokenResponse(success: false, message: 'Something went wrong', data: TokenModel.empty());
   }

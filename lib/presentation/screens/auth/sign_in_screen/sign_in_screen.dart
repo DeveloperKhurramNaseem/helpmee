@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_forget_password.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_logo_bar.dart';
@@ -98,13 +99,14 @@ class _SignInScreenState extends State<SignInScreen> {
                           var bloc = context.read<SigninBloc>();
                           if (emailController.text.isEmpty) {
                             bloc.add(
-                              ShowErrorEvent(message: 'Email is required'),
+                              ShowErrorEvent(message: AppLocalizations.of(context)!.errorInvalidEmail),
                             );
                             return;
                           }
                           if (passwordController.text.isEmpty) {
                             bloc.add(
-                              ShowErrorEvent(message: 'Password is required'),
+                              ShowErrorEvent(message: AppLocalizations.of(context)!.errorInvalidPassword)
+                            ,
                             );
                             return;
                           }

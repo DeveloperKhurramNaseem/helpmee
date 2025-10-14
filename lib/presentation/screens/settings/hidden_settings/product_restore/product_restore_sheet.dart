@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_reset_success.dart';
@@ -65,31 +67,34 @@ class ProductRestoreSheet extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              Spacer(flex: 20),
-              Expanded(
-                flex: 60,
-                child: AppButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      showDragHandle: true,
-                      builder: (context) {
-                        return ProductResetSuccess();
-                      },
-                    );
-                  },
-                  gradient: Theme.of(
-                    context,
-                  ).extension<AppGradients>()?.primaryButton,
-                  child: Text(AppLocalizations.of(context)!.startLabel),
+          Padding(
+            padding: EdgeInsets.only(bottom: Platform.isAndroid ? 12.0 : 0.0),
+            child: Row(
+              children: [
+                Spacer(flex: 20),
+                Expanded(
+                  flex: 60,
+                  child: AppButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        showDragHandle: true,
+                        builder: (context) {
+                          return ProductResetSuccess();
+                        },
+                      );
+                    },
+                    gradient: Theme.of(
+                      context,
+                    ).extension<AppGradients>()?.primaryButton,
+                    child: Text(AppLocalizations.of(context)!.startLabel),
+                  ),
                 ),
-              ),
-              Spacer(flex: 20),
-            ],
+                Spacer(flex: 20),
+              ],
+            ),
           ),
         ],
       ),

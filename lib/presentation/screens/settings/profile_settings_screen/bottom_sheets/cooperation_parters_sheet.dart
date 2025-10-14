@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/bottom_sheets/cooperation_partners_details_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/theme/app_colors.dart';
 
 class CooperationPartersSheet extends StatelessWidget {
   const CooperationPartersSheet({super.key});
@@ -108,7 +109,7 @@ class ServiceCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 11,
-                      color: Color.fromRGBO(0, 0, 0, 0.5),
+                      color: AppLightThemeColors.secondaryTextColor,
                     ),
                   ),
                   // Status pill (normal)

@@ -35,7 +35,7 @@
 "enterRegisteredEmailPrompt" : "Please enter your email address you used to sign up with your account",
 "continueButton" : "Continue",
 
-"enterCodeTitle" : "Enter code",
+"enterCodeTitle" : "Enter Code",
 "enterCodeDescription" : "We have sent a 6 digit code to your email address",
 "verifyButton" : "Verify",
 "createPasswordLabel" : "Create password",
@@ -119,8 +119,11 @@
 
 "setPinDescription" : "Secure profile items you locked by setting up your PIN code",
 "updatePinDescription" : "Secure profile items you locked by setting up your PIN code",
-"pinReminderTextOptional" :  "PIN reminder text (optional)"
-
-   
-
+"pinReminderTextOptional" :  "PIN reminder text (optional)",
+"didntReceiveCodePrompt" : "Didn’t receive 6 digit code?",
+"resendCode" : "Resend code",
+"privacyPolicyLink" : "https://help-mee.com/pages/privacy-policy-addmee-app",
+"termsAndConditionsLink" : "https://help-mee.com/pages/terms-and-conditions",
+"errorPasswordTooShort" : "Your password must be at least 6 characters long",
+"errorPasswordMismatch" : "Password does not match"
 }

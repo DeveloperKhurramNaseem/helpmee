@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_logo_bar.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_screen_button.dart';
@@ -117,12 +118,12 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         onPressed: () {
                           final signUpBloc = context.read<SignupBloc>();
                           if (emailController.text.isEmpty) {
-                            signUpBloc.add(ShowErrorEvent('Email is required'));
+                            signUpBloc.add(ShowErrorEvent(AppLocalizations.of(context)!.errorInvalidEmail));
                             return;
                           }
                           if (passwordController.text.isEmpty) {
                             signUpBloc.add(
-                              ShowErrorEvent('Password is required'),
+                              ShowErrorEvent(AppLocalizations.of(context)!.errorInvalidPassword),
                             );
                             return;
                           }
@@ -136,7 +137,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           if (passwordController.text.trim() !=
                               confirmPasswordController.text.trim()) {
                             signUpBloc.add(
-                              ShowErrorEvent('Passwords don\'t match'),
+                              ShowErrorEvent(
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorPasswordMismatch,
+                              ),
+                            );
+                            return;
+                          }
+                          if (passwordController.text.length < 6) {
+                            signUpBloc.add(
+                              ShowErrorEvent(
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorPasswordTooShort,
+                              ),
                             );
                             return;
                           }
@@ -174,7 +189,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
-      context.push(EnterCodeScreen.path , extra: emailController.text.trim());
+      context.push(EnterCodeScreen.path, extra: emailController.text.trim());
     }
   }
 }

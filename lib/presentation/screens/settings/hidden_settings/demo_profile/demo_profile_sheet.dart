@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_confirm_sheet.dart';
@@ -181,30 +183,33 @@ class DemoProfileSheet extends StatelessWidget {
               ],
             ),
           ),
-          Row(
-            children: [
-              Spacer(flex: 20),
-              Expanded(
-                flex: 60,
-                child: AppButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      showDragHandle: true,
-                      builder: (context) {
-                        return DemoProfileConfirmSheet();
-                      },
-                    );
-                  },
-                  gradient: Theme.of(
-                    context,
-                  ).extension<AppGradients>()?.primaryButton,
-                  child: Text(AppLocalizations.of(context)!.continueButton),
+          Padding(
+            padding: EdgeInsets.only(bottom: Platform.isAndroid ? 12.0 : 0.0),
+            child: Row(
+              children: [
+                Spacer(flex: 20),
+                Expanded(
+                  flex: 60,
+                  child: AppButton(
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        showDragHandle: true,
+                        builder: (context) {
+                          return DemoProfileConfirmSheet();
+                        },
+                      );
+                    },
+                    gradient: Theme.of(
+                      context,
+                    ).extension<AppGradients>()?.primaryButton,
+                    child: Text(AppLocalizations.of(context)!.continueButton),
+                  ),
                 ),
-              ),
-              Spacer(flex: 20),
-            ],
+                Spacer(flex: 20),
+              ],
+            ),
           ),
         ],
       ),

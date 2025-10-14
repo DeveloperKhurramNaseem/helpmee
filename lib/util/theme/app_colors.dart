@@ -10,4 +10,5 @@ class AppLightThemeColors {
   static const Color onSurfaceColor = Colors.black;
   static const Color errorColor = Colors.red;
   static const Color blue = Colors.blue;
+  static const Color secondaryTextColor = Color.fromRGBO(0, 0, 0, 0.8);
 }

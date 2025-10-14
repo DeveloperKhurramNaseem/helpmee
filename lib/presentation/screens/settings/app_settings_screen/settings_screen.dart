@@ -185,8 +185,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
         state is UpdateNotificationSettingErrorState) {
       Navigator.of(context).pop();
       context.read<GetNotificationsSettingsBloc>().add(
-            GetGeneralNotificationSettingsEvent(),
-          );
+        GetGeneralNotificationSettingsEvent(),
+      );
     }
   }
 }

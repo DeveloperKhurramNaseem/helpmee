@@ -1,10 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_arrow_back.dart';
+import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_error_text.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_field_and_button.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_text.dart';
+import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_timer_and_resend.dart';
 import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
@@ -18,6 +21,27 @@ class EnterCodeScreen extends StatefulWidget {
 }
 
 class _EnterCodeScreenState extends State<EnterCodeScreen> {
+  Timer? timer;
+  Duration duration = Duration(minutes: 1);
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (duration.inSeconds != 0) {
+        duration = duration - const Duration(seconds: 1);
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    timer = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,8 +61,12 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
                   EcArrowBack(),
                   SizedBox(height: AppSize.instance.height * 0.05),
                   EcText(),
-                  SizedBox(height: AppSize.instance.height * 0.05),
+                  SizedBox(height: AppSize.instance.height * 0.02),
+                  EcErrorText(),
+                  SizedBox(height: AppSize.instance.height * 0.02),
                   EcFieldAndButton(email: widget.email),
+                  SizedBox(height: AppSize.instance.height * 0.02),
+                  EcTimerAndResend(duration: duration),
                 ],
               ),
             ),
@@ -53,15 +81,13 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
       showModalBottomSheet(
         context: context,
         isDismissible: false,
-        isScrollControlled: true, 
+        isScrollControlled: true,
         enableDrag: false,
         showDragHandle: true,
         builder: (context) {
-          return PopScope(canPop: false,child: ProductMapBottomSheet());
+          return PopScope(canPop: false, child: ProductMapBottomSheet());
         },
       );
-    } else if (state is VerifyOtpErrorState) {
-      Fluttertoast.showToast(msg: state.message);
     }
   }
 }

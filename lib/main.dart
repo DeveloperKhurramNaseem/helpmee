@@ -29,14 +29,19 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return Builder(
           builder: (context) {
-            return MaterialApp.router(
-              title: 'HelpMee',
-              theme: LightTheme.data,
-              themeMode: ThemeMode.light,
-              localizationsDelegates: LocalizationUtil.delegates,
-              supportedLocales: LocalizationUtil.locales.values,
-              locale: state.locale,
-              routerConfig: Routing.routerConfig,
+            return MediaQuery(
+              data: MediaQuery.of(
+                context,
+              ).copyWith(textScaler: TextScaler.linear(0.9)),
+              child: MaterialApp.router(
+                title: 'HelpMee',
+                theme: LightTheme.data,
+                themeMode: ThemeMode.light,
+                localizationsDelegates: LocalizationUtil.delegates,
+                supportedLocales: LocalizationUtil.locales.values,
+                locale: state.locale,
+                routerConfig: Routing.routerConfig,
+              ),
             );
           },
         );
@@ -57,7 +62,7 @@ class ProvidersWrapper extends StatelessWidget {
         ...getAuthBlocProviders(),
         ...getDashboardBlocProviders(),
         ...getActivateProductBlocProviders(),
-        ...getSettingsBlocProviders()
+        ...getSettingsBlocProviders(),
       ],
       child: child,
     );

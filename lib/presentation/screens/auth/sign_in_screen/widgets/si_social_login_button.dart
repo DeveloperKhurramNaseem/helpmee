@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:help_mee/util/constants/icons.dart';
 
 class SISocialLoginsRow extends StatelessWidget {
@@ -37,7 +38,16 @@ class SISocialGoogleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SISocialLoginButton(image: AppIcons.google, onPressed: () {});
+    return SISocialLoginButton(
+      image: AppIcons.google,
+      onPressed: () {
+        if (GoogleSignIn.instance.supportsAuthenticate()) {
+          try {
+            GoogleSignIn.instance.authenticate();
+          } catch (_) {}
+        }
+      },
+    );
   }
 }
 
