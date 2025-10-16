@@ -1,0 +1,4 @@
+enum EnterCodeScreenState{
+  signUp,
+  forgetPassword
+}

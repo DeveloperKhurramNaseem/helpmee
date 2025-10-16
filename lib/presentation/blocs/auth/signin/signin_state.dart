@@ -9,8 +9,9 @@ class SigninLoadingState extends SigninState {}
 
 class SigninLoadedState extends SigninState {
   final String message;
-
-  SigninLoadedState(this.message);
+  final int activatedProducts;
+  final String token;
+  SigninLoadedState({required this.message, required this.activatedProducts, required this.token});
 
 
 }

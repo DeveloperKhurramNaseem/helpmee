@@ -4,6 +4,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
   static const userKey = 'userData';
+  static const langKey = 'language';
+
   final SharedPreferences sharedPreferences;
 
   StorageService(this.sharedPreferences);
@@ -15,5 +17,13 @@ class StorageService {
 
   AppUserModel getUser(){
     return AppUserModel.fromMap(jsonDecode(sharedPreferences.getString(userKey) ?? '{}'));
+  }
+
+    String getLanguage() {
+    return sharedPreferences.getString(langKey) ?? 'en';
+  }
+
+  Future<void> saveLanguage(String language) async {
+    await sharedPreferences.setString(langKey, language);
   }
 }

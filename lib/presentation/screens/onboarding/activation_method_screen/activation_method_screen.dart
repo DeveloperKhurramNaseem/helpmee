@@ -11,7 +11,8 @@ import 'package:help_mee/util/constants/app_size.dart';
 
 class ActivationMethodScreen extends StatefulWidget {
   static const path = '/activation-method-screen';
-  const ActivationMethodScreen({super.key});
+  final String token;
+  const ActivationMethodScreen({super.key, required this.token});
 
   @override
   State<ActivationMethodScreen> createState() => _ActivationMethodScreenState();
@@ -32,8 +33,8 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SizedBox(height: AppSize.instance.height * 0.07),
-                AmNfcScanCard(),
-                AmQRScanCard(),
+                AmNfcScanCard(token: widget.token,),
+                AmQRScanCard(token: widget.token,),
                 AmSupportText(),
               ],
             ),

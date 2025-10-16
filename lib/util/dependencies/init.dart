@@ -3,10 +3,12 @@ import 'package:get_it/get_it.dart';
 import 'package:help_mee/data/repositories/auth_repo_impl.dart';
 import 'package:help_mee/data/repositories/user_repo_impl.dart';
 import 'package:help_mee/data/source/auth_service.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_service.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 var sl = GetIt.instance;
 
@@ -19,17 +21,19 @@ Future<void> init() async{
 
 Future<void> initAuth(){
   sl.registerFactory<AuthService>(() => AuthService());
-  sl.registerFactory<AuthRepo>(() => AuthRepoImpl(sl(),sl()));  
+  sl.registerFactory<AuthRepo>(() => AuthRepoImpl(sl(),sl(),sl()));  
   return Future.value(null);
 }
 
 Future<void> initUser(){
   sl.registerFactory<UserService>(() => UserService());
-  sl.registerFactory<UserRepo>(() => UserRepoImpl(sl(),sl()));
+  sl.registerFactory<UserRepo>(() => UserRepoImpl(sl(),sl(),sl()));
    return Future.value(null);
 }
 
-Future<void> initStorage(){  
+Future<void> initStorage() async{  
+  var sharedPreferences = await SharedPreferences.getInstance();
   sl.registerFactory<TokenService>(() => TokenService(FlutterSecureStorage()));
+  sl.registerFactory<StorageService>(() => StorageService(sharedPreferences));
   return Future.value(null);
 }

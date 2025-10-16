@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errorInvalidEmail => 'Invalid email';
 
   @override
-  String get signUpTitle => 'Sign Up';
+  String get signUpTitle => 'Sign up';
 
   @override
   String get passwordLabel => 'Password';
@@ -369,4 +369,20 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get termsAndConditionsLink =>
       'https://help-mee.com/pages/terms-and-conditions';
+
+  @override
+  String get generalServerError => 'Server error, please try again';
+
+  @override
+  String get enterEmail => 'Enter email';
+
+  @override
+  String get enterPassword => 'Enter password';
+
+  @override
+  String get enterConfirmPassword => 'Enter confirmation password';
+
+  @override
+  String get errorAcceptPrivacyPolicyEULA =>
+      'You must accept the Privacy Policy & End User Licence Agreement to proceed.';
 }

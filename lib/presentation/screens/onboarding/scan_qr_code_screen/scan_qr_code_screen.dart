@@ -8,7 +8,9 @@ import 'package:help_mee/util/constants/app_size.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class ScanQrCodeScreen extends StatefulWidget {
-  const ScanQrCodeScreen({super.key});
+  static const path = '/scan-qr-screen';
+  final String token;
+  const ScanQrCodeScreen({super.key, required this.token});
 
   @override
   State<ScanQrCodeScreen> createState() => _ScanQrCodeScreenState();
@@ -68,7 +70,7 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                 var device = parts[parts.length - 2];
                 if(isScanned) return;
                 context.read<ActivateProductBloc>().add(
-                  ActivateNewProductEvent(code: code, device: device),
+                  ActivateNewProductEvent(code: code, device: device, token: widget.token),
                 );
                 isScanned = true;
               }

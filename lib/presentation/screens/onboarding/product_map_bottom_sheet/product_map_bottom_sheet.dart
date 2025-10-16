@@ -7,7 +7,8 @@ import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.da
 import 'package:url_launcher/url_launcher.dart';
 
 class ProductMapBottomSheet extends StatelessWidget {
-  const ProductMapBottomSheet({super.key});
+  final String token;
+  const ProductMapBottomSheet({super.key, required this.token});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class ProductMapBottomSheet extends StatelessWidget {
             child: AppButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                context.push(ActivationMethodScreen.path);
+                context.push(ActivationMethodScreen.path , extra: token);
               },
               gradient: Theme.of(
                 context,

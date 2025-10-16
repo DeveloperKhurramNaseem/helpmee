@@ -1,4 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:help_mee/data/source/storage_service.dart';
+import 'package:help_mee/presentation/blocs/auth/create_password_bloc/create_password_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/forget_password/forget_password_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
@@ -15,11 +17,16 @@ import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
 
 List<BlocProvider> getUniversalBlocProviders() {
+  var storageService = sl<StorageService>();
+  var langCode = storageService.getLanguage();
+  String key = langCode == 'en'
+      ? LocalizationUtil.english
+      : LocalizationUtil.german;
+
   return [
     BlocProvider<LanguageBloc>(
-      create: (context) => LanguageBloc(
-        LanguageState(LocalizationUtil.locales[LocalizationUtil.english]!),
-      ),
+      create: (context) =>
+          LanguageBloc(LanguageState(LocalizationUtil.locales[key]!), sl()),
     ),
   ];
 }
@@ -34,6 +41,7 @@ List<BlocProvider> getAuthBlocProviders() {
         return ForgetPasswordBloc(sl());
       },
     ),
+    BlocProvider<CreatePasswordBloc>(create: (context) => CreatePasswordBloc(sl()),),
   ];
 }
 

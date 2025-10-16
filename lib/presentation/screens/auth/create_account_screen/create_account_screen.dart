@@ -14,6 +14,7 @@ import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_social_login_button.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_space.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
+import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 
@@ -29,6 +30,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   late TextEditingController emailController,
       passwordController,
       confirmPasswordController;
+  late GlobalKey<FormFieldState> emailKey , passwordKey , confirmationPasswordKey;
 
   bool isChecked = false;
 
@@ -38,6 +40,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+
+    emailKey = GlobalKey<FormFieldState>();
+    passwordKey = GlobalKey<FormFieldState>();
+    confirmationPasswordKey = GlobalKey<FormFieldState>();
   }
 
   @override
@@ -95,10 +101,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CaScreenErrorText(),
 
                       // Input Fields
-                      CAScreenTextEmailField(controller: emailController),
-                      CAScreenTextPasswordField(controller: passwordController),
+                      CAScreenTextEmailField(controller: emailController , fieldKey: emailKey),
+                      CAScreenTextPasswordField(controller: passwordController, fieldKey: passwordKey),
                       CAScreenTextConfirmPasswordField(
                         controller: confirmPasswordController,
+                        fieldKey: confirmationPasswordKey,
                       ),
                       // Check Field
                       StatefulBuilder(
@@ -117,23 +124,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CAScreenButton(
                         onPressed: () {
                           final signUpBloc = context.read<SignupBloc>();
-                          if (emailController.text.isEmpty) {
-                            signUpBloc.add(ShowErrorEvent(AppLocalizations.of(context)!.errorInvalidEmail));
-                            return;
-                          }
-                          if (passwordController.text.isEmpty) {
-                            signUpBloc.add(
-                              ShowErrorEvent(AppLocalizations.of(context)!.errorInvalidPassword),
-                            );
-                            return;
-                          }
-
-                          if (confirmPasswordController.text.isEmpty) {
-                            signUpBloc.add(
-                              ShowErrorEvent('All fields are required'),
-                            );
-                            return;
-                          }
+                          if(!(emailKey.currentState?.validate() ?? false)) return;                          
+                          if(!(passwordKey.currentState?.validate() ?? false)) return;                          
+                          if(!(confirmationPasswordKey.currentState?.validate() ?? false)) return;
                           if (passwordController.text.trim() !=
                               confirmPasswordController.text.trim()) {
                             signUpBloc.add(
@@ -158,7 +151,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           if (!isChecked) {
                             signUpBloc.add(
                               ShowErrorEvent(
-                                'Agree to privacy policy and terms and conditions',
+                                AppLocalizations.of(context)!.errorAcceptPrivacyPolicyEULA,
                               ),
                             );
                             return;
@@ -189,7 +182,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
-      context.push(EnterCodeScreen.path, extra: emailController.text.trim());
+      context.push(EnterCodeScreen.path, extra: [emailController.text.trim() , EnterCodeScreenState.signUp]);
     }
   }
 }

@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/widgets/dashboard_bottom_bar.dart';
@@ -8,6 +11,7 @@ import 'package:help_mee/presentation/screens/home/dashboard/widgets/names_sheet
 import 'package:help_mee/presentation/screens/home/home_screen/home_screen.dart';
 import 'package:help_mee/presentation/screens/home/notifications_screen/notification_screen.dart';
 import 'package:help_mee/presentation/screens/home/profile_and_products_screen/products_screen.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 
 class Dashboard extends StatefulWidget {
   static const path = '/';
@@ -24,6 +28,10 @@ class _DashboardState extends State<Dashboard> {
   @override
   void initState() {
     super.initState();
+    log(
+      sl<StorageService>().getUser().toMap().toString(),
+      name: 'User Information',
+    );
     context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent());
     context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent());
     if (widget.showNameSheet) {

@@ -61,7 +61,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get signInTitle => 'Einloggen';
 
   @override
-  String get agreeToLabel => 'Agree to';
+  String get agreeToLabel => 'stimmen Sie der';
 
   @override
   String get andLabel => 'und';
@@ -372,4 +372,20 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get termsAndConditionsLink => 'https://help-mee.com/pages/agb';
+
+  @override
+  String get generalServerError => 'Server-Fehler, bitte versuche es erneut';
+
+  @override
+  String get enterEmail => 'Email eingeben';
+
+  @override
+  String get enterPassword => 'Passwort eingeben';
+
+  @override
+  String get enterConfirmPassword => 'Bestätigungs-Passwort eingeben';
+
+  @override
+  String get errorAcceptPrivacyPolicyEULA =>
+      'Sie müssen die Datenschutzrichtlinie und die Lizenzvereinbarung akzeptieren, um fortfahren zu können';
 }

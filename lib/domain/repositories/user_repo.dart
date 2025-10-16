@@ -6,8 +6,9 @@ import 'package:help_mee/domain/entities/pin_data.dart';
 abstract class UserRepo {
   Future<(bool,List<NotificationData>)> getLatestNotifications();
   Future<(bool,({List<NotificationModel> recentNotifications , List<NotificationModel> oldNotifications}))> getAllNotifications();
-  Future<(bool,String)> activateProduct(String code , String device);
+  Future<(bool,String)> activateProduct(String code , String device, String token);
   Future<(bool,NotificationSetting)> getNotificationSetting();
   Future<(bool,String)> updateNotificationSetting(NotificationSetting setting);
   Future<(bool,String)> setNewPin(PinData pinData);
+  Future<(bool,String)> updatePin(PinData pinData);  
 }

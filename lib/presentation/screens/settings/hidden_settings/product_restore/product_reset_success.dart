@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
@@ -48,11 +49,7 @@ class ProductResetSuccess extends StatelessWidget {
                   child: AppButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ActivationMethodScreen(),
-                        ),
-                      );
+                      context.push(ActivationMethodScreen.path , extra: '');                      
                     },
                     gradient: Theme.of(
                       context,

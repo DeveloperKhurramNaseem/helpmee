@@ -62,17 +62,25 @@ class AmCard extends StatelessWidget {
 }
 
 class AmNfcScanCard extends StatefulWidget {
-  const AmNfcScanCard({super.key});
+  final String token;
+  const AmNfcScanCard({super.key, required this.token});
 
   @override
   State<AmNfcScanCard> createState() => _AmNfcScanCardState();
 }
 
 class _AmNfcScanCardState extends State<AmNfcScanCard> {
+  bool sessionActivated = false;
   @override
   void dispose() {
     NfcManager.instance.checkAvailability().then((_){
-      NfcManager.instance.stopSession();
+      try{
+        if(sessionActivated){
+          NfcManager.instance.stopSession();        
+        }        
+      }catch(_){
+
+      }
     });    
     super.dispose();
   }
@@ -98,6 +106,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
         }
         try {
           // await NfcManager.instance.stopSession();
+          sessionActivated = true;
           NfcManager.instance.startSession(
             pollingOptions: {
               NfcPollingOption.iso14443,
@@ -124,7 +133,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                     var code = parts.last;
                     var device = parts[parts.length - 2];
                     bloc.add(
-                      ActivateNewProductEvent(code: code, device: device),
+                      ActivateNewProductEvent(code: code, device: device, token: widget.token),
                     );
                     if(Platform.isAndroid){
                       if(mounted){
@@ -134,6 +143,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                   }
                 }
               } catch (e) {
+                sessionActivated = false;
                 await NfcManager.instance.stopSession(errorMessageIos: '$e');
               }
             },
@@ -155,15 +165,14 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
 }
 
 class AmQRScanCard extends StatelessWidget {
-  const AmQRScanCard({super.key});
+  final String token;
+  const AmQRScanCard({super.key , required this.token});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
+        context.push( ScanQrCodeScreen.path, extra: token);
         // context.read<ActivateProductBloc>().add(ActivateNewProductEvent(code: '79FAD9', device: 's'));
       },
       child: AmCard(

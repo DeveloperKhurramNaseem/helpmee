@@ -9,9 +9,15 @@ class VerifyOtpLoadingState extends VerifyOtpState {}
 
 class VerifyOtpDoneState extends VerifyOtpState {
   final String message;
-
-  VerifyOtpDoneState(this.message);
+  final String token;
+  VerifyOtpDoneState({required this.message , required this.token});
 }
+
+class VerifyOtpForgetPasswordDoneState extends VerifyOtpState {
+  final String message;  
+  VerifyOtpForgetPasswordDoneState({required this.message});
+}
+
 
 class VerifyOtpErrorState extends VerifyOtpState {
   final String message;

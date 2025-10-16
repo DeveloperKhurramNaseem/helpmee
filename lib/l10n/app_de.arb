@@ -23,7 +23,7 @@
 "privacyPolicyLabel" : "Datenschutzerklärung",
 "doYouHaveAccountLabel" : "Haben Sie ein Benutzerkonto? ",
 "signInTitle" : "Einloggen",
-"agreeToLabel" : "Agree to",
+"agreeToLabel" : "stimmen Sie der",
 "privacyPolicyLabel" : "Datenschutzerklärung",
 "andLabel" : "und",
 "termsAndConditionsLabel" : "Allgemeine Geschäftsbedingungen",
@@ -121,5 +121,10 @@
 "privacyPolicyLink" : "https://help-mee.com/pages/datenschutzerklaerung-addmee-app",
 "termsAndConditionsLink" : "https://help-mee.com/pages/agb",
 "errorPasswordTooShort" : "Ihr Passwort muss mindestens 6 Zeichen lang sein",
-"errorPasswordMismatch" : "Passwort stimmt nicht überein"
+"errorPasswordMismatch" : "Passwort stimmt nicht überein",
+"generalServerError" : "Server-Fehler, bitte versuche es erneut",
+"enterEmail" : "Email eingeben",
+"enterPassword" : "Passwort eingeben",
+"enterConfirmPassword" : "Bestätigungs-Passwort eingeben",
+"errorAcceptPrivacyPolicyEULA" : "Sie müssen die Datenschutzrichtlinie und die Lizenzvereinbarung akzeptieren, um fortfahren zu können"
 }

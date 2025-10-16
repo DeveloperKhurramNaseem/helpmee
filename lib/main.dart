@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/source/token_service.dart';
+import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -25,28 +27,36 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppSize(MediaQuery.of(context).size);
-    return BlocBuilder<LanguageBloc, LanguageState>(
-      builder: (context, state) {
-        return Builder(
-          builder: (context) {
-            return MediaQuery(
-              data: MediaQuery.of(
-                context,
-              ).copyWith(textScaler: TextScaler.linear(0.9)),
-              child: MaterialApp.router(
-                title: 'HelpMee',
-                theme: LightTheme.data,
-                themeMode: ThemeMode.light,
-                localizationsDelegates: LocalizationUtil.delegates,
-                supportedLocales: LocalizationUtil.locales.values,
-                locale: state.locale,
-                routerConfig: Routing.routerConfig,
-              ),
-            );
-          },
-        );
-      },
+    return BlocListener<LanguageBloc, LanguageState>(
+      listener: _listenToLanguageChangeEvents,
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (context, state) {
+          return Builder(
+            builder: (context) {
+              return MediaQuery(
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: TextScaler.linear(0.9)),
+                child: MaterialApp.router(
+                  title: 'HelpMee',
+                  theme: LightTheme.data,
+                  themeMode: ThemeMode.light,
+                  localizationsDelegates: LocalizationUtil.delegates,
+                  supportedLocales: LocalizationUtil.locales.values,
+                  locale: state.locale,
+                  routerConfig: Routing.routerConfig,
+                ),
+              );
+            },
+          );
+        },
+      ),
     );
+  }
+
+  void _listenToLanguageChangeEvents(BuildContext context, LanguageState state) {
+    context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent(isLoading: false));
+      context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent(isLoading: false));
   }
 }
 

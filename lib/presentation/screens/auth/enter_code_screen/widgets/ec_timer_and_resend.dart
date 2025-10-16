@@ -12,42 +12,45 @@ class EcTimerAndResend extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        ColoredBox(
-          color: Colors.transparent,
-          child: Column(
-            spacing: 18,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if (duration.inSeconds != 0)
-                Text(
-                  '${minutes == 0 ? '00' : '$minutes'}:${seconds < 10 ? '0$seconds' : '$seconds'}',
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                )
-              else
-                RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text:
-                            '${AppLocalizations.of(context)!.didntReceiveCodePrompt} ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.secondary.withAlpha(150),
+        Expanded(
+          child: ColoredBox(
+            color: Colors.transparent,
+            child: Column(
+              spacing: 18,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (duration.inSeconds != 0)
+                  Text(
+                    '${minutes == 0 ? '00' : '$minutes'}:${seconds < 10 ? '0$seconds' : '$seconds'}',
+                    style: TextStyle(fontWeight: FontWeight.w500),
+                  )
+                else
+                  RichText(
+                    maxLines: 2,
+                    text: TextSpan(
+                      children: [
+                        TextSpan(
+                          text:
+                              '${AppLocalizations.of(context)!.didntReceiveCodePrompt} ',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.secondary.withAlpha(150),
+                          ),
                         ),
-                      ),
-                      TextSpan(
-                        text: AppLocalizations.of(context)!.resendCode,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          color: Theme.of(context).colorScheme.secondary,
+                        TextSpan(
+                          text: AppLocalizations.of(context)!.resendCode,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            color: Theme.of(context).colorScheme.secondary,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-            ],
+              ],
+            ),
           ),
         ),
       ],

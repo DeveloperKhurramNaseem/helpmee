@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
+import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
 
 part 'signin_event.dart';
@@ -19,14 +20,14 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     try{
       emit(SigninLoadingState());
      var result = await authRepo.signIn(event.email, event.password);     
-     if(result.$1){
-      emit(SigninLoadedState(result.$2));
+     if(result.success){
+      emit(SigninLoadedState(message:result.message,activatedProducts:result.activatedProducts,token: result.data.accessToken.accessToken));
      }else{
-      emit(SigninErrorState(result.$2));
+      emit(SigninErrorState(result.message));
      }
     }catch(e){
       log(e.toString() , name: 'SignInBloc Error');
-      emit(SigninErrorState('Something went wrong'));
+      emit(SigninErrorState(ErrorConstants.errorMessage));
     }
   }
 

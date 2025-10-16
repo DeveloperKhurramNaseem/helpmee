@@ -6,7 +6,7 @@
     "createAccountTitle"  : "Create an account",
     "emailLabel" : "Email",
     "errorInvalidEmail": "Invalid email",
-    "signUpTitle" : "Sign Up",
+    "signUpTitle" : "Sign up",
 
 "passwordLabel" : "Password",
 
@@ -125,5 +125,11 @@
 "privacyPolicyLink" : "https://help-mee.com/pages/privacy-policy-addmee-app",
 "termsAndConditionsLink" : "https://help-mee.com/pages/terms-and-conditions",
 "errorPasswordTooShort" : "Your password must be at least 6 characters long",
-"errorPasswordMismatch" : "Password does not match"
+"errorPasswordMismatch" : "Password does not match",
+"generalServerError" : "Server error, please try again",
+"enterEmail" : "Enter email",
+"enterPassword" : "Enter password",
+"enterConfirmPassword" : "Enter confirmation password",
+"errorAcceptPrivacyPolicyEULA" : "You must accept the Privacy Policy & End User Licence Agreement to proceed."
+
 }

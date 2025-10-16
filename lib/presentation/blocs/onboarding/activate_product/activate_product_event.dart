@@ -6,6 +6,7 @@ sealed class ActivateProductEvent {}
 class ActivateNewProductEvent extends ActivateProductEvent {
   final String code;
   final String device;
+  final String token;
 
-  ActivateNewProductEvent({required this.code, required this.device});
+  ActivateNewProductEvent({required this.code, required this.device, required this.token});
 }  

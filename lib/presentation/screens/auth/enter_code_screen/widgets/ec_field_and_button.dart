@@ -5,12 +5,14 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_fields_row.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class EcFieldAndButton extends StatefulWidget {
   final String email;
-  const EcFieldAndButton({super.key, required this.email});
+  final EnterCodeScreenState currentState;
+  const EcFieldAndButton({super.key, required this.email , required this.currentState});
 
   @override
   State<EcFieldAndButton> createState() => _EcFieldAndButtonState();
@@ -41,7 +43,7 @@ class _EcFieldAndButtonState extends State<EcFieldAndButton> {
                   onPressed: () {
                     if (otp.isNotEmpty && otp.length == 6) {
                       context.read<VerifyOtpBloc>().add(
-                        VerifySignUpOtpEvent(otp, widget.email),
+                        VerifySignUpOtpEvent(otp, widget.email,widget.currentState),
                       );
                     }
                   },

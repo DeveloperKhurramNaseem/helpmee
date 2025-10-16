@@ -21,6 +21,6 @@ class PinDataModel extends PinData {
   }
 
   Map<String, dynamic> toMap() {
-    return {pinKey: pin, pinReminderTextKey: pinReminderText};
+    return {pinKey: pin, if(pinReminderText.isNotEmpty) pinReminderTextKey: pinReminderText};
   }
 }

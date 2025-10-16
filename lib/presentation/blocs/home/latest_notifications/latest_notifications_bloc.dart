@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/entities/notification_data.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
+import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
 
 part 'latest_notifications_event.dart';
@@ -20,15 +21,17 @@ class LatestNotificationsBloc
     Emitter<LatestNotificationsState> emit,
   ) async{
     try{
-      emit(LatestNotificationsLoadingState());
+      if(event.isLoading){
+        emit(LatestNotificationsLoadingState());
+      }      
       var result = await userRepo.getLatestNotifications();
       if(result.$1){
         emit(LatestNotificationsLoadedState(notifications: result.$2));
       }else{
-        emit(LatestNotificationsErrorState(message: 'Something went wrong'));
+        emit(LatestNotificationsErrorState(message: ErrorConstants.errorMessage));
       }
     }catch(e){
-      emit(LatestNotificationsErrorState(message: 'Something went wrong'));
+      emit(LatestNotificationsErrorState(message: ErrorConstants.errorMessage));
     }
   }
 }

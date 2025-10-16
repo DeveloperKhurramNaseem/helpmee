@@ -1,6 +1,10 @@
+import 'package:help_mee/data/models/signin_response.dart';
+
 abstract class AuthRepo {
-  Future<(bool,String)> signIn(String email, String password);
+  Future<SigninResponse> signIn(String email, String password);
   Future<(bool,String)> signUp(String email, String password);  
-  Future<(bool, String)> verifySignUpOtp(String email, String otp);
-  Future<(bool, String)> forgetPassword(String email);
+  Future<(bool, String, String)> verifySignUpOtp(String email, String otp);
+  Future<(bool, String)> createNewPassword(String email, String password);
+  Future<(bool,String)> forgetPasswordSendCode(String email);
+  Future<(bool, String)> verifyForgetPasswordOtp(String email, String otp); 
 }

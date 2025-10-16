@@ -3,6 +3,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
+import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
 
 part 'signup_event.dart';
@@ -29,7 +30,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
      }
     }catch(e){
       log(e.toString() , name: 'SignupBloc Error');
-      emit(SignupErrorState('Something went wrong'));
+      emit(SignupErrorState(ErrorConstants.errorMessage));
     }
   }
 

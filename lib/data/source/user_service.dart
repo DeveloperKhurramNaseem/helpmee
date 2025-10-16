@@ -1,9 +1,9 @@
-import 'dart:convert';
-
+import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
+import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:help_mee/util/network/end_points.dart';
 import 'package:help_mee/util/network/network_constants.dart';
 
@@ -11,17 +11,22 @@ class UserService extends ApiService {
   @override
   String get apiUrl => '/api/v3/users';
 
-  Future<(bool, List<NotificationModel>)> getNotifications(String token) async {
+  Future<(bool, List<NotificationModel>)> getNotifications(
+    String token,
+    String language,
+  ) async {
     var result = await get(
       endPoint: EndPoints.latestNotifications,
-      header: {...NetworkConstants.headers, 'Authorization': 'Bearer $token'},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (
         decodedResponse.success,
         (decodedResponse.data['notifications'] as List)
-            .map((e) => NotificationModel.fromJson(e))
+            .map((e) {
+              return NotificationModel.fromJson(e);
+            })
             .toList(),
       );
     }
@@ -37,10 +42,10 @@ class UserService extends ApiService {
       }),
     )
   >
-  getAllNotifications(String token) async {
+  getAllNotifications(String token, String language) async {
     var result = await get(
       endPoint: EndPoints.allNotifications,
-      header: {...NetworkConstants.headers, 'Authorization': 'Bearer $token'},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
@@ -71,28 +76,30 @@ class UserService extends ApiService {
     String code,
     String device,
     String token,
+    String language,
   ) async {
     var result = await post(
       EndPoints.activateProduct,
       {'code': code, 'device': device},
-      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
-      final decodedResponse = decodeResponse(jsonDecode(result));
+      final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
     }
-    return (false, 'Something went wrong');
+    return (false, ErrorConstants.errorMessage);
   }
 
   Future<(bool, NotificationSettingModel)> getNotificationSetting(
     String token,
+    String language,
   ) async {
     var result = await get(
       endPoint: EndPoints.notificationSettings,
-      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
-      final decodedResponse = decodeResponse(jsonDecode(result));
+      final decodedResponse = decodeResponse(result);
       return (
         decodedResponse.success,
         NotificationSettingModel.fromMap(
@@ -106,32 +113,79 @@ class UserService extends ApiService {
   Future<(bool, String)> updateNotificationSetting(
     String token,
     NotificationSettingModel setting,
+    String language,
   ) async {
     var result = await post(
       EndPoints.notificationSettingsChange,
       setting.toMap(),
-      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
-      final decodedResponse = decodeResponse(jsonDecode(result));
+      final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
     }
-    return (false, 'Something went wrong');
+    return (false, ErrorConstants.errorMessage);
   }
 
-  Future<(bool, String)> setNewPin(String token, PinDataModel pinData) async {
+  Future<(bool, String, AppUserModel)> setNewPin(
+    String token,
+    PinDataModel pinData,
+    String language,
+  ) async {
     var result = await post(
       EndPoints.setNewPin,
       pinData.toMap(),
-      header: {'Authorization': 'Bearer $token', ...NetworkConstants.headers},
+      header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
       final decodedResponse = decodeResponseWithMessagesList(result);
-      return (
-        decodedResponse.success,
-        decodedResponse.message.firstOrNull ?? '',
-      );
+      if (decodedResponse.success) {
+        var user = AppUserModel.fromMap(decodedResponse.data['user']);
+        return (
+          decodedResponse.success,
+          decodedResponse.message.firstOrNull ?? '',
+          user,
+        );
+      } else {
+        (
+          decodedResponse.success,
+          decodedResponse.message.firstOrNull ?? '',
+          AppUserModel(),
+        );
+      }
     }
-    return (false, 'Something went wrong');
+    return (false, ErrorConstants.errorMessage, AppUserModel());
   }
+
+  Future<(bool, String, AppUserModel)> updatePin(
+    String token,
+    PinDataModel pinData,
+    String language,
+  ) async {
+    var result = await post(
+      EndPoints.updatePin,
+      pinData.toMap(),
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponseWithMessagesList(result);
+      if (decodedResponse.success) {
+        var user = AppUserModel.fromMap(decodedResponse.data['user']);
+        return (
+          decodedResponse.success,
+          decodedResponse.message.firstOrNull ?? '',
+          user,
+        );
+      } else {
+        (
+          decodedResponse.success,
+          decodedResponse.message.firstOrNull ?? '',
+          AppUserModel(),
+        );
+      }
+    }
+    return (false, ErrorConstants.errorMessage, AppUserModel());
+  }
+
+
 }

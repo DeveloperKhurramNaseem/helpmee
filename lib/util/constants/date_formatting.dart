@@ -11,7 +11,7 @@ class DateFormatting {
         return 'Now';
       }
       return duration.inHours >= 1
-          ? '${duration.inHours} hours ago'
+          ? '${duration.inHours} ${duration.inHours == 1 ? 'hour' : 'hours'} ago'
           : '${duration.inMinutes} ${duration.inMinutes == 1 ? 'minute' : 'minutes'} ago';
     }
     if (todayDate.difference(dateTime).inDays == 1) {

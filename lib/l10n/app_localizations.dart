@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @signUpTitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
+  /// **'Sign up'**
   String get signUpTitle;
 
   /// No description provided for @passwordLabel.
@@ -775,6 +775,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'https://help-mee.com/pages/terms-and-conditions'**
   String get termsAndConditionsLink;
+
+  /// No description provided for @generalServerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error, please try again'**
+  String get generalServerError;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter email'**
+  String get enterEmail;
+
+  /// No description provided for @enterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter password'**
+  String get enterPassword;
+
+  /// No description provided for @enterConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter confirmation password'**
+  String get enterConfirmPassword;
+
+  /// No description provided for @errorAcceptPrivacyPolicyEULA.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the Privacy Policy & End User Licence Agreement to proceed.'**
+  String get errorAcceptPrivacyPolicyEULA;
 }
 
 class _AppLocalizationsDelegate
