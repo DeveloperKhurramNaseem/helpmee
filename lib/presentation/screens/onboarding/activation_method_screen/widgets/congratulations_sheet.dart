@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/constants/gifs.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class CongratulationsSheet extends StatelessWidget {
@@ -37,8 +39,9 @@ class CongratulationsSheet extends StatelessWidget {
                   width: AppSize.instance.height * 0.2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).colorScheme.secondary,
+                    // color: Theme.of(context).colorScheme.secondary,
                   ),
+                  child: GifView.asset(AppGifs.toddler),
                 ),
               ],
             ),
@@ -59,7 +62,7 @@ class CongratulationsSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: AppButton(
               onPressed: () {
-                context.go(Dashboard.path , extra: true);   
+                context.go(Dashboard.path, extra: true);
               },
               gradient: Theme.of(
                 context,
@@ -72,3 +75,26 @@ class CongratulationsSheet extends StatelessWidget {
     );
   }
 }
+
+// "s": ["Personal", "SOS", "Pet"],
+//         "sc": ["Personal"],
+//         "c": ["Personal"],
+//         "cc": ["Personal"],
+//         "t": ["Personal"],
+//         "tc": ["Personal"],
+//         "k": ["Personal", "SOS", "Pet"],
+//         "kc": ["Personal", "SOS", "Pet"],
+//         "p": ["Pet"],
+//         "pc": ["Pet"],
+//         "mc": ["Personal"],
+//         "bc": ["Personal"],
+//         "wb": ["SOS"],
+//         "sb": ["SOS"],
+//         "ss": ["SOS"],
+//         "sk": ["SOS"],
+//         "ssc": ["SOS"],
+//         "sbk": ["SOS"],
+//         "td": ["Personal"],
+//         "sbj": ["SOS"],
+//         "sbb": ["SOS"],
+//         "dt": ["Pet"]

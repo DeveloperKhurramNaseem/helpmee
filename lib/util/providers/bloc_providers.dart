@@ -10,8 +10,10 @@ import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_not
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
@@ -77,5 +79,7 @@ List<BlocProvider> getSettingsBlocProviders() {
         return SetPinBloc(sl());
       },
     ),
+    BlocProvider<DeleteProfileBloc>(create: (context) => DeleteProfileBloc(sl())),
+    BlocProvider<ChangePasswordBloc>(create: (context) => ChangePasswordBloc(sl()))
   ];
 }

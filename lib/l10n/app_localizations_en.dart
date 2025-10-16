@@ -385,4 +385,17 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get errorAcceptPrivacyPolicyEULA =>
       'You must accept the Privacy Policy & End User Licence Agreement to proceed.';
+
+  @override
+  String get confirmDeletion => 'Confirm deletion';
+
+  @override
+  String get deleteAccountPopupDescriptionChild =>
+      'By pressing the confirm button you will permanently delete your account. Afterwards you won\'t be able to reactivate your account or retrieve any of the information you\'ve added. As this is a sub-profile, the main profile will remain.';
+
+  @override
+  String get newPasswordLabel => 'New password';
+
+  @override
+  String get currentPasswordLabel => 'Current password';
 }

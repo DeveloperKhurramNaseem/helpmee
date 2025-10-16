@@ -12,7 +12,7 @@ class CpText extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 5.0),
           child: Text(
-            AppLocalizations.of(context)!.createPasswordLabel,
+            AppLocalizations.of(context)!.changePasswordButton,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
           ),
         ),

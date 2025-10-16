@@ -388,4 +388,17 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get errorAcceptPrivacyPolicyEULA =>
       'Sie müssen die Datenschutzrichtlinie und die Lizenzvereinbarung akzeptieren, um fortfahren zu können';
+
+  @override
+  String get confirmDeletion => 'Löschen bestätigen';
+
+  @override
+  String get deleteAccountPopupDescriptionChild =>
+      'Wenn Sie auf Bestätigen klicken, wird Ihr Benutzerkonto dauerhaft gelöscht. Es wird daraufhin nicht mehr möglich sein es zu reaktivieren oder auf den Inhalt zuzugreifen. Da dies ein Unterprofil ist, wird das Hauptprofil bestehen bleiben.';
+
+  @override
+  String get newPasswordLabel => 'Neues Passwort';
+
+  @override
+  String get currentPasswordLabel => 'Aktuelles Passwort';
 }

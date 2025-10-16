@@ -13,4 +13,6 @@ class EndPoints {
   static const setNewPin = '/create-pin-code';
   static const updatePin = '/update-pin-code';
   static const createNewPassword = '/forget-password';
+  static const deleteAccount = '/delete-user-account';
+  static const changePassword = '/change-password';
 }

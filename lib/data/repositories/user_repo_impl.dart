@@ -148,4 +148,23 @@ class UserRepoImpl extends UserRepo {
     return (data.$1, data.$2);
   }
 
+  @override
+  Future<(bool, String)> deleteAccount() async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+    var data = await userService.deleteAccount(
+      token,      
+      lang,
+    );    
+    return (data.$1, data.$2);
+  }
+
+
+  @override
+  Future<(bool, String)> changePassword(String currentPassword, String newPassword) async{
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+    return userService.changePassword(currentPassword, newPassword, token, lang);   
+  }
+
 }

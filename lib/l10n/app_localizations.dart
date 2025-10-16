@@ -805,6 +805,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You must accept the Privacy Policy & End User Licence Agreement to proceed.'**
   String get errorAcceptPrivacyPolicyEULA;
+
+  /// No description provided for @confirmDeletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm deletion'**
+  String get confirmDeletion;
+
+  /// No description provided for @deleteAccountPopupDescriptionChild.
+  ///
+  /// In en, this message translates to:
+  /// **'By pressing the confirm button you will permanently delete your account. Afterwards you won\'t be able to reactivate your account or retrieve any of the information you\'ve added. As this is a sub-profile, the main profile will remain.'**
+  String get deleteAccountPopupDescriptionChild;
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordLabel;
+
+  /// No description provided for @currentPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPasswordLabel;
 }
 
 class _AppLocalizationsDelegate

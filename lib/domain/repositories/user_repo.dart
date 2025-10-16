@@ -10,5 +10,7 @@ abstract class UserRepo {
   Future<(bool,NotificationSetting)> getNotificationSetting();
   Future<(bool,String)> updateNotificationSetting(NotificationSetting setting);
   Future<(bool,String)> setNewPin(PinData pinData);
-  Future<(bool,String)> updatePin(PinData pinData);  
+  Future<(bool,String)> updatePin(PinData pinData);
+  Future<(bool,String)> deleteAccount();
+  Future<(bool,String)> changePassword(String currentPassword , String newPassword);
 }

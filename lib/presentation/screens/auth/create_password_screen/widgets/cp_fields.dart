@@ -31,10 +31,12 @@ class CpFields extends StatelessWidget {
 class CpPasswordField extends StatelessWidget {
   final TextEditingController controller;
   final GlobalKey<FormFieldState> fieldKey;
+  final String label;
   const CpPasswordField({
     super.key,
     required this.controller,
     required this.fieldKey,
+    this.label = '',
   });
 
   @override
@@ -51,7 +53,7 @@ class CpPasswordField extends StatelessWidget {
           key: fieldKey,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: AppLocalizations.of(context)!.passwordLabel,
+            labelText: label.isEmpty ? AppLocalizations.of(context)!.passwordLabel : label,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,

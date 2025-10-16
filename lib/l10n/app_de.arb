@@ -126,5 +126,10 @@
 "enterEmail" : "Email eingeben",
 "enterPassword" : "Passwort eingeben",
 "enterConfirmPassword" : "Bestätigungs-Passwort eingeben",
-"errorAcceptPrivacyPolicyEULA" : "Sie müssen die Datenschutzrichtlinie und die Lizenzvereinbarung akzeptieren, um fortfahren zu können"
+"errorAcceptPrivacyPolicyEULA" : "Sie müssen die Datenschutzrichtlinie und die Lizenzvereinbarung akzeptieren, um fortfahren zu können",
+"confirmDeletion" : "Löschen bestätigen",
+"deleteAccountPopupDescriptionChild" : "Wenn Sie auf Bestätigen klicken, wird Ihr Benutzerkonto dauerhaft gelöscht. Es wird daraufhin nicht mehr möglich sein es zu reaktivieren oder auf den Inhalt zuzugreifen. Da dies ein Unterprofil ist, wird das Hauptprofil bestehen bleiben.",
+"newPasswordLabel" : "Neues Passwort",
+"currentPasswordLabel" : "Aktuelles Passwort",
+"changePasswordButton" : "Passwort ändern"
 }

@@ -130,6 +130,11 @@
 "enterEmail" : "Enter email",
 "enterPassword" : "Enter password",
 "enterConfirmPassword" : "Enter confirmation password",
-"errorAcceptPrivacyPolicyEULA" : "You must accept the Privacy Policy & End User Licence Agreement to proceed."
+"errorAcceptPrivacyPolicyEULA" : "You must accept the Privacy Policy & End User Licence Agreement to proceed.",
+"confirmDeletion" : "Confirm deletion",
+"deleteAccountPopupDescriptionChild" : "By pressing the confirm button you will permanently delete your account. Afterwards you won't be able to reactivate your account or retrieve any of the information you've added. As this is a sub-profile, the main profile will remain.",
+"newPasswordLabel" : "New password",
+"currentPasswordLabel" : "Current password",
+"changePasswordButton" : "Change password"
 
 }

@@ -35,4 +35,20 @@ abstract class ApiService {
     }
     return response.body;
   }
+
+  Future<String?> delete(
+    String endPoint,
+    Map<String, dynamic> body, {    
+    Map<String, String>? header,
+  }) async {
+    var response = await http.delete(
+      Uri.parse(baseUrl + apiUrl + endPoint),
+      body: jsonEncode(body),
+      headers: header,
+    );
+    if (response.statusCode == 500) {
+      return null;
+    }
+    return response.body;
+  }
 }

@@ -21,27 +21,38 @@ class _NotificationScreenState extends State<NotificationScreen> {
       appBar: NotificationAppBar(),
       body: BlocBuilder<AllNotificationsBloc, AllNotificationsState>(
         builder: (context, state) {
-          if(state is AllNotificationsLoadingState){
-            return Center(child: CircularProgressIndicator(color: Theme.of(context).colorScheme.primary,),);
-          }else if(state is AllNotificationsErrorState){
-            return Center(child: Text(state.message),);
-          }else if(state is AllNotificationsLoadedState){
+          if (state is AllNotificationsLoadingState) {
+            return Center(
+              child: CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            );
+          } else if (state is AllNotificationsErrorState) {
+            return Center(child: Text(state.message));
+          } else if (state is AllNotificationsLoadedState) {
             return CustomScrollView(
-            slivers: [
-              SliverToBoxAdapter(
-                child: SizedBox(height: AppSize.instance.height * 0.01),
-              ),
-              if(state.recentNotifications.isNotEmpty)
-              NotificationsText(
-                text: AppLocalizations.of(context)!.recentNotificationsLabel,
-              ),
-              RecentNotificationsList(notifications: state.recentNotifications),
-              if(state.oldNotificationsList.isNotEmpty)
-              NotificationsText(text: 'Last 7 days'),
-              OldNotificationsList(notifications: state.oldNotificationsList),
-            ],
-          );            
-          } 
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SizedBox(height: AppSize.instance.height * 0.01),
+                ),
+                if (state.recentNotifications.isNotEmpty)
+                  NotificationsText(
+                    text: AppLocalizations.of(
+                      context,
+                    )!.recentNotificationsLabel,
+                  ),
+                RecentNotificationsList(
+                  notifications: state.recentNotifications,
+                ),
+                if (state.oldNotificationsList.isNotEmpty)
+                  NotificationsText(text: 'Last 7 days'),
+                OldNotificationsList(notifications: state.oldNotificationsList),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: AppSize.instance.height * 0.1),
+                ),
+              ],
+            );
+          }
           return SizedBox();
         },
       ),

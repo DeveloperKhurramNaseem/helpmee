@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen
 import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
+import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 
 bool isRedirected = false;
@@ -56,6 +57,10 @@ class Routing {
       GoRoute(
         path: CreatePasswordScreen.path,
         builder: (context, state) => CreatePasswordScreen(email: state.extra as String,),
+      ),
+      GoRoute(
+        path: ChangePasswordScreen.path,
+        builder: (context, state) => ChangePasswordScreen(),
       ),
     ],
   );
