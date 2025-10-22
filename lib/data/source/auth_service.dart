@@ -135,4 +135,17 @@ class AuthService extends ApiService {
     }
     return (false, ErrorConstants.errorMessage);
   }
-}
+
+  Future<(bool,String)> resendOtp(String email , String language) async{
+    var result = await post(
+      EndPoints.resendOtp,
+      {'email': email,},
+      header: NetworkConstants.getHeaders(language)
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+ }

@@ -13,6 +13,7 @@ class CreatePasswordBloc extends Bloc<CreatePasswordEvent, CreatePasswordState> 
   CreatePasswordBloc(this.authRepo) : super(CreatePasswordInitialState()) {
     on<CreateNewPasswordEvent>(_handleNewPasswordCreationEvent);
     on<ShowErrorEvent>(_handleShowErrorEvent);
+    on<ResetErrorEvent>(_handleResetErrorEvent);
   }
 
   FutureOr<void> _handleNewPasswordCreationEvent(CreateNewPasswordEvent event, Emitter<CreatePasswordState> emit) async{
@@ -31,5 +32,9 @@ class CreatePasswordBloc extends Bloc<CreatePasswordEvent, CreatePasswordState> 
 
   FutureOr<void> _handleShowErrorEvent(ShowErrorEvent event, Emitter<CreatePasswordState> emit) {
     emit(CreatePasswordErrorState(event.message));
+  }
+
+  FutureOr<void> _handleResetErrorEvent(ResetErrorEvent event, Emitter<CreatePasswordState> emit) {
+    emit(CreatePasswordInitialState());
   }
 }

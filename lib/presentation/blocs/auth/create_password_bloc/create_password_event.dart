@@ -14,3 +14,8 @@ class ShowErrorEvent extends CreatePasswordEvent{
   ShowErrorEvent(this.message);
 }
 
+class ResetErrorEvent extends CreatePasswordEvent{
+  
+  ResetErrorEvent();
+}
+

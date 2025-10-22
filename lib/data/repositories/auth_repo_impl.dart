@@ -34,7 +34,7 @@ class AuthRepoImpl extends AuthRepo {
     var lang = storageService.getLanguage();
     var result = await authService.verifySignUpOtp(email, otp, lang);
     // Not saving token on sign up
-    // await tokenService.saveToken(result.data.accessToken.accessToken);
+    // await tokenService.saveToken(result.data.accessToken.accessToken);    
     return (result.success, result.message, result.data.accessToken.accessToken);
   }
   @override
@@ -57,6 +57,12 @@ class AuthRepoImpl extends AuthRepo {
     // Not saving token on sign up
     // await tokenService.saveToken(result.data.accessToken.accessToken);
     return (result.$1, result.$2);
+  }
+
+  @override
+  Future<(bool, String)> resendOtp(String email) {
+    var lang = storageService.getLanguage();
+    return authService.resendOtp(email, lang);
   }
 
 }

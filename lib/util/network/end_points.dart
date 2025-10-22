@@ -15,4 +15,5 @@ class EndPoints {
   static const createNewPassword = '/forget-password';
   static const deleteAccount = '/delete-user-account';
   static const changePassword = '/change-password';
+  static const resendOtp = '/send_otp';
 }

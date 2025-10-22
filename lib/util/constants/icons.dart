@@ -27,4 +27,15 @@ class AppIcons {
   static const String delete = '$_base/delete.svg';
   static const String privacyIcon = '$_base/privacy.svg';
   static const String signOutIcon = '$_base/sign_out.svg';
+  // Edit Profile Screen Icons
+  static const String calender = '$_base/calender.svg';
+  static const String pdf = '$_base/pdf.svg';  
+  static const String del = '$_base/del.svg';
+  static const String unlocked = '$_base/unlock.svg';
+  static const String locked = '$_base/locked.svg';
+  static const String locationSend = '$_base/location_send.svg';
+  static const String whatsapp = '$_base/whatsapp.svg';
+  static const String phone = '$_base/phone.svg';
+  static const String whatsappIcon = '$_base/whatsapp_icon.svg';
+  static const String phoneIcon = '$_base/phone_icon.svg';
 }

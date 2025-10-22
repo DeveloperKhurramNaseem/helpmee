@@ -41,69 +41,76 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocListener<CreatePasswordBloc, CreatePasswordState>(
-        listener: _handleCreatePasswordBloc,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.only(
-              left: 14.0,
-              right: 14.0,
-              top: MediaQuery.of(context).padding.top,
-            ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CpArrowBack(),
-                  SizedBox(height: AppSize.instance.height * 0.05),
-                  CpText(),
-                  SizedBox(height: AppSize.instance.height * 0.02),
-                  CpErrorText(),
-                  SizedBox(height: AppSize.instance.height * 0.02),
-                  CpFields(
-                    passwordController: passwordController,
-                    confirmationPasswordController: confirmPasswordController,
-                    passwordKey: passwordKey,
-                    confirmationPasswordKey: confirmPasswordKey,
-                  ),
-                  SizedBox(height: AppSize.instance.height * 0.01),
-                  CpButton(
-                    onPressed: () {
-                      var createPasswordBloc = context
-                          .read<CreatePasswordBloc>();
-                      if (!(passwordKey.currentState?.validate() ?? false))
-                        return;
-                      if (!(confirmPasswordKey.currentState?.validate() ??
-                          false))
-                        return;
-                      if (passwordController.text.length < 6) {
-                        createPasswordBloc.add(
-                          ShowErrorEvent(
-                            AppLocalizations.of(context)!.errorPasswordTooShort,
-                          ),
-                        );
-                        return;
-                      }
-                      if (passwordController.text.trim() !=
-                          confirmPasswordController.text.trim()) {
-                        createPasswordBloc.add(
-                          ShowErrorEvent(
-                            AppLocalizations.of(context)!.errorPasswordMismatch,
-                          ),
-                        );
-                        return;
-                      }
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {},
+      child: Scaffold(
+        body: BlocListener<CreatePasswordBloc, CreatePasswordState>(
+          listener: _handleCreatePasswordBloc,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(
+                left: 14.0,
+                right: 14.0,
+                top: MediaQuery.of(context).padding.top,
+              ),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CpArrowBack(),
+                    SizedBox(height: AppSize.instance.height * 0.05),
+                    CpText(isChangePassword: false),
+                    SizedBox(height: AppSize.instance.height * 0.02),
+                    CpErrorText(),
+                    SizedBox(height: AppSize.instance.height * 0.02),
+                    CpFields(
+                      passwordController: passwordController,
+                      confirmationPasswordController: confirmPasswordController,
+                      passwordKey: passwordKey,
+                      confirmationPasswordKey: confirmPasswordKey,
+                    ),
+                    SizedBox(height: AppSize.instance.height * 0.01),
+                    CpButton(
+                      onPressed: () {
+                        var createPasswordBloc = context
+                            .read<CreatePasswordBloc>();
+                        if (!(passwordKey.currentState?.validate() ?? false))
+                          return;
+                        if (!(confirmPasswordKey.currentState?.validate() ??
+                            false))
+                          return;
+                        if (passwordController.text.length < 6) {
+                          createPasswordBloc.add(
+                            ShowErrorEvent(
+                              AppLocalizations.of(
+                                context,
+                              )!.errorPasswordTooShort,
+                            ),
+                          );
+                          return;
+                        }
+                        if (passwordController.text.trim() !=
+                            confirmPasswordController.text.trim()) {
+                          createPasswordBloc.add(
+                            ShowErrorEvent(
+                              AppLocalizations.of(
+                                context,
+                              )!.errorPasswordMismatch,
+                            ),
+                          );
+                          return;
+                        }
 
-                      context.read<CreatePasswordBloc>().add(
-                        CreateNewPasswordEvent(
-                          email: widget.email,
-                          password: passwordController.text.trim(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
+                        context.read<CreatePasswordBloc>().add(
+                          CreateNewPasswordEvent(
+                            email: widget.email,
+                            password: passwordController.text.trim(),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -117,6 +124,7 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
     CreatePasswordState state,
   ) {
     if (state is CreatePasswordDoneState) {
+      context.read<CreatePasswordBloc>().add(ResetErrorEvent());
       context.go(SignInScreen.path);
     }
   }

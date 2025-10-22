@@ -7,4 +7,5 @@ abstract class AuthRepo {
   Future<(bool, String)> createNewPassword(String email, String password);
   Future<(bool,String)> forgetPasswordSendCode(String email);
   Future<(bool, String)> verifyForgetPasswordOtp(String email, String otp); 
+  Future<(bool, String)> resendOtp(String email);
 }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
@@ -47,7 +49,9 @@ class PsHeader extends StatelessWidget {
                           Expanded(
                             flex: 92,
                             child: AppButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                context.push(EditProfileScreen.path);
+                              },
                               gradient: Theme.of(
                                 context,
                               ).extension<AppGradients>()?.primaryButton,

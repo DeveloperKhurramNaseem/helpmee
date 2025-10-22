@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/blocs/auth/create_password_bloc/create_password_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/forget_password/forget_password_bloc.dart';
+import 'package:help_mee/presentation/blocs/auth/resend_otp/resend_otp_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
@@ -44,6 +45,7 @@ List<BlocProvider> getAuthBlocProviders() {
       },
     ),
     BlocProvider<CreatePasswordBloc>(create: (context) => CreatePasswordBloc(sl()),),
+    BlocProvider<ResendOtpBloc>(create: (context) => ResendOtpBloc(sl()),),
   ];
 }
 

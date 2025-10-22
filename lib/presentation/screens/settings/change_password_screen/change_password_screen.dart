@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_arrow_back.dart';
-import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_error_text.dart';
 import 'package:help_mee/presentation/screens/auth/create_password_screen/widgets/cp_text.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/widgets/cpp_button.dart';
+import 'package:help_mee/presentation/screens/settings/change_password_screen/widgets/cpp_error_text.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/widgets/cpp_password_fields.dart';
-import 'package:help_mee/util/common_widgets/show_toast.dart';
+// import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 /*
@@ -19,7 +20,7 @@ Whenever changes are required on this screen keep this in mind :)
 
 class ChangePasswordScreen extends StatefulWidget {
   static const path = '/change-password-screen';
-  
+
   const ChangePasswordScreen({super.key});
 
   @override
@@ -69,9 +70,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 children: [
                   CpArrowBack(),
                   SizedBox(height: AppSize.instance.height * 0.05),
-                  CpText(),
+                  CpText(isChangePassword: true,),
                   SizedBox(height: AppSize.instance.height * 0.02),
-                  CpErrorText(),
+                  CppErrorText(),
                   SizedBox(height: AppSize.instance.height * 0.02),
                   CppFields(
                     currentPasswordController: currentPasswordController,
@@ -86,7 +87,8 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     onPressed: () {
                       var createPasswordBloc = context
                           .read<ChangePasswordBloc>();
-                      if (!(currentPasswordKey.currentState?.validate() ?? false))
+                      if (!(currentPasswordKey.currentState?.validate() ??
+                          false))
                         return;
                       if (!(newPasswordKey.currentState?.validate() ?? false))
                         return;
@@ -96,8 +98,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       if (newPasswordController.text.length < 6) {
                         createPasswordBloc.add(
                           ShowErrorEvent(
-                            message: 
-                            AppLocalizations.of(context)!.errorPasswordTooShort,
+                            message: AppLocalizations.of(
+                              context,
+                            )!.errorPasswordTooShort,
                           ),
                         );
                         return;
@@ -106,8 +109,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                           confirmPasswordController.text.trim()) {
                         createPasswordBloc.add(
                           ShowErrorEvent(
-                            message: 
-                            AppLocalizations.of(context)!.errorPasswordMismatch,
+                            message: AppLocalizations.of(
+                              context,
+                            )!.errorPasswordMismatch,
                           ),
                         );
                         return;
@@ -115,10 +119,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
                       context.read<ChangePasswordBloc>().add(
                         ChangeCurrentPasswordEvent(
-                          currentPassword: currentPasswordController.text.trim(),
-                          newPassword: newPasswordController.text.trim(),                          
+                          currentPassword: currentPasswordController.text
+                              .trim(),
+                          newPassword: newPasswordController.text.trim(),
                         ),
                       );
+                      FocusManager.instance.primaryFocus?.unfocus();
                     },
                   ),
                 ],
@@ -138,9 +144,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       currentPasswordController.clear();
       newPasswordController.clear();
       confirmPasswordController.clear();
-      showToast(state.message);
-    } else if (state is ChangePasswordErrorState) {
-      showToast(state.error);
+      showAdaptiveDialog(
+        context: context,
+        builder: (_) {
+          return AlertDialog.adaptive(
+            content: Text('Your password has been updated successfully'),
+            actions: [
+              TextButton(
+                child: Text('OK'),
+                onPressed: () => context
+                  ..pop()
+                  ..pop(),
+              ),
+            ],
+          );
+        },
+      );
+      // showToast(state.message);
+      // context.pop();
     }
+    //  else if (state is ChangePasswordErrorState) {
+    //   showToast(state.error);
+    // }
   }
 }

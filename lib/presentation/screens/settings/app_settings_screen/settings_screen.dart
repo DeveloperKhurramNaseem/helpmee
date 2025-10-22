@@ -17,6 +17,7 @@ import 'package:help_mee/presentation/screens/settings/app_settings_screen/widge
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/widgets/settings_base_tile.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/widgets/settings_header.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/widgets/settings_text.dart';
+import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_restore_sheet.dart';
 import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/dependencies/init.dart';
@@ -45,7 +46,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           UpdateNotificationSettingBloc,
           UpdateNotificationSettingState
         >(listener: _updateNotificationListener),
-        BlocListener<DeleteProfileBloc,DeleteProfileState>(listener: _listenDeleteProfileListener)
+        BlocListener<DeleteProfileBloc, DeleteProfileState>(
+          listener: _listenDeleteProfileListener,
+        ),
       ],
       child: Scaffold(
         appBar: SettingsAppBar(),
@@ -122,14 +125,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.profileValidityLabel,
               image: AppIcons.profileValidity,
               onTap: () {
-                showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return DemoProfileSheet();
-                  },
-                );
+                                
               },
             ),
             SettingsBaseTile(
@@ -157,14 +153,41 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsBaseTile(
               titleText: AppLocalizations.of(context)!.termsAndConditionsLabel,
               image: AppIcons.privacyIcon,
-              onTap: () {                
-
-              },
+              onTap: () {},
             ),
             SettingsBaseTile(
               titleText: AppLocalizations.of(context)!.endUserAgreementTitle,
               image: AppIcons.privacyIcon,
               onTap: () {},
+            ),
+            SettingsCategoryText(category: 'Testing'),
+            SettingsBaseTile(
+              titleText: AppLocalizations.of(context)!.demoProfileTitle,
+              image: AppIcons.profileValidity,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return DemoProfileSheet();
+                  },
+                );
+              },
+            ),
+            SettingsBaseTile(
+              titleText: AppLocalizations.of(context)!.resetProductTitle,
+              image: AppIcons.profileValidity,
+              onTap: () {
+                showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return ProductRestoreSheet();
+                  },
+                );
+              },
             ),
             SettingsDivider(),
             SettingsBaseTile(
@@ -199,12 +222,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
     }
   }
 
-  void _listenDeleteProfileListener(BuildContext context, DeleteProfileState state) {
-    if(state is DeleteProfileDoneState){
+  void _listenDeleteProfileListener(
+    BuildContext context,
+    DeleteProfileState state,
+  ) {
+    if (state is DeleteProfileDoneState) {
       sl<TokenService>().saveToken('').then((_) {
-                  context.go(SignInScreen.path);
-                });
-    }else if(state is DeleteProfileErrorState){
+        context.go(SignInScreen.path);
+      });
+    } else if (state is DeleteProfileErrorState) {
       showToast(state.message);
     }
   }

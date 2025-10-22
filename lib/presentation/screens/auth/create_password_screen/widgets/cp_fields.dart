@@ -51,9 +51,14 @@ class CpPasswordField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           key: fieldKey,
+          validator: (value) => value!.isEmpty
+              ? AppLocalizations.of(context)!.enterPassword
+              : null,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: label.isEmpty ? AppLocalizations.of(context)!.passwordLabel : label,
+            labelText: label.isEmpty
+                ? AppLocalizations.of(context)!.passwordLabel
+                : label,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,
@@ -94,6 +99,9 @@ class CpConfirmPasswordField extends StatelessWidget {
         return TextFormField(
           controller: controller,
           key: fieldKey,
+          validator: (value) => value!.isEmpty
+              ? AppLocalizations.of(context)!.enterConfirmPassword
+              : null,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
             labelText: AppLocalizations.of(context)!.confirmPasswordLabel,

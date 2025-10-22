@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/forgot_password_screen.dart';
 
@@ -14,9 +15,7 @@ class SiForgetPassword extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
-              );
+              context.push(ForgotPasswordScreen.path);
             },
             child: Text(
               AppLocalizations.of(context)!.forgotPasswordLabel,

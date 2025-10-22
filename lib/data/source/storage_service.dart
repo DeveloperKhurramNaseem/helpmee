@@ -16,7 +16,7 @@ class StorageService {
   }
 
   AppUserModel getUser(){
-    return AppUserModel.fromMap(jsonDecode(sharedPreferences.getString(userKey) ?? '{}'));
+    return AppUserModel.fromMap(jsonDecode(sharedPreferences.getString(userKey) ?? '{"pin_code": null}'));
   }
 
     String getLanguage() {
