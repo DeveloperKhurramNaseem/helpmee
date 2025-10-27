@@ -9,11 +9,15 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_i
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_location_box.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_medical_information.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_medication_plan.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pet_characterestics_box.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pet_identification.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pet_name_and_race.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pictures_and_documents.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const path = '/edit-profile-screen';
-  const EditProfileScreen({super.key});
+  final bool isPet;
+  const EditProfileScreen({super.key, required this.isPet});
 
   @override
   State<EditProfileScreen> createState() => _EditProfileScreenState();
@@ -30,29 +34,44 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           slivers: [
             // Header Image
             EpHeaderImage(),
-            // First name and last name
-            EpHeaderFirstAndLastName(
-              firstNameController: TextEditingController()..text = 'Khuram',
-              lastNameController: TextEditingController()..text = 'Naseem',
-            ),
-            // Gender and birthday
-            EpHeaderGenderAndBirthday(
-              birthdayController: TextEditingController(),
-              genderController: TextEditingController(),
-            ),
-            // Height and weight
-            EpHeaderHeightAndWeight(
-              heightController: TextEditingController()..text = '170',
-              weightController: TextEditingController()..text = '60',
-            ),
-            // Blood group
-            EpHeaderBloodGroup(),
+            if (widget.isPet) ...[
+              EpPetNameField(
+                controller: TextEditingController()..text = 'Buddy',
+              ),
+              EpPetRaceField(
+                controller: TextEditingController()..text = 'Buddy',
+              ),
+            ] else ...[
+              // First name and last name
+              EpHeaderFirstAndLastName(
+                firstNameController: TextEditingController()..text = 'Khuram',
+                lastNameController: TextEditingController()..text = 'Naseem',
+              ),
+              // Gender and birthday
+              EpHeaderGenderAndBirthday(
+                birthdayController: TextEditingController(),
+                genderController: TextEditingController(),
+              ),
+              // Height and weight
+              EpHeaderHeightAndWeight(
+                heightController: TextEditingController()..text = '170',
+                weightController: TextEditingController()..text = '60',
+              ),
+              // Blood group
+              EpHeaderBloodGroup(),
+            ],
             // Important Box (Containing important note and voice note)
             EpImportantWidget(),
             // Emergency contacts Part
             EpEmergencyContacts(),
             // Location Part
             EpLocationBox(),
+            if (widget.isPet)
+              // Pet Characterestics Part
+              EpPetCharacteresticsBox(),
+            if (widget.isPet)
+              // Pet Identification Part
+              EpPetIdentificationBox(),
             // Medical Information Part
             EpMedicalInformation(),
             // Medication Plan part
@@ -61,8 +80,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             EpImportantDocuments(),
             // Pictures and documents
             EpPicturesAndDocuments(),
-            // Insurance Information
-            EpInsuranceInformation(),
+            if (!widget.isPet)
+              // Insurance Information
+              EpInsuranceInformation(),
           ],
         ),
       ),

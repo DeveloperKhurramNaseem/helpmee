@@ -50,7 +50,10 @@ class PsHeader extends StatelessWidget {
                             flex: 92,
                             child: AppButton(
                               onPressed: () {
-                                context.push(EditProfileScreen.path);
+                                context.push(
+                                  EditProfileScreen.path,
+                                  extra: false,
+                                );
                               },
                               gradient: Theme.of(
                                 context,

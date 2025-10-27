@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/create_new_contact.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/icons.dart';
@@ -14,7 +15,7 @@ class EpEmergencyContacts extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 14.0),
       sliver: SliverToBoxAdapter(
         child: EpInfoBaseBox(
-          titleText: 'Emergency contacts',
+          titleText: AppLocalizations.of(context)!.emergencyContacts,
           titleBorderColor: Theme.of(context).colorScheme.secondary,
           bodyBorderColor: AppLightThemeColors.boxBorderColor,
           child: Column(
@@ -37,7 +38,7 @@ class AddContactTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EpBaseAddTile(
-      title: 'Add contact',
+      title: AppLocalizations.of(context)!.addContactButton,
       onTap: () {
         showModalBottomSheet(
           context: context,
@@ -125,19 +126,25 @@ class ContactsTitleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10.0),
-        child: Row(
-          spacing: 15,
-          children: [
-            for (var i = 0; i < 6; i++)
+      child: SizedBox(
+        width: MediaQuery.sizeOf(context).width,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            spacing: 15,
+            children: [
               ContactsTitle(
-                title: 'Contact ${i + 1}',
-                isSelected: i == selectedIndex,
+                title: localization.contactsTabTitle,
+                isSelected: true,
               ),
-          ],
+              ContactsTitle(title: localization.doctor, isSelected: false),
+              ContactsTitle(title: localization.address, isSelected: false),
+            ],
+          ),
         ),
       ),
     );

@@ -10,6 +10,7 @@ class CreateNewContactSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: Wrap(
@@ -18,7 +19,7 @@ class CreateNewContactSheet extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                'Create new contact',
+                localization.createNewContact,
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
               ),
             ],
@@ -29,7 +30,7 @@ class CreateNewContactSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Add the details below to create a new contact.',
+                  localization.createNewContactDetail,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: AppLightThemeColors.secondaryTextColor,
@@ -42,21 +43,21 @@ class CreateNewContactSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 10),
             child: EpHeaderInfoBaseField(
-              label: 'Contact Name',
+              label: localization.contactNameLabel,
               controller: TextEditingController()..text = 'Khuram Naseem',
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 10),
             child: EpHeaderInfoBasePhoneNoField(
-              label: 'Phone Number',
+              label: localization.phoneNumberLabel,
               controller: TextEditingController(),
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 10),
             child: EpHeaderInfoBasePhoneNoField(
-              label: 'Whatsapp Number (optional)',
+              label: localization.whatsappNumberLabel,
               controller: TextEditingController(),
             ),
           ),
@@ -84,7 +85,7 @@ class CreateNewContactSheet extends StatelessWidget {
                 ),
                 Expanded(
                   child: Text(
-                    ' I have received the consent of this contact to publish the contact details on my profile page of the emergency passport.',
+                    localization.contactConsentVerification,
                     style: TextStyle(
                       color: Color.fromRGBO(0, 0, 0, 0.7),
                       fontWeight: FontWeight.w400,

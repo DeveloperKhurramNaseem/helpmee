@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_medical_information_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
@@ -12,7 +13,7 @@ class EpMedicalInformation extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 14.0),
       sliver: SliverToBoxAdapter(
         child: EpInfoBaseBox(
-          titleText: 'Medical information',
+          titleText: AppLocalizations.of(context)!.medicalInformation,
           titleBorderColor: Theme.of(context).colorScheme.secondary,
           bodyBorderColor: AppLightThemeColors.boxBorderColor,
           child: Column(
@@ -36,7 +37,7 @@ class AddMedicalInformationTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return EpBaseAddTile(
-      title: 'Add medical information',
+      title: AppLocalizations.of(context)!.addMedicationInformationButton,
       onTap: () {
         showModalBottomSheet(
           context: context,

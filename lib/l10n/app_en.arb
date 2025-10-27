@@ -135,6 +135,195 @@
 "deleteAccountPopupDescriptionChild" : "By pressing the confirm button you will permanently delete your account. Afterwards you won't be able to reactivate your account or retrieve any of the information you've added. As this is a sub-profile, the main profile will remain.",
 "newPasswordLabel" : "New password",
 "currentPasswordLabel" : "Current password",
-"changePasswordButton" : "Change password"
+"changePasswordButton" : "Change password",
+
+
+"genderLabel" : "Gender",
+
+"heightCm" :  "Height (cm)",
+
+"weightKg" :  "Weight (kg)",
+
+"bloodGroup" : "Blood group",
+
+"birthday" : "Birthday",
+
+"enterDOB" : "Enter date of birth",
+
+"addImportantNote" : "Add an important text note...",
+
+"important" : "Important",
+
+"emergencyContacts" : "Emergency contacts",
+
+"doctor" : "Doctor",
+
+"address" : "Address",
+
+"medicalInformation" : "Medical Information",
+
+"picturesAndDocuments" : "Pictures & documents",
+
+"addPicturesAndDocuments" : "Add pictures & documents",
+
+"addPicturesORDocuments" : "Add picture / document",
+
+"insuranceInformation" : "Insurance information",
+
+"insuranceCompany" : "Insurance company",
+
+"insuranceID" : "Insurance ID",
+
+"selectedDateOlderThanCurrentDate" : "Selected date is older than current date",
+
+"writeDetailsHere" : "Write your details here",
+
+"doYouHaveAllergies" : "Do you have allergies? \n Then please enter the details in the field below.",
+
+"doYouSufferFromInfectiousDiseases" : "Do you suffer from infectious diseases? \n Then please enter the details in the field below.",
+
+"yesSufferingFromCoagulationDisorders" : "Yes, I’m suffering from coagulation disorders",
+
+"yesUsingPacemakerOrDefibrillator" : "Yes, I use a pacemaker or defibrillator",
+
+"haveYouHadHeartAttacks" : "Have you had one or more heart attacks? \n Then please enter the details in the field below.",
+
+"doYouSufferFromDiabetes" : "Do you suffer from diabetes? \n Then please enter the details in the field below.",
+
+"yesOnDialysis" : "Yes, I am on dialysis",
+
+"yesSufferingFromAsthmaOrCOPD" : "Yes, I suffer from asthma or COPD",
+
+"yesSufferingFromSeizureDisorder" : "Yes, I suffer from seizure disorder (like epilepsy)",
+
+"doYouHaveMentalIllness" : "Do you have a mental illness? \n Then please enter the details in the field below.",
+
+"doYouHaveOtherIllnesses" : "Do you have any other illnesses or conditions? \n Then please enter the details in the field below.",
+
+"fileName" : "File name",
+
+"upload" : "Upload",
+
+"chooseFileType" : "Choose file type",
+
+"photoFromLibrary" : "Photo from library",
+
+"photoFromCamera" : "Photo from camera",
+
+"document" : "Document",
+
+"cameraNotAvailable" : "Camera not available",
+
+"cameraNotAvailableOnDevice" : "The camera is not available on this device",
+
+"productsAndServices" : "Products & Services",
+
+"genderMale" : "Male",
+
+"genderFemale" : "Female",
+
+"genderPreferNotSay" : "Prefer not to say",
+
+"genderCustom" : "Diverse",
+
+"pinReminderTextOptional" :  "PIN reminder text (optional)",
+
+"uploadImageOrDocument" :  "Upload image / document",
+"uploadImageOrDocument" :  "Upload image / document",
+
+"picturesAndDocuments" : "Pictures and documents",
+
+"managePIN" : "Manage PIN",
+
+"recentNotifications" : "Recent notifications",
+
+"notifications" : "Notifications",
+
+"addProduct" : "Add product",
+
+"productDescription" : "Product description",
+
+"uploadImportantDocuments" :   "Upload all important documents here: \n Vaccination card, heart card, allergy passport, other.",
+
+"setPIN" : "Set PIN",
+
+"set" : "Set",
+
+"updatePIN" : "Update PIN",
+
+"update" : "Update",
+
+"backButtonTitle" : "Back",
+
+"deactivateService" : "Deactivate service",
+
+"updateDoctorContact" : "Update Doctor",
+
+"updateContact" : "Update Contact",
+
+"name" : "Name",
+
+"race" : "Race",
+
+"character" : "Character",
+
+"characteristics" : "Characteristics",
+
+"identification" : "Identification",
+
+"chipped" : "Chipped",
+
+"tassoNumber" : "Tasso no.",
+
+"chipLocation" : "Chip position",
+
+"taxNumber" : "Tax no.",
+
+"specialFeatures" : " Special features",
+
+"connectivityError" : "Connection lost. Please check your internet connection and try again.",
+
+"accountSettings" : "Account settings",
+"recordAudio" :  "Record voice",
+"contactsTabTitle" :  "Contacts",
+"addContactButton" : "Add contact",
+"emergencySubTitle" : "In an emergency, a first aider can send their location to you to navigate there.",
+"locationSetting" : "Location settings",
+"addMedicationInformationButton" : "Add medical information",
+"addMedicationPlanButton" : "Add medication plan",
+
+"medicationPlanLabel" : "Medication plan",
+ "recordAudioDetail" : "Here you can save a voice recording of up to 15sec that can be played back in an emergency. \n\n Examples \n Instructions for the first aider or a reassuring, familiar voice for the person in distress.",
+ "createNewContact" : "Create new contact",
+
+"createNewContactDetail" : "Add the details below to create a new contact",
+
+"contactNameLabel" : "Contact Name",
+
+"whatsappNumberLabel" : "WhatsApp number (optional)",
+
+"phoneNumberLabel" : "Phone number",
+
+"registerNewDoctor" : "Register new doctor",
+
+"registerNewDoctorDetail" : "Provide the information below to register your doctor.",
+
+"doctorNameLabel" : "Doctor Name",
+
+"doctorConsentVerification" : "I have received the consent of my doctor to publish the contact details in my profile",
+
+"contactConsentVerification" : "I have received the consent of this contact to publish the contact details in my profile",
+
+"diseaseInformationConsent" : "I agree that this information is accessible to all persons who have access to my HelpMee profile. I have the choice to protect this information with a PIN code after saving it.",
+
+"addContactButton" : "Add contact",
+
+"addDoctorButton" : "Add doctor",
+
+"locationSettingSubtitle" : "Here you can decide how you want to be notified when a first aider sends their location to you.",
+"sendsEmail" : "Sends you an email",
+"addAddress" : "Add address",
+
+"addressDescription" : "Address description"
 
 }

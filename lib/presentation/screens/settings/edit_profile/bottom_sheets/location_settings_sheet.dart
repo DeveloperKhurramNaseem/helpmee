@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_new_person_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -11,6 +12,7 @@ class LocationSettingsBottomSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
       child: Wrap(
@@ -21,7 +23,7 @@ class LocationSettingsBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Location settings',
+                  localization.locationSetting,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
@@ -30,7 +32,7 @@ class LocationSettingsBottomSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
             child: Text(
-              'Here you can decide how you want to be notified when a first aider sends their location to you.',
+              localization.locationSettingSubtitle,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppLightThemeColors.secondaryTextColor,
@@ -80,22 +82,20 @@ class LocationSettingsBottomSheet extends StatelessWidget {
                     ),
                     NotificationListTile(
                       initialValue: true,
-                      text: 'Push notification',
-                      label:
-                          'Throws a push message, even if the app is closed.',
+                      text: localization.pushNotificationLabel,
+                      label: localization.sendPushMessageLabel,
                       onChanged: (value) {},
                     ),
                     NotificationListTile(
                       initialValue: false,
-                      text: 'In-app notification',
-                      label:
-                          'Shows notification in the home menu\'s notification center',
+                      text: localization.inAppNotification,
+                      label: localization.sendNotificationsMessageLabel,
                       onChanged: (value) {},
                     ),
                     NotificationListTile(
                       initialValue: false,
-                      text: 'Email notification',
-                      label: 'Sends you an email',
+                      text: localization.emailNotification,
+                      label: localization.sendsEmail,
                       onChanged: (value) {},
                     ),
                   ],
@@ -131,7 +131,7 @@ class LocationSettingsBottomSheet extends StatelessWidget {
                     ),
                     NotificationListTile(
                       initialValue: false,
-                      text: 'Email notification',
+                      text: localization.emailNotification,
                       label: 'Sends an email to addresses below',
                       onChanged: (value) {},
                     ),

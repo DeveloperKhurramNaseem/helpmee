@@ -69,7 +69,11 @@ class Routing {
         path: ForgotPasswordScreen.path,
         builder: (context, state) => ForgotPasswordScreen(),
       ),
-      GoRoute(path: EditProfileScreen.path , builder: (context, state) => EditProfileScreen()),
+      GoRoute(
+        path: EditProfileScreen.path,
+        builder: (context, state) =>
+            EditProfileScreen(isPet: (state.extra ?? false) as bool),
+      ),
     ],
   );
 }

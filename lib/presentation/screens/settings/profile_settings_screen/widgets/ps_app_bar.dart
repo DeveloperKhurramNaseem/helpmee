@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -28,24 +30,29 @@ class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
             ],
           ),
           UnconstrainedBox(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 4.0),
-              child: Ink(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.primary,
-                    width: 2,
+            child: GestureDetector(
+              onTap: () {
+                context.push(EditProfileScreen.path, extra: true);
+              },
+              child: Padding(
+                padding: const EdgeInsets.only(right: 4.0),
+                child: Ink(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
                   ),
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-                  child: Text(
-                    AppLocalizations.of(context)!.profilePreviewLabel,
-                    style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontWeight: FontWeight.w500,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                    child: Text(
+                      AppLocalizations.of(context)!.profilePreviewLabel,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
                 ),

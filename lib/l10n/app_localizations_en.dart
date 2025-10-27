@@ -398,4 +398,296 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get currentPasswordLabel => 'Current password';
+
+  @override
+  String get genderLabel => 'Gender';
+
+  @override
+  String get heightCm => 'Height (cm)';
+
+  @override
+  String get weightKg => 'Weight (kg)';
+
+  @override
+  String get bloodGroup => 'Blood group';
+
+  @override
+  String get birthday => 'Birthday';
+
+  @override
+  String get enterDOB => 'Enter date of birth';
+
+  @override
+  String get addImportantNote => 'Add an important text note...';
+
+  @override
+  String get important => 'Important';
+
+  @override
+  String get emergencyContacts => 'Emergency contacts';
+
+  @override
+  String get doctor => 'Doctor';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get medicalInformation => 'Medical Information';
+
+  @override
+  String get picturesAndDocuments => 'Pictures and documents';
+
+  @override
+  String get addPicturesAndDocuments => 'Add pictures & documents';
+
+  @override
+  String get addPicturesORDocuments => 'Add picture / document';
+
+  @override
+  String get insuranceInformation => 'Insurance information';
+
+  @override
+  String get insuranceCompany => 'Insurance company';
+
+  @override
+  String get insuranceID => 'Insurance ID';
+
+  @override
+  String get selectedDateOlderThanCurrentDate =>
+      'Selected date is older than current date';
+
+  @override
+  String get writeDetailsHere => 'Write your details here';
+
+  @override
+  String get doYouHaveAllergies =>
+      'Do you have allergies? \n Then please enter the details in the field below.';
+
+  @override
+  String get doYouSufferFromInfectiousDiseases =>
+      'Do you suffer from infectious diseases? \n Then please enter the details in the field below.';
+
+  @override
+  String get yesSufferingFromCoagulationDisorders =>
+      'Yes, I’m suffering from coagulation disorders';
+
+  @override
+  String get yesUsingPacemakerOrDefibrillator =>
+      'Yes, I use a pacemaker or defibrillator';
+
+  @override
+  String get haveYouHadHeartAttacks =>
+      'Have you had one or more heart attacks? \n Then please enter the details in the field below.';
+
+  @override
+  String get doYouSufferFromDiabetes =>
+      'Do you suffer from diabetes? \n Then please enter the details in the field below.';
+
+  @override
+  String get yesOnDialysis => 'Yes, I am on dialysis';
+
+  @override
+  String get yesSufferingFromAsthmaOrCOPD =>
+      'Yes, I suffer from asthma or COPD';
+
+  @override
+  String get yesSufferingFromSeizureDisorder =>
+      'Yes, I suffer from seizure disorder (like epilepsy)';
+
+  @override
+  String get doYouHaveMentalIllness =>
+      'Do you have a mental illness? \n Then please enter the details in the field below.';
+
+  @override
+  String get doYouHaveOtherIllnesses =>
+      'Do you have any other illnesses or conditions? \n Then please enter the details in the field below.';
+
+  @override
+  String get fileName => 'File name';
+
+  @override
+  String get upload => 'Upload';
+
+  @override
+  String get chooseFileType => 'Choose file type';
+
+  @override
+  String get photoFromLibrary => 'Photo from library';
+
+  @override
+  String get photoFromCamera => 'Photo from camera';
+
+  @override
+  String get document => 'Document';
+
+  @override
+  String get cameraNotAvailable => 'Camera not available';
+
+  @override
+  String get cameraNotAvailableOnDevice =>
+      'The camera is not available on this device';
+
+  @override
+  String get genderMale => 'Male';
+
+  @override
+  String get genderFemale => 'Female';
+
+  @override
+  String get genderPreferNotSay => 'Prefer not to say';
+
+  @override
+  String get genderCustom => 'Diverse';
+
+  @override
+  String get uploadImageOrDocument => 'Upload image / document';
+
+  @override
+  String get recentNotifications => 'Recent notifications';
+
+  @override
+  String get notifications => 'Notifications';
+
+  @override
+  String get addProduct => 'Add product';
+
+  @override
+  String get productDescription => 'Product description';
+
+  @override
+  String get uploadImportantDocuments =>
+      'Upload all important documents here: \n Vaccination card, heart card, allergy passport, other.';
+
+  @override
+  String get backButtonTitle => 'Back';
+
+  @override
+  String get deactivateService => 'Deactivate service';
+
+  @override
+  String get updateDoctorContact => 'Update Doctor';
+
+  @override
+  String get updateContact => 'Update Contact';
+
+  @override
+  String get name => 'Name';
+
+  @override
+  String get race => 'Race';
+
+  @override
+  String get character => 'Character';
+
+  @override
+  String get characteristics => 'Characteristics';
+
+  @override
+  String get identification => 'Identification';
+
+  @override
+  String get chipped => 'Chipped';
+
+  @override
+  String get tassoNumber => 'Tasso no.';
+
+  @override
+  String get chipLocation => 'Chip position';
+
+  @override
+  String get taxNumber => 'Tax no.';
+
+  @override
+  String get specialFeatures => ' Special features';
+
+  @override
+  String get connectivityError =>
+      'Connection lost. Please check your internet connection and try again.';
+
+  @override
+  String get accountSettings => 'Account settings';
+
+  @override
+  String get recordAudio => 'Record voice';
+
+  @override
+  String get contactsTabTitle => 'Contacts';
+
+  @override
+  String get addContactButton => 'Add contact';
+
+  @override
+  String get emergencySubTitle =>
+      'In an emergency, a first aider can send their location to you to navigate there.';
+
+  @override
+  String get locationSetting => 'Location settings';
+
+  @override
+  String get addMedicationInformationButton => 'Add medical information';
+
+  @override
+  String get addMedicationPlanButton => 'Add medication plan';
+
+  @override
+  String get medicationPlanLabel => 'Medication plan';
+
+  @override
+  String get recordAudioDetail =>
+      'Here you can save a voice recording of up to 15sec that can be played back in an emergency. \n\n Examples \n Instructions for the first aider or a reassuring, familiar voice for the person in distress.';
+
+  @override
+  String get createNewContact => 'Create new contact';
+
+  @override
+  String get createNewContactDetail =>
+      'Add the details below to create a new contact';
+
+  @override
+  String get contactNameLabel => 'Contact Name';
+
+  @override
+  String get whatsappNumberLabel => 'WhatsApp number (optional)';
+
+  @override
+  String get phoneNumberLabel => 'Phone number';
+
+  @override
+  String get registerNewDoctor => 'Register new doctor';
+
+  @override
+  String get registerNewDoctorDetail =>
+      'Provide the information below to register your doctor.';
+
+  @override
+  String get doctorNameLabel => 'Doctor Name';
+
+  @override
+  String get doctorConsentVerification =>
+      'I have received the consent of my doctor to publish the contact details in my profile';
+
+  @override
+  String get contactConsentVerification =>
+      'I have received the consent of this contact to publish the contact details in my profile';
+
+  @override
+  String get diseaseInformationConsent =>
+      'I agree that this information is accessible to all persons who have access to my HelpMee profile. I have the choice to protect this information with a PIN code after saving it.';
+
+  @override
+  String get addDoctorButton => 'Add doctor';
+
+  @override
+  String get locationSettingSubtitle =>
+      'Here you can decide how you want to be notified when a first aider sends their location to you.';
+
+  @override
+  String get sendsEmail => 'Sends you an email';
+
+  @override
+  String get addAddress => 'Add address';
+
+  @override
+  String get addressDescription => 'Address description';
 }

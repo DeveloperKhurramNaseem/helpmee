@@ -131,5 +131,194 @@
 "deleteAccountPopupDescriptionChild" : "Wenn Sie auf Bestätigen klicken, wird Ihr Benutzerkonto dauerhaft gelöscht. Es wird daraufhin nicht mehr möglich sein es zu reaktivieren oder auf den Inhalt zuzugreifen. Da dies ein Unterprofil ist, wird das Hauptprofil bestehen bleiben.",
 "newPasswordLabel" : "Neues Passwort",
 "currentPasswordLabel" : "Aktuelles Passwort",
-"changePasswordButton" : "Passwort ändern"
+"changePasswordButton" : "Passwort ändern",
+
+"genderLabel" : "Geschlecht",
+
+"heightCm" : "Größe (cm)",
+
+"weightKg" : "Gewicht (kg)",
+
+"bloodGroup" : "Blutgruppe",
+
+"birthday" : "Geburtstag",
+
+"enterDOB" : "Geburtstag eingeben",
+
+"addImportantNote" : "Eine wichtige Textnotiz hinzufügen...",
+
+"important" : "Wichtig",
+
+"emergencyContacts" : "Notfallkontakte",
+
+"doctor" : "Arzt",
+
+"address" : "Adresse",
+
+"medicalInformation" : "Medizinische Informationen",
+
+"picturesAndDocuments" : " Bilder & Dokumente",
+
+"addPicturesAndDocuments" : "Bilder & Dokumente hinzufügen",
+
+"addPicturesORDocuments" : "Bilder / Dokumente hinzufügen",
+
+"insuranceInformation" : "Versicherungsinformationen",
+
+"insuranceCompany" : "Versicherungsunternehmen",
+
+"insuranceID" : "Versicherungsnummer",
+
+"selectedDateOlderThanCurrentDate" : "Ausgewähltes Datum ist älter als aktuelles Datum",
+
+"writeDetailsHere" : "Details hier eingeben",
+
+"doYouHaveAllergies" : "Haben Sie Allergien? \n Dann geben Sie bitte die Details in das untenstehende Feld ein.",
+
+"doYouSufferFromInfectiousDiseases" : "Leiden Sie an Infektionskrankheiten? \n Dann geben Sie bitte die Details in das untenstehende Feld ein.",
+"yesSufferingFromCoagulationDisorders" : "Ja, ich leide an Gerinnungsstörungen",
+
+"yesUsingPacemakerOrDefibrillator" : "Ja, ich habe einen Herzschrittmacher oder Defibrillator",
+
+"haveYouHadHeartAttacks" : "Hatten Sie einen oder mehrere Herzinfarkte? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"doYouSufferFromDiabetes" : "Sind Sie an Diabetes erkrankt? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"yesOnDialysis" : "Ja, ich bin an der Dialyse",
+
+"yesSufferingFromAsthmaOrCOPD" : "Ja, ich leide an Asthma oder COPD",
+
+"yesSufferingFromSeizureDisorder" : "Ja, ich leide an Anfallsleiden (wie Epilepsie)",
+
+"doYouHaveMentalIllness" : "Haben Sie eine psychische Krankheit? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"doYouHaveOtherIllnesses" : "Haben Sie andere Krankheiten oder Leiden?  \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"fileName" : "Dateiname",
+
+"upload" : "Hochladen",
+
+"chooseFileType" : "Dateityp auswählen",
+
+"photoFromLibrary" : "Foto aus der Gallerie",
+
+"photoFromCamera" : "Foto mit der Kamera aufnehmen",
+
+"document" : "Dokumente",
+
+"cameraNotAvailable" : "Kamera nicht verfügbar",
+
+"cameraNotAvailableOnDevice" : "Die Kamera ist auf diesem Gerät nicht verfügbar",
+
+"productsAndServices" : "Produkte & services",
+
+"genderMale" : "Männlich",
+
+"genderFemale" : "Weiblich",
+
+"genderPreferNotSay" : "Möchte ich nicht sagen",
+
+"genderCustom" : "Divers",
+
+"pinReminderTextOptional" : "PIN Erinnerungstext (optional)",
+
+"uploadImageOrDocument" : "Bild / Dokument hochladen",
+
+"picturesAndDocuments" : "Bilder und Dokumente",
+
+"managePIN" : "PIN verwalten",
+
+"recentNotifications" : "Letzte Benachrichtigungen",
+
+"notifications" : "Benachrichtigungen",
+
+"addProduct" : "Produkt hinzufügen",
+
+"productDescription" : "Produktbeschreibung",
+
+"uploadImportantDocuments" : "Hier wichtige Dokumente hochladen: Impfausweis, Schrittmacherausweis, Allergiepass, etc.",
+
+"setPIN" : "PIN setzen",
+
+"set" : "Speichern",
+
+"updatePIN" : "PIN aktualisieren",
+
+"update" : "Aktualisieren",
+
+"backButtonTitle" : "Zurück",
+
+"deactivateService" : "Dienst deaktivieren",
+
+"updateDoctorContact" : "Arzt aktualisieren",
+
+"updateContact" : "Kontakt aktualisieren",
+
+"name" : "Name",
+
+"race" : "Rasse",
+
+"character" : "Charakter",
+
+"characteristics" : "Charakteristik",
+
+"identification" : "Identifikation",
+
+"chipped" : "Gechipt",
+
+"tassoNumber" : "Tasso-Nr.",
+
+"chipLocation" : "Chip-Position",
+
+"taxNumber" : "Steuer-Nr.",
+
+"specialFeatures" : "Spezielles",
+
+"connectivityError" : "Verbindung verloren. Bitte überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut.",
+
+"accountSettings" : "Konto-Einstellungen",
+"recordAudio" :  "Sprache aufzeichnen",
+"contactsTabTitle" :  "Kontakte",
+"addContactButton" : "Kontakt hinzufügen",
+"emergencySubTitle" : "Im Notfall kann ein Ersthelfer seinen Standort an Sie übermitteln, damit Sie dorthin navigieren können.",
+"locationSetting" : "Standort-Einstellungen",
+"addMedicationInformationButton" : "Medizinische Informationen hinzufügen",
+"addMedicationPlanButton" : "Medikationsplan hinzufügen",
+
+"medicationPlanLabel" : "Medikationsplan",
+"recordAudioDetail" : "Hier können Sie eine Sprachnotiz von bis zu 15 Sekunden speichern, die im Notfall abgespielt werden kann. \n\n Beispiele \n Anweisungen für den Ersthelfer oder eine beruhigende, vertraute Stimme für die in Not geratene Person.",
+"createNewContact" : "Neuen Kontakt erstellen",
+
+"createNewContactDetail" : "Fügen Sie Details hinzu, um einen neuen Kontakt zu erstellen",
+
+"contactNameLabel" : "Kontaktname",
+
+"whatsappNumberLabel" : "WhatsApp Nummer (optional)",
+
+"phoneNumberLabel" : "Telefonnummer",
+
+"registerNewDoctor" : "Neuen Arzt hinzufügen",
+
+"registerNewDoctorDetail" : "Fügen Sie Informationen hinzu, um einen neuen Arzt hinzuzufügen",
+
+"doctorNameLabel" : "Arzt Name",
+
+"doctorConsentVerification" : "Ich habe die Einwilligung des Arztes erhalten die Kontaktdaten in meinem Profil zu veröffentlichen",
+
+"contactConsentVerification" : "Ich habe die Einwilligung der Person die Kontaktdaten in meinem Profil zu veröffentlichen",
+
+"diseaseInformationConsent" : "Ich stimme zu, dass diese Information für alle Personen zugänglich ist, die auf mein HelpMee Profil Zugriff haben. Ich habe die Wahl diese Information nach dem Abspeichern mit einem PIN-Code zu schützen.",
+
+"addContactButton" : "Kontakt hinzufügen",
+
+"addDoctorButton" : "Arzt hinzufügen",
+
+"locationSettingSubtitle" : "Hier können Sie entscheiden wie Sie benachrichtigt werden wollen, wenn ein Ersthelfer seinen Standort an Sie übermittelt.",
+"sendsEmail" : "Sendet Ihnen eine Email",
+"addAddress" : "Adresse hinzufügen",
+
+"addressDescription" : "Adressbeschreibung"
+
+
+
 }

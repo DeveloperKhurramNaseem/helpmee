@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/location_settings_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/icons.dart';
@@ -36,7 +37,7 @@ class EpLocationBox extends StatelessWidget {
                           children: [
                             Expanded(
                               child: Text(
-                                'In an emergency, a first aider can send their location to you to navigate there',
+                                AppLocalizations.of(context)!.emergencySubTitle,
                                 style: TextStyle(
                                   color: Color.fromRGBO(0, 0, 0, 0.6),
                                   fontSize: 15,
@@ -69,7 +70,7 @@ class EpLocationBox extends StatelessWidget {
                                 context,
                               ).extension<AppGradients>()!.primaryButton,
                               child: Text(
-                                'Location settings',
+                                AppLocalizations.of(context)!.locationSetting,
                                 textAlign: TextAlign.center,
                                 style: TextStyle(fontWeight: FontWeight.w500),
                               ),

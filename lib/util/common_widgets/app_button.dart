@@ -4,11 +4,13 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
   final Gradient? gradient;
+  final EdgeInsetsGeometry? padding;
 
   const AppButton({
     super.key,
     required this.onPressed,
     required this.child,
+    this.padding,
     this.gradient = const LinearGradient(
       colors: [Color(0xFF4CAF50), Color(0xFF81C784)], // Default green gradient
     ),
@@ -31,7 +33,7 @@ class AppButton extends StatelessWidget {
         ),
         child: Container(          
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),

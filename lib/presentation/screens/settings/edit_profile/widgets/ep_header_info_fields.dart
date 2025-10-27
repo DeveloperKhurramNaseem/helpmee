@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
@@ -11,6 +12,7 @@ class EpHeaderInfoBaseField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController controller;
   final Widget? trailing;
+  final String? hint;
 
   const EpHeaderInfoBaseField({
     super.key,
@@ -18,6 +20,7 @@ class EpHeaderInfoBaseField extends StatelessWidget {
     required this.controller,
     this.readOnly = false,
     this.trailing,
+    this.hint,
   });
 
   @override
@@ -38,11 +41,17 @@ class EpHeaderInfoBaseField extends StatelessWidget {
         ),
         decoration: InputDecoration(
           labelText: label,
+          hintText: hint,
           labelStyle: TextStyle(
             fontWeight: FontWeight.w400,
             color: Color.fromRGBO(0, 0, 0, 0.8),
           ),
+          floatingLabelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(0, 0, 0, 0.8),
+          ),
           border: InputBorder.none,
+          focusedBorder: InputBorder.none,
           suffixIcon: trailing,
           suffixIconConstraints: BoxConstraints(
             maxHeight: 22,
@@ -171,6 +180,14 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           labelText: label,
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(0, 0, 0, 0.8),
+          ),
+          floatingLabelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(0, 0, 0, 0.8),
+          ),
           border: InputBorder.none,
           suffixIcon: trailing,
           suffixIconConstraints: BoxConstraints(
@@ -202,16 +219,14 @@ class EpHeaderFirstAndLastName extends StatelessWidget {
           children: [
             Expanded(
               child: EpHeaderInfoBaseField(
-                label: 'First name',
-
+                label: AppLocalizations.of(context)!.firstNameLabel,
                 controller: firstNameController,
               ),
             ),
             const SizedBox(width: 10),
             Expanded(
               child: EpHeaderInfoBaseField(
-                label: 'Last name',
-
+                label: AppLocalizations.of(context)!.lastNameLabel,
                 controller: lastNameController,
               ),
             ),
@@ -239,7 +254,7 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
           children: [
             Expanded(
               child: EpHeaderInfoBaseField(
-                label: 'Height (cm)',
+                label: AppLocalizations.of(context)!.heightCm,
 
                 controller: heightController,
               ),
@@ -247,7 +262,7 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: EpHeaderInfoBaseField(
-                label: 'Weight (kg)',
+                label: AppLocalizations.of(context)!.weightKg,
 
                 controller: weightController,
               ),
@@ -269,13 +284,14 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return SliverToBoxAdapter(
       child: Row(
         children: [
           Expanded(
             child: EpHeaderInfoBaseDropDownField(
-              items: ['Male', 'Female'],
-              label: 'Gender',
+              items: [localization.genderMale, localization.genderFemale],
+              label: localization.genderLabel,
               onChanged: (value) {},
               trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),
@@ -283,7 +299,7 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
           const SizedBox(width: 10),
           Expanded(
             child: EpHeaderInfoBaseField(
-              label: 'Birthday',
+              label: localization.birthday,
 
               readOnly: true,
               controller: birthdayController
@@ -319,7 +335,7 @@ class EpHeaderBloodGroup extends StatelessWidget {
           Expanded(
             child: EpHeaderInfoBaseDropDownField(
               items: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
-              label: 'Blood group',
+              label: AppLocalizations.of(context)!.bloodGroup,
               onChanged: (value) {},
               trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),

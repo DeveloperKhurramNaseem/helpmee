@@ -38,4 +38,9 @@ class AppIcons {
   static const String phone = '$_base/phone.svg';
   static const String whatsappIcon = '$_base/whatsapp_icon.svg';
   static const String phoneIcon = '$_base/phone_icon.svg';
+  static const String microphoneIcon = '$_base/microphone.svg';
+  static const String microphoneOnlyIcon = '$_base/microphone_only.svg';
+  static const String playIcon = '$_base/play.svg';
+  static const String tickIcon = '$_base/tick.svg';
+  static const String pauseIcon = '$_base/pause.svg';
 }

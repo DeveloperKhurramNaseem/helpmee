@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/record_audio_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
@@ -9,18 +11,19 @@ class EpImportantWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return SliverPadding(
       padding: const EdgeInsets.symmetric(vertical: 14.0),
       sliver: SliverToBoxAdapter(
         child: EpInfoBaseBox(
-          titleText: 'Important',
+          titleText: localization.important,
           titleBorderColor: Theme.of(context).colorScheme.primary,
           bodyBorderColor: Theme.of(context).colorScheme.primary,
           child: Column(
             spacing: 10,
             children: [
               EpHeaderImportantBoxField(
-                hint: 'Add an important text note...',
+                hint: localization.addImportantNote,
                 maxLines: 4,
                 controller: TextEditingController(),
               ),
@@ -30,11 +33,23 @@ class EpImportantWidget extends StatelessWidget {
                   Expanded(
                     flex: 62,
                     child: AppButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet(
+                          context: context,
+                          showDragHandle: true,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return RecordAudioSheet();
+                          },
+                        );
+                      },
                       gradient: Theme.of(
                         context,
                       ).extension<AppGradients>()!.primaryButton,
-                      child: Text('Record Audio', textAlign: TextAlign.center),
+                      child: Text(
+                        localization.recordAudio,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
                   Spacer(flex: 19),
