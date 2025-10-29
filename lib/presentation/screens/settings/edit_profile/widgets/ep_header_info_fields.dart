@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +14,9 @@ class EpHeaderInfoBaseField extends StatelessWidget {
   final TextEditingController controller;
   final Widget? trailing;
   final String? hint;
+  final TextStyle? hintStyle;
+  final double? fontSize;
+  final EdgeInsetsGeometry? padding;
 
   const EpHeaderInfoBaseField({
     super.key,
@@ -21,6 +25,9 @@ class EpHeaderInfoBaseField extends StatelessWidget {
     this.readOnly = false,
     this.trailing,
     this.hint,
+    this.fontSize,
+    this.padding,
+    this.hintStyle,
   });
 
   @override
@@ -31,17 +38,19 @@ class EpHeaderInfoBaseField extends StatelessWidget {
         border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
         color: AppLightThemeColors.textfieldColor,
       ),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: TextFormField(
         controller: controller,
         readOnly: readOnly,
         style: TextStyle(
           fontWeight: FontWeight.w500,
           color: Color.fromRGBO(0, 0, 0, 1),
+          fontSize: fontSize,
         ),
         decoration: InputDecoration(
-          labelText: label,
+          labelText: label.isEmpty ? null : label,
           hintText: hint,
+          hintStyle: hintStyle,
           labelStyle: TextStyle(
             fontWeight: FontWeight.w400,
             color: Color.fromRGBO(0, 0, 0, 0.8),
@@ -152,8 +161,8 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
 class EpHeaderInfoBaseDropDownField extends StatelessWidget {
   final String label;
   final Widget? trailing;
-  final ValueChanged<String?> onChanged;
-  final List<String> items;
+  final ValueChanged<int?> onChanged;
+  final List<int> items;
 
   const EpHeaderInfoBaseDropDownField({
     super.key,
@@ -161,6 +170,72 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
     this.trailing,
     required this.onChanged,
     required this.items,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
+        color: AppLightThemeColors.textfieldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: DropdownButtonFormField<int>(
+        initialValue: items.first,
+        items: items
+            .map(
+              (e) => DropdownMenuItem<int>(
+                value: e,
+                child: Text(switch (e) {
+                  1 => localization.genderMale,
+                  2 => localization.genderFemale,
+                  3 => localization.genderPreferNotSay,
+                  _ => localization.genderCustom,
+                }),
+              ),
+            )
+            .toList(),
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          labelText: label,
+          labelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(0, 0, 0, 0.8),
+          ),
+          floatingLabelStyle: TextStyle(
+            fontWeight: FontWeight.w400,
+            color: Color.fromRGBO(0, 0, 0, 0.8),
+          ),
+          border: InputBorder.none,
+          suffixIcon: trailing,
+          suffixIconConstraints: BoxConstraints(
+            maxHeight: 22,
+            maxWidth: 22,
+            minHeight: 20,
+            minWidth: 20,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EpHeaderInfoBaseDropDownStringField extends StatelessWidget {
+  final String label;
+  final Widget? trailing;
+  final ValueChanged<String?> onChanged;
+  final List<String> items;
+  final String value;
+
+  const EpHeaderInfoBaseDropDownStringField({
+    super.key,
+    required this.label,
+    this.trailing,
+    required this.onChanged,
+    required this.items,
+    required this.value,
   });
 
   @override
@@ -173,7 +248,7 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: DropdownButtonFormField<String>(
-        initialValue: items.first,
+        initialValue: value,
         items: items
             .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
             .toList(),
@@ -275,10 +350,11 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
 }
 
 class EpHeaderGenderAndBirthday extends StatelessWidget {
-  final TextEditingController genderController, birthdayController;
+  final TextEditingController birthdayController;
+  final ValueChanged<int?> onGenderChanged;
   const EpHeaderGenderAndBirthday({
     super.key,
-    required this.genderController,
+    required this.onGenderChanged,
     required this.birthdayController,
   });
 
@@ -290,9 +366,9 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
         children: [
           Expanded(
             child: EpHeaderInfoBaseDropDownField(
-              items: [localization.genderMale, localization.genderFemale],
+              items: TextFieldsConstants.genderValues,
               label: localization.genderLabel,
-              onChanged: (value) {},
+              onChanged: onGenderChanged,
               trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),
           ),
@@ -302,8 +378,7 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
               label: localization.birthday,
 
               readOnly: true,
-              controller: birthdayController
-                ..text = DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+              controller: birthdayController,                
               trailing: GestureDetector(
                 onTap: () {
                   showDatePicker(
@@ -325,7 +400,9 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
 }
 
 class EpHeaderBloodGroup extends StatelessWidget {
-  const EpHeaderBloodGroup({super.key});
+  final ValueChanged<String?> onChanged;
+  final String initialValue;
+  const EpHeaderBloodGroup({super.key, required this.onChanged, required this.initialValue});
 
   @override
   Widget build(BuildContext context) {
@@ -333,10 +410,11 @@ class EpHeaderBloodGroup extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: EpHeaderInfoBaseDropDownField(
-              items: ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'],
+            child: EpHeaderInfoBaseDropDownStringField(
+              items: TextFieldsConstants.bloodGroupValues,
               label: AppLocalizations.of(context)!.bloodGroup,
-              onChanged: (value) {},
+              value: initialValue,
+              onChanged: onChanged,
               trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),
           ),

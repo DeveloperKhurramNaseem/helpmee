@@ -7,7 +7,8 @@ import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class EpImportantWidget extends StatelessWidget {
-  const EpImportantWidget({super.key});
+  final TextEditingController controller;
+  const EpImportantWidget({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class EpImportantWidget extends StatelessWidget {
               EpHeaderImportantBoxField(
                 hint: localization.addImportantNote,
                 maxLines: 4,
-                controller: TextEditingController(),
+                controller: controller,
               ),
               Row(
                 children: [

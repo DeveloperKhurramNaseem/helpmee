@@ -131,7 +131,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   showDragHandle: true,
                   isScrollControlled: true,
                   builder: (context) {
-                    return ProfileValiditySheet();
+                    return ProfileValiditySheet(isUnlimitedExpiry: false);
                   },
                 );
               },

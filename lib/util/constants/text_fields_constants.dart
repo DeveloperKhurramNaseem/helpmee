@@ -15,4 +15,7 @@ class TextFieldsConstants {
   );
 
   static const obscuringCharacter = '*';
+
+  static const genderValues = [1,2,3,4];  
+  static const bloodGroupValues = ['A+', 'A-', 'B+', 'B-', 'O+', 'O-', 'AB+', 'AB-'];
 }

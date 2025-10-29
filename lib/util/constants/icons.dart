@@ -43,4 +43,5 @@ class AppIcons {
   static const String playIcon = '$_base/play.svg';
   static const String tickIcon = '$_base/tick.svg';
   static const String pauseIcon = '$_base/pause.svg';
+  static const String locationIcon = '$_base/location_icon.svg';
 }

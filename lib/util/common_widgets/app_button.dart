@@ -46,6 +46,7 @@ class AppButtonOutlined extends StatelessWidget {
   final Widget child;
   final Color color;
   final Color? borderColor;
+  final EdgeInsetsGeometry? padding;
 
   const AppButtonOutlined({
     super.key,
@@ -53,6 +54,7 @@ class AppButtonOutlined extends StatelessWidget {
     required this.child,
     this.color = Colors.transparent,
     this.borderColor,
+    this.padding
   });
 
   @override
@@ -75,7 +77,7 @@ class AppButtonOutlined extends StatelessWidget {
         ),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),

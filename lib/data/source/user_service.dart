@@ -23,11 +23,9 @@ class UserService extends ApiService {
       final decodedResponse = decodeResponse(result);
       return (
         decodedResponse.success,
-        (decodedResponse.data['notifications'] as List)
-            .map((e) {
-              return NotificationModel.fromJson(e);
-            })
-            .toList(),
+        (decodedResponse.data['notifications'] as List).map((e) {
+          return NotificationModel.fromJson(e);
+        }).toList(),
       );
     }
     return (false, <NotificationModel>[]);
@@ -187,15 +185,10 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage, AppUserModel());
   }
 
-  Future<(bool, String)> deleteAccount(
-    String token,    
-    String language,
-  ) async {
-    var result = await delete(
-      EndPoints.deleteAccount,
-      {"reason" : "Delete Account"},
-      header: NetworkConstants.getHeaders(language, token),
-    );
+  Future<(bool, String)> deleteAccount(String token, String language) async {
+    var result = await delete(EndPoints.deleteAccount, body: {
+      "reason": "Delete Account",
+    }, header: NetworkConstants.getHeaders(language, token));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
@@ -206,17 +199,13 @@ class UserService extends ApiService {
   Future<(bool, String)> changePassword(
     String currentPassword,
     String newPassword,
-    String token,    
+    String token,
     String language,
   ) async {
-    var result = await post(
-      EndPoints.changePassword,
-      {
-        "current_password": currentPassword,
-        "new_password": newPassword
-      },
-      header: NetworkConstants.getHeaders(language, token),
-    );
+    var result = await post(EndPoints.changePassword, {
+      "current_password": currentPassword,
+      "new_password": newPassword,
+    }, header: NetworkConstants.getHeaders(language, token));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);

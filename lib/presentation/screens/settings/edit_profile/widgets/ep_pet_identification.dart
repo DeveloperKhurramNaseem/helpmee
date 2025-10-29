@@ -47,9 +47,10 @@ class EpPetChippedAndChippedPositionTile extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: EpHeaderInfoBaseDropDownField(
+          child: EpHeaderInfoBaseDropDownStringField(
             items: ['Yes', 'No'],
             label: 'Chipped',
+            value: 'Yes',
             onChanged: (value) {},
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),

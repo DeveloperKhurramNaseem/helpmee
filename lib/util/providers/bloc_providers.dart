@@ -15,6 +15,16 @@ import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_address/add_address_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_doctor_contact/add_doctor_contact_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_family_contact/add_family_contact_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/delete_address/delete_address_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/delete_contact/delete_contact_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/update_address/update_address_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/update_contact/update_contact_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
@@ -44,8 +54,10 @@ List<BlocProvider> getAuthBlocProviders() {
         return ForgetPasswordBloc(sl());
       },
     ),
-    BlocProvider<CreatePasswordBloc>(create: (context) => CreatePasswordBloc(sl()),),
-    BlocProvider<ResendOtpBloc>(create: (context) => ResendOtpBloc(sl()),),
+    BlocProvider<CreatePasswordBloc>(
+      create: (context) => CreatePasswordBloc(sl()),
+    ),
+    BlocProvider<ResendOtpBloc>(create: (context) => ResendOtpBloc(sl())),
   ];
 }
 
@@ -81,7 +93,41 @@ List<BlocProvider> getSettingsBlocProviders() {
         return SetPinBloc(sl());
       },
     ),
-    BlocProvider<DeleteProfileBloc>(create: (context) => DeleteProfileBloc(sl())),
-    BlocProvider<ChangePasswordBloc>(create: (context) => ChangePasswordBloc(sl()))
+    BlocProvider<DeleteProfileBloc>(
+      create: (context) => DeleteProfileBloc(sl()),
+    ),
+    BlocProvider<ChangePasswordBloc>(
+      create: (context) => ChangePasswordBloc(sl()),
+    ),
+  ];
+}
+
+List<BlocProvider> getUserProfileBlocProviders() {
+  return [
+    // Get profile data
+    BlocProvider<GetProfileDataBloc>(
+      create: (context) => GetProfileDataBloc(sl()),
+    ),
+
+    // Update basic info
+    BlocProvider<UpdateBasicInfoBloc>(create: (context) => UpdateBasicInfoBloc(sl()),),
+
+    // Add contacts (Family / Doctor)
+    BlocProvider<AddFamilyContactBloc>(create: (context) => AddFamilyContactBloc(sl()),),
+    BlocProvider<AddDoctorContactBloc>(create: (context) => AddDoctorContactBloc(sl()),),
+
+    // Delete and Update contacts
+    BlocProvider<DeleteContactBloc>(create: (context) => DeleteContactBloc(sl()),),
+    BlocProvider<UpdateContactBloc>(create: (context) => UpdateContactBloc(sl()),),
+
+    // Address related blocs
+    BlocProvider<AddAddressBloc>(create: (context) => AddAddressBloc(sl()),),
+    BlocProvider<DeleteAddressBloc>(create: (context) => DeleteAddressBloc(sl()),),
+    BlocProvider<UpdateAddressBloc>(create: (context) => UpdateAddressBloc(sl()),),  
+
+    // Location and Notification Setting blocs
+
+    BlocProvider<GetLocationNotificationSettingsBloc>(create: (context) => GetLocationNotificationSettingsBloc(sl()),),
+    
   ];
 }

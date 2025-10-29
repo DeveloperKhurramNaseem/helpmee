@@ -13,19 +13,20 @@ import 'package:help_mee/util/localication_util/localization_util.dart';
 import 'package:help_mee/util/providers/bloc_providers.dart';
 import 'package:help_mee/util/routing/router_config.dart';
 import 'package:help_mee/util/theme/light_theme/light_theme.dart';
-// import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
   log(await sl<TokenService>().getToken());
   runApp(ProvidersWrapper(child: const MyApp()));
-  // OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
   // Initialize with your OneSignal App ID
-  // OneSignal.initialize("843d4401-1feb-49d8-83b3-a55edef04ff7");
+  OneSignal.initialize("843d4401-1feb-49d8-83b3-a55edef04ff7");
   // Use this method to prompt for push notifications.
   // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
-  // OneSignal.Notifications.requestPermission(false);
+  OneSignal.Notifications.requestPermission(false);
+  
 }
 
 class MyApp extends StatelessWidget {
@@ -80,6 +81,7 @@ class ProvidersWrapper extends StatelessWidget {
         ...getDashboardBlocProviders(),
         ...getActivateProductBlocProviders(),
         ...getSettingsBlocProviders(),
+        ...getUserProfileBlocProviders(),
       ],
       child: child,
     );

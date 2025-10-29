@@ -50,9 +50,10 @@ class EpPetGenderAndBloodGroupTile extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: EpHeaderInfoBaseDropDownField(
+          child: EpHeaderInfoBaseDropDownStringField(
             items: ['Male', 'Female'],
             label: 'Gender',
+            value: 'Male',
             onChanged: (value) {},
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),
@@ -105,9 +106,10 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: EpHeaderInfoBaseDropDownField(
+          child: EpHeaderInfoBaseDropDownStringField(
             items: ['Yes', 'No'],
             label: 'Castrated',
+            value: 'Yes',
             onChanged: (value) {},
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),

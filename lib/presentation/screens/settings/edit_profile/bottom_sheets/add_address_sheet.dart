@@ -51,9 +51,10 @@ class AddAddressSheet extends StatelessWidget {
               label: 'City',
               controller: TextEditingController(),
             ),
-            EpHeaderInfoBaseDropDownField(
+            EpHeaderInfoBaseDropDownStringField(
               label: 'Germany',
               onChanged: (value) {},
+              value: 'Germany',
               items: ['Germany', 'Pakistan'],
               trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),
