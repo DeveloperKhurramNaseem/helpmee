@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_picture_document_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class EpPicturesAndDocuments extends StatelessWidget {
-  const EpPicturesAndDocuments({super.key});
+  final List<Document> documents;
+  const EpPicturesAndDocuments({super.key, required this.documents});
 
   @override
   Widget build(BuildContext context) {
@@ -20,12 +22,11 @@ class EpPicturesAndDocuments extends StatelessWidget {
           child: Column(
             spacing: 10,
             children: [
-              PictureAndDocuemntsTile(
-                text: 'Skin rash on right hand',
-                image:
-                    'https://images.unsplash.com/photo-1757416654883-c73c67b3382b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-              ),
-              PictureAndDocuemntsTile(text: 'Power of attorney'),
+              for (var i = 0; i < documents.length; i++)
+                PictureAndDocuemntsTile(
+                  text: documents[i].name,
+                  image: documents[i].image,
+                ),
               AddPictureAndDocuemntsTile(),
             ],
           ),

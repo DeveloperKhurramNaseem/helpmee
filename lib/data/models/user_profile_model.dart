@@ -2,18 +2,22 @@ class UserProfileModel {
   static const userKey = 'user',
       familyContactsKey = 'familyContacts',
       addressesKey = 'address',
-      doctorContactsKey = 'doctorsContacts';
+      doctorContactsKey = 'doctorsContacts' , medicationDocumentsKey = 'medicationDocuments' , documentsKey = 'vaccinationdocuments';
 
   User user;
   List<Contact> familyContacts;
   List<Contact> doctorContacts;
   List<Address> addresses;
+  List<Document> medicationDocuments;
+  List<Document> documents;
 
   UserProfileModel({
     required this.user,
     required this.familyContacts,
     required this.doctorContacts,
     required this.addresses,
+    required this.medicationDocuments,
+    required this.documents,
   });
 
   factory UserProfileModel.fromMap(Map<String, dynamic> map) {
@@ -28,6 +32,10 @@ class UserProfileModel {
       doctorContacts: (map[doctorContactsKey] as List)
           .map((e) => Contact.fromMap(e))
           .toList(),
+      medicationDocuments: (map[medicationDocumentsKey] as List)
+          .map((e) => Document.fromMap(e))
+          .toList(),
+      documents: (map[documentsKey] as List).map((e) => Document.fromMap(e)).toList(),
     );
   }
 
@@ -37,6 +45,8 @@ class UserProfileModel {
       familyContacts: [],
       addresses: [],
       doctorContacts: [],
+      medicationDocuments: [],
+      documents: [],
     );
   }
 }
@@ -206,7 +216,47 @@ class Address {
   }
 }
 
-class MedicationDocuments {}
+class Document {
+
+
+  static const idKey = 'id', userIdKey = 'user_id', typeKey = 'type', nameKey = 'name', imageKey = 'image', statusKey = 'status', createdAtKey = 'created_at', updatedAtKey = 'updated_at', imageExtensionKey = 'image_extension';
+
+  int id;
+  int userId;
+  String type;
+  String name;
+  String image;
+  String status;
+  String createdAt;
+  String updatedAt;
+  String imageExtension;
+
+  Document({
+    required this.id,
+    required this.userId,
+    required this.type,
+    required this.name,
+    required this.image,
+    required this.status,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.imageExtension,
+  });
+
+  factory Document.fromMap(Map<String, dynamic> map) {
+    return Document(
+      id: map[idKey] ?? 0,
+      userId: map[userIdKey] ?? 0,
+      type: map[typeKey] ?? '',
+      name: map[nameKey] ?? '',
+      image: map[imageKey] ?? '',
+      status: map[statusKey] ?? '',
+      createdAt: map[createdAtKey] ?? '',
+      updatedAt: map[updatedAtKey] ?? '',
+      imageExtension: map[imageExtensionKey] ?? '',
+    );
+  }
+}
 
 class VaccinationDocuments {}
 

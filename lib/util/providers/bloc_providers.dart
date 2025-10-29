@@ -22,7 +22,11 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_cont
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/delete_contact/delete_contact_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/update_address/update_address_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/update_contact/update_contact_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/add_notification_user/add_notification_user_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/delete_notification_user/delete_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_notification_settings/update_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_notification_user/update_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
@@ -128,6 +132,10 @@ List<BlocProvider> getUserProfileBlocProviders() {
     // Location and Notification Setting blocs
 
     BlocProvider<GetLocationNotificationSettingsBloc>(create: (context) => GetLocationNotificationSettingsBloc(sl()),),
+    BlocProvider<UpdateLocationAndNotificationSettingsBloc>(create: (context) => UpdateLocationAndNotificationSettingsBloc(sl()),),
+    BlocProvider<AddNotificationUserBloc>(create: (context) => AddNotificationUserBloc(sl()),),
+    BlocProvider<UpdateNotificationUserBloc>(create: (context) => UpdateNotificationUserBloc(sl()),),    
+    BlocProvider<DeleteNotificationUserBloc>(create: (context) => DeleteNotificationUserBloc(sl()),),        
     
   ];
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_address_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class EpMedicationPlan extends StatelessWidget {
-  const EpMedicationPlan({super.key});
+  final List<Document> medicationDocuments;
+  const EpMedicationPlan({super.key, required this.medicationDocuments});
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,8 @@ class EpMedicationPlan extends StatelessWidget {
           child: Column(
             spacing: 10,
             children: [
-              for (var i = 0; i < 2; i++)
-                AddMedicationPdfTile(text: 'Medication Plan ${i + 1}'),
+              for (var i = 0; i < medicationDocuments.length; i++)
+                AddMedicationPdfTile(text: medicationDocuments[i].name),
               AddMedicationPlanTile(),
             ],
           ),

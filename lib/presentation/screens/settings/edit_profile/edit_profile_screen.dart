@@ -31,6 +31,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController heightController;
   late TextEditingController weightController;
   late TextEditingController importantNoteController;
+  late TextEditingController insuranceCompanyController;
+  late TextEditingController insuranceIdController;
   int currentGenderValue = 0;
   @override
   void initState() {
@@ -42,6 +44,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     heightController = TextEditingController();
     weightController = TextEditingController();
     importantNoteController = TextEditingController();
+    insuranceCompanyController = TextEditingController();
+    insuranceIdController = TextEditingController();
   }
 
   @override
@@ -52,6 +56,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     heightController.dispose();
     weightController.dispose();
     importantNoteController.dispose();
+    insuranceCompanyController.dispose();
+    insuranceIdController.dispose();
     super.dispose();
   }
 
@@ -64,10 +70,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     heightController.text = userProfile.user.height;
     weightController.text = userProfile.user.weight;
     importantNoteController.text = userProfile.user.importantNote;
+    insuranceCompanyController.text = userProfile.user.insuranceCompany;
+    insuranceIdController.text = userProfile.user.insuranceId;    
   }
 
-  void _handleGetProfileDataListener(BuildContext context, GetProfileDataState state) {
-    if(state is GetProfileDataLoadedState){
+  void _handleGetProfileDataListener(
+    BuildContext context,
+    GetProfileDataState state,
+  ) {
+    if (state is GetProfileDataLoadedState) {
       initialzeWithData(state.userProfile);
     }
   }
@@ -139,14 +150,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     // Medical Information Part
                     EpMedicalInformation(),
                     // Medication Plan part
-                    EpMedicationPlan(),
+                    EpMedicationPlan(
+                      medicationDocuments:
+                          state.userProfile.medicationDocuments,
+                    ),
                     // Important documents part
                     EpImportantDocuments(),
                     // Pictures and documents
-                    EpPicturesAndDocuments(),
+                    EpPicturesAndDocuments(documents: state.userProfile.documents,),
                     // if (!widget.isPet)
                     // Insurance Information
-                    EpInsuranceInformation(),
+                    EpInsuranceInformation(
+                      insuranceCompanyController: insuranceCompanyController,
+                      insuranceIDController: insuranceIdController,
+                    ),
                   ],
                 );
               } else if (state is GetProfileDataErrorState) {
@@ -158,7 +175,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
       ),
     );
-  }  
+  }
 }
 
 class EditProfileLoadingWidget extends StatelessWidget {
