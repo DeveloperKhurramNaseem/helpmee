@@ -6,6 +6,11 @@ class NetworkConstants {
     'Accept': 'application/json',
   };
 
+  static Map<String, String> fileHeaders = {
+    'Content-Type': 'multipart/form-data',
+    'Accept': 'application/json',
+  };
+
   static const acceptLanguage = 'Accept-Language';
   static const authorization = 'Authorization';
   static const bearer = 'Bearer';
@@ -13,6 +18,16 @@ class NetworkConstants {
   static Map<String, String> getHeaders([String? lang,String? token]) {
     return {
       ...NetworkConstants.headers,
+      if(token != null)
+      NetworkConstants.authorization: '${NetworkConstants.bearer} $token',
+      if(lang != null)
+      NetworkConstants.acceptLanguage: lang,
+    };
+  }
+
+    static Map<String, String> getFileHeaders([String? lang,String? token]) {
+    return {
+      ...NetworkConstants.fileHeaders,
       if(token != null)
       NetworkConstants.authorization: '${NetworkConstants.bearer} $token',
       if(lang != null)

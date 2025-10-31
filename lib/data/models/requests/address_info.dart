@@ -6,9 +6,7 @@ class AddressInfo {
   String streetName;
   String houseNumber;
   String city;
-  String country;
-  String description;
-  String code;
+  String country;    
   String zip;
 
   AddressInfo({
@@ -16,9 +14,7 @@ class AddressInfo {
     required this.streetName,
     required this.houseNumber,
     required this.city,
-    required this.country,
-    required this.description,
-    required this.code,
+    required this.country,      
     required this.zip,
   });
 
@@ -29,9 +25,7 @@ class AddressInfo {
       streetNameKey: streetName,
       houseNumberKey: houseNumber,
       cityKey: city,
-      countryKey: country,
-      descriptionKey: description,
-      codeKey: code,
+      countryKey: country,  
       zipKey: zip,
     };
   }

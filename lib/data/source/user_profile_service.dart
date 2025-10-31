@@ -41,9 +41,9 @@ class UserProfileService extends ApiService {
       result = await postWithFile(
         EndPoints.updateBasicProfileInfo,
         info.toMap(),
-        'profile_image',
+        BasicProfileInfo.profileImageKey,
         info.profileImage!,
-        header: NetworkConstants.getHeaders(language, token),
+        header: NetworkConstants.getFileHeaders(language, token),
       );
     } else {
       result = await post(

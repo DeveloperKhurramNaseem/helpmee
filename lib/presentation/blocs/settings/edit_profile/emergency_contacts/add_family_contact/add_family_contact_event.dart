@@ -6,11 +6,12 @@ sealed class AddFamilyContactEvent {}
 class AddNewFamilyContactEvent extends AddFamilyContactEvent {
   final String name;
   final String phoneNumber;
-  final String whatsappNumber;
-
+  final String? whatsappNumber;
+  final ContactType contactType;
   AddNewFamilyContactEvent({
     required this.name,
     required this.phoneNumber,
-    required this.whatsappNumber,
+    this.whatsappNumber,
+    required this.contactType,
   });
 }

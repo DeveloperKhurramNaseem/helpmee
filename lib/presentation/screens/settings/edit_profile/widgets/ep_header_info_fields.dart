@@ -1,5 +1,6 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -17,6 +18,7 @@ class EpHeaderInfoBaseField extends StatelessWidget {
   final TextStyle? hintStyle;
   final double? fontSize;
   final EdgeInsetsGeometry? padding;
+  final TextInputType keyBoardType;
 
   const EpHeaderInfoBaseField({
     super.key,
@@ -28,6 +30,7 @@ class EpHeaderInfoBaseField extends StatelessWidget {
     this.fontSize,
     this.padding,
     this.hintStyle,
+    this.keyBoardType = TextInputType.text,
   });
 
   @override
@@ -41,6 +44,7 @@ class EpHeaderInfoBaseField extends StatelessWidget {
       padding: padding ?? EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: TextFormField(
         controller: controller,
+        keyboardType: keyBoardType,
         readOnly: readOnly,
         style: TextStyle(
           fontWeight: FontWeight.w500,
@@ -79,6 +83,8 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
   final bool readOnly;
   final TextEditingController controller;
   final Widget? trailing;
+  final String initialCode;
+  final void Function(CountryCode)? onChanged;
 
   const EpHeaderInfoBasePhoneNoField({
     super.key,
@@ -86,6 +92,8 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
     required this.controller,
     this.readOnly = false,
     this.trailing,
+    required this.initialCode,
+    required this.onChanged,
   });
 
   @override
@@ -100,20 +108,26 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: Row(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 5.0, right: 5),
-            child: Container(
-              height: AppSize.instance.height * 0.065,
-              width: AppSize.instance.width * 0.1,
-              margin: EdgeInsets.all(5),
-              padding: EdgeInsets.all(5),
-              child: CountryCodePicker(
-                initialSelection: 'IT',
-                favorite: ['+39', 'FR'],
-                showCountryOnly: false,
-                showOnlyCountryWhenClosed: false,
-                alignLeft: false,
-              ),
+          // Padding(
+          //   padding: const EdgeInsets.only(left: 5.0, right: 5),
+          //   child: Container(
+          //     height: AppSize.instance.height * 0.065,
+          //     width: AppSize.instance.width * 0.1,
+          //     margin: EdgeInsets.all(5),
+          //   ),
+          // ),
+          ColoredBox(
+            color: Colors.transparent,
+            child: CountryCodePicker(
+              initialSelection: initialCode,              
+              flagWidth: 20,
+              textStyle: TextStyle(fontSize: 1),
+              pickerStyle: PickerStyle.fullScreen,
+              showFlag: true,
+              onChanged: onChanged,
+              showCountryOnly: false,
+              hideMainText: true,
+              showOnlyCountryWhenClosed: false,
             ),
           ),
           Padding(
@@ -131,13 +145,14 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
             child: TextFormField(
               controller: controller,
               readOnly: readOnly,
+              keyboardType: TextInputType.phone,
               style: TextStyle(
                 fontWeight: FontWeight.w500,
                 color: Color.fromRGBO(0, 0, 0, 1),
               ),
               decoration: InputDecoration(
-                labelText: label,
-                labelStyle: TextStyle(
+                hintText: label,
+                hintStyle: TextStyle(
                   fontWeight: FontWeight.w400,
                   color: Color.fromRGBO(0, 0, 0, 0.8),
                 ),
@@ -163,9 +178,11 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
   final Widget? trailing;
   final ValueChanged<int?> onChanged;
   final List<int> items;
+  final int genderValue;
 
   const EpHeaderInfoBaseDropDownField({
     super.key,
+    required this.genderValue,
     required this.label,
     this.trailing,
     required this.onChanged,
@@ -183,7 +200,7 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
       ),
       padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: DropdownButtonFormField<int>(
-        initialValue: items.first,
+        initialValue: genderValue,
         items: items
             .map(
               (e) => DropdownMenuItem<int>(
@@ -330,7 +347,7 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
             Expanded(
               child: EpHeaderInfoBaseField(
                 label: AppLocalizations.of(context)!.heightCm,
-
+                keyBoardType: TextInputType.number,
                 controller: heightController,
               ),
             ),
@@ -338,7 +355,7 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
             Expanded(
               child: EpHeaderInfoBaseField(
                 label: AppLocalizations.of(context)!.weightKg,
-
+                keyBoardType: TextInputType.number,
                 controller: weightController,
               ),
             ),
@@ -352,8 +369,10 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
 class EpHeaderGenderAndBirthday extends StatelessWidget {
   final TextEditingController birthdayController;
   final ValueChanged<int?> onGenderChanged;
+  final int initialGenderValue;
   const EpHeaderGenderAndBirthday({
     super.key,
+    required this.initialGenderValue,
     required this.onGenderChanged,
     required this.birthdayController,
   });
@@ -366,6 +385,7 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
         children: [
           Expanded(
             child: EpHeaderInfoBaseDropDownField(
+              genderValue: initialGenderValue,
               items: TextFieldsConstants.genderValues,
               label: localization.genderLabel,
               onChanged: onGenderChanged,
@@ -376,9 +396,8 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
           Expanded(
             child: EpHeaderInfoBaseField(
               label: localization.birthday,
-
               readOnly: true,
-              controller: birthdayController,                
+              controller: birthdayController,
               trailing: GestureDetector(
                 onTap: () {
                   showDatePicker(
@@ -387,7 +406,13 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
                       Duration(days: 365 * 100),
                     ),
                     lastDate: DateTime.now(),
-                  );
+                  ).then((value) {
+                    if (value != null) {
+                      birthdayController.text = DateFormat(
+                        'MMMM dd, yyyy',
+                      ).format(value);
+                    }
+                  });
                 },
                 child: SvgPicture.asset(AppIcons.calender),
               ),
@@ -402,7 +427,11 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
 class EpHeaderBloodGroup extends StatelessWidget {
   final ValueChanged<String?> onChanged;
   final String initialValue;
-  const EpHeaderBloodGroup({super.key, required this.onChanged, required this.initialValue});
+  const EpHeaderBloodGroup({
+    super.key,
+    required this.onChanged,
+    required this.initialValue,
+  });
 
   @override
   Widget build(BuildContext context) {

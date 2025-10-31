@@ -4,7 +4,7 @@ class ContactInfo {
 
   String name;  
   String phoneNumber;
-  String whatsappNumber;
+  String? whatsappNumber;
 
   ContactInfo({
     required this.name,
@@ -16,6 +16,7 @@ class ContactInfo {
     return {
       nameKey: name,
       phoneNumberKey: phoneNumber,
+      if(whatsappNumber != null)
       whatsappNoKey: whatsappNumber,
     };
   }

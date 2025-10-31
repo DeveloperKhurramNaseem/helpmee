@@ -19,7 +19,7 @@ class UpdateAddressBloc extends Bloc<UpdateAddressEvent, UpdateAddressState> {
   FutureOr<void> _handleUpdateCurrentAddressEvent(UpdateCurrentAddressEvent event, Emitter<UpdateAddressState> emit) async{
     try{
       emit(UpdateAddressLoadingState());
-      var result = await userProfileRepo.updateAddress(event.addressId, AddressInfo(name: event.name, streetName: event.streetName, houseNumber: event.houseNumber, city: event.city, country: event.country, description: event.description, code: event.code, zip: event.zip),);
+      var result = await userProfileRepo.updateAddress(event.addressId, AddressInfo(name: event.name, streetName: event.streetName, houseNumber: event.houseNumber, city: event.city, country: event.country, zip: event.zip),);
       if(result.$1){
         emit(UpdateAddressLoadedState());
       }else{

@@ -7,12 +7,16 @@ class UpdateBasicProfileInfoEvent extends UpdateBasicInfoEvent{
   final String firstName , lastName;
   final int gender;
   final int height;
-  final int weight;  
+  final int weight;
+  final String bloodGroup;  
+  final File? imageFile;
   UpdateBasicProfileInfoEvent({
     required this.firstName,
     required this.lastName,
     required this.gender,
     required this.height,
-    required this.weight,    
+    required this.weight, 
+    required this.bloodGroup,   
+    required this.imageFile,
   });
 }

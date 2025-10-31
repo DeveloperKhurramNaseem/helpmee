@@ -4,7 +4,6 @@ import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_address_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/create_new_contact.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/register_doctor_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
@@ -45,15 +44,71 @@ class EpEmergencyContacts extends StatelessWidget {
                   ),
                   if (currentIndex == 0) ...[
                     for (var contact in familyContacts)
-                      ContactTile(onTap: () {}, contact: contact),
+                      ContactTile(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.viewInsetsOf(
+                                    context,
+                                  ).bottom,
+                                ),
+                                child: CreateNewContactSheet(
+                                  contact: contact,
+                                  contactType: ContactType.family,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        contact: contact,
+                      ),
                   ],
                   if (currentIndex == 1) ...[
                     for (var contact in doctorContacts)
-                      ContactTile(onTap: () {}, contact: contact),
+                      ContactTile(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return Padding(
+                                padding: EdgeInsets.only(
+                                  bottom: MediaQuery.viewInsetsOf(
+                                    context,
+                                  ).bottom,
+                                ),
+                                child: CreateNewContactSheet(
+                                  contact: contact,
+                                  contactType: ContactType.doctor,
+                                ),
+                              );
+                            },
+                          );
+                        },
+                        contact: contact,
+                      ),
                   ],
                   if (currentIndex == 2) ...[
                     for (var address in addresses)
-                      AddressTile(onTap: () {}, address: address),
+                      AddressTile(
+                        onTap: () {
+                          showModalBottomSheet(
+                            context: context,
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return AddAddressSheet(address: address);
+                            },
+                          );
+                        },
+                        address: address,
+                      ),
                   ],
 
                   if (currentIndex == 0) AddContactTile(),
@@ -82,7 +137,12 @@ class AddContactTile extends StatelessWidget {
           showDragHandle: true,
           isScrollControlled: true,
           builder: (context) {
-            return CreateNewContactSheet();
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.viewInsetsOf(context).bottom,
+              ),
+              child: CreateNewContactSheet(contactType: ContactType.family),
+            );
           },
         );
       },
@@ -103,9 +163,22 @@ class AddDoctorTile extends StatelessWidget {
           showDragHandle: true,
           isScrollControlled: true,
           builder: (context) {
-            return RegisterDoctorSheet();
+            return Padding(
+              padding: EdgeInsets.only(
+                bottom: MediaQuery.viewInsetsOf(context).bottom,
+              ),
+              child: CreateNewContactSheet(contactType: ContactType.doctor),
+            );
           },
         );
+        // showModalBottomSheet(
+        //   context: context,
+        //   showDragHandle: true,
+        //   isScrollControlled: true,
+        //   builder: (context) {
+        //     return RegisterDoctorSheet();
+        //   },
+        // );
       },
     );
   }

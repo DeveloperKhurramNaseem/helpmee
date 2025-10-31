@@ -42,7 +42,7 @@ class AppButton extends StatelessWidget {
 }
 
 class AppButtonOutlined extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Widget child;
   final Color color;
   final Color? borderColor;

@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/image_picker_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_app_bar.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_emergency_contacts.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_header_image.dart';
@@ -13,7 +17,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_l
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_medical_information.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_medication_plan.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pictures_and_documents.dart';
-import 'package:intl/intl.dart';
+import 'package:help_mee/util/constants/date_formatting.dart';
 
 class EditProfileScreen extends StatefulWidget {
   static const path = '/edit-profile-screen';
@@ -33,19 +37,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController importantNoteController;
   late TextEditingController insuranceCompanyController;
   late TextEditingController insuranceIdController;
-  int currentGenderValue = 0;
+  int currentGenderValue = 1;
+  String currentBloodGroup = 'A+';
+  bool showButton = false;
+  UserProfileModel? userProfile;
+  File? pickedImage;
+
   @override
   void initState() {
     super.initState();
     context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
-    firstNameController = TextEditingController();
-    lastNameController = TextEditingController();
-    birthdayController = TextEditingController();
-    heightController = TextEditingController();
-    weightController = TextEditingController();
-    importantNoteController = TextEditingController();
-    insuranceCompanyController = TextEditingController();
-    insuranceIdController = TextEditingController();
+    firstNameController = TextEditingController()..addListener(inputListener);
+    lastNameController = TextEditingController()..addListener(inputListener);
+    birthdayController = TextEditingController()..addListener(inputListener);
+    heightController = TextEditingController()..addListener(inputListener);
+    weightController = TextEditingController()..addListener(inputListener);
+    importantNoteController = TextEditingController()
+      ..addListener(inputListener);
+    insuranceCompanyController = TextEditingController()
+      ..addListener(inputListener);
+    insuranceIdController = TextEditingController()..addListener(inputListener);
+  }
+
+  inputListener() {
+    if (userProfile != null) {
+      setState(() {
+        showButton =
+            firstNameController.text != userProfile!.user.firstName ||
+            lastNameController.text != userProfile!.user.lastName ||
+            birthdayController.text !=
+                DateFormatting.formatDateForTextField(
+                  DateTime.parse(userProfile!.user.dateOfBirth),
+                ) ||
+            heightController.text != userProfile!.user.height ||
+            weightController.text != userProfile!.user.weight ||
+            importantNoteController.text != userProfile!.user.importantNote ||
+            insuranceCompanyController.text !=
+                userProfile!.user.insuranceCompany ||
+            insuranceIdController.text != userProfile!.user.insuranceId;
+      });
+    }
   }
 
   @override
@@ -64,31 +95,46 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   initialzeWithData(UserProfileModel userProfile) {
     firstNameController.text = userProfile.user.firstName;
     lastNameController.text = userProfile.user.lastName;
-    birthdayController.text = DateFormat(
-      'MMMM dd, yyyy',
-    ).format(DateTime.parse(userProfile.user.dateOfBirth));
+    birthdayController.text = DateFormatting.formatDateForTextField(
+      DateTime.parse(userProfile.user.dateOfBirth),
+    );
+    currentGenderValue = userProfile.user.gender;
+    currentBloodGroup = userProfile.user.bloodGroup;
     heightController.text = userProfile.user.height;
     weightController.text = userProfile.user.weight;
     importantNoteController.text = userProfile.user.importantNote;
     insuranceCompanyController.text = userProfile.user.insuranceCompany;
-    insuranceIdController.text = userProfile.user.insuranceId;    
-  }
-
-  void _handleGetProfileDataListener(
-    BuildContext context,
-    GetProfileDataState state,
-  ) {
-    if (state is GetProfileDataLoadedState) {
-      initialzeWithData(state.userProfile);
-    }
+    insuranceIdController.text = userProfile.user.insuranceId;
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<GetProfileDataBloc, GetProfileDataState>(
-      listener: _handleGetProfileDataListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<GetProfileDataBloc, GetProfileDataState>(
+          listener: _handleGetProfileDataListener,
+        ),
+        BlocListener<UpdateBasicInfoBloc, UpdateBasicInfoState>(
+          listener: _handleUpdateBasicInfoListener,
+        ),
+      ],
       child: Scaffold(
-        appBar: EpAppBar(),
+        appBar: EpAppBar(
+          showButton: showButton,
+          onTap: () {
+            context.read<UpdateBasicInfoBloc>().add(
+              UpdateBasicProfileInfoEvent(
+                firstName: firstNameController.text.trim(),
+                lastName: lastNameController.text.trim(),
+                gender: currentGenderValue,
+                height: int.parse(heightController.text.trim()),
+                weight: int.parse(weightController.text.trim()),
+                bloodGroup: currentBloodGroup,
+                imageFile: pickedImage,
+              ),
+            );
+          },
+        ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8.0),
           child: BlocBuilder<GetProfileDataBloc, GetProfileDataState>(
@@ -99,7 +145,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 return CustomScrollView(
                   slivers: [
                     // Header Image
-                    EpHeaderImage(),
+                    EpHeaderImage(
+                      image: userProfile!.user.profileImage,
+                      onTap: () {
+                        showModalBottomSheet(
+                          context: context,
+                          showDragHandle: true,
+                          isScrollControlled: true,
+                          builder: (context) {
+                            return ImagePickerSheet(
+                              onImagePicked: (file) {
+                                pickedImage = file;
+                                Navigator.pop(context);
+                                setState(() {
+                                  showButton = pickedImage != null;
+                                });
+                              },
+                            );
+                          },
+                        );
+                      },
+                    ),
                     // if (widget.isPet) ...[
                     //   EpPetNameField(
                     //     controller: TextEditingController()..text = 'Buddy',
@@ -115,9 +181,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     // Gender and birthday
                     EpHeaderGenderAndBirthday(
+                      initialGenderValue: currentGenderValue,
                       birthdayController: birthdayController,
                       onGenderChanged: (value) {
-                        currentGenderValue = value!;
+                        setState(() {
+                          currentGenderValue = value!;
+                          showButton =
+                              currentGenderValue != userProfile!.user.gender;
+                        });
                       },
                     ),
                     // Height and weight
@@ -128,7 +199,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     // Blood group
                     EpHeaderBloodGroup(
                       initialValue: state.userProfile.user.bloodGroup,
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        setState(() {
+                          currentBloodGroup = value!;
+                          showButton =
+                              currentBloodGroup != userProfile!.user.bloodGroup;
+                        });
+                      },
                     ),
                     // ],
                     // Important Box (Containing important note and voice note)
@@ -157,7 +234,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     // Important documents part
                     EpImportantDocuments(),
                     // Pictures and documents
-                    EpPicturesAndDocuments(documents: state.userProfile.documents,),
+                    EpPicturesAndDocuments(
+                      documents: state.userProfile.documents,
+                    ),
                     // if (!widget.isPet)
                     // Insurance Information
                     EpInsuranceInformation(
@@ -176,6 +255,32 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
     );
   }
+
+  void refreshData() {
+    context.read<GetProfileDataBloc>().add(
+      GetUserProfileDataEvent(showLoading: false),
+    );
+  }
+
+  void _handleGetProfileDataListener(
+    BuildContext context,
+    GetProfileDataState state,
+  ) {
+    if (state is GetProfileDataLoadedState) {
+      userProfile = state.userProfile;
+      initialzeWithData(state.userProfile);
+      inputListener();
+    }
+  }
+
+  void _handleUpdateBasicInfoListener(
+    BuildContext context,
+    UpdateBasicInfoState state,
+  ) {
+    if (state is UpdateBasicInfoLoadedState) {
+      refreshData();
+    }
+  }  
 }
 
 class EditProfileLoadingWidget extends StatelessWidget {

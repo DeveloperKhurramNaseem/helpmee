@@ -49,8 +49,8 @@
 	</array>
 	<key>NSCameraUsageDescription</key>
 <string>This app needs camera access to scan QR codes</string>
-
 <key>NSPhotoLibraryUsageDescription</key>
-<string>This app needs photos access to get QR code from photo library</string>
+<string>Please allow access to enable uploading profile image</string>
+
 </dict>
 </plist>

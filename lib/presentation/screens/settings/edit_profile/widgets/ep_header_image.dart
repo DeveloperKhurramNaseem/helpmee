@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class EpHeaderImage extends StatelessWidget {
-  const EpHeaderImage({super.key});
+  final VoidCallback onTap;
+  final String image;
+  const EpHeaderImage({super.key , required this.image ,required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,7 @@ class EpHeaderImage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: Theme.of(context).colorScheme.primary,
                     shape: BoxShape.circle,
+                    image: DecorationImage(image: NetworkImage(image))
                   ),
                   padding: EdgeInsets.all(2),
                   child: CircleAvatar(
@@ -26,15 +29,18 @@ class EpHeaderImage extends StatelessWidget {
                     child: Icon(Icons.person, size: 30),
                   ),
                 ),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    shape: BoxShape.circle,
-                  ),
-
-                  child: CircleAvatar(
-                    backgroundColor: Theme.of(context).colorScheme.secondary,
-                    child: Icon(Icons.add_rounded, size: 25),
+                GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      shape: BoxShape.circle,
+                    ),
+                  
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).colorScheme.secondary,
+                      child: Icon(Icons.add_rounded, size: 25),
+                    ),
                   ),
                 ),
               ],

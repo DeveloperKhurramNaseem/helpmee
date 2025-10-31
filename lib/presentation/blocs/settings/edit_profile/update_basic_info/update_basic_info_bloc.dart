@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/data/models/basic_profile_info.dart';
@@ -30,6 +31,8 @@ class UpdateBasicInfoBloc
           gender: event.gender,
           height: event.height,
           weight: event.weight,
+          bloodGroup: event.bloodGroup,
+          profileImage: event.imageFile,
         ),
       );
       if (result.$1) {

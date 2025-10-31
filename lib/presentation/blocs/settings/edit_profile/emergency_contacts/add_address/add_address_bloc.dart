@@ -28,9 +28,7 @@ class AddAddressBloc extends Bloc<AddAddressEvent, AddAddressState> {
           streetName: event.streetName,
           houseNumber: event.houseNumber,
           city: event.city,
-          country: event.country,
-          description: event.description,
-          code: event.code,
+          country: event.country,          
           zip: event.zip,
         ),
       );

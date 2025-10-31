@@ -75,7 +75,7 @@ class UserProfileRepoImpl extends UserProfileRepo{
   Future<(bool, String)> deleteAddress(int addressId) async {
         var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.deleteContact(token, language, addressId);
+    var result = await userProfileService.deleteAddress(token, language, addressId);
     return result;
   }
 

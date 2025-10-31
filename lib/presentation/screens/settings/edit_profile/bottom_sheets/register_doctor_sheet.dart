@@ -50,15 +50,23 @@ class RegisterDoctorSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 10),
             child: EpHeaderInfoBasePhoneNoField(
+              initialCode: '+49',
               label: localization.phoneNumberLabel,
               controller: TextEditingController(),
+              onChanged: (countryCode) {
+                
+              },
             ),
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 10),
             child: EpHeaderInfoBasePhoneNoField(
+              initialCode: '+49',
               label: localization.whatsappNumberLabel,
               controller: TextEditingController(),
+              onChanged: (countryCode) {
+                
+              },
             ),
           ),
           Padding(

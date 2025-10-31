@@ -19,4 +19,11 @@ class DateFormatting {
     }
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
+
+
+  static String formatDateForTextField(DateTime dateTime){
+    return DateFormat(
+                  'MMMM dd, yyyy',
+                ).format(dateTime);
+  }
 }

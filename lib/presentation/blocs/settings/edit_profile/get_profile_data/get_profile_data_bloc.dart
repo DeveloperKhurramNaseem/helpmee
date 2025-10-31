@@ -19,7 +19,9 @@ class GetProfileDataBloc
 
   FutureOr<void> _handleGetUserProfileDataEvent(GetUserProfileDataEvent event, Emitter<GetProfileDataState> emit) async {
     try{
-      emit(GetProfileDataLoadingState());
+      if(event.showLoading){
+        emit(GetProfileDataLoadingState());
+      }      
       var data = await userProfileRepo.getUserProfile(); 
       if(data.$1){
         emit(GetProfileDataLoadedState(data.$3));
