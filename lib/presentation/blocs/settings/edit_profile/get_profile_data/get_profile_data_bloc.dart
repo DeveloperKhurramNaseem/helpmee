@@ -13,6 +13,7 @@ part 'get_profile_data_state.dart';
 class GetProfileDataBloc
     extends Bloc<GetProfileDataEvent, GetProfileDataState> {
       final UserProfileRepo userProfileRepo;
+      UserProfileModel? userProfileModel;
   GetProfileDataBloc(this.userProfileRepo) : super(GetProfileDataInitialState()) {
     on<GetUserProfileDataEvent>(_handleGetUserProfileDataEvent);
   }
@@ -24,6 +25,7 @@ class GetProfileDataBloc
       }      
       var data = await userProfileRepo.getUserProfile(); 
       if(data.$1){
+        userProfileModel = data.$3;
         emit(GetProfileDataLoadedState(data.$3));
       }else{
         emit(GetProfileDataErrorState(data.$2));

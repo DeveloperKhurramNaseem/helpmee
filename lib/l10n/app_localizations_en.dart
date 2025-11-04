@@ -690,4 +690,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addressDescription => 'Address description';
+
+  @override
+  String get uploadPictureOrDocumentDetail =>
+      'Here you can upload a picture or a PDF document to be displayed in your HelpMee profile.';
+
+  @override
+  String get uploadPictureOrDocumentExamples =>
+      'Vaccination card, organ donor card, living will, doctor\'s letters, ...';
+
+  @override
+  String get examplesLabel => 'Examples';
+
+  @override
+  String get uploadDocumentButton => 'Upload document';
+
+  @override
+  String get uploadPdfDocumentDetail =>
+      'Here you can upload a PDF document to be displayed in your HelpMee profile';
+
+  @override
+  String get uploadPdfDocumentExamples =>
+      'Vaccination card, organ donor card, living will, doctor\'s letters, ...';
 }

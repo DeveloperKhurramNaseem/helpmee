@@ -21,7 +21,7 @@ class UserLocationNotificationService extends ApiService {
         decodedResponse.success,
         decodedResponse.message,
         LocationNotificationModel.fromMap(
-          decodedResponse.data['notificationSettings'],
+          decodedResponse.data['notificationSetting'],
         ),
       );
     } else {

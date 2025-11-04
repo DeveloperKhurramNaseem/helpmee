@@ -324,7 +324,38 @@
 "sendsEmail" : "Sends you an email",
 "addAddress" : "Add address",
 
-"addressDescription" : "Address description"
+"addressDescription" : "Address description",
+"doYouHaveAllergies" : "Do you have allergies? \n Then please enter the details in the field below.",
+
+"doYouSufferFromInfectiousDiseases" : "Do you suffer from infectious diseases? \n Then please enter the details in the field below.",
+
+"yesSufferingFromCoagulationDisorders" : "Yes, I’m suffering from coagulation disorders",
+
+"yesUsingPacemakerOrDefibrillator" : "Yes, I use a pacemaker or defibrillator",
+
+"haveYouHadHeartAttacks" : "Have you had one or more heart attacks? \n Then please enter the details in the field below.",
+
+"doYouSufferFromDiabetes" : "Do you suffer from diabetes? \n Then please enter the details in the field below.",
+
+"yesOnDialysis" : "Yes, I am on dialysis",
+
+"yesSufferingFromAsthmaOrCOPD" : "Yes, I suffer from asthma or COPD",
+
+"yesSufferingFromSeizureDisorder" : "Yes, I suffer from seizure disorder (like epilepsy)",
+
+"doYouHaveMentalIllness" : "Do you have a mental illness? \n Then please enter the details in the field below.",
+
+"doYouHaveOtherIllnesses" : "Do you have any other illnesses or conditions? \n Then please enter the details in the field below.",
+"diseaseInformationConsent" : "I agree that this information is accessible to all persons who have access to my HelpMee profile. I have the choice to protect this information with a PIN code after saving it.",
+"writeDetailsHere" : "Write your details here",
+"uploadPictureOrDocumentDetail" : "Here you can upload a picture or a PDF document to be displayed in your HelpMee profile.",
+"uploadPictureOrDocumentExamples" : "Vaccination card, organ donor card, living will, doctor's letters, ...",
+"examplesLabel" : "Examples",
+"uploadDocumentButton" : "Upload document",
+"uploadPdfDocumentDetail" : "Here you can upload a PDF document to be displayed in your HelpMee profile",
+
+"uploadPdfDocumentExamples" : "Vaccination card, organ donor card, living will, doctor's letters, ..."
+
 
 
 }

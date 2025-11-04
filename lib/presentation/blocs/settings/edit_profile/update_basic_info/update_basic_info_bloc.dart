@@ -33,6 +33,8 @@ class UpdateBasicInfoBloc
           weight: event.weight,
           bloodGroup: event.bloodGroup,
           profileImage: event.imageFile,
+          insuranceCompany: event.insuranceCompany,
+          insuranceId: event.insuranceId,          
         ),
       );
       if (result.$1) {

@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:help_mee/data/models/basic_profile_info.dart';
 import 'package:help_mee/data/models/requests/address_info.dart';
 import 'package:help_mee/data/models/requests/contact_info.dart';
+import 'package:help_mee/data/models/requests/disease_info.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
@@ -84,6 +87,62 @@ class UserProfileRepoImpl extends UserProfileRepo{
         var token = await tokenService.getToken();
     var language = storageService.getLanguage();
     var result = await userProfileService.updateAddress(token, language, addressId , addressInfo);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> addDisease(DiseaseInfo diseaseInfo) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.addDisease(token, language, diseaseInfo);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> deleteDisease(int diseaseId)async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.deleteDisease(token, language, diseaseId);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> lockDisease(int diseaseId, String status) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.lockDisease(token, language, diseaseId, status);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> deleteDocument(int docId) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.deleteDocument(language, token, docId);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> lockDocument(int docId, String status) async {
+     var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.lockDocument(language, token, docId, status);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> uploadMedicationDocument(String fileName, File file) async{
+     var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.uploadMedicationDocument(language, token, fileName,file);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> uploadSimpleDocument(String fileName, File file) async {
+   var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.uploadSimpleDocument(language, token,fileName,file);
     return result;
   }
 

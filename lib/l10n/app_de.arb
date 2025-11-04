@@ -317,8 +317,37 @@
 "sendsEmail" : "Sendet Ihnen eine Email",
 "addAddress" : "Adresse hinzufügen",
 
-"addressDescription" : "Adressbeschreibung"
+"addressDescription" : "Adressbeschreibung",
+"doYouHaveAllergies" : "Haben Sie Allergien? \n Dann geben Sie bitte die Details in das untenstehende Feld ein.",
 
+"doYouSufferFromInfectiousDiseases" : "Leiden Sie an Infektionskrankheiten? \n Dann geben Sie bitte die Details in das untenstehende Feld ein.",
+"yesSufferingFromCoagulationDisorders" : "Ja, ich leide an Gerinnungsstörungen",
+
+"yesUsingPacemakerOrDefibrillator" : "Ja, ich habe einen Herzschrittmacher oder Defibrillator",
+
+"haveYouHadHeartAttacks" : "Hatten Sie einen oder mehrere Herzinfarkte? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"doYouSufferFromDiabetes" : "Sind Sie an Diabetes erkrankt? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"yesOnDialysis" : "Ja, ich bin an der Dialyse",
+
+"yesSufferingFromAsthmaOrCOPD" : "Ja, ich leide an Asthma oder COPD",
+
+"yesSufferingFromSeizureDisorder" : "Ja, ich leide an Anfallsleiden (wie Epilepsie)",
+
+"doYouHaveMentalIllness" : "Haben Sie eine psychische Krankheit? \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"doYouHaveOtherIllnesses" : "Haben Sie andere Krankheiten oder Leiden?  \n Dann tragen Sie bitte die Details in das untenstehende Feld ein.",
+
+"diseaseInformationConsent" : "Ich stimme zu, dass diese Information für alle Personen zugänglich ist, die auf mein HelpMee Profil Zugriff haben. Ich habe die Wahl diese Information nach dem Abspeichern mit einem PIN-Code zu schützen.",
+"writeDetailsHere" : "Details hier eingeben",
+"uploadPictureOrDocumentDetail" : "Hier können Sie ein Bild oder ein PDF-Dokument hochladen, das in Ihrem HelpMee-Profil angezeigt werden soll.",
+"uploadPictureOrDocumentExamples" : "Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ...",
+"examplesLabel" : "Beispiele",
+"uploadDocumentButton" : "Dokument hochladen",
+"uploadPdfDocumentDetail" : "Hier können Sie ein PDF-Dokument hochladen, das in Ihrem HelpMee-Profil angezeigt werden soll",
+
+"uploadPdfDocumentExamples" : "Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ..."
 
 
 }

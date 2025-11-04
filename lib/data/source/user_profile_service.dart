@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:help_mee/data/models/basic_profile_info.dart';
 import 'package:help_mee/data/models/requests/address_info.dart';
 import 'package:help_mee/data/models/requests/contact_info.dart';
+import 'package:help_mee/data/models/requests/disease_info.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
@@ -149,7 +152,7 @@ class UserProfileService extends ApiService {
     }
   }
 
-   Future<(bool, String)> deleteAddress(
+  Future<(bool, String)> deleteAddress(
     String token,
     String language,
     int addressId,
@@ -166,11 +169,138 @@ class UserProfileService extends ApiService {
     }
   }
 
-  Future<(bool,String)> updateAddress(String token, String language, int addressId, AddressInfo addressInfo) async {
+  Future<(bool, String)> updateAddress(
+    String token,
+    String language,
+    int addressId,
+    AddressInfo addressInfo,
+  ) async {
     var result = await put(
       '${EndPoints.updateAddress}/$addressId',
       addressInfo.toMap(),
       header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> addDisease(
+    String token,
+    String language,
+    DiseaseInfo diseaseInfo,
+  ) async {
+    var result = await post(
+      EndPoints.addDisease,
+      diseaseInfo.toMap(),
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> deleteDisease(
+    String token,
+    String language,
+    int diseaseId,
+  ) async {
+    var result = await delete(
+      '${EndPoints.deleteDisease}/$diseaseId',
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> lockDisease(
+    String token,
+    String language,
+    int diseaseId,
+    String stauts,
+  ) async {
+    var result = await post(
+      '${EndPoints.lockDisease}/$diseaseId',
+      {'status': stauts},
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> deleteDocument(
+    String language,
+    String token,
+    int docId,
+  ) async {
+    var result = await delete(
+      '${EndPoints.deleteDocument}/$docId',
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> lockDocument(
+    String language,
+    String token,
+    int docId,
+    String status,
+  ) async {
+    var result = await post(
+      '${EndPoints.lockDocument}/$docId',
+      {'status': status},
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> uploadMedicationDocument(String language, String token ,String fileName, File file) async {
+   var result = await postFile(
+      EndPoints.uploadMedicationDocument,  
+      {'name' : fileName},
+      'image',
+      file,   
+      header: NetworkConstants.getFileHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+  Future<(bool, String)> uploadSimpleDocument(String language, String token,String fileName, File file)async{
+    var result = await postFile(
+      EndPoints.uploadSimpleDocument,  
+      {'name' : fileName},
+      'image',
+      file,   
+      header: NetworkConstants.getFileHeaders(language, token),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);

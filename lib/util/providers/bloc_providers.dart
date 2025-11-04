@@ -27,6 +27,13 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notif
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_notification_settings/update_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_notification_user/update_notification_user_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/add_disease/add_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/delete_disease/delete_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/lock_disease/lock_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/update_disease/update_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/delete_document/delete_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/lock_document/lock_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/upload_document/upload_document_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
@@ -136,6 +143,19 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<AddNotificationUserBloc>(create: (context) => AddNotificationUserBloc(sl()),),
     BlocProvider<UpdateNotificationUserBloc>(create: (context) => UpdateNotificationUserBloc(sl()),),    
     BlocProvider<DeleteNotificationUserBloc>(create: (context) => DeleteNotificationUserBloc(sl()),),        
+
+    // Medical Information / Diseases blocs
+
+    BlocProvider<AddDiseaseBloc>(create: (context) => AddDiseaseBloc(sl()),),
+    BlocProvider<UpdateDiseaseBloc>(create: (context) => UpdateDiseaseBloc(sl()),),
+    BlocProvider<DeleteDiseaseBloc>(create: (context) => DeleteDiseaseBloc(sl()),),
+    BlocProvider<LockDiseaseBloc>(create: (context) => LockDiseaseBloc(sl()),),
+
+    // Documents Blocs
+
+    BlocProvider<UploadDocumentBloc>(create: (context) => UploadDocumentBloc(sl()),),
+    BlocProvider<DeleteDocumentBloc>(create: (context) => DeleteDocumentBloc(sl()),),
+    BlocProvider <LockDocumentBloc>(create: (context) => LockDocumentBloc(sl()),),
     
   ];
 }

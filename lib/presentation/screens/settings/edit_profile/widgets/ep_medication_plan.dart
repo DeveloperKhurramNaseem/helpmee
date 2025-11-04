@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_address_sheet.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/delete_document/delete_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/lock_document/lock_document_bloc.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_document_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
@@ -22,7 +25,12 @@ class EpMedicationPlan extends StatelessWidget {
             spacing: 10,
             children: [
               for (var i = 0; i < medicationDocuments.length; i++)
-                AddMedicationPdfTile(text: medicationDocuments[i].name),
+                AddMedicationPdfTile(
+                  text: medicationDocuments[i].name,
+                  docId: medicationDocuments[i].id,
+                  status: medicationDocuments[i].status,
+                  index: i,
+                ),
               AddMedicationPlanTile(),
             ],
           ),
@@ -45,7 +53,7 @@ class AddMedicationPlanTile extends StatelessWidget {
           showDragHandle: true,
           isScrollControlled: true,
           builder: (context) {
-            return AddAddressSheet();
+            return UploadDocumentSheet(documentType: DocumentType.medication);
           },
         );
       },
@@ -55,10 +63,49 @@ class AddMedicationPlanTile extends StatelessWidget {
 
 class AddMedicationPdfTile extends StatelessWidget {
   final String text;
-  const AddMedicationPdfTile({super.key, required this.text});
+  final int docId;
+  final String status;
+  final int index;
+  const AddMedicationPdfTile({
+    super.key,
+    required this.text,
+    required this.docId,
+    required this.status,
+    required this.index,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return EpBaseTile(title: text, state: BaseTileState.pdf, onTap: () {});
+    return BlocBuilder<LockDocumentBloc, LockDocumentState>(
+      builder: (context, lockState) {
+        return BlocBuilder<DeleteDocumentBloc, DeleteDocumentState>(
+          builder: (context, state) {
+            return EpBaseTile(
+              title: text,
+              state: BaseTileState.pdf,
+              isLock: status == 'lock',
+              onTap: () {},
+              onDeleteTap:
+                  state is DeleteDocumentLoading && docId == state.docId
+                  ? null
+                  : () {
+                      context.read<DeleteDocumentBloc>().add(
+                        DeleteCurrentDocumentEvent(docId),
+                      );
+                    },
+              onEditTap: null,
+              onLockTap: lockState is LockDocumentLoading && docId == lockState.docId ? null : () {
+                context.read<LockDocumentBloc>().add(
+                  LockCurrentDocumentEvent(
+                    docId,
+                    status == 'lock' ? 'unlock' : 'lock',
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
+    );
   }
 }

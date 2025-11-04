@@ -1,8 +1,14 @@
+import 'package:intl/intl.dart';
+
 class UserProfileModel {
   static const userKey = 'user',
       familyContactsKey = 'familyContacts',
       addressesKey = 'address',
-      doctorContactsKey = 'doctorsContacts' , medicationDocumentsKey = 'medicationDocuments' , documentsKey = 'vaccinationdocuments';
+      doctorContactsKey = 'doctorsContacts',
+      medicationDocumentsKey = 'medicationDocuments',
+      documentsKey = 'vaccinationdocuments',
+      notAddedDiseaseTypesKey = 'not_added_diseases_Types',
+      addedDiseaseTypesKey = 'added_diseases_Types';
 
   User user;
   List<Contact> familyContacts;
@@ -10,6 +16,8 @@ class UserProfileModel {
   List<Address> addresses;
   List<Document> medicationDocuments;
   List<Document> documents;
+  List<Disease> notAddedDiseaseTypes;
+  List<Disease> addedDiseaseType;
 
   UserProfileModel({
     required this.user,
@@ -18,6 +26,8 @@ class UserProfileModel {
     required this.addresses,
     required this.medicationDocuments,
     required this.documents,
+    required this.notAddedDiseaseTypes,
+    required this.addedDiseaseType,
   });
 
   factory UserProfileModel.fromMap(Map<String, dynamic> map) {
@@ -35,7 +45,15 @@ class UserProfileModel {
       medicationDocuments: (map[medicationDocumentsKey] as List)
           .map((e) => Document.fromMap(e))
           .toList(),
-      documents: (map[documentsKey] as List).map((e) => Document.fromMap(e)).toList(),
+      documents: (map[documentsKey] as List)
+          .map((e) => Document.fromMap(e))
+          .toList(),
+      notAddedDiseaseTypes: (map[notAddedDiseaseTypesKey] as List)
+          .map((e) => Disease.fromMap(e))
+          .toList(),
+      addedDiseaseType: (map[addedDiseaseTypesKey] as List)
+          .map((e) => Disease.fromMap(e))
+          .toList(),
     );
   }
 
@@ -47,6 +65,8 @@ class UserProfileModel {
       doctorContacts: [],
       medicationDocuments: [],
       documents: [],
+      notAddedDiseaseTypes: [],
+      addedDiseaseType: [],
     );
   }
 }
@@ -96,15 +116,16 @@ class User {
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
+    var currentDate = DateTime.now();
     return User(
       id: map[idKey] ?? 0,
       firstName: map[firstNameKey] ?? '',
       lastName: map[lastNameKey] ?? '',
-      dateOfBirth: map[dateOfBirthKey] ?? '',
-      gender: map[genderKey] ?? 0,
+      dateOfBirth: map[dateOfBirthKey] ?? DateFormat('yyyy-mm-dd hh:mm:ss').format(currentDate),
+      gender: map[genderKey] ?? 1,
       height: map[heightKey] ?? '',
       weight: map[weightKey] ?? '',
-      bloodGroup: map[bloodGroupKey] ?? '',
+      bloodGroup: map[bloodGroupKey] ?? 'A+',
       importantNote: map[importantNoteKey] ?? '',
       insuranceCompany: map[insuranceCompanyKey] ?? '',
       insuranceId: map[insuranceIdKey] ?? '',
@@ -217,9 +238,15 @@ class Address {
 }
 
 class Document {
-
-
-  static const idKey = 'id', userIdKey = 'user_id', typeKey = 'type', nameKey = 'name', imageKey = 'image', statusKey = 'status', createdAtKey = 'created_at', updatedAtKey = 'updated_at', imageExtensionKey = 'image_extension';
+  static const idKey = 'id',
+      userIdKey = 'user_id',
+      typeKey = 'type',
+      nameKey = 'name',
+      imageKey = 'image',
+      statusKey = 'status',
+      createdAtKey = 'created_at',
+      updatedAtKey = 'updated_at',
+      imageExtensionKey = 'image_extension';
 
   int id;
   int userId;
@@ -260,4 +287,70 @@ class Document {
 
 class VaccinationDocuments {}
 
-class DiseaseType {}
+class Disease {
+  static const idKey = 'id',
+      nameKey = 'name',
+      typeKey = 'type',
+      diseaseDetailsKey = 'disease_Details';
+
+  int id;
+  String name;
+  String type;
+  DiseaseDetails diseaseDetails;
+
+  Disease({
+    required this.id,
+    required this.name,
+    required this.type,
+    required this.diseaseDetails,
+  });
+
+  factory Disease.fromMap(Map<String, dynamic> map) {
+    return Disease(
+      id: map[idKey] ?? 0,
+      name: map[nameKey] ?? '',
+      type: map[typeKey] ?? '',
+      diseaseDetails: DiseaseDetails.fromMap(map[diseaseDetailsKey] ?? {}),
+    );
+  }
+}
+
+class DiseaseDetails {
+  static const idKey = 'id',
+      diseaseIdKey = 'disease_id',
+      userIdKey = 'user_id',
+      detailsKey = 'details',
+      medicationsKey = 'medications',
+      statusKey = 'status',
+      isCheckKey = 'is_check';
+
+  int id;
+  int diseaseId;
+  int userId;
+  String details;
+  String medications;
+  String status;
+  String isCheck;
+
+  DiseaseDetails({
+    required this.id,
+    required this.diseaseId,
+    required this.userId,
+    required this.details,
+    required this.medications,
+    required this.status,
+    required this.isCheck,
+  });
+
+  factory DiseaseDetails.fromMap(Map<String, dynamic> map) {
+    return DiseaseDetails(
+      id: map[idKey] ?? 0,
+      diseaseId: map[diseaseIdKey] ?? 0,
+      userId: map[userIdKey] ?? 0,
+      details: map[detailsKey] ?? '',
+      medications: map[medicationsKey] ?? '',
+      status: map[statusKey] ?? '',
+      isCheck: map[isCheckKey] ?? '',
+    );
+  }
+}

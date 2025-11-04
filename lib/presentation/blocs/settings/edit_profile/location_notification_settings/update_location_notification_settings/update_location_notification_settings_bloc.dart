@@ -15,24 +15,42 @@ class UpdateLocationAndNotificationSettingsBloc
           UpdateLocationAndNotificationSettingsEvent,
           UpdateLocationAndNotificationSettingsState
         > {
-          final UserLocationNotificationRepo userLocationNotificationRepo;
+  final UserLocationNotificationRepo userLocationNotificationRepo;
   UpdateLocationAndNotificationSettingsBloc(this.userLocationNotificationRepo)
     : super(UpdateLocationAndNotificationSettingsInitialState()) {
-    on<UpdateCurrentLocationNotificationSettingsEvent>(_handleUpdateCurrentLocationNotificationSettingsEvent);
+    on<UpdateCurrentLocationNotificationSettingsEvent>(
+      _handleUpdateCurrentLocationNotificationSettingsEvent,
+    );
   }
 
-  FutureOr<void> _handleUpdateCurrentLocationNotificationSettingsEvent(UpdateCurrentLocationNotificationSettingsEvent event, Emitter<UpdateLocationAndNotificationSettingsState> emit) async{
-    try{
+  FutureOr<void> _handleUpdateCurrentLocationNotificationSettingsEvent(
+    UpdateCurrentLocationNotificationSettingsEvent event,
+    Emitter<UpdateLocationAndNotificationSettingsState> emit,
+  ) async {
+    try {
       emit(UpdateLocationAndNotificationSettingsLoadingState());
-      var result = await userLocationNotificationRepo.updateLocationNotificationSettings(LocationNotificationModel(pushNotification: event.pushNotification, emailNotification: event.emailNotification, inAppNotification: event.inAppNotification, emailHelpMeeNotification: event.emailHelpMeeNotification,));
-      if(result.$1){
+      var result = await userLocationNotificationRepo
+          .updateLocationNotificationSettings(
+            LocationNotificationModel(
+              pushNotification: event.pushNotification,
+              emailNotification: event.emailNotification,
+              inAppNotification: event.inAppNotification,
+              emailHelpMeeNotification: event.emailHelpMeeNotification,
+            ),
+          );
+      if (result.$1) {
         emit(UpdateLocationAndNotificationSettingsLoadedState());
-      }else{
-        emit(UpdateLocationAndNotificationSettingsErrorState(message: result.$2));
+      } else {
+        emit(
+          UpdateLocationAndNotificationSettingsErrorState(message: result.$2),
+        );
       }
-    }catch(e){
-        emit(UpdateLocationAndNotificationSettingsErrorState(message: ErrorConstants.errorMessage));
+    } catch (e) {
+      emit(
+        UpdateLocationAndNotificationSettingsErrorState(
+          message: ErrorConstants.errorMessage,
+        ),
+      );
     }
-
   }
 }

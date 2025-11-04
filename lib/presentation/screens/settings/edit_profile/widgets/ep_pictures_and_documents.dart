@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_picture_document_sheet.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/delete_document/delete_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/lock_document/lock_document_bloc.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_document_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
@@ -26,6 +29,8 @@ class EpPicturesAndDocuments extends StatelessWidget {
                 PictureAndDocuemntsTile(
                   text: documents[i].name,
                   image: documents[i].image,
+                  status: documents[i].status,
+                  docId: documents[i].id,
                 ),
               AddPictureAndDocuemntsTile(),
             ],
@@ -49,7 +54,7 @@ class AddPictureAndDocuemntsTile extends StatelessWidget {
           showDragHandle: true,
           isScrollControlled: true,
           builder: (context) {
-            return UploadPictureDocumentSheet();
+            return UploadDocumentSheet(documentType: DocumentType.simple);
           },
         );
       },
@@ -60,15 +65,51 @@ class AddPictureAndDocuemntsTile extends StatelessWidget {
 class PictureAndDocuemntsTile extends StatelessWidget {
   final String text;
   final String? image;
-  const PictureAndDocuemntsTile({super.key, required this.text, this.image});
+  final int docId;
+  final String status;
+  const PictureAndDocuemntsTile({
+    super.key,
+    required this.text,
+    this.image,
+    required this.docId,
+    required this.status,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return EpBaseTile(
-      title: text,
-      onTap: () {},
-      state: image != null ? BaseTileState.image : BaseTileState.pdf,
-      image: image,
+    return BlocBuilder<DeleteDocumentBloc, DeleteDocumentState>(
+      builder: (context, delState) {
+        return BlocBuilder<LockDocumentBloc, LockDocumentState>(
+          builder: (context, state) {
+            return EpBaseTile(
+              title: text,
+              onTap: () {},
+              state: image != null ? BaseTileState.image : BaseTileState.pdf,
+              image: image,
+              isLock: status == 'lock',
+              onDeleteTap:
+                  delState is DeleteDocumentLoading && docId == delState.docId
+                  ? null
+                  : () {
+                      context.read<DeleteDocumentBloc>().add(
+                        DeleteCurrentDocumentEvent(docId),
+                      );
+                    },
+              onEditTap: null,
+              onLockTap: state is LockDocumentLoading && docId == state.docId
+                  ? null
+                  : () {
+                      context.read<LockDocumentBloc>().add(
+                        LockCurrentDocumentEvent(
+                          docId,
+                          status == 'lock' ? 'unlock' : 'lock',
+                        ),
+                      );
+                    },
+            );
+          },
+        );
+      },
     );
   }
 }

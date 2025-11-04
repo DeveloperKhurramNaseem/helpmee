@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/data/models/user_profile_model.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_disease_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 
 class AddMedicalInformationSheet extends StatelessWidget {
-  const AddMedicalInformationSheet({super.key});
+  final List<Disease> notAddedDiseaseTypes;
+  const AddMedicalInformationSheet({
+    super.key,
+    required this.notAddedDiseaseTypes,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +25,30 @@ class AddMedicalInformationSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Add medical information',
+                  AppLocalizations.of(context)!.addMedicationInformationButton,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
             ),
           ),
-          for (var i = 0; i < 8; i++)
+          for (var i = 0; i < notAddedDiseaseTypes.length; i++)
             AddMedicalInformationTile(
-              title: 'Medical information ${i + 1}',
+              title: notAddedDiseaseTypes[i].name,
               onTap: () {
                 showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
                   builder: (context) {
+                    var diseaseInfo = diseaseInfoBasedOnIndex(
+                      notAddedDiseaseTypes[i].id,
+                      context,
+                    );
                     return AddDiseaseSheet(
-                      title: 'Allergies',
-                      description:
-                          'Do you have allergies?\nThen please enter the details in the field below.',
+                      id: notAddedDiseaseTypes[i].id,
+                      title: notAddedDiseaseTypes[i].name,
+                      description: diseaseInfo.description,
+                      hasCheck: diseaseInfo.hasCheck,
                     );
                   },
                 );
@@ -47,6 +58,43 @@ class AddMedicalInformationSheet extends StatelessWidget {
       ),
     );
   }
+}
+
+({bool hasCheck, String description}) diseaseInfoBasedOnIndex(
+  int index,
+  BuildContext context,
+) {
+  var localization = AppLocalizations.of(context)!;
+
+  return switch (index) {
+    1 => (hasCheck: false, description: localization.doYouHaveAllergies),
+    2 => (
+      hasCheck: false,
+      description: localization.doYouSufferFromInfectiousDiseases,
+    ),
+    3 => (
+      hasCheck: true,
+      description: localization.yesSufferingFromCoagulationDisorders,
+    ),
+    4 => (
+      hasCheck: true,
+      description: localization.yesUsingPacemakerOrDefibrillator,
+    ),
+    5 => (hasCheck: false, description: localization.haveYouHadHeartAttacks),
+    6 => (
+      hasCheck: true,
+      description: localization.yesSufferingFromAsthmaOrCOPD,
+    ),
+
+    7 => (hasCheck: false, description: localization.doYouSufferFromDiabetes),
+    8 => (hasCheck: true, description: localization.yesOnDialysis),
+    9 => (
+      hasCheck: true,
+      description: localization.yesSufferingFromSeizureDisorder,
+    ),
+    10 => (hasCheck: false, description: localization.doYouHaveMentalIllness),
+    _ => (hasCheck: false, description: localization.doYouHaveOtherIllnesses),
+  };
 }
 
 class AddMedicalInformationTile extends StatelessWidget {

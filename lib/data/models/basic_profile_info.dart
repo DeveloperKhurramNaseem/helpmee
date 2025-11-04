@@ -7,6 +7,8 @@ class BasicProfileInfo {
       heightKey = 'height',
       weightKey = 'weight',
       bloodGroupKey = 'blood_group',
+      insuranceCompanyKey = 'insurance_company',
+      insuranceIdKey = 'insurance_id',
       profileImageKey = 'profile_image';
   String firstName;
   String lastName;
@@ -14,6 +16,8 @@ class BasicProfileInfo {
   int height;
   int weight;
   String bloodGroup;
+  String insuranceCompany;
+  String insuranceId;
   File? profileImage;
   BasicProfileInfo({
     required this.firstName,
@@ -22,6 +26,8 @@ class BasicProfileInfo {
     required this.height,
     required this.weight,
     required this.bloodGroup,
+    required this.insuranceCompany,
+    required this.insuranceId ,
     this.profileImage,
   });
 
@@ -33,6 +39,8 @@ class BasicProfileInfo {
       heightKey: height,
       weightKey: weight,      
       bloodGroupKey : bloodGroup,
+      insuranceCompanyKey : insuranceCompany,
+      insuranceIdKey : insuranceId,
     };
   }
 }

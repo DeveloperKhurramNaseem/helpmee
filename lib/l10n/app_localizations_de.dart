@@ -694,4 +694,26 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get addressDescription => 'Adressbeschreibung';
+
+  @override
+  String get uploadPictureOrDocumentDetail =>
+      'Hier können Sie ein Bild oder ein PDF-Dokument hochladen, das in Ihrem HelpMee-Profil angezeigt werden soll.';
+
+  @override
+  String get uploadPictureOrDocumentExamples =>
+      'Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ...';
+
+  @override
+  String get examplesLabel => 'Beispiele';
+
+  @override
+  String get uploadDocumentButton => 'Dokument hochladen';
+
+  @override
+  String get uploadPdfDocumentDetail =>
+      'Hier können Sie ein PDF-Dokument hochladen, das in Ihrem HelpMee-Profil angezeigt werden soll';
+
+  @override
+  String get uploadPdfDocumentExamples =>
+      'Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ...';
 }

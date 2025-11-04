@@ -1,9 +1,16 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/delete_disease/delete_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/lock_disease/lock_disease_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/delete_document/delete_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/lock_document/lock_document_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/upload_document/upload_document_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/image_picker_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_app_bar.dart';
@@ -46,7 +53,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   void initState() {
     super.initState();
+    userProfile = context.read<GetProfileDataBloc>().userProfileModel;
     context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
+    context.read<GetLocationNotificationSettingsBloc>().add(GetUserLocationNotificationSettingsEvent());
     firstNameController = TextEditingController()..addListener(inputListener);
     lastNameController = TextEditingController()..addListener(inputListener);
     birthdayController = TextEditingController()..addListener(inputListener);
@@ -80,7 +89,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   @override
-  void dispose() {
+  void dispose() {    
     firstNameController.dispose();
     lastNameController.dispose();
     birthdayController.dispose();
@@ -88,13 +97,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     weightController.dispose();
     importantNoteController.dispose();
     insuranceCompanyController.dispose();
-    insuranceIdController.dispose();
+    insuranceIdController.dispose();    
     super.dispose();
   }
 
   initialzeWithData(UserProfileModel userProfile) {
     firstNameController.text = userProfile.user.firstName;
     lastNameController.text = userProfile.user.lastName;
+    log('Date: ${userProfile.user.dateOfBirth}');
     birthdayController.text = DateFormatting.formatDateForTextField(
       DateTime.parse(userProfile.user.dateOfBirth),
     );
@@ -117,11 +127,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         BlocListener<UpdateBasicInfoBloc, UpdateBasicInfoState>(
           listener: _handleUpdateBasicInfoListener,
         ),
+        BlocListener<DeleteDiseaseBloc  , DeleteDiseaseState>(
+          listener: _handleDeleteDiseaseListener,
+        ),
+        BlocListener<LockDiseaseBloc  , LockDiseaseState>(
+          listener: _handleLockDiseaseListener,
+        ),
+        BlocListener<UploadDocumentBloc, UploadDocumentState>(
+          listener: _handleUpdateDocuemntListener,
+        ),
+        BlocListener<DeleteDocumentBloc  , DeleteDocumentState>(
+          listener: _handleDeleteDocumentListener,
+        ),
+        BlocListener<LockDocumentBloc  , LockDocumentState>(
+          listener: _handleLockDocumentListener,
+        ),
       ],
       child: Scaffold(
         appBar: EpAppBar(
           showButton: showButton,
           onTap: () {
+            FocusManager.instance.primaryFocus?.unfocus();
             context.read<UpdateBasicInfoBloc>().add(
               UpdateBasicProfileInfoEvent(
                 firstName: firstNameController.text.trim(),
@@ -131,6 +157,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 weight: int.parse(weightController.text.trim()),
                 bloodGroup: currentBloodGroup,
                 imageFile: pickedImage,
+                insuranceCompany: insuranceCompanyController.text.trim(), 
+                insuranceId: insuranceIdController.text.trim()
               ),
             );
           },
@@ -225,7 +253,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     //   // Pet Identification Part
                     //   EpPetIdentificationBox(),
                     // Medical Information Part
-                    EpMedicalInformation(),
+                    EpMedicalInformation(
+                      notAddedDiseaseTypes: state.userProfile.notAddedDiseaseTypes,
+                      addedDiseaseType: state.userProfile.addedDiseaseType,
+                    ),
                     // Medication Plan part
                     EpMedicationPlan(
                       medicationDocuments:
@@ -281,6 +312,36 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       refreshData();
     }
   }  
+
+  void _handleDeleteDiseaseListener(BuildContext context, DeleteDiseaseState state) {
+    if (state is DeleteDiseaseDoneState) {
+      refreshData();
+    }
+  }
+
+  void _handleLockDiseaseListener(BuildContext context, LockDiseaseState state) {
+    if (state is LockDiseaseDoneState) {
+      refreshData();
+    }
+  }
+
+  void _handleUpdateDocuemntListener(BuildContext context, UploadDocumentState state) {
+    if (state is UploadDocumentLoaded) {
+      refreshData();
+    }
+  }
+
+  void _handleDeleteDocumentListener(BuildContext context, DeleteDocumentState state) {
+    if(state is DeleteDocumentLoaded){
+      refreshData();
+    }
+  }
+
+  void _handleLockDocumentListener(BuildContext context, LockDocumentState state) {
+    if(state is LockDocumentLoaded){
+      refreshData();
+    }
+  }
 }
 
 class EditProfileLoadingWidget extends StatelessWidget {

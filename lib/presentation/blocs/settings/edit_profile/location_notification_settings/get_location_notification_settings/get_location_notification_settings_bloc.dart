@@ -18,7 +18,7 @@ class GetLocationNotificationSettingsBloc
         > {
   final UserLocationNotificationRepo userLocationNotificationRepo;
   GetLocationNotificationSettingsBloc(this.userLocationNotificationRepo)
-    : super(GetLocationNotificationSettingsInitialState()) {
+    : super(GetLocationNotificationSettingsInitialState(locationNotificationModel: LocationNotificationModel.empty())) {
     on<GetUserLocationNotificationSettingsEvent>(
       _handleUserLocationAndNotificationSettings,
     );
@@ -29,18 +29,19 @@ class GetLocationNotificationSettingsBloc
     Emitter<GetLocationNotificationSettingsState> emit,
   ) async {
     try {
-      emit(GetLocationNotificationSettingsLoadingState());
+      emit(GetLocationNotificationSettingsLoadingState(locationNotificationModel: LocationNotificationModel.empty()));
       var data = await userLocationNotificationRepo
-          .getUserLocationNotificationSettings();
+          .getUserLocationNotificationSettings();          
       if (data.$1) {
-        emit(GetLocationNotificationSettingsLoadedState(data.$3));
+        emit(GetLocationNotificationSettingsLoadedState(locationNotificationModel :data.$3));
       } else {
-        emit(GetLocationNotificationSettingsErrorState(message: data.$2));
+        emit(GetLocationNotificationSettingsErrorState(locationNotificationModel: LocationNotificationModel.empty(),message: data.$2));
       }
     } catch (e) {
       log(e.toString(), name: 'GetLocationNotificationSettingsBloc');
       emit(
         GetLocationNotificationSettingsErrorState(
+          locationNotificationModel: LocationNotificationModel.empty(),
           message: ErrorConstants.errorMessage,
         ),
       );

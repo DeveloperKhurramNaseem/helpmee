@@ -163,14 +163,22 @@ enum BaseTileState { simple, pdf, image }
 class EpBaseTile extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
+  final VoidCallback? onDeleteTap;
+  final VoidCallback? onEditTap;
+  final VoidCallback? onLockTap;
   final BaseTileState state;
   final String? image;
+  final bool isLock;
   const EpBaseTile({
     super.key,
     required this.title,
     this.image,
     required this.state,
     required this.onTap,
+    required this.onDeleteTap,
+    required this.onEditTap,
+    required this.onLockTap,
+    this.isLock = false,
   });
 
   @override
@@ -229,11 +237,27 @@ class EpBaseTile extends StatelessWidget {
             Row(
               spacing: 10,
               children: [
-                SvgPicture.asset(AppIcons.edit),
-                SvgPicture.asset(AppIcons.del),
-                Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: SvgPicture.asset(AppIcons.unlocked),
+                if (onEditTap != null)
+                  GestureDetector(
+                    onTap: onEditTap,
+                    child: SvgPicture.asset(AppIcons.edit),
+                  ),
+                GestureDetector(
+                  onTap: onDeleteTap,
+                  child: SvgPicture.asset(
+                    AppIcons.del,
+                    color: onDeleteTap == null ? Colors.grey : null,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onLockTap,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: SvgPicture.asset(
+                      isLock ? AppIcons.locked : AppIcons.unlocked,
+                      color: onLockTap == null ? Colors.grey : null,
+                    ),
+                  ),
                 ),
               ],
             ),

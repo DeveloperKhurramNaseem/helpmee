@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_new_person_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -13,146 +15,163 @@ class LocationSettingsBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context)!;
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-      child: Wrap(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 4.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  localization.locationSetting,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                ),
-              ],
-            ),
+    return BlocBuilder<
+      GetLocationNotificationSettingsBloc,
+      GetLocationNotificationSettingsState
+    >(
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: Text(
-              localization.locationSettingSubtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: AppLightThemeColors.secondaryTextColor,
-                fontSize: 13,
-              ),
-            ),
-          ),
-          SizedBox(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.secondary,
-                  ),
-                ),
-                margin: EdgeInsets.symmetric(horizontal: 12),
-                padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
-                child: Column(
+          child: Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 4.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Notification to yourself',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 22,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      localization.locationSetting,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(12, 0, 12, 6),
-                      child: Text(
-                        '[email address]@gmail.com',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: AppLightThemeColors.secondaryTextColor,
-                          fontSize: 13,
-                        ),
-                      ),
-                    ),
-                    NotificationListTile(
-                      initialValue: true,
-                      text: localization.pushNotificationLabel,
-                      label: localization.sendPushMessageLabel,
-                      onChanged: (value) {},
-                    ),
-                    NotificationListTile(
-                      initialValue: false,
-                      text: localization.inAppNotification,
-                      label: localization.sendNotificationsMessageLabel,
-                      onChanged: (value) {},
-                    ),
-                    NotificationListTile(
-                      initialValue: false,
-                      text: localization.emailNotification,
-                      label: localization.sendsEmail,
-                      onChanged: (value) {},
                     ),
                   ],
                 ),
               ),
-            ),
-          ),
-          SizedBox(
-            child: Padding(
-              padding: EdgeInsets.symmetric(vertical: 15),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Theme.of(context).colorScheme.secondary,
+              Padding(
+                padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+                child: Text(
+                  localization.locationSettingSubtitle,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: AppLightThemeColors.secondaryTextColor,
+                    fontSize: 13,
                   ),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 12),
-                padding: EdgeInsets.fromLTRB(0, 6, 0, 10),
-                child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              ),
+              SizedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.fromLTRB(0, 6, 0, 6),
+                    child: Column(
                       children: [
-                        Text(
-                          'Notification to persons',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 22,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Notification to yourself',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            ],
                           ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(12, 0, 12, 6),
+                          child: Text(
+                            '[email address]@gmail.com',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: AppLightThemeColors.secondaryTextColor,
+                              fontSize: 13,
+                            ),
+                          ),
+                        ),
+                        NotificationListTile(
+                          initialValue:
+                              state.locationNotificationModel.pushNotification,
+                          text: localization.pushNotificationLabel,
+                          label: localization.sendPushMessageLabel,
+                          onChanged: (value) {},
+                        ),
+                        NotificationListTile(
+                          initialValue:
+                              state.locationNotificationModel.inAppNotification,
+                          text: localization.inAppNotification,
+                          label: localization.sendNotificationsMessageLabel,
+                          onChanged: (value) {},
+                        ),
+                        NotificationListTile(
+                          initialValue:
+                              state.locationNotificationModel.emailNotification,
+                          text: localization.emailNotification,
+                          label: localization.sendsEmail,
+                          onChanged: (value) {},
                         ),
                       ],
                     ),
-                    NotificationListTile(
-                      initialValue: false,
-                      text: localization.emailNotification,
-                      label: 'Sends an email to addresses below',
-                      onChanged: (value) {},
-                    ),
-                    LocationSettingEmailTile(
-                      title: 'Uncle Sam',
-                      details: 'naseemkhurram397@gmail.com',
-                      onTap: () {},
-                    ),
-                    LocationSettingEmailTile(
-                      title: 'Grandmother',
-                      details: 'naseemkhurram397@gmail.com',
-                      onTap: () {},
-                    ),
-                    LocationSettingsAddPersonTile(),
-                  ],
+                  ),
                 ),
               ),
-            ),
+              SizedBox(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 15),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                    margin: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.fromLTRB(0, 6, 0, 10),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Notification to persons',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22,
+                              ),
+                            ),
+                          ],
+                        ),
+                        NotificationListTile(
+                          initialValue: state
+                              .locationNotificationModel
+                              .emailHelpMeeNotification,
+                          text: localization.emailNotification,
+                          label: 'Sends an email to addresses below',
+                          onChanged: (value) {},
+                        ),
+                        LocationSettingEmailTile(
+                          title: 'Uncle Sam',
+                          details: 'naseemkhurram397@gmail.com',
+                          onTap: () {},
+                        ),
+                        LocationSettingEmailTile(
+                          title: 'Grandmother',
+                          details: 'naseemkhurram397@gmail.com',
+                          onTap: () {},
+                        ),
+                        LocationSettingsAddPersonTile(),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

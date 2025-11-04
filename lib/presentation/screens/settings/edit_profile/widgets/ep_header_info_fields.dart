@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/util/common_widgets/app_dropdown_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
@@ -119,7 +120,7 @@ class EpHeaderInfoBasePhoneNoField extends StatelessWidget {
           ColoredBox(
             color: Colors.transparent,
             child: CountryCodePicker(
-              initialSelection: initialCode,              
+              initialSelection: initialCode,
               flagWidth: 20,
               textStyle: TextStyle(fontSize: 1),
               pickerStyle: PickerStyle.fullScreen,
@@ -191,50 +192,11 @@ class EpHeaderInfoBaseDropDownField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var localization = AppLocalizations.of(context)!;
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
-        color: AppLightThemeColors.textfieldColor,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: DropdownButtonFormField<int>(
-        initialValue: genderValue,
-        items: items
-            .map(
-              (e) => DropdownMenuItem<int>(
-                value: e,
-                child: Text(switch (e) {
-                  1 => localization.genderMale,
-                  2 => localization.genderFemale,
-                  3 => localization.genderPreferNotSay,
-                  _ => localization.genderCustom,
-                }),
-              ),
-            )
-            .toList(),
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(0, 0, 0, 0.8),
-          ),
-          floatingLabelStyle: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(0, 0, 0, 0.8),
-          ),
-          border: InputBorder.none,
-          suffixIcon: trailing,
-          suffixIconConstraints: BoxConstraints(
-            maxHeight: 22,
-            maxWidth: 22,
-            minHeight: 20,
-            minWidth: 20,
-          ),
-        ),
-      ),
+    return AppGenderDropdownButton(
+      label: label,
+      initialValue: genderValue,
+      items: items,
+      onChanged: onChanged,
     );
   }
 }
@@ -257,40 +219,47 @@ class EpHeaderInfoBaseDropDownStringField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
-        color: AppLightThemeColors.textfieldColor,
-      ),
-      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: DropdownButtonFormField<String>(
-        initialValue: value,
-        items: items
-            .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
-            .toList(),
-        onChanged: onChanged,
-        decoration: InputDecoration(
-          labelText: label,
-          labelStyle: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(0, 0, 0, 0.8),
-          ),
-          floatingLabelStyle: TextStyle(
-            fontWeight: FontWeight.w400,
-            color: Color.fromRGBO(0, 0, 0, 0.8),
-          ),
-          border: InputBorder.none,
-          suffixIcon: trailing,
-          suffixIconConstraints: BoxConstraints(
-            maxHeight: 22,
-            maxWidth: 22,
-            minHeight: 20,
-            minWidth: 20,
-          ),
-        ),
-      ),
+    return AppDropdownButton(
+      label: label,
+      initialValue: value,
+      items: items,
+      onChanged: onChanged,
     );
+    // return Container(
+    //   decoration: BoxDecoration(
+    //     borderRadius: BorderRadius.circular(12),
+    //     border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
+    //     color: AppLightThemeColors.textfieldColor,
+    //   ),
+    //   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+    //   child:
+    // DropdownButtonFormField<String>(
+    //   initialValue: value,
+    //   items: items
+    //       .map((e) => DropdownMenuItem<String>(value: e, child: Text(e)))
+    //       .toList(),
+    //   onChanged: onChanged,
+    //   decoration: InputDecoration(
+    //     labelText: label,
+    //     labelStyle: TextStyle(
+    //       fontWeight: FontWeight.w400,
+    //       color: Color.fromRGBO(0, 0, 0, 0.8),
+    //     ),
+    //     floatingLabelStyle: TextStyle(
+    //       fontWeight: FontWeight.w400,
+    //       color: Color.fromRGBO(0, 0, 0, 0.8),
+    //     ),
+    //     border: InputBorder.none,
+    //     suffixIcon: trailing,
+    //     suffixIconConstraints: BoxConstraints(
+    //       maxHeight: 22,
+    //       maxWidth: 22,
+    //       minHeight: 20,
+    //       minWidth: 20,
+    //     ),
+    //   ),
+    // ),
+    // );
   }
 }
 
@@ -439,13 +408,19 @@ class EpHeaderBloodGroup extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: EpHeaderInfoBaseDropDownStringField(
+            child: AppDropdownButton(
+              initialValue: initialValue,
               items: TextFieldsConstants.bloodGroupValues,
               label: AppLocalizations.of(context)!.bloodGroup,
-              value: initialValue,
               onChanged: onChanged,
-              trailing: Icon(Icons.keyboard_arrow_down_rounded),
             ),
+            // child: EpHeaderInfoBaseDropDownStringField(
+            //   items: TextFieldsConstants.bloodGroupValues,
+            //   label: AppLocalizations.of(context)!.bloodGroup,
+            //   value: initialValue,
+            //   onChanged: onChanged,
+            //   trailing: Icon(Icons.keyboard_arrow_down_rounded),
+            // ),
           ),
         ],
       ),

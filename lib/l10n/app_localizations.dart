@@ -1369,6 +1369,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Address description'**
   String get addressDescription;
+
+  /// No description provided for @uploadPictureOrDocumentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can upload a picture or a PDF document to be displayed in your HelpMee profile.'**
+  String get uploadPictureOrDocumentDetail;
+
+  /// No description provided for @uploadPictureOrDocumentExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccination card, organ donor card, living will, doctor\'s letters, ...'**
+  String get uploadPictureOrDocumentExamples;
+
+  /// No description provided for @examplesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get examplesLabel;
+
+  /// No description provided for @uploadDocumentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload document'**
+  String get uploadDocumentButton;
+
+  /// No description provided for @uploadPdfDocumentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can upload a PDF document to be displayed in your HelpMee profile'**
+  String get uploadPdfDocumentDetail;
+
+  /// No description provided for @uploadPdfDocumentExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccination card, organ donor card, living will, doctor\'s letters, ...'**
+  String get uploadPdfDocumentExamples;
 }
 
 class _AppLocalizationsDelegate

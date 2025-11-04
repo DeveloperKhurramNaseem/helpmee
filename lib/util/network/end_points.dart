@@ -34,5 +34,17 @@ class EndPoints {
   static const addNotificationUser = '/add-notification-user';
   static const updateNotificationUser = '/update-notification-user';
   static const deleteNotificationUser = '/delete-notification-user';
+
+  // Disease Endpoints
+  static const addDisease = '/add-disease';
+  static const updateDisease = '/update-disease';
+  static const deleteDisease = '/delete-disease';
+  static const lockDisease = '/lock-disease';
+
+  // Document Endpoints
+  static const uploadMedicationDocument = '/upload-medication-plan-document';
+  static const uploadSimpleDocument = '/upload-document';
+  static const deleteDocument = '/delete-document';
+  static const lockDocument = '/lock-document';
   
 }
