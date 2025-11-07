@@ -19,7 +19,9 @@ class EndPoints {
 
   // User Profile Endpoints
   static const getUserProfile = '/get-edit-profile-data';
+  static const getPetUserProfile = '/pet-edit-profile';
   static const updateBasicProfileInfo = '/sos-profile-update';
+  static const updateBasicPetProfileInfo = '/pet-profile-update';
   static const addFamilyContact = '/create-contact';
   static const addDoctorContact = '/create-doctor-contact';
   static const deleteContact = '/delete-contact';
@@ -46,5 +48,6 @@ class EndPoints {
   static const uploadSimpleDocument = '/upload-document';
   static const deleteDocument = '/delete-document';
   static const lockDocument = '/lock-document';
+  static const uploadVoice = '/upload-voice-record';
   
 }

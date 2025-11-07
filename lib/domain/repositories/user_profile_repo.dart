@@ -8,7 +8,9 @@ import 'package:help_mee/data/models/user_profile_model.dart';
 
 abstract class UserProfileRepo {
   Future<(bool,String ,UserProfileModel)> getUserProfile();
+  Future<(bool,String ,UserProfileModel)> getPetUserProfile();
   Future<(bool,String)> updateBasicProfileInfo(BasicProfileInfo info);
+  Future<(bool,String)> updateBasicPetProfileInfo(BasicPetProfileInfo info);
   Future<(bool,String)> addFamilyContact(ContactInfo contactInfo);
   Future<(bool,String)> addDoctorContact(ContactInfo contactInfo);
   Future<(bool, String)> deleteContact(int contactId);
@@ -23,4 +25,5 @@ abstract class UserProfileRepo {
   Future<(bool,String)> uploadMedicationDocument(String fileName , File file);
   Future<(bool,String)> deleteDocument(int docId);
   Future<(bool,String)> lockDocument(int docId,String status);
+  Future<(bool,String)> uploadVoice(File voiceFile);
 }

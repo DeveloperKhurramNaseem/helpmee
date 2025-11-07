@@ -347,7 +347,16 @@
 "uploadDocumentButton" : "Dokument hochladen",
 "uploadPdfDocumentDetail" : "Hier können Sie ein PDF-Dokument hochladen, das in Ihrem HelpMee-Profil angezeigt werden soll",
 
-"uploadPdfDocumentExamples" : "Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ..."
+"uploadPdfDocumentExamples" : "Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ...",
+"streetNameLabel" : "Straßenname",
+
+"houseNumberLabel" : "Hausnummer",
+
+"zipLabel" : "PLZ (optional)",
+
+"cityLabel" : "Stadt",
+
+"countryLabel" : "Land"
 
 
 }

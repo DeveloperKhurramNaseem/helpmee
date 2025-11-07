@@ -1,93 +1,81 @@
-import 'dart:developer';
+
+import 'dart:math';
+import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-import 'package:help_mee/util/theme/app_colors.dart';
+/// Simple bar waveform painter with progress tint
 
-class FancyWaveformPainter extends CustomPainter {
-  final Duration position;
-  final Duration duration;
-  final List<double> amps;
 
-  FancyWaveformPainter({
-    required this.position,
-    required this.duration,
-    required this.amps,
+class WaveformPainter extends CustomPainter {
+  final List<double> samples; // 0..1
+  final double? progress; // 0..1 (null when recording)
+  final Color barColor;
+  final Color playedColor;
+
+  WaveformPainter({
+    required this.samples,
+    required this.progress,
+    required this.barColor,
+    required this.playedColor,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    log('Width : ${size.width}, Height : ${size.height}');
-    log('Amps Length: ${amps.length}');
-    final paint = Paint()
+    final paintUnplayed = Paint()
+      ..color = barColor
       ..strokeCap = StrokeCap.round
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2;
-
-    final activePaint = Paint()
-      ..color = AppLightThemeColors.gradientFirstColor
+      ..strokeWidth = 3;
+    final paintPlayed = Paint()
+      ..color = playedColor
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2;
+      ..strokeWidth = 3;
 
-    final spacing = 2.5;
-    final barWidth = 1;
-    final count = (size.width / (barWidth + spacing)).floor();
-    log('Count: $count');
-    var downloadedAmps = getDownsampledAmplitudes(amps, count);
-    log('Downloaded Amps: $downloadedAmps');
-    var normalizedAmps = normalize(downloadedAmps, 25);
-    final progressRatio = duration.inMilliseconds == 0
-        ? 0.0
-        : position.inMilliseconds / duration.inMilliseconds;
+    dev.log(samples.toString(), name: 'amps');
 
-    for (int i = 0; i < normalizedAmps.length; i++) {
-      final x = i * (barWidth + spacing);
-      // final height = Random(i).nextDouble() * size.height;
-      final isActive = i / normalizedAmps.length < progressRatio;
-      paint.color = AppLightThemeColors.secondaryColor;
-      log(
-        'X : $x, Y: ${size.height / 2 - normalizedAmps[i] / 2}, Normalized Amps: ${normalizedAmps[i] / 2} Active: $isActive',
-      );
-      canvas.drawLine(
-        Offset(x, size.height / 2 - normalizedAmps[i] / 2),
-        Offset(x, size.height / 2 + normalizedAmps[i] / 2),
-        isActive ? activePaint : paint,
-      );
-    }
-  }
+    if (samples.isEmpty) return;
 
-  List<double> getDownsampledAmplitudes(List<double> input, int targetSize) {
-    int chunkSize = (input.length / targetSize).floor();
+    // We’ll render at most N bars to fit the width nicely.
+    // If there are more samples, down-sample by picking every kth sample.
+    final barGap = 3.0; // px between bars
+    final barWidth = 3.0;
+    final stride = (barWidth + barGap);
+    final maxBars = (size.width / stride).floor().clamp(1, 4000);
 
-    log('Chunk Size: $chunkSize');
-    List<double> downsampled = [];
-
-    for (int i = 0; i < targetSize; i++) {
-      int start = i * chunkSize;
-      int end = (i + 1) * chunkSize;
-      if (end > input.length) end = input.length;
-
-      // Get chunk
-      var chunk = input.sublist(start, end);
-
-      // Calculate max or average amplitude in chunk
-      double maxAmplitude = chunk.isNotEmpty
-          ? chunk.reduce((a, b) => a > b ? a : b)
-          : 0;
-
-      downsampled.add(maxAmplitude);
+    final step = max(1, (samples.length / maxBars).floor());
+    final reduced = <double>[];
+    for (int i = 0; i < samples.length; i += step) {
+      // Take max in the bucket for punchier look
+      final end = min(i + step, samples.length);
+      final bucketMax = samples
+          .sublist(i, end)
+          .fold<double>(0.0, (m, v) => v > m ? v : m);
+      reduced.add(bucketMax);
     }
 
-    return downsampled;
-  }
+    final bars = reduced.length;
+    final centerY = size.height / 2;
+    final maxBarHeight = size.height * 0.8;
 
-  List<double> normalize(List<double> values, [double scaleTo = 100]) {
-    if (values.isEmpty) return [];
-    double maxVal = values.reduce((a, b) => a > b ? a : b);
-    return values.map((v) => (v / maxVal) * scaleTo).toList();
+    final progressBars = progress == null ? -1 : (bars * progress!).floor();
+
+    for (int i = 0; i < bars; i++) {
+      final x = i * stride + barWidth / 2;
+      if (x > size.width) break;
+
+      // Map sample (0..1) to bar height
+      final h = max(2.0, maxBarHeight * reduced[i]);
+      final y1 = centerY - h / 2;
+      final y2 = centerY + h / 2;
+
+      final paint = (progressBars > 0 && i <= progressBars)
+          ? paintPlayed
+          : paintUnplayed;
+      canvas.drawLine(Offset(x, y1), Offset(x, y2), paint);
+    }
   }
 
   @override
-  bool shouldRepaint(covariant FancyWaveformPainter oldDelegate) {
-    return oldDelegate.position != position || oldDelegate.duration != duration;
+  bool shouldRepaint(covariant WaveformPainter oldDelegate) {
+    return true;
   }
 }

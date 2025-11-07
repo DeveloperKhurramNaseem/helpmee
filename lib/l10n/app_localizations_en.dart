@@ -712,4 +712,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get uploadPdfDocumentExamples =>
       'Vaccination card, organ donor card, living will, doctor\'s letters, ...';
+
+  @override
+  String get streetNameLabel => 'Street name';
+
+  @override
+  String get houseNumberLabel => 'House number';
+
+  @override
+  String get zipLabel => 'ZIP (optional)';
+
+  @override
+  String get cityLabel => 'City';
+
+  @override
+  String get countryLabel => 'Country';
 }

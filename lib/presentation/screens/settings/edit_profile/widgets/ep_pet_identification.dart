@@ -1,10 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_header_info_fields.dart';
+import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class EpPetIdentificationBox extends StatelessWidget {
-  const EpPetIdentificationBox({super.key});
+  final String chipped;
+  final TextEditingController chippedPositionController;
+  final TextEditingController taxNoController, tassoNoController;
+  final TextEditingController petInsuranceCompanyController,
+      petInsuranceIdController;
+  final TextEditingController specialFeaturesController;
+  final void Function(String? value) onChipChanged;
+  const EpPetIdentificationBox({
+    super.key,
+    required this.chippedPositionController,
+    required this.taxNoController,
+    required this.tassoNoController,
+    required this.petInsuranceCompanyController,
+    required this.petInsuranceIdController,
+    required this.specialFeaturesController,
+    required this.chipped,
+    required this.onChipChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,15 +36,25 @@ class EpPetIdentificationBox extends StatelessWidget {
           child: Column(
             spacing: 10,
             children: [
-              EpPetChippedAndChippedPositionTile(),
-              EpPetTaxAndTassoTile(),
-              EpPetInsuranceRelatedTile(),
+              EpPetChippedAndChippedPositionTile(
+                chippedValue: chipped,
+                onChipChanged: onChipChanged,
+                chipPositionController: chippedPositionController,
+              ),
+              EpPetTaxAndTassoTile(
+                taxNoController: taxNoController,
+                tassoNoController: tassoNoController,
+              ),
+              EpPetInsuranceRelatedTile(
+                petInsuranceCompanyController: petInsuranceCompanyController,
+                petInsuranceIdController: petInsuranceIdController,
+              ),
               Row(
                 children: [
                   Expanded(
                     child: EpHeaderInfoBaseField(
                       label: 'Special Features',
-                      controller: TextEditingController()..text = 'Khuram',
+                      controller: specialFeaturesController,
                     ),
                   ),
                 ],
@@ -40,7 +68,15 @@ class EpPetIdentificationBox extends StatelessWidget {
 }
 
 class EpPetChippedAndChippedPositionTile extends StatelessWidget {
-  const EpPetChippedAndChippedPositionTile({super.key});
+  final String chippedValue;
+  final void Function(String? value) onChipChanged;
+  final TextEditingController chipPositionController;
+  const EpPetChippedAndChippedPositionTile({
+    super.key,
+    required this.chippedValue,
+    required this.onChipChanged,
+    required this.chipPositionController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +84,10 @@ class EpPetChippedAndChippedPositionTile extends StatelessWidget {
       children: [
         Expanded(
           child: EpHeaderInfoBaseDropDownStringField(
-            items: ['Yes', 'No'],
+            items: TextFieldsConstants.chippedValues,
             label: 'Chipped',
-            value: 'Yes',
-            onChanged: (value) {},
+            value: chippedValue,
+            onChanged: onChipChanged,
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),
         ),
@@ -60,7 +96,7 @@ class EpPetChippedAndChippedPositionTile extends StatelessWidget {
           child: EpHeaderInfoBaseField(
             label: 'Chip Position',
 
-            controller: TextEditingController()..text = 'Right Ear',
+            controller: chipPositionController,
           ),
         ),
       ],
@@ -69,7 +105,12 @@ class EpPetChippedAndChippedPositionTile extends StatelessWidget {
 }
 
 class EpPetTaxAndTassoTile extends StatelessWidget {
-  const EpPetTaxAndTassoTile({super.key});
+  final TextEditingController taxNoController, tassoNoController;
+  const EpPetTaxAndTassoTile({
+    super.key,
+    required this.taxNoController,
+    required this.tassoNoController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -78,16 +119,14 @@ class EpPetTaxAndTassoTile extends StatelessWidget {
         Expanded(
           child: EpHeaderInfoBaseField(
             label: 'Tax No',
-
-            controller: TextEditingController()..text = '392847592',
+            controller: taxNoController,
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: EpHeaderInfoBaseField(
             label: 'Tasso No',
-
-            controller: TextEditingController()..text = '392847592',
+            controller: tassoNoController,
           ),
         ),
       ],
@@ -96,7 +135,13 @@ class EpPetTaxAndTassoTile extends StatelessWidget {
 }
 
 class EpPetInsuranceRelatedTile extends StatelessWidget {
-  const EpPetInsuranceRelatedTile({super.key});
+  final TextEditingController petInsuranceCompanyController,
+      petInsuranceIdController;
+  const EpPetInsuranceRelatedTile({
+    super.key,
+    required this.petInsuranceCompanyController,
+    required this.petInsuranceIdController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -105,14 +150,14 @@ class EpPetInsuranceRelatedTile extends StatelessWidget {
         Expanded(
           child: EpHeaderInfoBaseField(
             label: 'Insurance Company',
-            controller: TextEditingController()..text = 'Pet Insurance',
+            controller: petInsuranceCompanyController,
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: EpHeaderInfoBaseField(
             label: 'Insurance ID',
-            controller: TextEditingController()..text = 'abc12344',
+            controller: petInsuranceIdController,
           ),
         ),
       ],

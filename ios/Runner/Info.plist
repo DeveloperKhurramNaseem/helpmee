@@ -51,6 +51,9 @@
 <string>This app needs camera access to scan QR codes</string>
 <key>NSPhotoLibraryUsageDescription</key>
 <string>Please allow access to enable uploading profile image</string>
+<key>NSMicrophoneUsageDescription</key>
+<string>This app records short voice notes.</string>
+
 
 </dict>
 </plist>

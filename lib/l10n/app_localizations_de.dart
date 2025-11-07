@@ -716,4 +716,19 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get uploadPdfDocumentExamples =>
       'Impfausweis, Organspendeausweis, Patientenverfügung, Arztbriefe, ...';
+
+  @override
+  String get streetNameLabel => 'Straßenname';
+
+  @override
+  String get houseNumberLabel => 'Hausnummer';
+
+  @override
+  String get zipLabel => 'PLZ (optional)';
+
+  @override
+  String get cityLabel => 'Stadt';
+
+  @override
+  String get countryLabel => 'Land';
 }

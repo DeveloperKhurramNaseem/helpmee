@@ -24,6 +24,14 @@ class UserProfileRepoImpl extends UserProfileRepo{
     return result;
   }
 
+    @override
+  Future<(bool, String, UserProfileModel)> getPetUserProfile() async {
+   var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.getPetUserProfileData(token, language);
+    return result;
+  }
+
 
   @override
   Future<(bool, String)> updateBasicProfileInfo(BasicProfileInfo info) async {
@@ -145,8 +153,20 @@ class UserProfileRepoImpl extends UserProfileRepo{
     var result = await userProfileService.uploadSimpleDocument(language, token,fileName,file);
     return result;
   }
-
-
-
-
+  
+  @override
+  Future<(bool, String)> uploadVoice(File voiceFile) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.uploadVoice(language, token, voiceFile);
+    return result;
+  }
+  
+  @override
+  Future<(bool, String)> updateBasicPetProfileInfo(BasicPetProfileInfo info) async {
+     var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.updateBasicPetUserInfo(token, language , info);
+    return result;    
+  }
 }

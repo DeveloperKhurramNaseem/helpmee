@@ -10,6 +10,7 @@ import 'package:help_mee/presentation/screens/onboarding/activation_method_scree
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 
 bool isRedirected = false;
@@ -72,7 +73,7 @@ class Routing {
       GoRoute(
         path: EditProfileScreen.path,
         builder: (context, state) =>
-            EditProfileScreen(isPet: (state.extra ?? false) as bool),
+            EditProfileScreen(profileType: (state.extra ?? ProfileType.personal) as ProfileType),
       ),
     ],
   );

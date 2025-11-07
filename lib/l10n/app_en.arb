@@ -354,7 +354,16 @@
 "uploadDocumentButton" : "Upload document",
 "uploadPdfDocumentDetail" : "Here you can upload a PDF document to be displayed in your HelpMee profile",
 
-"uploadPdfDocumentExamples" : "Vaccination card, organ donor card, living will, doctor's letters, ..."
+"uploadPdfDocumentExamples" : "Vaccination card, organ donor card, living will, doctor's letters, ...",
+"streetNameLabel" : "Street name",
+
+"houseNumberLabel" : "House number",
+
+"zipLabel" : "ZIP (optional)",
+
+"cityLabel" : "City",
+
+"countryLabel" : "Country"
 
 
 

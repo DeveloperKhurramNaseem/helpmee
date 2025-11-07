@@ -1405,6 +1405,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vaccination card, organ donor card, living will, doctor\'s letters, ...'**
   String get uploadPdfDocumentExamples;
+
+  /// No description provided for @streetNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Street name'**
+  String get streetNameLabel;
+
+  /// No description provided for @houseNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'House number'**
+  String get houseNumberLabel;
+
+  /// No description provided for @zipLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ZIP (optional)'**
+  String get zipLabel;
+
+  /// No description provided for @cityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get cityLabel;
+
+  /// No description provided for @countryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get countryLabel;
 }
 
 class _AppLocalizationsDelegate

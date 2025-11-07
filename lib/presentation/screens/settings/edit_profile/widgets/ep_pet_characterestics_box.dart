@@ -1,13 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_header_info_fields.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:intl/intl.dart';
 
 class EpPetCharacteresticsBox extends StatelessWidget {
-  const EpPetCharacteresticsBox({super.key});
+  final TextEditingController characterController,
+      bloodGroupController,
+      sizeController,
+      weightController,
+      birthdayController;
+  final void Function(int? value) onGenderChanged;
+  final int genderValue;
+  final void Function(String? status) onCastratedChanged;
+  final String castratedValue;
+  final void Function(DateTime date) onBirthdayChanged;
+
+  const EpPetCharacteresticsBox({
+    super.key,
+    required this.genderValue,
+    required this.characterController,
+    required this.bloodGroupController,
+    required this.sizeController,
+    required this.birthdayController,
+    required this.weightController,
+    required this.onGenderChanged,
+    required this.castratedValue,
+    required this.onCastratedChanged,
+    required this.onBirthdayChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,14 +51,26 @@ class EpPetCharacteresticsBox extends StatelessWidget {
                   Expanded(
                     child: EpHeaderInfoBaseField(
                       label: 'Character',
-                      controller: TextEditingController()..text = 'Khuram',
+                      controller: characterController,
                     ),
                   ),
                 ],
               ),
-              EpPetGenderAndBloodGroupTile(),
-              EpPetSizeAndWeightTile(),
-              EpPetCastratedAndBirthdayTile(),
+              EpPetGenderAndBloodGroupTile(
+                initialValue: genderValue,
+                onGenderChanged: onGenderChanged,
+                bloodGroupController: bloodGroupController,
+              ),
+              EpPetSizeAndWeightTile(
+                sizeController: sizeController,
+                weightController: weightController,
+              ),
+              EpPetCastratedAndBirthdayTile(
+                onCastratedChanged: onCastratedChanged,
+                birthdayController: birthdayController,
+                onBirthdayChanged: onBirthdayChanged,
+                castratedValue: castratedValue,
+              ),
             ],
           ),
         ),
@@ -43,27 +80,35 @@ class EpPetCharacteresticsBox extends StatelessWidget {
 }
 
 class EpPetGenderAndBloodGroupTile extends StatelessWidget {
-  const EpPetGenderAndBloodGroupTile({super.key});
+  final void Function(int? value) onGenderChanged;
+  final int initialValue;
+  final TextEditingController bloodGroupController;
+  const EpPetGenderAndBloodGroupTile({
+    super.key,
+    required this.initialValue,
+    required this.onGenderChanged,
+    required this.bloodGroupController,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Expanded(
-          child: EpHeaderInfoBaseDropDownStringField(
-            items: ['Male', 'Female'],
-            label: 'Gender',
-            value: 'Male',
-            onChanged: (value) {},
+          child: EpHeaderInfoBaseDropDownField(
+            genderValue: initialValue,
+            items: TextFieldsConstants.genderValues,
+            label: AppLocalizations.of(context)!.genderLabel,
+            onChanged: onGenderChanged,
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: EpHeaderInfoBaseField(
-            label: 'Blood Group',
+            label: AppLocalizations.of(context)!.bloodGroup,
 
-            controller: TextEditingController()..text = 'DEA 1.1',
+            controller: bloodGroupController,
           ),
         ),
       ],
@@ -72,25 +117,31 @@ class EpPetGenderAndBloodGroupTile extends StatelessWidget {
 }
 
 class EpPetSizeAndWeightTile extends StatelessWidget {
-  const EpPetSizeAndWeightTile({super.key});
+  final TextEditingController sizeController, weightController;
+  const EpPetSizeAndWeightTile({
+    super.key,
+    required this.sizeController,
+    required this.weightController,
+  });
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return Row(
       children: [
         Expanded(
           child: EpHeaderInfoBaseField(
             label: 'Size (cm)',
-
-            controller: TextEditingController()..text = '175',
+            keyBoardType: TextInputType.number,
+            controller: sizeController,
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: EpHeaderInfoBaseField(
-            label: 'Weight (kg)',
-
-            controller: TextEditingController()..text = '200',
+            label: localization.weightKg,
+            keyBoardType: TextInputType.number,
+            controller: weightController,
           ),
         ),
       ],
@@ -99,7 +150,17 @@ class EpPetSizeAndWeightTile extends StatelessWidget {
 }
 
 class EpPetCastratedAndBirthdayTile extends StatelessWidget {
-  const EpPetCastratedAndBirthdayTile({super.key});
+  final void Function(String? status) onCastratedChanged;
+  final String castratedValue;
+  final TextEditingController birthdayController;
+  final void Function(DateTime date) onBirthdayChanged;
+  const EpPetCastratedAndBirthdayTile({
+    super.key,
+    required this.castratedValue,
+    required this.onCastratedChanged,
+    required this.birthdayController,
+    required this.onBirthdayChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -107,18 +168,17 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
       children: [
         Expanded(
           child: EpHeaderInfoBaseDropDownStringField(
-            items: ['Yes', 'No'],
+            items: TextFieldsConstants.castratedValues,
             label: 'Castrated',
-            value: 'Yes',
-            onChanged: (value) {},
+            value: castratedValue,
+            onChanged: onCastratedChanged,
             trailing: Icon(Icons.keyboard_arrow_down_rounded),
           ),
         ),
         const SizedBox(width: 10),
         Expanded(
           child: EpHeaderInfoBaseField(
-            label: 'Birthday',
-
+            label: AppLocalizations.of(context)!.birthday,
             readOnly: true,
             controller: TextEditingController()
               ..text = DateFormat('MMMM dd, yyyy').format(DateTime.now()),

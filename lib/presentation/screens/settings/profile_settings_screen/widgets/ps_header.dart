@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class PsHeader extends StatelessWidget {
@@ -50,9 +53,10 @@ class PsHeader extends StatelessWidget {
                             flex: 92,
                             child: AppButton(
                               onPressed: () {
+                                // 9 because its a personal profile group id
                                 context.push(
                                   EditProfileScreen.path,
-                                  extra: false,
+                                  extra: getProfileType(sl<StorageService>().getUser().userGroupId ?? 9)
                                 );
                               },
                               gradient: Theme.of(

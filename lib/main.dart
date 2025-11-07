@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/blocs/home/all_notifications/all_notificat
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return VoiceNoteDemo();
     AppSize(MediaQuery.of(context).size);
     return BlocListener<LanguageBloc, LanguageState>(
       listener: _listenToLanguageChangeEvents,

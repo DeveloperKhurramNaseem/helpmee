@@ -57,6 +57,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return MultiBlocListener(
       listeners: [
         BlocListener<AddAddressBloc, AddAddressState>(
@@ -96,21 +97,27 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
               ),
               EpHeaderInfoBaseField(label: 'Name', controller: nameController),
               EpHeaderInfoBaseField(
-                label: 'Street Name',
+                label: localization.streetNameLabel,
                 controller: streetNameController,
               ),
               EpHeaderInfoBaseField(
-                label: 'House Number',
+                label: localization.houseNumberLabel,
                 controller: houseNumberController,
               ),
-              EpHeaderInfoBaseField(label: 'ZIP', controller: zipController),
-              EpHeaderInfoBaseField(label: 'City', controller: cityController),
+              EpHeaderInfoBaseField(
+                label: localization.zipLabel,
+                controller: zipController,
+              ),
+              EpHeaderInfoBaseField(
+                label: localization.cityLabel,
+                controller: cityController,
+              ),
               EpHeaderInfoBaseDropDownStringField(
-                label: 'Country',
+                label: localization.countryLabel,
                 onChanged: (value) {
                   currentCountry = value!;
                 },
-                value: 'Germany',
+                value: widget.address?.country ?? 'Germany',
                 items: ['Germany', 'Pakistan'],
                 trailing: Icon(Icons.keyboard_arrow_down_rounded),
               ),
@@ -273,24 +280,29 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   ) {
     if (state is AddAddressLoadedState) {
       context.read<GetProfileDataBloc>().add(
-        GetUserProfileDataEvent(showLoading: false),        
-      );      
+        GetUserProfileDataEvent(showLoading: false,),
+      );
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
 
-  void _handelUpdateAddressBlocListener(BuildContext context, UpdateAddressState state) {
-    if(state is UpdateAddressLoadedState){
+  void _handelUpdateAddressBlocListener(
+    BuildContext context,
+    UpdateAddressState state,
+  ) {
+    if (state is UpdateAddressLoadedState) {
       context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
 
-  void _handleDeleteAddressBlocListener(BuildContext context, DeleteAddressState state) {
-    if(state is DeleteAddressLoadedState){
+  void _handleDeleteAddressBlocListener(
+    BuildContext context,
+    DeleteAddressState state,
+  ) {
+    if (state is DeleteAddressLoadedState) {
       context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
       Navigator.of(context, rootNavigator: true).pop();
     }
-
   }
 }

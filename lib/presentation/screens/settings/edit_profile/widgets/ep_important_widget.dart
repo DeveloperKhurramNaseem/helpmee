@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/record_audio_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/record_audio_sheet/record_audio_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_voice_note.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class EpImportantWidget extends StatelessWidget {
   final TextEditingController controller;
-  const EpImportantWidget({super.key, required this.controller});
+  final String url;
+  const EpImportantWidget({super.key, required this.controller, required this.url});
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,9 @@ class EpImportantWidget extends StatelessWidget {
                 maxLines: 4,
                 controller: controller,
               ),
+              if(url.isNotEmpty)
+              EpVoiceNote(url: url)
+              else
               Row(
                 children: [
                   Spacer(flex: 19),

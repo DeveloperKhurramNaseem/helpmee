@@ -84,6 +84,11 @@ class User {
       insuranceCompanyKey = 'insurance_company',
       insuranceIdKey = 'insurance_id';
   static const bioKey = 'bio', profileImageKey = 'profile_image';
+  static const raceKey = 'race', petCharacterKey = 'pet_character';
+  static const sizeKey = 'size', castratedKey = 'castrated';
+  static const chippedKey = 'chipped', chipPositionKey = 'chip_position';
+  static const taxNoKey = 'tax_no', tassoNoKey = 'tasso_no';
+  static const specialFeaturesKey = 'special_features';
 
   int id;
   String firstName;
@@ -98,6 +103,15 @@ class User {
   String insuranceId;
   String bio;
   String profileImage;
+  String race;
+  String petCharacter;
+  String size;
+  String castrated;
+  String chipped;
+  String chipPosition;
+  String taxNo;
+  String tassoNo;
+  String specialFeatures;
 
   User({
     required this.id,
@@ -113,6 +127,15 @@ class User {
     required this.insuranceId,
     required this.bio,
     required this.profileImage,
+    required this.race,
+    required this.petCharacter,
+    required this.size,
+    required this.castrated,
+    required this.chipped,
+    required this.chipPosition,
+    required this.taxNo,
+    required this.tassoNo,
+    required this.specialFeatures,
   });
 
   factory User.fromMap(Map<String, dynamic> map) {
@@ -121,7 +144,9 @@ class User {
       id: map[idKey] ?? 0,
       firstName: map[firstNameKey] ?? '',
       lastName: map[lastNameKey] ?? '',
-      dateOfBirth: map[dateOfBirthKey] ?? DateFormat('yyyy-mm-dd hh:mm:ss').format(currentDate),
+      dateOfBirth:
+          map[dateOfBirthKey] ??
+          DateFormat('yyyy-mm-dd hh:mm:ss').format(currentDate),
       gender: map[genderKey] ?? 1,
       height: map[heightKey] ?? '',
       weight: map[weightKey] ?? '',
@@ -131,7 +156,43 @@ class User {
       insuranceId: map[insuranceIdKey] ?? '',
       bio: map[bioKey] ?? '',
       profileImage: map[profileImageKey] ?? '',
+      race: map[raceKey] ?? '',
+      petCharacter: map[petCharacterKey] ?? '',
+      size: map[sizeKey] ?? 0,
+      castrated: ((map[castratedKey] ?? '') as String).toLowerCase(),
+      chipped: ((map[chippedKey] ?? '') as String).toLowerCase(),
+      chipPosition: map[chipPositionKey] ?? '',
+      taxNo: map[taxNoKey] ?? '',
+      tassoNo: map[tassoNoKey] ?? '',
+      specialFeatures: map[specialFeaturesKey] ?? '',
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      idKey: id,
+      firstNameKey: firstName,
+      lastNameKey: lastName,
+      dateOfBirthKey: dateOfBirth,
+      genderKey: gender,
+      heightKey: height,
+      weightKey: weight,
+      bloodGroupKey: bloodGroup,
+      importantNoteKey: importantNote,
+      insuranceCompanyKey: insuranceCompany,
+      insuranceIdKey: insuranceId,
+      bioKey: bio,
+      profileImageKey: profileImage,
+      raceKey: race,
+      petCharacterKey: petCharacter,
+      sizeKey: size,
+      castratedKey: castrated,
+      chippedKey: chipped,
+      chipPositionKey: chipPosition,
+      taxNoKey: taxNo,
+      tassoNoKey: tassoNo,
+      specialFeaturesKey: specialFeatures,
+    };
   }
 }
 

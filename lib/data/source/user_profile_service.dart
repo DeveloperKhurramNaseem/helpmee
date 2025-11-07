@@ -34,6 +34,26 @@ class UserProfileService extends ApiService {
     }
   }
 
+  Future<(bool, String, UserProfileModel)> getPetUserProfileData(
+    String token,
+    String language,
+  ) async {
+    var result = await get(
+      endPoint: EndPoints.getPetUserProfile,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        UserProfileModel.fromMap(decodedResponse.data),
+      );
+    } else {
+      return (false, ErrorConstants.errorMessage, UserProfileModel.empty());
+    }
+  }
+
   Future<(bool, String)> updateBasicUserInfo(
     String token,
     String language,
@@ -51,6 +71,34 @@ class UserProfileService extends ApiService {
     } else {
       result = await post(
         EndPoints.updateBasicProfileInfo,
+        info.toMap(),
+        header: NetworkConstants.getHeaders(language, token),
+      );
+    }
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> updateBasicPetUserInfo(
+    String token,
+    String language,
+    BasicPetProfileInfo info,
+  ) async {
+    String? result;
+    if (info.profileImage != null) {
+      result = await postWithFile(
+        EndPoints.updateBasicPetProfileInfo,
+        info.toMap(),
+        BasicProfileInfo.profileImageKey,
+        info.profileImage!,
+        header: NetworkConstants.getFileHeaders(language, token),
+      );
+    } else {
+      result = await post(
+        EndPoints.updateBasicPetProfileInfo,
         info.toMap(),
         header: NetworkConstants.getHeaders(language, token),
       );
@@ -299,6 +347,22 @@ class UserProfileService extends ApiService {
       EndPoints.uploadSimpleDocument,  
       {'name' : fileName},
       'image',
+      file,   
+      header: NetworkConstants.getFileHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
+    Future<(bool, String)> uploadVoice(String language, String token, File file)async{
+    var result = await postFile(
+      EndPoints.uploadVoice,  
+      {},
+      'important_note',
       file,   
       header: NetworkConstants.getFileHeaders(language, token),
     );

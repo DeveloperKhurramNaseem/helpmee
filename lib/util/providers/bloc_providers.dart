@@ -36,6 +36,7 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_do
 import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/upload_document/upload_document_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/upload_voice/upload_voice/upload_voice_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
@@ -156,6 +157,9 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<UploadDocumentBloc>(create: (context) => UploadDocumentBloc(sl()),),
     BlocProvider<DeleteDocumentBloc>(create: (context) => DeleteDocumentBloc(sl()),),
     BlocProvider <LockDocumentBloc>(create: (context) => LockDocumentBloc(sl()),),
+
+    // Voice note Blocs
+    BlocProvider<UploadVoiceBloc>(create: (context) => UploadVoiceBloc(sl()),),
     
   ];
 }
