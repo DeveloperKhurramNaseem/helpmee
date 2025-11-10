@@ -6,6 +6,7 @@ import 'package:help_mee/presentation/blocs/auth/resend_otp/resend_otp_bloc.dart
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
@@ -37,7 +38,9 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_do
 import 'package:help_mee/presentation/blocs/settings/edit_profile/update_basic_info/update_basic_info_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/upload_voice/upload_voice/upload_voice_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/profile_settings/get_cooperation_partners_bloc/get_cooperation_partners_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/profile_settings/update_cooperation_partner_status_bloc/update_cooperation_partner_status_bloc.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/localication_util/localization_util.dart';
 
@@ -160,6 +163,13 @@ List<BlocProvider> getUserProfileBlocProviders() {
 
     // Voice note Blocs
     BlocProvider<UploadVoiceBloc>(create: (context) => UploadVoiceBloc(sl()),),
+
+    // Cooperation Partners bloc
+    BlocProvider<GetCooperationPartnersBloc>(create: (context) => GetCooperationPartnersBloc(sl()),),
+    BlocProvider<UpdateCooperationPartnerStatusBloc>(create: (context) => UpdateCooperationPartnerStatusBloc(sl(),),),
+
+    // Hidden Features
+    BlocProvider<RestoreProductBloc>(create: (context) => RestoreProductBloc(sl(),),),
     
   ];
 }

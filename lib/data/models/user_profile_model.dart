@@ -158,7 +158,7 @@ class User {
       profileImage: map[profileImageKey] ?? '',
       race: map[raceKey] ?? '',
       petCharacter: map[petCharacterKey] ?? '',
-      size: map[sizeKey] ?? 0,
+      size: map[sizeKey] ?? '',
       castrated: ((map[castratedKey] ?? '') as String).toLowerCase(),
       chipped: ((map[chippedKey] ?? '') as String).toLowerCase(),
       chipPosition: map[chipPositionKey] ?? '',

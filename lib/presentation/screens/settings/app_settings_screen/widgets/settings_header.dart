@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/profile_settings_screen.dart';
+import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class SettingsHeader extends StatelessWidget {
@@ -8,6 +11,7 @@ class SettingsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = sl<StorageService>().getUser();
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverToBoxAdapter(
@@ -23,7 +27,9 @@ class SettingsHeader extends StatelessWidget {
               padding: EdgeInsets.all(2),
               child: CircleAvatar(
                 radius: 40,
-                child: Icon(Icons.person, size: 30),
+                backgroundImage: user.logo != null
+                    ? NetworkImage(user.logo!)
+                    : AssetImage(AppImages.placeHolderPerson),
               ),
             ),
             SizedBox(width: 15),
@@ -33,7 +39,7 @@ class SettingsHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Khuram Naseem',
+                    '${user.firstName ?? ''} ${user.lastName ?? ''}',
                     // '',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,

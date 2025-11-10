@@ -37,7 +37,7 @@ class ProductMapBottomSheet extends StatelessWidget {
             child: AppButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                context.push(ActivationMethodScreen.path , extra: token);
+                context.push(ActivationMethodScreen.path , extra: (token,ActivationMethodState.activateFirstProduct));
               },
               gradient: Theme.of(
                 context,

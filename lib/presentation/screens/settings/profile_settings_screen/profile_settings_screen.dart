@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/profile_settings/get_cooperation_partners_bloc/get_cooperation_partners_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/profile_settings/set_pin_bloc/set_pin_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/widgets/ps_app_bar.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/widgets/ps_cooperation_partners.dart';
@@ -17,6 +18,11 @@ class ProfileSettingsScreen extends StatefulWidget {
 }
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
+  @override
+  void initState() {    
+    super.initState();
+    context.read<GetCooperationPartnersBloc>().add(GetAllCooperationPartnersEvent());
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<SetPinBloc, SetPinState>(

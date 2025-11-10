@@ -1,4 +1,5 @@
 import 'package:help_mee/data/models/app_user_model.dart';
+import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
@@ -186,9 +187,11 @@ class UserService extends ApiService {
   }
 
   Future<(bool, String)> deleteAccount(String token, String language) async {
-    var result = await delete(EndPoints.deleteAccount, body: {
-      "reason": "Delete Account",
-    }, header: NetworkConstants.getHeaders(language, token));
+    var result = await delete(
+      EndPoints.deleteAccount,
+      body: {"reason": "Delete Account"},
+      header: NetworkConstants.getHeaders(language, token),
+    );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
@@ -206,6 +209,68 @@ class UserService extends ApiService {
       "current_password": currentPassword,
       "new_password": newPassword,
     }, header: NetworkConstants.getHeaders(language, token));
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String, List<CooperationPartner>)> getCooperationPartners(
+    String token,
+    String language,
+  ) async {
+    var result = await get(
+      endPoint: EndPoints.getCooperationPartners,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        (decodedResponse.data as List)
+            .map((e) => CooperationPartner.fromMap(e))
+            .toList(),
+      );
+    }
+    return (false, ErrorConstants.errorMessage, <CooperationPartner>[]);
+  }
+
+  Future<(bool, String)> updateCooperationPartnerStatus(
+    String token,
+    String language,
+    int id,
+    String isActive,
+  ) async {
+    var body = {"id": id, "is_active": isActive};
+
+    var result = await post(
+      EndPoints.activateCooperationPartners,
+      body,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> restoreProduct(
+    String token,
+    String language,
+    String code,
+  ) async {
+    var body = {"device": code};
+
+    var result = await post(
+      EndPoints.restoreDevice,
+      body,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);

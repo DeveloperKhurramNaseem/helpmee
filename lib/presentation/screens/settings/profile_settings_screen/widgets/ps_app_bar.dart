@@ -33,13 +33,16 @@ class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
           UnconstrainedBox(
             child: GestureDetector(
               onTap: () {
-                context.push(EditProfileScreen.path, extra: ProfileType.personal);
+                context.push(
+                  EditProfileScreen.path,
+                  extra: ProfileType.personal,
+                );
               },
               child: Padding(
-                padding: const EdgeInsets.only(right: 4.0),
+                padding: const EdgeInsets.only(right: 10.0),
                 child: Ink(
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(8),
                     border: Border.all(
                       color: Theme.of(context).colorScheme.primary,
                       width: 2,

@@ -4,6 +4,7 @@ import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
@@ -13,6 +14,7 @@ class PsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = sl<StorageService>().getUser();
     var radius = MediaQuery.sizeOf(context).height * 0.06;
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -38,7 +40,7 @@ class PsHeader extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            'Aleesha Haider',
+                            '${user.firstName ?? ''} ${user.lastName ?? ''}',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
@@ -56,7 +58,12 @@ class PsHeader extends StatelessWidget {
                                 // 9 because its a personal profile group id
                                 context.push(
                                   EditProfileScreen.path,
-                                  extra: getProfileType(sl<StorageService>().getUser().userGroupId ?? 9)
+                                  extra: getProfileType(
+                                    sl<StorageService>()
+                                            .getUser()
+                                            .userGroupId ??
+                                        9,
+                                  ),
                                 );
                               },
                               gradient: Theme.of(
@@ -85,7 +92,9 @@ class PsHeader extends StatelessWidget {
               padding: EdgeInsets.all(2),
               child: CircleAvatar(
                 radius: radius,
-                child: Icon(Icons.person, size: 30),
+                backgroundImage: user.logo != null
+                    ? NetworkImage(user.logo!)
+                    : AssetImage(AppImages.placeHolderPerson),
               ),
             ),
           ],

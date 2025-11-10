@@ -40,7 +40,7 @@ class UserLocationNotificationService extends ApiService {
     LocationNotificationModel locationNotificationModel,
   ) async {
     var result = await post(
-      EndPoints.getLocationNotificationSettings,
+      EndPoints.updateLocationNotificationSettings,
       locationNotificationModel.toMap(),
       header: NetworkConstants.getHeaders(language, token),
     );
@@ -65,7 +65,7 @@ class UserLocationNotificationService extends ApiService {
   Future<(bool,String)> addNotificationUser( String token,
     String language,NotificationUserInfo userInfo)async{
     var result = await post(
-      EndPoints.getLocationNotificationSettings,
+      EndPoints.addNotificationUser,
       userInfo.toMap(),
       header: NetworkConstants.getHeaders(language, token),
     );

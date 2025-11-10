@@ -49,7 +49,7 @@ class ProductResetSuccess extends StatelessWidget {
                   child: AppButton(
                     onPressed: () {
                       Navigator.of(context).pop();
-                      context.push(ActivationMethodScreen.path , extra: '');                      
+                      context.push(ActivationMethodScreen.path , extra: ('' , ActivationMethodState.restoreProduct));                      
                     },
                     gradient: Theme.of(
                       context,

@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/nfc_scan_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
 import 'package:help_mee/util/common_widgets/show_toast.dart';
@@ -63,7 +65,12 @@ class AmCard extends StatelessWidget {
 
 class AmNfcScanCard extends StatefulWidget {
   final String token;
-  const AmNfcScanCard({super.key, required this.token});
+  final ActivationMethodState activationMethodState;
+  const AmNfcScanCard({
+    super.key,
+    required this.token,
+    required this.activationMethodState,
+  });
 
   @override
   State<AmNfcScanCard> createState() => _AmNfcScanCardState();
@@ -73,21 +80,20 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
   bool sessionActivated = false;
   @override
   void dispose() {
-    NfcManager.instance.checkAvailability().then((_){
-      try{
-        if(sessionActivated){
-          NfcManager.instance.stopSession();        
-        }        
-      }catch(_){
-
-      }
-    });    
+    NfcManager.instance.checkAvailability().then((_) {
+      try {
+        if (sessionActivated) {
+          NfcManager.instance.stopSession();
+        }
+      } catch (_) {}
+    });
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<ActivateProductBloc>();
+    var restoreProductBloc = context.read<RestoreProductBloc>();
     return GestureDetector(
       onTap: () async {
         if (Platform.isAndroid) {
@@ -132,13 +138,25 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                   if (parts.isNotEmpty) {
                     var code = parts.last;
                     var device = parts[parts.length - 2];
-                    bloc.add(
-                      ActivateNewProductEvent(code: code, device: device, token: widget.token),
-                    );
-                    if(Platform.isAndroid){
-                      if(mounted){
+                    if (widget.activationMethodState ==
+                        ActivationMethodState.restoreProduct) {
+                      restoreProductBloc.add(
+                        RestoreThisProductEvent(code: code),
+                      );
+                    } else if (widget.activationMethodState ==
+                        ActivationMethodState.activateFirstProduct) {
+                      bloc.add(
+                        ActivateNewProductEvent(
+                          code: code,
+                          device: device,
+                          token: widget.token,
+                        ),
+                      );
+                    }
+                    if (Platform.isAndroid) {
+                      if (mounted) {
                         context.pop();
-                      }                      
+                      }
                     }
                   }
                 }
@@ -166,13 +184,18 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
 
 class AmQRScanCard extends StatelessWidget {
   final String token;
-  const AmQRScanCard({super.key , required this.token});
+  final ActivationMethodState activationMethodState;
+  const AmQRScanCard({
+    super.key,
+    required this.token,
+    required this.activationMethodState,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push( ScanQrCodeScreen.path, extra: token);
+        context.push(ScanQrCodeScreen.path, extra:( token , activationMethodState));
         // context.read<ActivateProductBloc>().add(ActivateNewProductEvent(code: '79FAD9', device: 's'));
       },
       child: AmCard(

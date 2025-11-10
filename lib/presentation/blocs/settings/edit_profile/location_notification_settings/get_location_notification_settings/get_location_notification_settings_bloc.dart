@@ -17,7 +17,12 @@ class GetLocationNotificationSettingsBloc
           GetLocationNotificationSettingsState
         > {
   final UserLocationNotificationRepo userLocationNotificationRepo;
+  bool pushNotificationCurrentValue = false;
+  bool inApNotificatiojnCurentValue = false;
+  bool emailNotificationCurrentValue = false;
+  bool emailHelpMeeNotificationCurrentValue = false;
   GetLocationNotificationSettingsBloc(this.userLocationNotificationRepo)
+  
     : super(GetLocationNotificationSettingsInitialState(locationNotificationModel: LocationNotificationModel.empty())) {
     on<GetUserLocationNotificationSettingsEvent>(
       _handleUserLocationAndNotificationSettings,
@@ -33,6 +38,11 @@ class GetLocationNotificationSettingsBloc
       var data = await userLocationNotificationRepo
           .getUserLocationNotificationSettings();          
       if (data.$1) {
+        var model = data.$3;
+        pushNotificationCurrentValue = model.pushNotification;
+    inApNotificatiojnCurentValue = model.inAppNotification;
+    emailNotificationCurrentValue = model.emailNotification;
+    emailHelpMeeNotificationCurrentValue = model.emailHelpMeeNotification;
         emit(GetLocationNotificationSettingsLoadedState(locationNotificationModel :data.$3));
       } else {
         emit(GetLocationNotificationSettingsErrorState(locationNotificationModel: LocationNotificationModel.empty(),message: data.$2));

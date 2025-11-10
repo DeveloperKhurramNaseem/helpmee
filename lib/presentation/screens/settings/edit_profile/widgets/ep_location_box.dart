@@ -61,6 +61,7 @@ class EpLocationBox extends StatelessWidget {
                                   context: context,
                                   showDragHandle: true,
                                   isScrollControlled: true,
+                                  useSafeArea: true,
                                   builder: (context) {
                                     return LocationSettingsBottomSheet();
                                   },

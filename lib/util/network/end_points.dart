@@ -1,3 +1,4 @@
+
 class EndPoints {
   static const signUp = '/signup';
   static const signIn = '/login';
@@ -49,5 +50,10 @@ class EndPoints {
   static const deleteDocument = '/delete-document';
   static const lockDocument = '/lock-document';
   static const uploadVoice = '/upload-voice-record';
+
+  // Cooperation Partners
+  static const getCooperationPartners = '/cooperationPartnersProfiles';
+  static const activateCooperationPartners = '/cooperationPartnersProfileActiveInactivated';
+  static const restoreDevice = '/return-device';
   
 }

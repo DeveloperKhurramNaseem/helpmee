@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/widgets/sq_app_bar.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -10,7 +12,12 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 class ScanQrCodeScreen extends StatefulWidget {
   static const path = '/scan-qr-screen';
   final String token;
-  const ScanQrCodeScreen({super.key, required this.token});
+  final ActivationMethodState activationMethodState;
+  const ScanQrCodeScreen({
+    super.key,
+    required this.token,
+    required this.activationMethodState,
+  });
 
   @override
   State<ScanQrCodeScreen> createState() => _ScanQrCodeScreenState();
@@ -68,10 +75,22 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
               if (parts.isNotEmpty) {
                 var code = parts.last;
                 var device = parts[parts.length - 2];
-                if(isScanned) return;
-                context.read<ActivateProductBloc>().add(
-                  ActivateNewProductEvent(code: code, device: device, token: widget.token),
-                );
+                if (isScanned) return;
+                if (widget.activationMethodState ==
+                    ActivationMethodState.activateFirstProduct) {
+                  context.read<ActivateProductBloc>().add(
+                    ActivateNewProductEvent(
+                      code: code,
+                      device: device,
+                      token: widget.token,
+                    ),
+                  );
+                } else if (widget.activationMethodState ==
+                    ActivationMethodState.restoreProduct) {
+                  context.read<RestoreProductBloc>().add(
+                    RestoreThisProductEvent(code: code),
+                  );
+                }
                 isScanned = true;
               }
             }

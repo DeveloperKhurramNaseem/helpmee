@@ -1,3 +1,4 @@
+import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
@@ -152,19 +153,54 @@ class UserRepoImpl extends UserRepo {
   Future<(bool, String)> deleteAccount() async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
-    var data = await userService.deleteAccount(
-      token,      
-      lang,
-    );    
+    var data = await userService.deleteAccount(token, lang);
     return (data.$1, data.$2);
   }
 
-
   @override
-  Future<(bool, String)> changePassword(String currentPassword, String newPassword) async{
+  Future<(bool, String)> changePassword(
+    String currentPassword,
+    String newPassword,
+  ) async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
-    return userService.changePassword(currentPassword, newPassword, token, lang);   
+    return userService.changePassword(
+      currentPassword,
+      newPassword,
+      token,
+      lang,
+    );
   }
 
+  @override
+  Future<(bool, String, List<CooperationPartner>)>
+  getCooperationPartners() async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+    return userService.getCooperationPartners(token, lang);
+  }
+
+  @override
+  Future<(bool, String)> updateCooperationPartnerStatus(
+    int id,
+    String isActive,
+  ) async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.updateCooperationPartnerStatus(
+      token,
+      lang,
+      id,
+      isActive,
+    );
+  }
+
+  @override
+  Future<(bool, String)> restoreProduct(String code) async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.restoreProduct(token, lang, code);
+  }
 }
