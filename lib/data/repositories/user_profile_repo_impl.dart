@@ -10,91 +10,143 @@ import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_profile_service.dart';
 import 'package:help_mee/domain/repositories/user_profile_repo.dart';
 
-class UserProfileRepoImpl extends UserProfileRepo{
+class UserProfileRepoImpl extends UserProfileRepo {
   final UserProfileService userProfileService;
   final StorageService storageService;
   final TokenService tokenService;
 
-  UserProfileRepoImpl(this.userProfileService, this.storageService, this.tokenService);
+  UserProfileRepoImpl(
+    this.userProfileService,
+    this.storageService,
+    this.tokenService,
+  );
   @override
-  Future<(bool,String, UserProfileModel)> getUserProfile() async {
+  Future<(bool, String, UserProfileModel)> getUserProfile() async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
     var result = await userProfileService.getUserProfileData(token, language);
     return result;
   }
 
-    @override
+  @override
   Future<(bool, String, UserProfileModel)> getPetUserProfile() async {
-   var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.getPetUserProfileData(token, language);
+    var result = await userProfileService.getPetUserProfileData(
+      token,
+      language,
+    );
     return result;
   }
-
 
   @override
   Future<(bool, String)> updateBasicProfileInfo(BasicProfileInfo info) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.updateBasicUserInfo(token, language , info);
-    return result;
+    var result = await userProfileService.updateBasicUserInfo(
+      token,
+      language,
+      info,
+    );
+    if (result.$1) {
+      var user = storageService.getUser();
+      user.firstName = result.$3.firstName;
+      user.lastName = result.$3.lastName;
+      user.logo = result.$3.profileImage;
+      storageService.saveUser(user);
+    }
+    return (result.$1, result.$2);
   }
 
   @override
   Future<(bool, String)> addFamilyContact(ContactInfo contactInfo) async {
-        var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.addFamilyContact(token, language, contactInfo);
+    var result = await userProfileService.addFamilyContact(
+      token,
+      language,
+      contactInfo,
+    );
     return result;
   }
 
-
   @override
   Future<(bool, String)> addDoctorContact(ContactInfo contactInfo) async {
-        var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.addDoctorContact(token, language, contactInfo);
+    var result = await userProfileService.addDoctorContact(
+      token,
+      language,
+      contactInfo,
+    );
     return result;
   }
 
   @override
   Future<(bool, String)> deleteContact(int contactId) async {
-        var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.deleteContact(token, language, contactId);
+    var result = await userProfileService.deleteContact(
+      token,
+      language,
+      contactId,
+    );
     return result;
   }
 
   @override
-  Future<(bool, String)> updateContact(int contactId, ContactInfo contactInfo) async {
-        var token = await tokenService.getToken();
+  Future<(bool, String)> updateContact(
+    int contactId,
+    ContactInfo contactInfo,
+  ) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.updateContact(token, language, contactId , contactInfo);
-    return result;            
+    var result = await userProfileService.updateContact(
+      token,
+      language,
+      contactId,
+      contactInfo,
+    );
+    return result;
   }
 
   @override
   Future<(bool, String)> addAddress(AddressInfo addressInfo) async {
-        var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.addAddress(token, language, addressInfo);
-    return result;            
-  }
-
-   @override
-  Future<(bool, String)> deleteAddress(int addressId) async {
-        var token = await tokenService.getToken();
-    var language = storageService.getLanguage();
-    var result = await userProfileService.deleteAddress(token, language, addressId);
+    var result = await userProfileService.addAddress(
+      token,
+      language,
+      addressInfo,
+    );
     return result;
   }
 
   @override
-  Future<(bool, String)> updateAddress(int addressId, AddressInfo addressInfo) async {
-        var token = await tokenService.getToken();
+  Future<(bool, String)> deleteAddress(int addressId) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.updateAddress(token, language, addressId , addressInfo);
+    var result = await userProfileService.deleteAddress(
+      token,
+      language,
+      addressId,
+    );
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> updateAddress(
+    int addressId,
+    AddressInfo addressInfo,
+  ) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.updateAddress(
+      token,
+      language,
+      addressId,
+      addressInfo,
+    );
     return result;
   }
 
@@ -102,15 +154,23 @@ class UserProfileRepoImpl extends UserProfileRepo{
   Future<(bool, String)> addDisease(DiseaseInfo diseaseInfo) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.addDisease(token, language, diseaseInfo);
+    var result = await userProfileService.addDisease(
+      token,
+      language,
+      diseaseInfo,
+    );
     return result;
   }
 
   @override
-  Future<(bool, String)> deleteDisease(int diseaseId)async {
+  Future<(bool, String)> deleteDisease(int diseaseId) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.deleteDisease(token, language, diseaseId);
+    var result = await userProfileService.deleteDisease(
+      token,
+      language,
+      diseaseId,
+    );
     return result;
   }
 
@@ -118,7 +178,12 @@ class UserProfileRepoImpl extends UserProfileRepo{
   Future<(bool, String)> lockDisease(int diseaseId, String status) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.lockDisease(token, language, diseaseId, status);
+    var result = await userProfileService.lockDisease(
+      token,
+      language,
+      diseaseId,
+      status,
+    );
     return result;
   }
 
@@ -126,47 +191,82 @@ class UserProfileRepoImpl extends UserProfileRepo{
   Future<(bool, String)> deleteDocument(int docId) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.deleteDocument(language, token, docId);
+    var result = await userProfileService.deleteDocument(
+      language,
+      token,
+      docId,
+    );
     return result;
   }
 
   @override
   Future<(bool, String)> lockDocument(int docId, String status) async {
-     var token = await tokenService.getToken();
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.lockDocument(language, token, docId, status);
+    var result = await userProfileService.lockDocument(
+      language,
+      token,
+      docId,
+      status,
+    );
     return result;
   }
 
   @override
-  Future<(bool, String)> uploadMedicationDocument(String fileName, File file) async{
-     var token = await tokenService.getToken();
+  Future<(bool, String)> uploadMedicationDocument(
+    String fileName,
+    File file,
+  ) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.uploadMedicationDocument(language, token, fileName,file);
+    var result = await userProfileService.uploadMedicationDocument(
+      language,
+      token,
+      fileName,
+      file,
+    );
     return result;
   }
 
   @override
-  Future<(bool, String)> uploadSimpleDocument(String fileName, File file) async {
-   var token = await tokenService.getToken();
+  Future<(bool, String)> uploadSimpleDocument(
+    String fileName,
+    File file,
+  ) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.uploadSimpleDocument(language, token,fileName,file);
+    var result = await userProfileService.uploadSimpleDocument(
+      language,
+      token,
+      fileName,
+      file,
+    );
     return result;
   }
-  
+
   @override
   Future<(bool, String)> uploadVoice(File voiceFile) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.uploadVoice(language, token, voiceFile);
+    var result = await userProfileService.uploadVoice(
+      language,
+      token,
+      voiceFile,
+    );
     return result;
   }
-  
+
   @override
-  Future<(bool, String)> updateBasicPetProfileInfo(BasicPetProfileInfo info) async {
-     var token = await tokenService.getToken();
+  Future<(bool, String)> updateBasicPetProfileInfo(
+    BasicPetProfileInfo info,
+  ) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.updateBasicPetUserInfo(token, language , info);
-    return result;    
+    var result = await userProfileService.updateBasicPetUserInfo(
+      token,
+      language,
+      info,
+    );
+    return result;
   }
 }

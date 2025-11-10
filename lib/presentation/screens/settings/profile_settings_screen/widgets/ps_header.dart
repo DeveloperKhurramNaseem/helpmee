@@ -86,11 +86,15 @@ class PsHeader extends StatelessWidget {
             ),
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
                 shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.5,
+                ),
               ),
-              padding: EdgeInsets.all(2),
+              // padding: EdgeInsets.all(2),
               child: CircleAvatar(
+                backgroundColor: Colors.transparent,
                 radius: radius,
                 backgroundImage: user.logo != null
                     ? NetworkImage(user.logo!)

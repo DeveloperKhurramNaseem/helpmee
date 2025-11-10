@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/basic_profile_info.dart';
 import 'package:help_mee/data/models/requests/address_info.dart';
 import 'package:help_mee/data/models/requests/contact_info.dart';
@@ -54,7 +55,7 @@ class UserProfileService extends ApiService {
     }
   }
 
-  Future<(bool, String)> updateBasicUserInfo(
+  Future<(bool, String,AppUserModel)> updateBasicUserInfo(
     String token,
     String language,
     BasicProfileInfo info,
@@ -77,9 +78,9 @@ class UserProfileService extends ApiService {
     }
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success, decodedResponse.message);
+      return (decodedResponse.success, decodedResponse.message, AppUserModel.fromMap(decodedResponse.data['user']));
     }
-    return (false, ErrorConstants.errorMessage);
+    return (false, ErrorConstants.errorMessage, AppUserModel());
   }
 
   Future<(bool, String)> updateBasicPetUserInfo(

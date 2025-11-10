@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/util/constants/images.dart';
 
 class EpHeaderImage extends StatelessWidget {
   final VoidCallback onTap;
@@ -18,12 +19,20 @@ class EpHeaderImage extends StatelessWidget {
               alignment: Alignment(1, 1),
               children: [
                 Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  padding: EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2.5,
+                    ),
+                  ),
+                  // padding: EdgeInsets.all(2),
                   child: CircleAvatar(
                     radius: radius,
                     backgroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundImage: NetworkImage(image),
+                    backgroundImage: image.isNotEmpty
+                        ? NetworkImage(image)
+                        : AssetImage(AppImages.placeHolderPerson),
                     // child: Icon(Icons.person, size: 30),
                   ),
                 ),

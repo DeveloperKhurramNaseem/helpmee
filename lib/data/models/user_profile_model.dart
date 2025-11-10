@@ -167,6 +167,32 @@ class User {
       specialFeatures: map[specialFeaturesKey] ?? '',
     );
   }
+  factory User.empty(){
+    return User(
+      id: 0,
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      gender: 1,
+      height: '',
+      weight: '',
+      bloodGroup: 'A+',
+      importantNote: '',
+      insuranceCompany: '',
+      insuranceId: '',
+      bio: '',
+      profileImage: '',
+      race: '',
+      petCharacter: '',
+      size: '',
+      castrated: '',
+      chipped: '',
+      chipPosition: '',
+      taxNo: '',  
+      tassoNo: '',
+      specialFeatures: '',
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {

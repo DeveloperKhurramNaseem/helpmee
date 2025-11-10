@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
@@ -45,6 +46,7 @@ class UpdateBasicInfoBloc
         emit(UpdateBasicInfoErrorState(message: result.$2));
       }
     } catch (e) {
+      log(e.toString() , name: 'UpdateBasicInfoBloc');
       emit(UpdateBasicInfoErrorState(message: ErrorConstants.errorMessage));
     }
   }

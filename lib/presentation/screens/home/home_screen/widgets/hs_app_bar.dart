@@ -49,10 +49,11 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Theme.of(context).colorScheme.primary,
-                          width: 2,
+                          width: 2.5,
                         ),
                       ),
                       child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
                         backgroundImage: logo != null
                             ? NetworkImage(logo)
                             : AssetImage(AppImages.placeHolderPerson),
