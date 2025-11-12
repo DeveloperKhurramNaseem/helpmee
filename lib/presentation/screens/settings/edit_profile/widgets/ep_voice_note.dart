@@ -225,13 +225,13 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
         GestureDetector(
           onTap: () {
             showModalBottomSheet(
-                          context: context,
-                          showDragHandle: true,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return RecordAudioSheet(update: true,);
-                          },
-                        );
+              context: context,
+              showDragHandle: true,
+              isScrollControlled: true,
+              builder: (context) {
+                return RecordAudioSheet(url: widget.url , amps: _bars,);
+              },
+            );
           },
           child: Padding(
             padding: EdgeInsets.only(right: 5),

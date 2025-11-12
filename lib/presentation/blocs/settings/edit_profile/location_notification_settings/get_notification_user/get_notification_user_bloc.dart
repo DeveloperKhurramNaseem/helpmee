@@ -22,7 +22,7 @@ class GetNotificationUserBloc
     Emitter<GetNotificationUserState> emit,
   ) async {
     try {
-      emit(GetNotificationUserLoadingState());
+      // emit(GetNotificationUserLoadingState());
       var result = await userRepo.getNotificationUsers();
       if (result.$1) {
         emit(GetNotificationUserDoneState(notificationUserList: result.$3));

@@ -2,6 +2,7 @@ import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
+import 'package:help_mee/data/models/product_model.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_service.dart';
@@ -202,5 +203,37 @@ class UserRepoImpl extends UserRepo {
     var lang = storageService.getLanguage();
 
     return await userService.restoreProduct(token, lang, code);
+  }
+
+  @override
+  Future<(bool, String, List<ProductModel>)> getProductsList() async{
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.getProductsList(token, lang);
+  }
+  
+  @override
+  Future<(bool, String)> unmapProduct(String prodcutCode) async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.unmapProduct(token, lang, prodcutCode);
+  }
+  
+  @override
+  Future<(bool, String)> deleteVoice() async{
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.deleteVoice(token, lang);
+  }
+  
+  @override
+  Future<(bool, String)> updateLocationSharingSetting(bool value) async{
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.updateLocationSharingSetting(token, lang,value );
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:help_mee/util/constants/images.dart';
 
@@ -41,11 +42,12 @@ class EpHeaderImage extends StatelessWidget {
                   child: CircleAvatar(
                     radius: radius,
                     backgroundColor: Colors.transparent,
-                    backgroundImage: imageFile != null
+                    foregroundImage: imageFile != null
                         ? FileImage(imageFile!)
                         : image.isNotEmpty
-                        ? NetworkImage(image)
+                        ? CachedNetworkImageProvider(image)
                         : AssetImage(AppImages.placeHolderPerson),
+                    backgroundImage: AssetImage(AppImages.placeHolderPerson),
                     // child: Icon(Icons.person, size: 30),
                   ),
                 ),

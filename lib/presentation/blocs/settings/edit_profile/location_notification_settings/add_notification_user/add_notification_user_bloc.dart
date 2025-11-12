@@ -12,22 +12,36 @@ part 'add_notification_user_state.dart';
 
 class AddNotificationUserBloc
     extends Bloc<AddNotificationUserEvent, AddNotificationUserState> {
-      final UserLocationNotificationRepo userLocationNotificationRepo;
-  AddNotificationUserBloc(this.userLocationNotificationRepo) : super(AddNotificationUserInitialState()) {
+  final UserLocationNotificationRepo userLocationNotificationRepo;
+  AddNotificationUserBloc(this.userLocationNotificationRepo)
+    : super(AddNotificationUserInitialState()) {
     on<AddNewNotificationUserEvent>(_handleAddNewNotificationUserEvent);
   }
 
-  FutureOr<void> _handleAddNewNotificationUserEvent(AddNewNotificationUserEvent event, Emitter<AddNotificationUserState> emit) async {
-    try{
+  FutureOr<void> _handleAddNewNotificationUserEvent(
+    AddNewNotificationUserEvent event,
+    Emitter<AddNotificationUserState> emit,
+  ) async {
+    try {
       emit(AddNotificationUserLoadingState());
-      var result = await userLocationNotificationRepo.addNotificationUser(NotificationUserInfo(name: event.name, email: event.email));
-      if(result.$1){
-        emit(AddNotificationUserLoadedState());        
+      (bool, String) result;
+      if(event.id != null){
+        result = await userLocationNotificationRepo.updateNotificationUser(
+        event.id!,          
+        NotificationUserInfo(name: event.name, email: event.email),
+      );
       }else{
+        result = await userLocationNotificationRepo.addNotificationUser(
+        NotificationUserInfo(name: event.name, email: event.email),
+      );
+      }      
+      if (result.$1) {
+        emit(AddNotificationUserLoadedState());
+      } else {
         emit(AddNotificationUserErrorState(message: result.$2));
-      } 
-    }catch(e){
-      log(e.toString() , name: 'AddNotificationUserBloc');
+      }
+    } catch (e) {
+      log(e.toString(), name: 'AddNotificationUserBloc');
       emit(AddNotificationUserErrorState(message: ErrorConstants.errorMessage));
     }
   }

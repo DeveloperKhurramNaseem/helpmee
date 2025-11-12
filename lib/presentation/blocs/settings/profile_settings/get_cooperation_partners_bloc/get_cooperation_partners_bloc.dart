@@ -10,25 +10,31 @@ import 'package:meta/meta.dart';
 part 'get_cooperation_partners_event.dart';
 part 'get_cooperation_partners_state.dart';
 
-class GetCooperationPartnersBloc extends Bloc<GetCooperationPartnersEvent, GetCooperationPartnersState> {
+class GetCooperationPartnersBloc
+    extends Bloc<GetCooperationPartnersEvent, GetCooperationPartnersState> {
   final UserRepo userRepo;
-  GetCooperationPartnersBloc(this.userRepo) : super(GetCooperationPartnersInitialState()) {
+  GetCooperationPartnersBloc(this.userRepo)
+    : super(GetCooperationPartnersInitialState()) {
     on<GetAllCooperationPartnersEvent>(_handleGetAllCooperationPartnersEvent);
   }
 
-  FutureOr<void> _handleGetAllCooperationPartnersEvent(GetAllCooperationPartnersEvent event, Emitter<GetCooperationPartnersState> emit) async{
-    try{
-      emit(GetCooperationPartnersLoadingState());
+  FutureOr<void> _handleGetAllCooperationPartnersEvent(
+    GetAllCooperationPartnersEvent event,
+    Emitter<GetCooperationPartnersState> emit,
+  ) async {
+    try {
+      // emit(GetCooperationPartnersLoadingState());
       var result = await userRepo.getCooperationPartners();
-      if(result.$1){
+      if (result.$1) {
         emit(GetCooperationPartnersDoneState(cooperationPartners: result.$3));
-      }else{
+      } else {
         emit(GetCooperationPartnersErrorState(message: result.$2));
-      }      
-    }catch(e){
-      log(e.toString() , name: 'GetCooperationPartnersBloc');
-      emit(GetCooperationPartnersErrorState(message: ErrorConstants.errorMessage));
+      }
+    } catch (e) {
+      log(e.toString(), name: 'GetCooperationPartnersBloc');
+      emit(
+        GetCooperationPartnersErrorState(message: ErrorConstants.errorMessage),
+      );
     }
-
   }
 }

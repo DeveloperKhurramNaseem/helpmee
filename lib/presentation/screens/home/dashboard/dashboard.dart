@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/widgets/dashboard_bottom_bar.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/widgets/names_sheet.dart';
 import 'package:help_mee/presentation/screens/home/home_screen/home_screen.dart';
@@ -34,6 +35,7 @@ class _DashboardState extends State<Dashboard> {
     );
     context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent());
     context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent());
+    context.read<GetProductsBloc>().add(GetAllProductsEvent());
     if (widget.showNameSheet) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         showModalBottomSheet(

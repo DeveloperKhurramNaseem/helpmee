@@ -34,6 +34,7 @@ class EndPoints {
   // Location Notification Settings Endpoints
   static const getLocationNotificationSettings = '/notification-setting';
   static const updateLocationNotificationSettings = '/notification-setting-change';
+  static const locationSharingSetting = '/location_sharing_setting_change';
   static const getNotificationUsers = '/notification-users';
   static const addNotificationUser = '/add-notification-user';
   static const updateNotificationUser = '/update-notification-user';
@@ -51,10 +52,15 @@ class EndPoints {
   static const deleteDocument = '/delete-document';
   static const lockDocument = '/lock-document';
   static const uploadVoice = '/upload-voice-record';
+  static const deleteVoice = '/delete-voice-record';
 
   // Cooperation Partners
   static const getCooperationPartners = '/cooperationPartnersProfiles';
   static const activateCooperationPartners = '/cooperationPartnersProfileActiveInactivated';
   static const restoreDevice = '/return-device';
+
+  // Profiles & Products
+  static const productsList = '/device_list';
+  static const unmapProduct = '/unmap-device';
   
 }

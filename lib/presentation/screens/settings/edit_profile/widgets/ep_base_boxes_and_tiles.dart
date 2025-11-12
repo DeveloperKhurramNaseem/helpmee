@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 
 class EpInfoBaseBox extends StatelessWidget {
   final Widget child;
@@ -257,7 +260,28 @@ class EpBaseTile extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: onLockTap,
+                  onTap: () {
+                    if (onLockTap != null) {
+                      var user = sl<StorageService>().getUser();
+                      if (user.pinCode != null) {
+                        onLockTap!();
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (context) => CupertinoAlertDialog(
+                            title: Text('Error'),
+                            content: Text('Please set pin code'),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context),
+                                child: Text('Ok'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    }
+                  },
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10.0),
                     child: SvgPicture.asset(

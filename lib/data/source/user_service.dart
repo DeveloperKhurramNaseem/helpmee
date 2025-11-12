@@ -3,6 +3,7 @@ import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
+import 'package:help_mee/data/models/product_model.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:help_mee/util/network/end_points.dart';
@@ -271,6 +272,76 @@ class UserService extends ApiService {
       header: NetworkConstants.getHeaders(language, token),
     );
 
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String, List<ProductModel>)> getProductsList(
+    String token,
+    String language,
+  ) async {
+    var result = await get(
+      endPoint: EndPoints.productsList,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        (decodedResponse.data['devices'] as List)
+            .map((e) => ProductModel.fromMap(e))
+            .toList(),
+      );
+    }
+    return (false, ErrorConstants.errorMessage, <ProductModel>[]);
+  }
+
+  Future<(bool, String)> unmapProduct(
+    String token,
+    String language,
+    String prodcutCode,
+  ) async {
+    var body = {"device": prodcutCode};
+
+    var result = await post(
+      EndPoints.unmapProduct,
+      body,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> deleteVoice(String token, String language) async {
+    var result = await delete(
+      EndPoints.deleteVoice,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> updateLocationSharingSetting(
+    String token,
+    String language,
+    bool sharing,
+  ) async {
+    var result = await post(
+      EndPoints.locationSharingSetting,
+      {'location_sharing' : '$sharing'},
+      header: NetworkConstants.getHeaders(language, token),
+    );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);

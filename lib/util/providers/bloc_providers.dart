@@ -12,10 +12,13 @@ import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_not
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/delete_voice/delete_voice_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_address/add_address_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_doctor_contact/add_doctor_contact_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_contacts/add_family_contact/add_family_contact_bloc.dart';
@@ -28,6 +31,7 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notif
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_notification_user/get_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_notification_settings/update_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_sharing_setting_bloc/update_location_sharing_setting_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_notification_user/update_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/add_disease/add_disease_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/delete_disease/delete_disease_bloc.dart';
@@ -145,6 +149,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
 
     BlocProvider<GetLocationNotificationSettingsBloc>(create: (context) => GetLocationNotificationSettingsBloc(sl()),),
     BlocProvider<UpdateLocationAndNotificationSettingsBloc>(create: (context) => UpdateLocationAndNotificationSettingsBloc(sl()),),
+    BlocProvider<UpdateLocationSharingSettingBloc>(create: (context) => UpdateLocationSharingSettingBloc(sl())),
     BlocProvider<AddNotificationUserBloc>(create: (context) => AddNotificationUserBloc(sl()),),
     BlocProvider<UpdateNotificationUserBloc>(create: (context) => UpdateNotificationUserBloc(sl()),),    
     BlocProvider<DeleteNotificationUserBloc>(create: (context) => DeleteNotificationUserBloc(sl()),),        
@@ -165,6 +170,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
 
     // Voice note Blocs
     BlocProvider<UploadVoiceBloc>(create: (context) => UploadVoiceBloc(sl()),),
+    BlocProvider<DeleteVoiceBloc>(create: (context) => DeleteVoiceBloc(sl()),),
 
     // Cooperation Partners bloc
     BlocProvider<GetCooperationPartnersBloc>(create: (context) => GetCooperationPartnersBloc(sl()),),
@@ -172,6 +178,10 @@ List<BlocProvider> getUserProfileBlocProviders() {
 
     // Hidden Features
     BlocProvider<RestoreProductBloc>(create: (context) => RestoreProductBloc(sl(),),),
+
+    // Profiles & Products
+    BlocProvider<GetProductsBloc>(create: (context) => GetProductsBloc(sl()),),
+    BlocProvider<UnmapProductBloc>(create: (context) => UnmapProductBloc(sl()),),
     
   ];
 }

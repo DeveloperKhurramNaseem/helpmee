@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
@@ -34,9 +35,10 @@ class SettingsHeader extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: 40,
-                backgroundImage: user.logo != null
-                    ? NetworkImage(user.logo!)
+                foregroundImage: user.logo != null
+                    ? CachedNetworkImageProvider(user.logo!)
                     : AssetImage(AppImages.placeHolderPerson),
+                backgroundImage: AssetImage(AppImages.placeHolderPerson),
               ),
             ),
             SizedBox(width: 15),
@@ -92,23 +94,28 @@ class SettingsHeader extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: Theme.of(
-                                context,
-                              ).extension<AppGradients>()?.primaryButton,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                AppLocalizations.of(context)!.editProfileLabel,
-                                style: TextStyle(
-                                  color: Theme.of(
+                          child: ColoredBox(
+                            color: Colors.transparent,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: Theme.of(
+                                  context,
+                                ).extension<AppGradients>()?.primaryButton,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  AppLocalizations.of(
                                     context,
-                                  ).colorScheme.onPrimary,
-                                  fontWeight: FontWeight.w500,
+                                  )!.editProfileLabel,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

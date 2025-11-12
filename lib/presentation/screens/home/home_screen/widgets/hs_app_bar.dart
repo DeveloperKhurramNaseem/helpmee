@@ -5,6 +5,7 @@ import 'package:help_mee/presentation/screens/settings/app_settings_screen/setti
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/dependencies/init.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({super.key});
@@ -57,9 +58,12 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                       ),
                       child: CircleAvatar(
                         backgroundColor: Colors.transparent,
-                        backgroundImage: logo != null
-                            ? NetworkImage(logo)
+                        foregroundImage: logo != null
+                            ? CachedNetworkImageProvider(logo)
                             : AssetImage(AppImages.placeHolderPerson),
+                        backgroundImage: AssetImage(
+                          AppImages.placeHolderPerson,
+                        ),
                       ),
                     ),
                   ),

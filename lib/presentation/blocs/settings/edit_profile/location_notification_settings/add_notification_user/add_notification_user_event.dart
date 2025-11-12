@@ -6,6 +6,6 @@ sealed class AddNotificationUserEvent {}
 class AddNewNotificationUserEvent extends AddNotificationUserEvent {
   final String name;
   final String email;
-
-  AddNewNotificationUserEvent({required this.name, required this.email});
+  final int? id;
+  AddNewNotificationUserEvent({required this.name, required this.email, this.id});
 }

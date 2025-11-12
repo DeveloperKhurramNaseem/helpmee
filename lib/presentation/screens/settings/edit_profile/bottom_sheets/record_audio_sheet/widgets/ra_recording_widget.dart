@@ -17,12 +17,14 @@ enum CurrentRecordingState { initial, recorded }
 class RaRecordingWidget extends StatefulWidget {
   final void Function(bool) showButton;
   final void Function(File? file) onRecorded;
-  final bool update;
+  final String? url;
+  final List<double> amps;
   const RaRecordingWidget({
     super.key,
     required this.showButton,
     required this.onRecorded,
-    required this.update,
+    this.url,
+    this.amps = const [],
   });
 
   @override
@@ -51,6 +53,9 @@ class _RaRecordingWidgetState extends State<RaRecordingWidget> {
   @override
   void initState() {
     super.initState();
+    if (widget.url != null) {
+      _state = CurrentRecordingState.recorded;
+    }
   }
 
   @override
@@ -180,8 +185,7 @@ class _RaRecordingWidgetState extends State<RaRecordingWidget> {
           borderRadius: BorderRadius.circular(10),
           border: Border.all(color: Color.fromRGBO(237, 237, 237, 1), width: 1),
         ),
-        child:         
-         _state == CurrentRecordingState.initial
+        child: _state == CurrentRecordingState.initial
             ? RecordingInitialWidget(
                 startRecording: _startRecording,
                 stopRecording: _stopRecording,
@@ -191,13 +195,13 @@ class _RaRecordingWidgetState extends State<RaRecordingWidget> {
               )
             : RecordingPlayerWidget(
                 filePath: path ?? _filePath,
-                waveform: getWaveForm(),
+                url: widget.url,
+                waveform: widget.amps.isNotEmpty ? widget.amps : getWaveForm(),
                 maxSeconds: maxSeconds,
                 backToInitial: () {
                   setState(() {
                     _state = CurrentRecordingState.initial;
-                    widget.showButton(false);     
-                                   
+                    widget.showButton(false);
                   });
                 },
               ),
@@ -245,22 +249,29 @@ class RecordingInitialWidget extends StatelessWidget {
                 child: Text('Press microphone to record audio'),
               )
             : Expanded(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: CustomPaint(
-                    painter: WaveformPainter(
-                      samples: amplitudes,
-                      // during recording, nothing is "played", so progress = null
-                      progress: null,
-                      barColor: Colors.black,
-                      playedColor: Colors.blue, // ignored here
+                child: Row(
+                  children: [
+                    Text(countDown),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: CustomPaint(
+                          painter: WaveformPainter(
+                            samples: amplitudes,
+                            // during recording, nothing is "played", so progress = null
+                            progress: null,
+                            barColor: Colors.black,
+                            playedColor: Colors.blue, // ignored here
+                          ),
+                          size: const Size(double.infinity, double.infinity),
+                        ),
+                      ),
                     ),
-                    size: const Size(double.infinity, double.infinity),
-                  ),
+                  ],
                 ),
               ),
         Listener(

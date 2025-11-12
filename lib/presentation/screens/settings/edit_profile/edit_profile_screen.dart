@@ -81,7 +81,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     var profileDataBloc = context.read<GetProfileDataBloc>();
     userProfile = profileDataBloc.userProfileModel;
-    
+
     // Get profile data
     profileDataBloc.add(GetUserProfileDataSetProfileType(widget.profileType));
     profileDataBloc.add(GetUserProfileDataEvent());
@@ -239,7 +239,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     chipPositionController.text = userProfile.user.chipPosition;
     characterController.text = userProfile.user.petCharacter;
     bloodGroupController.text = userProfile.user.bloodGroup;
-    
   }
 
   @override
@@ -308,8 +307,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       lastName: lastNameController.text.trim(),
                       gender: currentGenderValue,
                       bio: importantNoteController.text.trim(),
-                      height: double.tryParse(heightController.text.trim()) ?? 0,
-                      weight: double.tryParse(weightController.text.trim()) ?? 0,
+                      height:
+                          double.tryParse(heightController.text.trim()) ?? 0,
+                      weight:
+                          double.tryParse(weightController.text.trim()) ?? 0,
                       bloodGroup: currentBloodGroup,
                       imageFile: pickedImage,
                       dob: DateFormat('yyyy-MM-dd').format(dateOfBirth),
@@ -365,7 +366,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           EpHeaderGenderAndBirthday(
                             initialGenderValue: currentGenderValue,
                             birthdayController: birthdayController,
-                            onDobChanged: (value){
+                            onDobChanged: (value) {
                               dateOfBirth = value;
                             },
                             onGenderChanged: (value) {
@@ -407,7 +408,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           doctorContacts: state.userProfile.doctorContacts,
                         ),
                         // Location Part
-                        EpLocationBox(),
+                        EpLocationBox(locationSharing: false),
                         if (widget.profileType == ProfileType.pet)
                           // Pet Characterestics Part
                           EpPetCharacteresticsBox(

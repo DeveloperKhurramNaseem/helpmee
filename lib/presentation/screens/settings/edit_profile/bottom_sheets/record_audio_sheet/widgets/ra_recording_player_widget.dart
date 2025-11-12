@@ -3,20 +3,24 @@ import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/delete_voice/delete_voice_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/painter/waveform_painter.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:provider/provider.dart';
 
 class RecordingPlayerWidget extends StatefulWidget {
   final String? filePath;
+  final String? url;
   final List<double> waveform; // 0..1
   final int maxSeconds;
   final void Function() backToInitial;
   const RecordingPlayerWidget({
     super.key,
-    required this.filePath,
+    this.filePath,
+    this.url,
     required this.waveform,
     required this.maxSeconds,
     required this.backToInitial,
@@ -42,9 +46,13 @@ class _RecordingPlayerWidgetState extends State<RecordingPlayerWidget> {
 
   Future<void> _init() async {
     try {
-      await _player.setFilePath(widget.filePath!);
-      _duration = _player.duration ?? Duration.zero;
+      if (widget.filePath != null) {
+        await _player.setFilePath(widget.filePath!);
+      } else if (widget.url != null) {
+        await _player.setUrl(widget.url!);
+      }
 
+      _duration = _player.duration ?? Duration.zero;
       _stateSub = _player.playerStateStream.listen((state) async {
         if (state.processingState == ProcessingState.completed) {
           // Jump back to start and ensure we're paused
@@ -107,28 +115,48 @@ class _RecordingPlayerWidgetState extends State<RecordingPlayerWidget> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       spacing: 10,
       children: [
-        GestureDetector(
-          onTap: () {
-            _togglePlay();
-          },
-          child: _player.playing
-              ? Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(left: 5),
-                  child: SvgPicture.asset(AppIcons.pauseIcon),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppLightThemeColors.gradientFirstColor,
-                    ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      _togglePlay();
+                    },
+                    child: _player.playing
+                        ? Container(
+                            decoration: BoxDecoration(shape: BoxShape.circle),
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.only(left: 5),
+                            child: SvgPicture.asset(AppIcons.pauseIcon),
+                          )
+                        : Container(
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                color: AppLightThemeColors.gradientFirstColor,
+                              ),
+                            ),
+                            padding: EdgeInsets.all(10),
+                            margin: EdgeInsets.only(left: 5),
+                            child: SvgPicture.asset(AppIcons.playIcon),
+                          ),
                   ),
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(left: 5),
-                  child: SvgPicture.asset(AppIcons.playIcon),
-                ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6.0),
+              child: Text(
+                _position == Duration.zero
+                    ? ' 00:${widget.maxSeconds < 10 ? '0' : ''}${widget.maxSeconds.toString()}'
+                    : ' 00:${_position.inSeconds < 10 ? '0' : ''}${_position.inSeconds.toString()}',
+              ),
+            ),
+          ],
         ),
         Expanded(
           child: SizedBox(
@@ -145,11 +173,14 @@ class _RecordingPlayerWidgetState extends State<RecordingPlayerWidget> {
         ),
         GestureDetector(
           onTap: () {
+            if (widget.url != null) {
+              context.read<DeleteVoiceBloc>().add(DeleteVoiceEvent());
+            }
             widget.backToInitial();
           },
           child: SvgPicture.asset(AppIcons.del, height: 20, width: 20),
         ),
       ],
     );
-      }
+  }
 }

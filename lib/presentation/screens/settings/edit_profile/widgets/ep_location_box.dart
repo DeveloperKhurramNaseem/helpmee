@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_sharing_setting_bloc/update_location_sharing_setting_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/location_settings_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class EpLocationBox extends StatelessWidget {
-  const EpLocationBox({super.key});
+  final bool locationSharing;
+  const EpLocationBox({super.key, required this.locationSharing});
 
   @override
   Widget build(BuildContext context) {
+    var locationSharing = this.locationSharing;
     return SliverPadding(
       padding: const EdgeInsets.only(bottom: 14.0),
       sliver: SliverToBoxAdapter(
@@ -46,7 +50,27 @@ class EpLocationBox extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Switch(value: false, onChanged: (value) {}),
+                            StatefulBuilder(
+                              builder: (context, setLocalState) {
+                                return Switch(
+                                  value: locationSharing,
+                                  onChanged: (value) {
+                                    setLocalState(() {
+                                      locationSharing = value;
+                                    });
+                                    context
+                                        .read<
+                                          UpdateLocationSharingSettingBloc
+                                        >()
+                                        .add(
+                                          UpdateLocationSharingSettingEvent(
+                                            locationSharing: value,
+                                          ),
+                                        );
+                                  },
+                                );
+                              },
+                            ),
                           ],
                         ),
                       ),

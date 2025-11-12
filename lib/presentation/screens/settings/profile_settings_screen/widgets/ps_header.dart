@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/data/source/storage_service.dart';
@@ -99,9 +100,10 @@ class PsHeader extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: Colors.transparent,
                 radius: radius,
-                backgroundImage: user.logo != null
-                    ? NetworkImage(user.logo!)
+                foregroundImage: user.logo != null
+                    ? CachedNetworkImageProvider(user.logo!)
                     : AssetImage(AppImages.placeHolderPerson),
+                backgroundImage: AssetImage(AppImages.placeHolderPerson),
               ),
             ),
           ],

@@ -446,6 +446,7 @@ class LocationSettingEmailTile extends StatelessWidget {
                         isScrollControlled: true,
                         builder: (context) {
                           return AddNewPersonSheet(
+                            id: user.id,
                             initialEmail: user.email,
                             initialName: user.name,
                           );
