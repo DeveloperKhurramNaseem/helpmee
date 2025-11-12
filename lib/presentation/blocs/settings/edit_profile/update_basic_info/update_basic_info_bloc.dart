@@ -25,26 +25,27 @@ class UpdateBasicInfoBloc
     Emitter<UpdateBasicInfoState> emit,
   ) async {
     try {
-      emit(UpdateBasicInfoLoadingState());
-      var result = await userProfileRepo.updateBasicProfileInfo(
-        BasicProfileInfo(
-          firstName: event.firstName,
-          lastName: event.lastName,
-          gender: event.gender,
-          height: event.height,
-          weight: event.weight,
-          bloodGroup: event.bloodGroup,
-          profileImage: event.imageFile,
-          bio: event.bio,
-          insuranceCompany: event.insuranceCompany,
-          insuranceId: event.insuranceId,
-        ),
-      );
-      if (result.$1) {
-        emit(UpdateBasicInfoLoadedState());
-      } else {
-        emit(UpdateBasicInfoErrorState(message: result.$2));
-      }
+    emit(UpdateBasicInfoLoadingState());
+    var result = await userProfileRepo.updateBasicProfileInfo(
+      BasicProfileInfo(
+        firstName: event.firstName,
+        lastName: event.lastName,
+        gender: event.gender,
+        dob: event.dob,
+        height: event.height.toDouble(),
+        weight: event.weight.toDouble(),
+        bloodGroup: event.bloodGroup,
+        profileImage: event.imageFile,
+        bio: event.bio,
+        insuranceCompany: event.insuranceCompany,
+        insuranceId: event.insuranceId,
+      ),
+    );
+    if (result.$1) {
+      emit(UpdateBasicInfoLoadedState());
+    } else {
+      emit(UpdateBasicInfoErrorState(message: result.$2));
+    }
     } catch (e) {
       log(e.toString() , name: 'UpdateBasicInfoBloc');
       emit(UpdateBasicInfoErrorState(message: ErrorConstants.errorMessage));

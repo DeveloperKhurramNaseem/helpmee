@@ -6,6 +6,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheet
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/create_new_contact.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/constants/util_functions.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class EpEmergencyContacts extends StatelessWidget {
@@ -266,9 +267,27 @@ class ContactTile extends StatelessWidget {
               spacing: 10,
               children: [
                 if (contact.whatsappNo.isNotEmpty)
-                  SvgPicture.asset(AppIcons.whatsapp),
+                  GestureDetector(
+                    onTap: () {
+                      try{
+                        launchWhatsapp(contact.whatsappNo);
+                      } catch(e){
+
+                      }
+                    },
+                    child: SvgPicture.asset(AppIcons.whatsapp),
+                  ),
                 if (contact.phoneNo.isNotEmpty)
-                  SvgPicture.asset(AppIcons.phone),
+                  GestureDetector(
+                    onTap: () {
+                      try{
+                        launchPhone(contact.phoneNo);                        
+                      }catch(e){
+                        
+                      }
+                    },
+                    child: SvgPicture.asset(AppIcons.phone),
+                  ),
               ],
             ),
           ],

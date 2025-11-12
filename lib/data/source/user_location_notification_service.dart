@@ -1,4 +1,5 @@
 import 'package:help_mee/data/models/location_notification_model.dart';
+import 'package:help_mee/data/models/notification_user_model.dart';
 import 'package:help_mee/data/models/requests/notification_user_info.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
@@ -33,6 +34,8 @@ class UserLocationNotificationService extends ApiService {
     }
   }
 
+
+
   Future<(bool, String, LocationNotificationModel)>
   updateLocationNotificationSettings(
     String token,
@@ -58,6 +61,28 @@ class UserLocationNotificationService extends ApiService {
         false,
         ErrorConstants.errorMessage,
         LocationNotificationModel.empty(),
+      );
+    }
+  }
+
+    Future<(bool, String, List<NotificationUserModel>)> getNotificationUsers(String token, String language)async{
+    var result = await get(
+      endPoint: EndPoints.getNotificationUsers,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      var list = (decodedResponse.data as List).map((e) => NotificationUserModel.fromMap(e)).toList();
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        list,
+      );
+    } else {
+      return (
+        false,
+        ErrorConstants.errorMessage,
+        <NotificationUserModel>[]
       );
     }
   }

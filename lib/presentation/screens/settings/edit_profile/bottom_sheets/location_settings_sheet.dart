@@ -3,9 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/data/models/location_notification_model.dart';
+import 'package:help_mee/data/models/notification_user_model.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/delete_notification_user/delete_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_notification_user/get_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_notification_settings/update_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_new_person_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
@@ -42,11 +45,16 @@ class _LocationSettingsBottomSheetState
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context)!;
     var bloc = context.read<GetLocationNotificationSettingsBloc>();
-    return BlocListener<
-      UpdateLocationAndNotificationSettingsBloc,
-      UpdateLocationAndNotificationSettingsState
-    >(
-      listener: _handleUpdateLocationStateListener,
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<
+          UpdateLocationAndNotificationSettingsBloc,
+          UpdateLocationAndNotificationSettingsState
+        >(listener: _handleUpdateLocationStateListener),
+        BlocListener<DeleteNotificationUserBloc, DeleteNotificationUserState>(
+          listener: _handleDeleteNotificationUserStateListener,
+        ),
+      ],
       child: BlocBuilder<GetLocationNotificationSettingsBloc, GetLocationNotificationSettingsState>(
         builder: (context, state) {
           return Padding(
@@ -199,26 +207,29 @@ class _LocationSettingsBottomSheetState
                                 });
                               },
                             ),
-                            // LocationSettingEmailTile(
-                            //   title: 'Uncle Sam',
-                            //   details: 'naseemkhurram397@gmail.com',
-                            //   onTap: () {},
-                            // ),
-                            // LocationSettingEmailTile(
-                            //   title: 'Grandmother',
-                            //   details: 'naseemkhurram397@gmail.com',
-                            //   onTap: () {},
-                            // ),
-                            // LocationSettingEmailTile(
-                            //   title: 'Uncle Sam',
-                            //   details: 'naseemkhurram397@gmail.com',
-                            //   onTap: () {},
-                            // ),
-                            // LocationSettingEmailTile(
-                            //   title: 'Grandmother',
-                            //   details: 'naseemkhurram397@gmail.com',
-                            //   onTap: () {},
-                            // ),
+                            BlocBuilder<
+                              GetNotificationUserBloc,
+                              GetNotificationUserState
+                            >(
+                              builder: (context, state) {
+                                if (state is GetNotificationUserDoneState) {
+                                  return Column(
+                                    children: [
+                                      for (
+                                        var i = 0;
+                                        i < state.notificationUserList.length;
+                                        i++
+                                      )
+                                        LocationSettingEmailTile(
+                                          user: state.notificationUserList[i],
+                                          index: i,
+                                        ),
+                                    ],
+                                  );
+                                }
+                                return SizedBox();
+                              },
+                            ),
                             LocationSettingsAddPersonTile(),
                           ],
                         ),
@@ -299,6 +310,17 @@ class _LocationSettingsBottomSheetState
       Navigator.of(context, rootNavigator: true).pop();
     }
   }
+
+  void _handleDeleteNotificationUserStateListener(
+    BuildContext context,
+    DeleteNotificationUserState state,
+  ) {
+    if (state is DeleteNotificationUserLoadedState) {
+      context.read<GetNotificationUserBloc>().add(
+        GetAllNotificationUsersEvent(),
+      );
+    }
+  }
 }
 
 class NotificationListTile extends StatelessWidget {
@@ -360,14 +382,12 @@ class LocationSettingsAddPersonTile extends StatelessWidget {
 }
 
 class LocationSettingEmailTile extends StatelessWidget {
-  final String title;
-  final String details;
-  final void Function() onTap;
+  final NotificationUserModel user;
+  final int index;
   const LocationSettingEmailTile({
     super.key,
-    required this.title,
-    required this.details,
-    required this.onTap,
+    required this.user,
+    required this.index,
   });
 
   @override
@@ -375,7 +395,7 @@ class LocationSettingEmailTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.fromLTRB(10.0, 0, 10, 10),
       child: GestureDetector(
-        onTap: onTap,
+        onTap: null,
         child: Container(
           height: AppSize.instance.height * 0.065,
           decoration: BoxDecoration(
@@ -397,13 +417,13 @@ class LocationSettingEmailTile extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        title,
+                        user.name,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        details,
+                        user.email,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -418,10 +438,50 @@ class LocationSettingEmailTile extends StatelessWidget {
               Row(
                 spacing: 10,
                 children: [
-                  SvgPicture.asset(AppIcons.edit),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: SvgPicture.asset(AppIcons.del),
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        showDragHandle: true,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return AddNewPersonSheet(
+                            initialEmail: user.email,
+                            initialName: user.name,
+                          );
+                        },
+                      );
+                    },
+                    child: SvgPicture.asset(AppIcons.edit),
+                  ),
+                  BlocBuilder<
+                    DeleteNotificationUserBloc,
+                    DeleteNotificationUserState
+                  >(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap:
+                            state is DeleteNotificationUserLoadingState &&
+                                state.id == user.id
+                            ? null
+                            : () {
+                                context.read<DeleteNotificationUserBloc>().add(
+                                  DeleteCurrentNotificationUserEvent(user.id),
+                                );
+                              },
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 10.0),
+                          child: SvgPicture.asset(
+                            AppIcons.del,
+                            color:
+                                state is DeleteNotificationUserLoadingState &&
+                                    state.id == user.id
+                                ? Colors.grey
+                                : Colors.black,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

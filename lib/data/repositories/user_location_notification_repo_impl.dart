@@ -1,4 +1,5 @@
 import 'package:help_mee/data/models/location_notification_model.dart';
+import 'package:help_mee/data/models/notification_user_model.dart';
 import 'package:help_mee/data/models/requests/notification_user_info.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
@@ -77,6 +78,16 @@ class UserLocationNotificationRepoImpl extends UserLocationNotificationRepo {
       token,
       language,
       notificationUserId,
+    );
+  }
+
+  @override
+  Future<(bool, String, List<NotificationUserModel>)> getNotificationUsers() async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    return userLocationNotificationService.getNotificationUsers(
+      token,
+      language,      
     );
   }
 }

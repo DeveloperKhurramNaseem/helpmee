@@ -11,7 +11,8 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_h
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
-import 'package:path/path.dart' as path;
+import 'package:image_picker/image_picker.dart';
+// import 'package:path/path.dart' as path;
 
 enum DocumentType { simple, medication }
 
@@ -26,6 +27,7 @@ class UploadDocumentSheet extends StatefulWidget {
 class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
   late TextEditingController fileNameController;
   File? pickedFile;
+  String pickedFileName = '';
 
   @override
   void initState() {
@@ -104,18 +106,40 @@ class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
                 padding: const EdgeInsets.fromLTRB(12.0, 0, 12.0, 50),
                 child: EpBaseAddTile(
                   title: pickedFile != null
-                      ? path.basename(pickedFile!.path)
+                      ? pickedFileName //path.basename(pickedFile!.path)
                       : widget.documentType == DocumentType.medication
                       ? localization.uploadDocumentButton
                       : localization.uploadImageOrDocument,
                   onTap: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
-                    var filePickerResult = await FilePicker.platform
-                        .pickFiles();
-                    if (filePickerResult != null) {
-                      setState(() {
-                        pickedFile = File(filePickerResult.files.single.path!);
-                      });
+                    if (widget.documentType == DocumentType.medication) {
+                      var filePickerResult = await FilePicker.platform
+                          .pickFiles(allowedExtensions: ['pdf'] , type: FileType.custom);
+                      if (filePickerResult != null) {
+                        setState(() {
+                          pickedFile = File(
+                            filePickerResult.files.single.path!,                            
+                          );
+                          pickedFileName = filePickerResult.files.single.name;
+                        });
+                      }
+                    } else if (widget.documentType == DocumentType.simple) {
+                      showModalBottomSheet(
+                        context: context,
+                        showDragHandle: true,
+                        isScrollControlled: true,
+                        builder: (context) {
+                          return ImageAndDocumentPickerSheet(
+                            onFilePicked: (file , name) {
+                              setState(() {
+                                pickedFile = file;       
+                                pickedFileName = name;                         
+                              });
+                              Navigator.pop(context);
+                            },
+                          );
+                        },
+                      );
                     }
                   },
                 ),
@@ -175,5 +199,82 @@ class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
     if (state is UploadDocumentLoaded) {
       Navigator.of(context, rootNavigator: true).pop();
     }
+  }
+}
+
+class ImageAndDocumentPickerSheet extends StatelessWidget {
+  final void Function(File,String) onFilePicked;
+
+  const ImageAndDocumentPickerSheet({super.key, required this.onFilePicked});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+            child: AppButtonOutlined(
+              onPressed: () {
+                FilePicker.platform.pickFiles(allowedExtensions: ['pdf'], type: FileType.custom).then((
+                  value,
+                ) {
+                  if (value != null) {
+                    onFilePicked(File(value.files.single.path!),value.files.single.name);
+                  }
+                });
+              },
+              child: Text(
+                AppLocalizations.of(context)!.document,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
+            child: AppButtonOutlined(
+              onPressed: () {
+                ImagePicker().pickImage(source: ImageSource.camera).then((
+                  value,
+                ) {
+                  if (value != null) {
+                    onFilePicked(File(value.path),value.name);
+                  }
+                });
+              },
+              child: Text(
+                AppLocalizations.of(context)!.photoFromCamera,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(
+              24.0,
+              8.0,
+              24.0,
+              Platform.isAndroid ? 12 : 8,
+            ),
+            child: AppButtonOutlined(
+              onPressed: () {
+                ImagePicker().pickImage(source: ImageSource.gallery).then((
+                  value,
+                ) {
+                  if (value != null) {
+                    onFilePicked(File(value.path) , value.name);
+                  }
+                });
+              },
+              child: Text(
+                AppLocalizations.of(context)!.photoFromLibrary,
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

@@ -26,6 +26,9 @@ class SettingsHeader extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                   width: 2.5,
                 ),
+                // image: DecorationImage(
+                //   image: AssetImage(AppImages.placeHolderPerson),
+                // ),
               ),
               // padding: EdgeInsets.all(2),
               child: CircleAvatar(

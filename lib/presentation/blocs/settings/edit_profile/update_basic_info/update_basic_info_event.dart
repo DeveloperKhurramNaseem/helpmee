@@ -6,12 +6,13 @@ sealed class UpdateBasicInfoEvent {}
 class UpdateBasicProfileInfoEvent extends UpdateBasicInfoEvent{
   final String firstName , lastName;
   final int gender;
-  final int height;
-  final int weight;
+  final double height;
+  final double weight;
   final String bio;
+  final String dob;
   final String bloodGroup;  
   final File? imageFile;
-  final String insuranceCompany;
+  final String insuranceCompany;  
   final String insuranceId;
 
   UpdateBasicProfileInfoEvent({
@@ -22,6 +23,7 @@ class UpdateBasicProfileInfoEvent extends UpdateBasicInfoEvent{
     required this.height,
     required this.weight, 
     required this.bloodGroup,   
+    required this.dob,
     required this.imageFile,
     required this.insuranceCompany,
     required this.insuranceId

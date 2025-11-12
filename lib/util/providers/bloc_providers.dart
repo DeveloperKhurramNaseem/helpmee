@@ -26,6 +26,7 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_cont
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/add_notification_user/add_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/delete_notification_user/delete_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_notification_user/get_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_location_notification_settings/update_location_notification_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/update_notification_user/update_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/add_disease/add_disease_bloc.dart';
@@ -147,6 +148,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<AddNotificationUserBloc>(create: (context) => AddNotificationUserBloc(sl()),),
     BlocProvider<UpdateNotificationUserBloc>(create: (context) => UpdateNotificationUserBloc(sl()),),    
     BlocProvider<DeleteNotificationUserBloc>(create: (context) => DeleteNotificationUserBloc(sl()),),        
+    BlocProvider<GetNotificationUserBloc>(create: (context) => GetNotificationUserBloc(sl())),
 
     // Medical Information / Diseases blocs
 

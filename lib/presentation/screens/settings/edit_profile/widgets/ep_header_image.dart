@@ -1,10 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:help_mee/util/constants/images.dart';
 
 class EpHeaderImage extends StatelessWidget {
   final VoidCallback onTap;
   final String image;
-  const EpHeaderImage({super.key, required this.image, required this.onTap});
+  final File? imageFile;
+  const EpHeaderImage({
+    super.key,
+    required this.image,
+    this.imageFile,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +33,17 @@ class EpHeaderImage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                       width: 2.5,
                     ),
+                    // image: DecorationImage(
+                    //   image: AssetImage(AppImages.placeHolderPerson),
+                    // ),
                   ),
                   // padding: EdgeInsets.all(2),
                   child: CircleAvatar(
                     radius: radius,
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    backgroundImage: image.isNotEmpty
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: imageFile != null
+                        ? FileImage(imageFile!)
+                        : image.isNotEmpty
                         ? NetworkImage(image)
                         : AssetImage(AppImages.placeHolderPerson),
                     // child: Icon(Icons.person, size: 30),

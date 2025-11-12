@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/add_notification_user/add_notification_user_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_notification_user/get_notification_user_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_header_info_fields.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
@@ -10,7 +11,8 @@ import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.da
 import 'package:provider/provider.dart';
 
 class AddNewPersonSheet extends StatefulWidget {
-  const AddNewPersonSheet({super.key});
+  final String? initialName, initialEmail;
+  const AddNewPersonSheet({super.key , this.initialName, this.initialEmail});
 
   @override
   State<AddNewPersonSheet> createState() => _AddNewPersonSheetState();
@@ -23,11 +25,13 @@ class _AddNewPersonSheetState extends State<AddNewPersonSheet> {
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
-    emailController = TextEditingController();
+    nameController = TextEditingController()..addListener(listener);
+    emailController = TextEditingController()..addListener(listener);
+    if(widget.initialName != null) nameController.text = widget.initialName!;
+    if(widget.initialEmail != null) emailController.text = widget.initialEmail!;
   }
 
-  addListener() {
+  listener() {
     setState(() {
       enabled =
           nameController.text.isNotEmpty &&
@@ -105,7 +109,7 @@ class _AddNewPersonSheetState extends State<AddNewPersonSheet> {
                     value: isChecked,
                     onChanged: (value) {
                       isChecked = value!;
-                      addListener();
+                      listener();
                     },
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
@@ -182,7 +186,8 @@ class _AddNewPersonSheetState extends State<AddNewPersonSheet> {
     AddNotificationUserState state,
   ) {
     if (state is AddNotificationUserLoadedState) {
-      Navigator.of(context).pop();
+      context.read<GetNotificationUserBloc>().add(GetAllNotificationUsersEvent());
+      Navigator.of(context).pop();      
     }
   }
 }

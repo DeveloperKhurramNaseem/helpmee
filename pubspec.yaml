@@ -64,6 +64,7 @@ dependencies:
   path_provider: ^2.1.5
   just_waveform: ^0.0.7
   provider: ^6.1.5+1
+  cached_network_image: ^3.4.1
 
 dev_dependencies:
   flutter_test:

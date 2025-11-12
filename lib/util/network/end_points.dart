@@ -34,6 +34,7 @@ class EndPoints {
   // Location Notification Settings Endpoints
   static const getLocationNotificationSettings = '/notification-setting';
   static const updateLocationNotificationSettings = '/notification-setting-change';
+  static const getNotificationUsers = '/notification-users';
   static const addNotificationUser = '/add-notification-user';
   static const updateNotificationUser = '/update-notification-user';
   static const deleteNotificationUser = '/delete-notification-user';

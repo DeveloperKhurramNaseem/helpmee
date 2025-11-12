@@ -17,7 +17,7 @@ class DeleteNotificationUserBloc
 
   FutureOr<void> _handleDeleteCurrentNotificationUser(DeleteCurrentNotificationUserEvent event, Emitter<DeleteNotificationUserState> emit) async {
     try{
-      emit(DeleteNotificationUserLoadingState());
+      emit(DeleteNotificationUserLoadingState(id: event.notificationUserId));
       var result = await userLocationNotificationRepo.deleteNotificationUser(event.notificationUserId);
       if(result.$1){
         emit(DeleteNotificationUserLoadedState());

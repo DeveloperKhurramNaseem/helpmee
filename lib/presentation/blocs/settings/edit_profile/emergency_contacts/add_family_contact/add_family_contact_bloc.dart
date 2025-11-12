@@ -46,8 +46,7 @@ class AddFamilyContactBloc
         emit(AddFamilyContactLoadedState());
       } else {
         emit(AddFamilyContactErrorState(message: result.$2));
-      }
-      emit(AddFamilyContactLoadedState());
+      }      
     } catch (e) {
       log(e.toString(), name: 'AddFamilyContactBloc');
       emit(AddFamilyContactErrorState(message: ErrorConstants.errorMessage));

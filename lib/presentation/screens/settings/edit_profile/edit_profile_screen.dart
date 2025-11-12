@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_location_notification_settings/get_location_notification_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/edit_profile/location_notification_settings/get_notification_user/get_notification_user_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/delete_disease/delete_disease_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/lock_disease/lock_disease_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_documents/delete_document/delete_document_bloc.dart';
@@ -28,6 +29,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_p
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pictures_and_documents.dart';
 import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatefulWidget {
@@ -79,11 +81,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.initState();
     var profileDataBloc = context.read<GetProfileDataBloc>();
     userProfile = profileDataBloc.userProfileModel;
+    
+    // Get profile data
     profileDataBloc.add(GetUserProfileDataSetProfileType(widget.profileType));
     profileDataBloc.add(GetUserProfileDataEvent());
+
+    // Get Location notification settings
     context.read<GetLocationNotificationSettingsBloc>().add(
       GetUserLocationNotificationSettingsEvent(),
     );
+
+    // Get all notification users inside location settings sheet
+    context.read<GetNotificationUserBloc>().add(GetAllNotificationUsersEvent());
+
+    // Initializing controllers
     firstNameController = TextEditingController()..addListener(inputListener);
     lastNameController = TextEditingController()..addListener(inputListener);
     birthdayController = TextEditingController()..addListener(inputListener);
@@ -195,6 +206,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     firstNameController.text = userProfile.user.firstName;
     lastNameController.text = userProfile.user.lastName;
     log('Date: ${userProfile.user.dateOfBirth}');
+    dateOfBirth = DateTime.parse(userProfile.user.dateOfBirth);
     birthdayController.text = DateFormatting.formatDateForTextField(
       DateTime.parse(userProfile.user.dateOfBirth),
     );
@@ -212,6 +224,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     petRaceController.text = userProfile.user.race;
     importantNoteController.text = userProfile.user.bio;
     petBirthday = DateTime.parse(userProfile.user.dateOfBirth);
+    petDateOfBirthController.text = DateFormatting.formatDateForTextField(
+      DateTime.parse(userProfile.user.dateOfBirth),
+    );
     petGenderValue = userProfile.user.gender;
     petSizeController.text = userProfile.user.size;
     castrated = userProfile.user.castrated;
@@ -224,9 +239,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     chipPositionController.text = userProfile.user.chipPosition;
     characterController.text = userProfile.user.petCharacter;
     bloodGroupController.text = userProfile.user.bloodGroup;
-    petDateOfBirthController.text = DateFormatting.formatDateForTextField(
-      DateTime.parse(userProfile.user.dateOfBirth),
-    );
+    
   }
 
   @override
@@ -281,7 +294,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       specialFeatures: specialFeatureController.text.trim(),
                       castrated: castrated,
                       bloodGroup: bloodGroupController.text.trim(),
-                      dateOfBirth: petDateOfBirthController.text.trim(),
+                      dateOfBirth: DateFormat('yyyy-MM-dd').format(petBirthday),
                       gender: petGenderValue,
                       size: petSizeController.text.trim(),
                       weight: petWeightController.text.trim(),
@@ -295,10 +308,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       lastName: lastNameController.text.trim(),
                       gender: currentGenderValue,
                       bio: importantNoteController.text.trim(),
-                      height: int.tryParse(heightController.text.trim()) ?? 0,
-                      weight: int.tryParse(weightController.text.trim()) ?? 0,
+                      height: double.tryParse(heightController.text.trim()) ?? 0,
+                      weight: double.tryParse(weightController.text.trim()) ?? 0,
                       bloodGroup: currentBloodGroup,
                       imageFile: pickedImage,
+                      dob: DateFormat('yyyy-MM-dd').format(dateOfBirth),
                       insuranceCompany: insuranceCompanyController.text.trim(),
                       insuranceId: insuranceIdController.text.trim(),
                     ),
@@ -317,6 +331,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       slivers: [
                         // Header Image
                         EpHeaderImage(
+                          imageFile: pickedImage,
                           image: userProfile!.user.profileImage,
                           onTap: () {
                             showModalBottomSheet(
@@ -350,6 +365,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           EpHeaderGenderAndBirthday(
                             initialGenderValue: currentGenderValue,
                             birthdayController: birthdayController,
+                            onDobChanged: (value){
+                              dateOfBirth = value;
+                            },
                             onGenderChanged: (value) {
                               setState(() {
                                 currentGenderValue = value!;
@@ -414,7 +432,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     castrated != userProfile!.user.castrated;
                               });
                             },
-                            onBirthdayChanged: (status) {},
+                            onBirthdayChanged: (value) {
+                              petBirthday = value;
+                            },
                           ),
                         if (widget.profileType == ProfileType.pet)
                           // Pet Identification Part

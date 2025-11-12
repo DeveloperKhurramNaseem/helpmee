@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:help_mee/data/models/app_user_model.dart';
@@ -55,7 +56,7 @@ class UserProfileService extends ApiService {
     }
   }
 
-  Future<(bool, String,AppUserModel)> updateBasicUserInfo(
+  Future<(bool, String, AppUserModel)> updateBasicUserInfo(
     String token,
     String language,
     BasicProfileInfo info,
@@ -78,7 +79,12 @@ class UserProfileService extends ApiService {
     }
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success, decodedResponse.message, AppUserModel.fromMap(decodedResponse.data['user']));
+      log(decodedResponse.data['user'].toString());
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        AppUserModel.fromMap(decodedResponse.data['user']),
+      );
     }
     return (false, ErrorConstants.errorMessage, AppUserModel());
   }
@@ -327,12 +333,17 @@ class UserProfileService extends ApiService {
     }
   }
 
-  Future<(bool, String)> uploadMedicationDocument(String language, String token ,String fileName, File file) async {
-   var result = await postFile(
-      EndPoints.uploadMedicationDocument,  
-      {'name' : fileName},
+  Future<(bool, String)> uploadMedicationDocument(
+    String language,
+    String token,
+    String fileName,
+    File file,
+  ) async {
+    var result = await postFile(
+      EndPoints.uploadMedicationDocument,
+      {'name': fileName},
       'image',
-      file,   
+      file,
       header: NetworkConstants.getFileHeaders(language, token),
     );
     if (result != null) {
@@ -343,12 +354,17 @@ class UserProfileService extends ApiService {
     }
   }
 
-  Future<(bool, String)> uploadSimpleDocument(String language, String token,String fileName, File file)async{
+  Future<(bool, String)> uploadSimpleDocument(
+    String language,
+    String token,
+    String fileName,
+    File file,
+  ) async {
     var result = await postFile(
-      EndPoints.uploadSimpleDocument,  
-      {'name' : fileName},
+      EndPoints.uploadSimpleDocument,
+      {'name': fileName},
       'image',
-      file,   
+      file,
       header: NetworkConstants.getFileHeaders(language, token),
     );
     if (result != null) {
@@ -359,12 +375,16 @@ class UserProfileService extends ApiService {
     }
   }
 
-    Future<(bool, String)> uploadVoice(String language, String token, File file)async{
+  Future<(bool, String)> uploadVoice(
+    String language,
+    String token,
+    File file,
+  ) async {
     var result = await postFile(
-      EndPoints.uploadVoice,  
+      EndPoints.uploadVoice,
       {},
       'important_note',
-      file,   
+      file,
       header: NetworkConstants.getFileHeaders(language, token),
     );
     if (result != null) {

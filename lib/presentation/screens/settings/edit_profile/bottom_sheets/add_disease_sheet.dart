@@ -72,11 +72,13 @@ class _AddDiseaseSheetState extends State<AddDiseaseSheet> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20,
+                    child: Center(
+                      child: Text(
+                        widget.title,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 20,
+                        ),
                       ),
                     ),
                   ),
@@ -120,7 +122,9 @@ class _AddDiseaseSheetState extends State<AddDiseaseSheet> {
                       ),
                     Expanded(
                       child: Align(
-                        alignment: Alignment.centerLeft,
+                        alignment: widget.hasCheck
+                            ? Alignment.centerLeft
+                            : Alignment.center,
                         child: Text(
                           widget.description,
                           textAlign: TextAlign.center,

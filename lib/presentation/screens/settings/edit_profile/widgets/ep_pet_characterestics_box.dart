@@ -180,15 +180,19 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
           child: EpHeaderInfoBaseField(
             label: AppLocalizations.of(context)!.birthday,
             readOnly: true,
-            controller: TextEditingController()
-              ..text = DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+            controller: birthdayController,
             trailing: GestureDetector(
               onTap: () {
                 showDatePicker(
                   context: context,
                   firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
                   lastDate: DateTime.now(),
-                );
+                ).then((value){
+                  if(value != null){
+                    onBirthdayChanged(value);
+                    birthdayController.text = DateFormat('MMMM dd, yyyy').format(value);
+                  }
+                });
               },
               child: SvgPicture.asset(AppIcons.calender),
             ),

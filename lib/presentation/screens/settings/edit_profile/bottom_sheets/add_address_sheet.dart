@@ -26,15 +26,16 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   late TextEditingController zipController;
   late TextEditingController cityController;
   String currentCountry = 'Germany';
+  bool enabled = false;
 
   @override
   void initState() {
     super.initState();
-    nameController = TextEditingController();
-    streetNameController = TextEditingController();
-    houseNumberController = TextEditingController();
-    zipController = TextEditingController();
-    cityController = TextEditingController();
+    nameController = TextEditingController()..addListener(listener);
+    streetNameController = TextEditingController()..addListener(listener);
+    houseNumberController = TextEditingController()..addListener(listener);
+    zipController = TextEditingController()..addListener(listener);
+    cityController = TextEditingController()..addListener(listener);
     if (widget.address != null) {
       nameController.text = widget.address!.name;
       streetNameController.text = widget.address!.streetName;
@@ -43,6 +44,16 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
       cityController.text = widget.address!.city;
       currentCountry = widget.address!.country;
     }
+  }
+
+  void listener() {
+    setState(() {
+      enabled =
+          nameController.text.isNotEmpty &&
+          streetNameController.text.isNotEmpty &&
+          houseNumberController.text.isNotEmpty &&
+          cityController.text.isNotEmpty;
+    });
   }
 
   @override
@@ -236,32 +247,37 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   padding: const EdgeInsets.symmetric(horizontal: 21.0),
                   child: BlocBuilder<AddAddressBloc, AddAddressState>(
                     builder: (context, state) {
-                      return AppButton(
-                        onPressed: state is AddAddressLoadingState
-                            ? null
-                            : () {
-                                context.read<AddAddressBloc>().add(
-                                  AddNewAddressEvent(
-                                    streetName: streetNameController.text
-                                        .trim(),
-                                    houseNumber: houseNumberController.text
-                                        .trim(),
-                                    city: cityController.text.trim(),
-                                    country: currentCountry,
-                                    name: nameController.text.trim(),
-                                    zip: zipController.text.trim(),
-                                  ),
-                                );
-                              },
-                        gradient: Theme.of(
-                          context,
-                        ).extension<AppGradients>()!.primaryButton,
-                        child: state is AddAddressLoadingState
-                            ? CupertinoActivityIndicator(color: Colors.white)
-                            : Text(
-                                AppLocalizations.of(context)!.saveButton,
-                                style: TextStyle(fontWeight: FontWeight.w500),
-                              ),
+                      return Opacity(
+                        opacity: enabled ? 1 : 0.7,
+                        child: AppButton(
+                          onPressed: state is AddAddressLoadingState
+                              ? null
+                              : enabled
+                              ? () {
+                                  context.read<AddAddressBloc>().add(
+                                    AddNewAddressEvent(
+                                      streetName: streetNameController.text
+                                          .trim(),
+                                      houseNumber: houseNumberController.text
+                                          .trim(),
+                                      city: cityController.text.trim(),
+                                      country: currentCountry,
+                                      name: nameController.text.trim(),
+                                      zip: zipController.text.trim(),
+                                    ),
+                                  );
+                                }
+                              : null,
+                          gradient: Theme.of(
+                            context,
+                          ).extension<AppGradients>()!.primaryButton,
+                          child: state is AddAddressLoadingState
+                              ? CupertinoActivityIndicator(color: Colors.white)
+                              : Text(
+                                  AppLocalizations.of(context)!.saveButton,
+                                  style: TextStyle(fontWeight: FontWeight.w500),
+                                ),
+                        ),
                       );
                     },
                   ),
@@ -280,9 +296,9 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
   ) {
     if (state is AddAddressLoadedState) {
       context.read<GetProfileDataBloc>().add(
-        GetUserProfileDataEvent(showLoading: false,),
+        GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
   }
 
@@ -291,8 +307,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     UpdateAddressState state,
   ) {
     if (state is UpdateAddressLoadedState) {
-      context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
-      Navigator.of(context, rootNavigator: true).pop();
+      context.read<GetProfileDataBloc>().add(
+        GetUserProfileDataEvent(showLoading: false),
+      );
+      Navigator.of(context).pop();
     }
   }
 
@@ -301,8 +319,10 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
     DeleteAddressState state,
   ) {
     if (state is DeleteAddressLoadedState) {
-      context.read<GetProfileDataBloc>().add(GetUserProfileDataEvent());
-      Navigator.of(context, rootNavigator: true).pop();
+      context.read<GetProfileDataBloc>().add(
+        GetUserProfileDataEvent(showLoading: false),
+      );
+      Navigator.of(context).pop();
     }
   }
 }

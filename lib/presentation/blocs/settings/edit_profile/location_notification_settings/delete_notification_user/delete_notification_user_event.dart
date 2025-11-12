@@ -4,7 +4,7 @@ part of 'delete_notification_user_bloc.dart';
 sealed class DeleteNotificationUserEvent {}
 
 class DeleteCurrentNotificationUserEvent extends DeleteNotificationUserEvent{
-  final int notificationUserId;
+  final int notificationUserId;  
 
   DeleteCurrentNotificationUserEvent(this.notificationUserId);
 }

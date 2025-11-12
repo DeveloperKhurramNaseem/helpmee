@@ -147,9 +147,16 @@ class EpBaseAddTile extends StatelessWidget {
                 width: 0,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10.0),
-              child: Text(title, style: TextStyle(fontWeight: FontWeight.w500)),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10.0),
+                child: Text(
+                  title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
+              ),
             ),
           ],
         ),

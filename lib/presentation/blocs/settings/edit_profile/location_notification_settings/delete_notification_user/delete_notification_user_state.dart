@@ -5,7 +5,10 @@ sealed class DeleteNotificationUserState {}
 
 class DeleteNotificationUserInitialState extends DeleteNotificationUserState {}
 
-class DeleteNotificationUserLoadingState extends DeleteNotificationUserState {}
+class DeleteNotificationUserLoadingState extends DeleteNotificationUserState {
+  final int id;
+  DeleteNotificationUserLoadingState({required this.id});
+}
 
 
 class DeleteNotificationUserLoadedState extends DeleteNotificationUserState {}

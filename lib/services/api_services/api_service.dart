@@ -34,10 +34,11 @@ abstract class ApiService {
       Uri.parse(baseUrl + apiUrl + endPoint),
       body: jsonEncode(body),
       headers: header,
-    );
+    );    
     if (response.statusCode == 500) {
       return null;
     }
+    log(response.body , name: 'Response');
     return response.body;
   }
 

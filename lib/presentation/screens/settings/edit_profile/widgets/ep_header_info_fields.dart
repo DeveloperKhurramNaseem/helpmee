@@ -339,11 +339,13 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
   final TextEditingController birthdayController;
   final ValueChanged<int?> onGenderChanged;
   final int initialGenderValue;
+  final void Function(DateTime) onDobChanged;
   const EpHeaderGenderAndBirthday({
     super.key,
     required this.initialGenderValue,
     required this.onGenderChanged,
     required this.birthdayController,
+    required this.onDobChanged,
   });
 
   @override
@@ -377,6 +379,7 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
                     lastDate: DateTime.now(),
                   ).then((value) {
                     if (value != null) {
+                      onDobChanged(value);
                       birthdayController.text = DateFormat(
                         'MMMM dd, yyyy',
                       ).format(value);

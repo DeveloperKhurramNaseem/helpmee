@@ -347,7 +347,7 @@ class _CreateNewContactSheetState extends State<CreateNewContactSheet> {
       context.read<GetProfileDataBloc>().add(
         GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
   }
 
@@ -359,7 +359,7 @@ class _CreateNewContactSheetState extends State<CreateNewContactSheet> {
       context.read<GetProfileDataBloc>().add(
         GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
   }
 
@@ -371,7 +371,7 @@ class _CreateNewContactSheetState extends State<CreateNewContactSheet> {
       context.read<GetProfileDataBloc>().add(
         GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context).pop();
     }
   }
 }

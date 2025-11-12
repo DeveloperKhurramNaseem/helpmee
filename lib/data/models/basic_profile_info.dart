@@ -7,6 +7,7 @@ class BasicProfileInfo {
       heightKey = 'height',
       weightKey = 'weight',
       bioKey = 'bio',
+      dobKey = 'dob',
       bloodGroupKey = 'blood_group',
       insuranceCompanyKey = 'insurance_company',
       insuranceIdKey = 'insurance_id',
@@ -14,12 +15,13 @@ class BasicProfileInfo {
   String firstName;
   String lastName;
   int gender;
-  int height;
+  double height;
   String bio;
-  int weight;
+  double weight;
   String bloodGroup;
   String insuranceCompany;
   String insuranceId;
+  String dob;
   File? profileImage;
   BasicProfileInfo({
     required this.firstName,
@@ -31,6 +33,7 @@ class BasicProfileInfo {
     required this.bloodGroup,
     required this.insuranceCompany,
     required this.insuranceId ,
+    required this.dob,
     this.profileImage,
   });
 
@@ -39,9 +42,10 @@ class BasicProfileInfo {
       firstNameKey: firstName,
       lastNameKey: lastName,
       genderKey: gender,
-      heightKey: height,
-      weightKey: weight,      
+      heightKey: height.toString(),
+      weightKey: weight.toString(),      
       bioKey: bio,
+      dobKey: dob,
       bloodGroupKey : bloodGroup,
       insuranceCompanyKey : insuranceCompany,
       insuranceIdKey : insuranceId,
@@ -120,7 +124,7 @@ class BasicPetProfileInfo {
       weightKey : weight,
       castratedKey : castrated,
       bioKey : bio,
-      // dateOfBirthKey : dateOfBirth,
+      dateOfBirthKey : dateOfBirth,
       insuranceCompanyKey : insuranceCompany,
       insuranceIdKey : insuranceId,
       chippedKey : chipped,
