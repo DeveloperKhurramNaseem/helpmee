@@ -18,6 +18,7 @@ import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/app_colors.dart' show AppLightThemeColors;
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class LocationSettingsBottomSheet extends StatefulWidget {
   const LocationSettingsBottomSheet({super.key});
@@ -367,7 +368,7 @@ class LocationSettingsAddPersonTile extends StatelessWidget {
       child: EpBaseAddTile(
         title: 'Add person',
         onTap: () {
-          showModalBottomSheet(
+          m.showModalBottomSheet(
             context: context,
             showDragHandle: true,
             isScrollControlled: true,
@@ -440,7 +441,7 @@ class LocationSettingEmailTile extends StatelessWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      showModalBottomSheet(
+                      m.showModalBottomSheet(
                         context: context,
                         showDragHandle: true,
                         isScrollControlled: true,

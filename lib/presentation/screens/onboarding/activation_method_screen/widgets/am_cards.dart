@@ -18,6 +18,7 @@ import 'package:help_mee/util/constants/images.dart';
 import 'package:nfc_manager/ndef_record.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class AmCard extends StatelessWidget {
   final String title, description, imagePath;
@@ -97,7 +98,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
     return GestureDetector(
       onTap: () async {
         if (Platform.isAndroid) {
-          showModalBottomSheet(
+          m.showModalBottomSheet(
             context: context,
             showDragHandle: true,
             enableDrag: true,
@@ -195,7 +196,10 @@ class AmQRScanCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.push(ScanQrCodeScreen.path, extra:( token , activationMethodState));
+        context.push(
+          ScanQrCodeScreen.path,
+          extra: (token, activationMethodState),
+        );
         // context.read<ActivateProductBloc>().add(ActivateNewProductEvent(code: '79FAD9', device: 's'));
       },
       child: AmCard(

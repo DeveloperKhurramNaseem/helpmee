@@ -3,6 +3,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/bottom_sheets/cooperation_parters_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class PsCooperationPartners extends StatelessWidget {
   const PsCooperationPartners({super.key});
@@ -56,7 +57,7 @@ class PsCooperationPartners extends StatelessWidget {
                             flex: 92,
                             child: AppButton(
                               onPressed: () {
-                                showModalBottomSheet(
+                                m.showModalBottomSheet(
                                   context: context,
                                   isScrollControlled: true,
                                   isDismissible: true,

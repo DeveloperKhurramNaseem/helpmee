@@ -1,10 +1,9 @@
-
 import 'dart:math';
 import 'dart:developer' as dev;
 
 import 'package:flutter/material.dart';
-/// Simple bar waveform painter with progress tint
 
+/// Simple bar waveform painter with progress tint
 
 class WaveformPainter extends CustomPainter {
   final List<double> samples; // 0..1

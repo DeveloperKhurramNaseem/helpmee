@@ -6,6 +6,7 @@ import 'package:help_mee/presentation/blocs/settings/profile_settings/get_cooper
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/bottom_sheets/cooperation_partners_details_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class CooperationPartersSheet extends StatefulWidget {
   const CooperationPartersSheet({super.key});
@@ -93,7 +94,7 @@ class ServiceCard extends StatelessWidget {
     return InkWell(
       borderRadius: BorderRadius.circular(16),
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           isScrollControlled: true,
           isDismissible: true,

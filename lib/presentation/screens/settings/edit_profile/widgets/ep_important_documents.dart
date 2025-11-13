@@ -54,15 +54,9 @@ class ImportantDocumentsTile extends StatelessWidget {
       onTap: () {},
       state: image != null ? BaseTileState.image : BaseTileState.pdf,
       image: image,
-      onDeleteTap: () {
-        
-      },
-      onEditTap: () {
-        
-      },
-      onLockTap: () {
-        
-      },
+      onDeleteTap: () {},
+      onEditTap: () {},
+      onLockTap: () {},
     );
   }
 }

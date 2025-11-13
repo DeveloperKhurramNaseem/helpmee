@@ -114,9 +114,14 @@ class ProductDeletionBottomSheetOld extends StatelessWidget {
     );
   }
 
-  void _handleUnmapProductListener(BuildContext context, UnmapProductState state) {
-    if(state is UnmapProductDoneState){
-      context.read<GetProductsBloc>().add(GetAllProductsEvent(showLoading:false ));
+  void _handleUnmapProductListener(
+    BuildContext context,
+    UnmapProductState state,
+  ) {
+    if (state is UnmapProductDoneState) {
+      context.read<GetProductsBloc>().add(
+        GetAllProductsEvent(showLoading: false),
+      );
       Navigator.of(context).pop();
     }
   }

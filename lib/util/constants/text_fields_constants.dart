@@ -17,8 +17,8 @@ class TextFieldsConstants {
   static const obscuringCharacter = '*';
 
   static const genderValues = [1, 2, 3, 4];
-    static const chippedValues = ['yes' , 'no'];
-    static const castratedValues = ['yes' , 'no'];
+  static const chippedValues = ['yes', 'no'];
+  static const castratedValues = ['yes', 'no'];
   static const bloodGroupValues = [
     'A+',
     'A-',

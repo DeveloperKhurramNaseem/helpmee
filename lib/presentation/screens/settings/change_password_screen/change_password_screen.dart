@@ -70,7 +70,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 children: [
                   CpArrowBack(),
                   SizedBox(height: AppSize.instance.height * 0.05),
-                  CpText(isChangePassword: true,),
+                  CpText(isChangePassword: true),
                   SizedBox(height: AppSize.instance.height * 0.02),
                   CppErrorText(),
                   SizedBox(height: AppSize.instance.height * 0.02),

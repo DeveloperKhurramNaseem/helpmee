@@ -13,6 +13,7 @@ import 'package:help_mee/presentation/screens/home/home_screen/home_screen.dart'
 import 'package:help_mee/presentation/screens/home/notifications_screen/notification_screen.dart';
 import 'package:help_mee/presentation/screens/home/profile_and_products_screen/products_screen.dart';
 import 'package:help_mee/util/dependencies/init.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class Dashboard extends StatefulWidget {
   static const path = '/';
@@ -38,7 +39,7 @@ class _DashboardState extends State<Dashboard> {
     context.read<GetProductsBloc>().add(GetAllProductsEvent());
     if (widget.showNameSheet) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           isDismissible: false,
           enableDrag: false,
           showDragHandle: true,

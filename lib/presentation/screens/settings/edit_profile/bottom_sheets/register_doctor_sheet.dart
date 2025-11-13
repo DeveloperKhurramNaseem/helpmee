@@ -53,9 +53,7 @@ class RegisterDoctorSheet extends StatelessWidget {
               initialCode: '+49',
               label: localization.phoneNumberLabel,
               controller: TextEditingController(),
-              onChanged: (countryCode) {
-                
-              },
+              onChanged: (countryCode) {},
             ),
           ),
           Padding(
@@ -64,9 +62,7 @@ class RegisterDoctorSheet extends StatelessWidget {
               initialCode: '+49',
               label: localization.whatsappNumberLabel,
               controller: TextEditingController(),
-              onChanged: (countryCode) {
-                
-              },
+              onChanged: (countryCode) {},
             ),
           ),
           Padding(

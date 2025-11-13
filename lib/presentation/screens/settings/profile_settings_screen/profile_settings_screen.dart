@@ -19,10 +19,13 @@ class ProfileSettingsScreen extends StatefulWidget {
 
 class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   @override
-  void initState() {    
+  void initState() {
     super.initState();
-    context.read<GetCooperationPartnersBloc>().add(GetAllCooperationPartnersEvent());
+    context.read<GetCooperationPartnersBloc>().add(
+      GetAllCooperationPartnersEvent(),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<SetPinBloc, SetPinState>(
@@ -41,8 +44,12 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
   void _setPinBlocListener(BuildContext context, SetPinState state) {
     if (state is SetPinDoneState) {
       Navigator.of(context).pop();
-      context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent(isLoading: false));
-      context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent(isLoading: false));
+      context.read<LatestNotificationsBloc>().add(
+        GetLatestNotificationsEvent(isLoading: false),
+      );
+      context.read<AllNotificationsBloc>().add(
+        GetAllNotificationsEvent(isLoading: false),
+      );
     } else if (state is SetPinErrorState) {
       showToast(state.message);
       Navigator.of(context).pop();

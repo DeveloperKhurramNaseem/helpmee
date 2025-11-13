@@ -3,7 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/presentation/screens/home/profile_and_products_screen/widgets/product_description_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
-
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class ProductTile extends StatelessWidget {
   const ProductTile({super.key});
 
@@ -11,7 +11,7 @@ class ProductTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,

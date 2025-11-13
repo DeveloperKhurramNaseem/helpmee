@@ -5,6 +5,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_reset_success.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class ProductRestoreSheet extends StatelessWidget {
   const ProductRestoreSheet({super.key});
@@ -77,7 +78,7 @@ class ProductRestoreSheet extends StatelessWidget {
                   child: AppButton(
                     onPressed: () {
                       Navigator.pop(context);
-                      showModalBottomSheet(
+                      m.showModalBottomSheet(
                         context: context,
                         isScrollControlled: true,
                         showDragHandle: true,

@@ -10,13 +10,18 @@ class RecentNotificationsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
-      sliver: SliverList.builder(itemCount: notifications.length,itemBuilder: (context,index){
-        return NotificationTile(isRecent: true, notification: notifications[index],);
-      }),
+      sliver: SliverList.builder(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          return NotificationTile(
+            isRecent: true,
+            notification: notifications[index],
+          );
+        },
+      ),
     );
   }
 }
-
 
 class OldNotificationsList extends StatelessWidget {
   final List<NotificationData> notifications;
@@ -26,9 +31,12 @@ class OldNotificationsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
-      sliver: SliverList.builder(itemCount: notifications.length,itemBuilder: (context,index){
-        return NotificationTile(notification: notifications[index],);
-      }),
+      sliver: SliverList.builder(
+        itemCount: notifications.length,
+        itemBuilder: (context, index) {
+          return NotificationTile(notification: notifications[index]);
+        },
+      ),
     );
   }
 }

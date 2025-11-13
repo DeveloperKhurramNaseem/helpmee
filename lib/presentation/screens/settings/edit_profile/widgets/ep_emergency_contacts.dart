@@ -8,6 +8,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_b
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/util_functions.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EpEmergencyContacts extends StatelessWidget {
   final List<Contact> familyContacts;
@@ -47,7 +48,7 @@ class EpEmergencyContacts extends StatelessWidget {
                     for (var contact in familyContacts)
                       ContactTile(
                         onTap: () {
-                          showModalBottomSheet(
+                          m.showModalBottomSheet(
                             context: context,
                             showDragHandle: true,
                             isScrollControlled: true,
@@ -73,7 +74,7 @@ class EpEmergencyContacts extends StatelessWidget {
                     for (var contact in doctorContacts)
                       ContactTile(
                         onTap: () {
-                          showModalBottomSheet(
+                          m.showModalBottomSheet(
                             context: context,
                             showDragHandle: true,
                             isScrollControlled: true,
@@ -99,7 +100,7 @@ class EpEmergencyContacts extends StatelessWidget {
                     for (var address in addresses)
                       AddressTile(
                         onTap: () {
-                          showModalBottomSheet(
+                          m.showModalBottomSheet(
                             context: context,
                             showDragHandle: true,
                             isScrollControlled: true,
@@ -133,7 +134,7 @@ class AddContactTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addContactButton,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
@@ -159,7 +160,7 @@ class AddDoctorTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addDoctorButton,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
@@ -172,7 +173,7 @@ class AddDoctorTile extends StatelessWidget {
             );
           },
         );
-        // showModalBottomSheet(
+        // m.showModalBottomSheet(
         //   context: context,
         //   showDragHandle: true,
         //   isScrollControlled: true,
@@ -193,7 +194,7 @@ class AddAddressTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addAddress,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
@@ -269,22 +270,18 @@ class ContactTile extends StatelessWidget {
                 if (contact.whatsappNo.isNotEmpty)
                   GestureDetector(
                     onTap: () {
-                      try{
+                      try {
                         launchWhatsapp(contact.whatsappNo);
-                      } catch(e){
-
-                      }
+                      } catch (e) {}
                     },
                     child: SvgPicture.asset(AppIcons.whatsapp),
                   ),
                 if (contact.phoneNo.isNotEmpty)
                   GestureDetector(
                     onTap: () {
-                      try{
-                        launchPhone(contact.phoneNo);                        
-                      }catch(e){
-                        
-                      }
+                      try {
+                        launchPhone(contact.phoneNo);
+                      } catch (e) {}
                     },
                     child: SvgPicture.asset(AppIcons.phone),
                   ),

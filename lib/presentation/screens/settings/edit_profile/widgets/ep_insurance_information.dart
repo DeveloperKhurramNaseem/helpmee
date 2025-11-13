@@ -5,8 +5,12 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_i
 import 'package:help_mee/util/theme/app_colors.dart';
 
 class EpInsuranceInformation extends StatelessWidget {
-  final TextEditingController insuranceCompanyController , insuranceIDController;
-  const EpInsuranceInformation({super.key , required this.insuranceCompanyController , required this.insuranceIDController});
+  final TextEditingController insuranceCompanyController, insuranceIDController;
+  const EpInsuranceInformation({
+    super.key,
+    required this.insuranceCompanyController,
+    required this.insuranceIDController,
+  });
 
   @override
   Widget build(BuildContext context) {

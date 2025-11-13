@@ -31,6 +31,7 @@ import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EditProfileScreen extends StatefulWidget {
   static const path = '/edit-profile-screen';
@@ -335,7 +336,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           imageFile: pickedImage,
                           image: userProfile!.user.profileImage,
                           onTap: () {
-                            showModalBottomSheet(
+                            m.showModalBottomSheet(
                               context: context,
                               showDragHandle: true,
                               isScrollControlled: true,

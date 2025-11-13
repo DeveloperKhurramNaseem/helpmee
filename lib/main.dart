@@ -26,7 +26,6 @@ void main() async {
   // Use this method to prompt for push notifications.
   // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
   OneSignal.Notifications.requestPermission(false);
-  
 }
 
 class MyApp extends StatelessWidget {
@@ -63,9 +62,16 @@ class MyApp extends StatelessWidget {
     );
   }
 
-  void _listenToLanguageChangeEvents(BuildContext context, LanguageState state) {
-    context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent(isLoading: false));
-      context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent(isLoading: false));
+  void _listenToLanguageChangeEvents(
+    BuildContext context,
+    LanguageState state,
+  ) {
+    context.read<LatestNotificationsBloc>().add(
+      GetLatestNotificationsEvent(isLoading: false),
+    );
+    context.read<AllNotificationsBloc>().add(
+      GetAllNotificationsEvent(isLoading: false),
+    );
   }
 }
 

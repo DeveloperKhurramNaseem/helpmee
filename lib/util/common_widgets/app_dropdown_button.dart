@@ -8,7 +8,13 @@ class AppGenderDropdownButton extends StatelessWidget {
   final int initialValue;
   final List<int> items;
   final void Function(int?) onChanged;
-  const AppGenderDropdownButton({super.key , required this.label, required this.initialValue, required this.items , required this.onChanged});
+  const AppGenderDropdownButton({
+    super.key,
+    required this.label,
+    required this.initialValue,
+    required this.items,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +75,13 @@ class AppDropdownButton extends StatelessWidget {
   final String initialValue;
   final List<String> items;
   final void Function(String?) onChanged;
-  const AppDropdownButton({super.key , required this.label, required this.initialValue, required this.items , required this.onChanged});
+  const AppDropdownButton({
+    super.key,
+    required this.label,
+    required this.initialValue,
+    required this.items,
+    required this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +110,7 @@ class AppDropdownButton extends StatelessWidget {
                   child: SizedBox(
                     width: 200,
                     child: Text(
-                     e,
+                      e,
                       overflow: TextOverflow.ellipsis,
                       maxLines: 1,
                       softWrap: false,

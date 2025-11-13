@@ -9,9 +9,9 @@ class LocalizationUtil {
     GlobalWidgetsLocalizations.delegate,
     GlobalCupertinoLocalizations.delegate,
   ];
-  static Map<String,Locale> locales = {
-    english : Locale('en' , 'US'), // English
-    german : Locale('de' , 'DE'), // German / Germany
+  static Map<String, Locale> locales = {
+    english: Locale('en', 'US'), // English
+    german: Locale('de', 'DE'), // German / Germany
   };
 
   static const english = 'English';

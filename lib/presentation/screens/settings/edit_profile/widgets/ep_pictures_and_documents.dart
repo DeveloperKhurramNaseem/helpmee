@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_do
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_document_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EpPicturesAndDocuments extends StatelessWidget {
   final List<Document> documents;
@@ -49,7 +50,7 @@ class AddPictureAndDocuemntsTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addPicturesORDocuments,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,

@@ -31,9 +31,11 @@ class AppButton extends StatelessWidget {
           gradient: gradient,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Container(          
+        child: Container(
           alignment: Alignment.center,
-          padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding:
+              padding ??
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),
@@ -54,7 +56,7 @@ class AppButtonOutlined extends StatelessWidget {
     required this.child,
     this.color = Colors.transparent,
     this.borderColor,
-    this.padding
+    this.padding,
   });
 
   @override
@@ -77,7 +79,9 @@ class AppButtonOutlined extends StatelessWidget {
         ),
         child: Container(
           alignment: Alignment.center,
-          padding: padding ?? const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding:
+              padding ??
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),

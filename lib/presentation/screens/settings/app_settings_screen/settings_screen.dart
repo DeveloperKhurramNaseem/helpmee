@@ -22,6 +22,7 @@ import 'package:help_mee/presentation/screens/settings/hidden_settings/product_r
 import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/dependencies/init.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -91,7 +92,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.notificationsLabel,
               image: AppIcons.lock,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -112,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.languageLabel,
               image: AppIcons.language,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -126,7 +127,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.profileValidityLabel,
               image: AppIcons.profileValidity,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -140,7 +141,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.deleteProfilLabel,
               image: AppIcons.delete,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -173,7 +174,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.demoProfileTitle,
               image: AppIcons.profileValidity,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
@@ -187,7 +188,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.resetProductTitle,
               image: AppIcons.profileValidity,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,

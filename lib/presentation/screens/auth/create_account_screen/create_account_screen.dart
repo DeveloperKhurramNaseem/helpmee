@@ -30,7 +30,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   late TextEditingController emailController,
       passwordController,
       confirmPasswordController;
-  late GlobalKey<FormFieldState> emailKey , passwordKey , confirmationPasswordKey;
+  late GlobalKey<FormFieldState> emailKey, passwordKey, confirmationPasswordKey;
 
   bool isChecked = false;
 
@@ -101,8 +101,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CaScreenErrorText(),
 
                       // Input Fields
-                      CAScreenTextEmailField(controller: emailController , fieldKey: emailKey),
-                      CAScreenTextPasswordField(controller: passwordController, fieldKey: passwordKey),
+                      CAScreenTextEmailField(
+                        controller: emailController,
+                        fieldKey: emailKey,
+                      ),
+                      CAScreenTextPasswordField(
+                        controller: passwordController,
+                        fieldKey: passwordKey,
+                      ),
                       CAScreenTextConfirmPasswordField(
                         controller: confirmPasswordController,
                         fieldKey: confirmationPasswordKey,
@@ -124,9 +130,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CAScreenButton(
                         onPressed: () {
                           final signUpBloc = context.read<SignupBloc>();
-                          if(!(emailKey.currentState?.validate() ?? false)) return;                          
-                          if(!(passwordKey.currentState?.validate() ?? false)) return;                          
-                          if(!(confirmationPasswordKey.currentState?.validate() ?? false)) return;
+                          if (!(emailKey.currentState?.validate() ?? false))
+                            return;
+                          if (!(passwordKey.currentState?.validate() ?? false))
+                            return;
+                          if (!(confirmationPasswordKey.currentState
+                                  ?.validate() ??
+                              false))
+                            return;
                           if (passwordController.text.trim() !=
                               confirmPasswordController.text.trim()) {
                             signUpBloc.add(
@@ -151,7 +162,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           if (!isChecked) {
                             signUpBloc.add(
                               ShowErrorEvent(
-                                AppLocalizations.of(context)!.errorAcceptPrivacyPolicyEULA,
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorAcceptPrivacyPolicyEULA,
                               ),
                             );
                             return;
@@ -182,7 +195,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
-      context.push(EnterCodeScreen.path, extra: [emailController.text.trim() , EnterCodeScreenState.signUp]);
+      context.push(
+        EnterCodeScreen.path,
+        extra: [emailController.text.trim(), EnterCodeScreenState.signUp],
+      );
     }
   }
 }

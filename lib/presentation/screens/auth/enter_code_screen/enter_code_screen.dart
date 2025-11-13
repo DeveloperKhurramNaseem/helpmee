@@ -13,7 +13,8 @@ import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_shee
 import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
-import 'package:help_mee/util/common_widgets/custom_material.dart';
+import 'package:flutter/material.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EnterCodeScreen extends StatefulWidget {
   static const path = '/enter-code-screen';
@@ -98,7 +99,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
 
   void _verifyOtpListener(BuildContext context, VerifyOtpState state) {
     if (state is VerifyOtpDoneState) {
-      showModalBottomSheet(
+      m.showModalBottomSheet(
         context: context,
         isDismissible: false,
         isScrollControlled: true,
@@ -117,10 +118,10 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
   }
 
   void _listenResendOtpStates(BuildContext context, ResendOtpState state) {
-    if(state is ResendOtpDoneState){
+    if (state is ResendOtpDoneState) {
       showToast(state.message);
       duration = Duration(minutes: 5);
-    }else if(state is ResendOtpErrorState){
+    } else if (state is ResendOtpErrorState) {
       showToast(state.message);
     }
   }

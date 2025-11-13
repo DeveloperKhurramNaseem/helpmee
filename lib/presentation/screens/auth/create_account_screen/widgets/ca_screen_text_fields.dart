@@ -25,9 +25,9 @@ class CAScreenTextEmailField extends StatelessWidget {
         controller: controller,
         validator: (value) {
           var localization = AppLocalizations.of(context)!;
-          if(value!.isEmpty){
+          if (value!.isEmpty) {
             return localization.enterEmail;
-          } else if(!isValidEmail(value)){
+          } else if (!isValidEmail(value)) {
             return localization.errorInvalidEmail;
           }
           return null;

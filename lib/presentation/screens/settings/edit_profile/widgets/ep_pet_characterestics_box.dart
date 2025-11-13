@@ -187,10 +187,12 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
                   context: context,
                   firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
                   lastDate: DateTime.now(),
-                ).then((value){
-                  if(value != null){
+                ).then((value) {
+                  if (value != null) {
                     onBirthdayChanged(value);
-                    birthdayController.text = DateFormat('MMMM dd, yyyy').format(value);
+                    birthdayController.text = DateFormat(
+                      'MMMM dd, yyyy',
+                    ).format(value);
                   }
                 });
               },

@@ -15,6 +15,7 @@ import 'package:just_audio/just_audio.dart';
 import 'package:just_waveform/just_waveform.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EpVoiceNote extends StatefulWidget {
   final String url;
@@ -224,12 +225,12 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
         ),
         GestureDetector(
           onTap: () {
-            showModalBottomSheet(
+            m.showModalBottomSheet(
               context: context,
               showDragHandle: true,
               isScrollControlled: true,
               builder: (context) {
-                return RecordAudioSheet(url: widget.url , amps: _bars,);
+                return RecordAudioSheet(url: widget.url, amps: _bars);
               },
             );
           },

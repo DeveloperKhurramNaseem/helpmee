@@ -111,7 +111,7 @@ class _SetPinSheetState extends State<SetPinSheet> {
                               pinData: PinData(
                                 pin: pinCode,
                                 pinReminderText: pinReminderTextController.text
-                                    .trim(),                                    
+                                    .trim(),
                               ),
                             ),
                           );

@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/picture_and_do
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/upload_document_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EpMedicationPlan extends StatelessWidget {
   final List<Document> medicationDocuments;
@@ -48,7 +49,7 @@ class AddMedicationPlanTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addMedicationPlanButton,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
@@ -94,14 +95,17 @@ class AddMedicationPdfTile extends StatelessWidget {
                       );
                     },
               onEditTap: null,
-              onLockTap: lockState is LockDocumentLoading && docId == lockState.docId ? null : () {
-                context.read<LockDocumentBloc>().add(
-                  LockCurrentDocumentEvent(
-                    docId,
-                    status == 'lock' ? 'unlock' : 'lock',
-                  ),
-                );
-              },
+              onLockTap:
+                  lockState is LockDocumentLoading && docId == lockState.docId
+                  ? null
+                  : () {
+                      context.read<LockDocumentBloc>().add(
+                        LockCurrentDocumentEvent(
+                          docId,
+                          status == 'lock' ? 'unlock' : 'lock',
+                        ),
+                      );
+                    },
             );
           },
         );

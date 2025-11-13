@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +9,7 @@ import 'package:help_mee/presentation/screens/home/profile_and_products_screen/w
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class ProductsListOld extends StatelessWidget {
   final List<ProductModel> products;
@@ -29,6 +32,7 @@ class ProductTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(product.serialNumber, name: 'serial number');
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -80,7 +84,7 @@ class ProductTile extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
+                  m.showModalBottomSheet(
                     context: context,
                     showDragHandle: true,
                     isScrollControlled: true,
@@ -104,12 +108,14 @@ class ProductTile extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  showModalBottomSheet(
+                  m.showModalBottomSheet(
                     context: context,
                     showDragHandle: true,
                     isScrollControlled: true,
                     builder: (context) {
-                      return ProductDeletionBottomSheetOld(productModel: product,);
+                      return ProductDeletionBottomSheetOld(
+                        productModel: product,
+                      );
                     },
                   );
                 },

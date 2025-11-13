@@ -17,6 +17,7 @@ import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class SignInScreen extends StatefulWidget {
   static const path = '/sign-in-screen';
@@ -92,15 +93,23 @@ class _SignInScreenState extends State<SignInScreen> {
                       // Error Text
                       SIScreenErrorText(),
                       // Input Fields
-                      SIScreenTextEmailField(controller: emailController , fieldKey: emailKey,),
-                      SIScreenTextPasswordField(controller: passwordController, fieldKey: passwordKey,),
+                      SIScreenTextEmailField(
+                        controller: emailController,
+                        fieldKey: emailKey,
+                      ),
+                      SIScreenTextPasswordField(
+                        controller: passwordController,
+                        fieldKey: passwordKey,
+                      ),
                       // Forgot password
                       SiForgetPassword(),
                       // Sign up button
                       SIScreenButton(
-                        onPressed: () {                          
-                          if(!(emailKey.currentState?.validate() ?? false)) return;
-                          if(!(passwordKey.currentState?.validate() ?? false)) return;                          
+                        onPressed: () {
+                          if (!(emailKey.currentState?.validate() ?? false))
+                            return;
+                          if (!(passwordKey.currentState?.validate() ?? false))
+                            return;
                           context.read<SigninBloc>().add(
                             SignInUserEvent(
                               email: emailController.text.trim(),
@@ -130,7 +139,7 @@ class _SignInScreenState extends State<SignInScreen> {
       if (state.activatedProducts != 0) {
         context.go(Dashboard.path);
       } else {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           isDismissible: false,
           isScrollControlled: true,

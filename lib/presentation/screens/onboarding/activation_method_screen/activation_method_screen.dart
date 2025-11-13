@@ -10,6 +10,7 @@ import 'package:help_mee/presentation/screens/onboarding/activation_method_scree
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/congratulations_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_reset_success.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 enum ActivationMethodState {
   activateFirstProduct,
@@ -76,7 +77,7 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
   ) {
     if (state is ActivateProductDoneState) {
       context.pop();
-      showModalBottomSheet(
+      m.showModalBottomSheet(
         isDismissible: false,
         enableDrag: false,
         isScrollControlled: true,
@@ -111,7 +112,7 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
   ) {
     if (state is RestoreProductDoneState) {
       context.pop();
-      showModalBottomSheet(
+      m.showModalBottomSheet(
         isDismissible: false,
         enableDrag: false,
         isScrollControlled: true,

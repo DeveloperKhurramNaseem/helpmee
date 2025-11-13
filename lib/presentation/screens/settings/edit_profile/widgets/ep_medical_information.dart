@@ -8,7 +8,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheet
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_medical_information_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
-
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class EpMedicalInformation extends StatelessWidget {
   final List<Disease> notAddedDiseaseTypes, addedDiseaseType;
   const EpMedicalInformation({
@@ -61,7 +61,7 @@ class AddMedicalInformationTile extends StatelessWidget {
     return EpBaseAddTile(
       title: AppLocalizations.of(context)!.addMedicationInformationButton,
       onTap: () {
-        showModalBottomSheet(
+        m.showModalBottomSheet(
           context: context,
           showDragHandle: true,
           isScrollControlled: true,
@@ -114,12 +114,15 @@ class MedicalInformationTile extends StatelessWidget {
                       );
                     },
               onEditTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,
                   builder: (context) {
-                    var diseaseInfo = diseaseInfoBasedOnIndex(addedDiseaseTypes[index].id,context);
+                    var diseaseInfo = diseaseInfoBasedOnIndex(
+                      addedDiseaseTypes[index].id,
+                      context,
+                    );
                     return AddDiseaseSheet(
                       id: addedDiseaseTypes[index].id,
                       title: addedDiseaseTypes[index].name,
@@ -131,11 +134,16 @@ class MedicalInformationTile extends StatelessWidget {
                 );
               },
               onLockTap:
-                  lockState is LockDiseaseLoadingState && lockState.index == index
+                  lockState is LockDiseaseLoadingState &&
+                      lockState.index == index
                   ? null
                   : () {
                       context.read<LockDiseaseBloc>().add(
-                        LockCurrentDiseaseEvent(diseaseId, index, status == 'lock' ? 'unlock' : 'lock'),
+                        LockCurrentDiseaseEvent(
+                          diseaseId,
+                          index,
+                          status == 'lock' ? 'unlock' : 'lock',
+                        ),
                       );
                     },
             );

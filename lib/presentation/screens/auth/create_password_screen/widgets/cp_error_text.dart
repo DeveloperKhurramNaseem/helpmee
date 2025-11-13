@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:help_mee/presentation/blocs/auth/create_password_bloc/create_password_bloc.dart';  
+import 'package:help_mee/presentation/blocs/auth/create_password_bloc/create_password_bloc.dart';
 
 class CpErrorText extends StatelessWidget {
   const CpErrorText({super.key});

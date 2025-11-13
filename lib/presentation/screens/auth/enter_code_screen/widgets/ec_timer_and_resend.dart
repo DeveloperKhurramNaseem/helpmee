@@ -7,7 +7,11 @@ import 'package:help_mee/presentation/blocs/auth/resend_otp/resend_otp_bloc.dart
 class EcTimerAndResend extends StatelessWidget {
   final Duration duration;
   final String email;
-  const EcTimerAndResend({super.key, required this.duration, required this.email});
+  const EcTimerAndResend({
+    super.key,
+    required this.duration,
+    required this.email,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -49,9 +53,12 @@ class EcTimerAndResend extends StatelessWidget {
                             fontWeight: FontWeight.w500,
                             color: Theme.of(context).colorScheme.secondary,
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = (){
-                            context.read<ResendOtpBloc>().add(ResendOtpNowEvent(email));
-                          }
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              context.read<ResendOtpBloc>().add(
+                                ResendOtpNowEvent(email),
+                              );
+                            },
                         ),
                       ],
                     ),

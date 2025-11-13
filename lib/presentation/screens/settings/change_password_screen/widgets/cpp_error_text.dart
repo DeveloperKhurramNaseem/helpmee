@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';  
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
 
 class CppErrorText extends StatelessWidget {

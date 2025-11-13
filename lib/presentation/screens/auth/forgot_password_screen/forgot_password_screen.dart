@@ -63,7 +63,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                       if (!(emailKey.currentState?.validate() ?? false)) return;
                       context.read<ForgetPasswordBloc>().add(
                         ForgetPasswordInitEvent(emailController.text.trim()),
-                      );                      
+                      );
                     },
                   ),
                 ],
@@ -80,7 +80,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     ForgetPasswordState state,
   ) {
     if (state is ForgetPasswordLoadedState) {
-      context.push(EnterCodeScreen.path , extra: [emailController.text.trim() , EnterCodeScreenState.forgetPassword]);
+      context.push(
+        EnterCodeScreen.path,
+        extra: [
+          emailController.text.trim(),
+          EnterCodeScreenState.forgetPassword,
+        ],
+      );
     }
   }
 }

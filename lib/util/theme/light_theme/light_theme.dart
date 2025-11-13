@@ -22,13 +22,15 @@ class LightTheme {
       selectionColor: AppLightThemeColors.secondaryColor.withAlpha(80),
     ),
     bottomSheetTheme: BottomSheetThemeData(
-      showDragHandle: true,                // show the default handle
-      dragHandleColor: AppLightThemeColors.secondaryColor.withAlpha(80),  // customize color
-      dragHandleSize: Size(56, 4),         // width, height
+      showDragHandle: true, // show the default handle
+      dragHandleColor: AppLightThemeColors.secondaryColor.withAlpha(
+        80,
+      ), // customize color
+      dragHandleSize: Size(56, 4), // width, height
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),      
-    ),    
+      ),
+    ),
     switchTheme: LightSwitchTheme.data,
     splashColor: AppLightThemeColors.secondaryColor.withAlpha(100),
     extensions: [

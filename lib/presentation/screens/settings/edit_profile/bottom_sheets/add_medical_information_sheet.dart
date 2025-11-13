@@ -5,6 +5,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_disease_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class AddMedicalInformationSheet extends StatelessWidget {
   final List<Disease> notAddedDiseaseTypes;
@@ -35,7 +36,7 @@ class AddMedicalInformationSheet extends StatelessWidget {
             AddMedicalInformationTile(
               title: notAddedDiseaseTypes[i].name,
               onTap: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,

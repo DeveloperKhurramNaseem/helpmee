@@ -4,6 +4,7 @@ import 'package:help_mee/presentation/screens/home/profile_and_products_screen/w
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class ProductDescriptionBottomSheet extends StatelessWidget {
   const ProductDescriptionBottomSheet({super.key});
@@ -95,7 +96,7 @@ class ProductDescriptionBottomSheet extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 12),
             child: ElevatedButton(
               onPressed: () {
-                showModalBottomSheet(
+                m.showModalBottomSheet(
                   context: context,
                   showDragHandle: true,
                   isScrollControlled: true,

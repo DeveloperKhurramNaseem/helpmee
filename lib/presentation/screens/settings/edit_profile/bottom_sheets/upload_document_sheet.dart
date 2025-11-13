@@ -12,6 +12,7 @@ import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 // import 'package:path/path.dart' as path;
 
 enum DocumentType { simple, medication }
@@ -114,26 +115,29 @@ class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
                     FocusManager.instance.primaryFocus?.unfocus();
                     if (widget.documentType == DocumentType.medication) {
                       var filePickerResult = await FilePicker.platform
-                          .pickFiles(allowedExtensions: ['pdf'] , type: FileType.custom);
+                          .pickFiles(
+                            allowedExtensions: ['pdf'],
+                            type: FileType.custom,
+                          );
                       if (filePickerResult != null) {
                         setState(() {
                           pickedFile = File(
-                            filePickerResult.files.single.path!,                            
+                            filePickerResult.files.single.path!,
                           );
                           pickedFileName = filePickerResult.files.single.name;
                         });
                       }
                     } else if (widget.documentType == DocumentType.simple) {
-                      showModalBottomSheet(
+                      m.showModalBottomSheet(
                         context: context,
                         showDragHandle: true,
                         isScrollControlled: true,
                         builder: (context) {
                           return ImageAndDocumentPickerSheet(
-                            onFilePicked: (file , name) {
+                            onFilePicked: (file, name) {
                               setState(() {
-                                pickedFile = file;       
-                                pickedFileName = name;                         
+                                pickedFile = file;
+                                pickedFileName = name;
                               });
                               Navigator.pop(context);
                             },
@@ -203,7 +207,7 @@ class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
 }
 
 class ImageAndDocumentPickerSheet extends StatelessWidget {
-  final void Function(File,String) onFilePicked;
+  final void Function(File, String) onFilePicked;
 
   const ImageAndDocumentPickerSheet({super.key, required this.onFilePicked});
 
@@ -218,13 +222,19 @@ class ImageAndDocumentPickerSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
             child: AppButtonOutlined(
               onPressed: () {
-                FilePicker.platform.pickFiles(allowedExtensions: ['pdf'], type: FileType.custom).then((
-                  value,
-                ) {
-                  if (value != null) {
-                    onFilePicked(File(value.files.single.path!),value.files.single.name);
-                  }
-                });
+                FilePicker.platform
+                    .pickFiles(
+                      allowedExtensions: ['pdf'],
+                      type: FileType.custom,
+                    )
+                    .then((value) {
+                      if (value != null) {
+                        onFilePicked(
+                          File(value.files.single.path!),
+                          value.files.single.name,
+                        );
+                      }
+                    });
               },
               child: Text(
                 AppLocalizations.of(context)!.document,
@@ -240,7 +250,7 @@ class ImageAndDocumentPickerSheet extends StatelessWidget {
                   value,
                 ) {
                   if (value != null) {
-                    onFilePicked(File(value.path),value.name);
+                    onFilePicked(File(value.path), value.name);
                   }
                 });
               },
@@ -263,7 +273,7 @@ class ImageAndDocumentPickerSheet extends StatelessWidget {
                   value,
                 ) {
                   if (value != null) {
-                    onFilePicked(File(value.path) , value.name);
+                    onFilePicked(File(value.path), value.name);
                   }
                 });
               },

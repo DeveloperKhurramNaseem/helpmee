@@ -6,11 +6,15 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_v
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
-
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class EpImportantWidget extends StatelessWidget {
   final TextEditingController controller;
   final String url;
-  const EpImportantWidget({super.key, required this.controller, required this.url});
+  const EpImportantWidget({
+    super.key,
+    required this.controller,
+    required this.url,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,37 +34,37 @@ class EpImportantWidget extends StatelessWidget {
                 maxLines: 4,
                 controller: controller,
               ),
-              if(url.isNotEmpty)
-              EpVoiceNote(url: url)
+              if (url.isNotEmpty)
+                EpVoiceNote(url: url)
               else
-              Row(
-                children: [
-                  Spacer(flex: 19),
-                  Expanded(
-                    flex: 62,
-                    child: AppButton(
-                      onPressed: () {
-                        showModalBottomSheet(
-                          context: context,
-                          showDragHandle: true,
-                          isScrollControlled: true,
-                          builder: (context) {
-                            return RecordAudioSheet();
-                          },
-                        );
-                      },
-                      gradient: Theme.of(
-                        context,
-                      ).extension<AppGradients>()!.primaryButton,
-                      child: Text(
-                        localization.recordAudio,
-                        textAlign: TextAlign.center,
+                Row(
+                  children: [
+                    Spacer(flex: 19),
+                    Expanded(
+                      flex: 62,
+                      child: AppButton(
+                        onPressed: () {
+                          m.showModalBottomSheet(
+                            context: context,
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return RecordAudioSheet();
+                            },
+                          );
+                        },
+                        gradient: Theme.of(
+                          context,
+                        ).extension<AppGradients>()!.primaryButton,
+                        child: Text(
+                          localization.recordAudio,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
-                  ),
-                  Spacer(flex: 19),
-                ],
-              ),
+                    Spacer(flex: 19),
+                  ],
+                ),
             ],
           ),
         ),

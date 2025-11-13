@@ -16,4 +16,3 @@ class AppSize {
 
   static const bottomPadding = 10;
 }
-

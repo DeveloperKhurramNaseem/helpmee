@@ -1,9 +1,5 @@
 // lib/shopeedo_material.dart
 import 'package:flutter/material.dart' as m;
-import 'package:flutter/foundation.dart' show defaultTargetPlatform, TargetPlatform;
-
-// Re-export everything so the rest of the app still sees Material stuff.
-export 'package:flutter/material.dart';
 
 Future<T?> showModalBottomSheet<T>({
   required m.BuildContext context,
@@ -20,8 +16,7 @@ Future<T?> showModalBottomSheet<T>({
   m.RouteSettings? routeSettings,
   m.AnimationController? transitionAnimationController,
   bool showDragHandle = false,
-}) {
-  final isAndroid = defaultTargetPlatform == TargetPlatform.android;
+}) {  
 
   return m.showModalBottomSheet<T>(
     context: context,
@@ -42,7 +37,7 @@ Future<T?> showModalBottomSheet<T>({
         top: false, // don’t touch top
         minimum: m.EdgeInsets.only(
           // 👇 Only Android gets extra bottom space
-          bottom: isAndroid ? 16.0 : 0.0,
+          bottom: 16.0,
         ),
         child: builder(ctx),
       );

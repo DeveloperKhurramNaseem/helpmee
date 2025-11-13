@@ -10,6 +10,7 @@ import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_prof
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 import 'package:provider/provider.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class DemoProfileSheet extends StatefulWidget {
   const DemoProfileSheet({super.key});
@@ -193,7 +194,7 @@ class _DemoProfileSheetState extends State<DemoProfileSheet> {
                     flex: 60,
                     child: AppButton(
                       onPressed: () {
-                        showModalBottomSheet(
+                        m.showModalBottomSheet(
                           context: context,
                           isScrollControlled: true,
                           showDragHandle: true,
