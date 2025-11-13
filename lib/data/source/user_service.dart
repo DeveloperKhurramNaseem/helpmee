@@ -1,5 +1,6 @@
 import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
+import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
@@ -348,4 +349,34 @@ class UserService extends ApiService {
     }
     return (false, ErrorConstants.errorMessage);
   }
+
+    Future<(bool, String, List<DemoProfileModel>)> getDemoProfiles(String token, String language) async {
+      var result = await get(
+        endPoint: EndPoints.getDemoProfiles,
+      );
+      if (result != null) {
+        final decodedResponse = decodeResponse(result);
+        return (
+          decodedResponse.success,
+          decodedResponse.message,
+          (decodedResponse.data as List)
+              .map((e) => DemoProfileModel.fromMap(e))
+              .toList(),
+        );
+      }
+      return (false, ErrorConstants.errorMessage, <DemoProfileModel>[]);
+    }
+
+    Future<(bool,String)> transferData(String token, String language, String userName) async{
+      var result = await post(
+      EndPoints.transferData,
+      {'username' : userName},
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+    }
 }

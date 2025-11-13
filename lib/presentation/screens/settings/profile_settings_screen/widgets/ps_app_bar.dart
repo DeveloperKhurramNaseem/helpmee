@@ -30,32 +30,35 @@ class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ],
           ),
-          UnconstrainedBox(
-            child: GestureDetector(
-              onTap: () {
-                context.push(
-                  EditProfileScreen.path,
-                  extra: ProfileType.personal,
-                );
-              },
-              child: Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.primary,
-                      width: 2,
+          Padding(
+            padding: const EdgeInsets.only(right: 3.0),
+            child: UnconstrainedBox(
+              child: GestureDetector(
+                onTap: () {
+                  context.push(
+                    EditProfileScreen.path,
+                    extra: ProfileType.personal,
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 10.0),
+                  child: Ink(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(
+                        color: Theme.of(context).colorScheme.primary,
+                        width: 2,
+                      ),
                     ),
-                  ),
-                  child: Container(
-                    alignment: Alignment.center,
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
-                    child: Text(
-                      AppLocalizations.of(context)!.profilePreviewLabel,
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.secondary,
-                        fontWeight: FontWeight.w500,
+                    child: Container(
+                      alignment: Alignment.center,
+                      padding: EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                      child: Text(
+                        AppLocalizations.of(context)!.profilePreviewLabel,
+                        style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),

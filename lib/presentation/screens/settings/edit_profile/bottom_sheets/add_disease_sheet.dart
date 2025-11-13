@@ -253,7 +253,9 @@ class _AddDiseaseSheetState extends State<AddDiseaseSheet> {
       context.read<GetProfileDataBloc>().add(
         GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true).pop();
+      Navigator.of(context, rootNavigator: true)
+        ..pop()
+        ..pop();
     }
   }
 }

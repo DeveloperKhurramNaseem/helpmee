@@ -6,7 +6,9 @@ import 'package:help_mee/presentation/blocs/auth/resend_otp/resend_otp_bloc.dart
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/get_demo_profiles/get_demo_profiles_bloc.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/transfer_data/transfer_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
@@ -182,6 +184,10 @@ List<BlocProvider> getUserProfileBlocProviders() {
     // Profiles & Products
     BlocProvider<GetProductsBloc>(create: (context) => GetProductsBloc(sl()),),
     BlocProvider<UnmapProductBloc>(create: (context) => UnmapProductBloc(sl()),),
+
+    // Demo profiles
+    BlocProvider<GetDemoProfilesBloc>(create: (context) => GetDemoProfilesBloc(sl()),),
+    BlocProvider<TransferDataBloc>(create: (context) => TransferDataBloc(sl())),
     
   ];
 }

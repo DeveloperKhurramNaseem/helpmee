@@ -27,8 +27,8 @@ class LightTheme {
       dragHandleSize: Size(56, 4),         // width, height
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-    ),
+      ),      
+    ),    
     switchTheme: LightSwitchTheme.data,
     splashColor: AppLightThemeColors.secondaryColor.withAlpha(100),
     extensions: [

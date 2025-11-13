@@ -1,4 +1,5 @@
 import 'package:help_mee/data/models/cooperation_partners.dart';
+import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
@@ -235,5 +236,21 @@ class UserRepoImpl extends UserRepo {
     var lang = storageService.getLanguage();
 
     return await userService.updateLocationSharingSetting(token, lang,value );
+  }
+
+  @override
+  Future<(bool, String, List<DemoProfileModel>)> getDemoProfiles() async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.getDemoProfiles(token, lang);
+  }
+  
+  @override
+  Future<(bool, String)> transferData(String userName) async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+
+    return await userService.transferData(token, lang, userName);
   }
 }

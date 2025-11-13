@@ -62,5 +62,7 @@ class EndPoints {
   // Profiles & Products
   static const productsList = '/device_list';
   static const unmapProduct = '/unmap-device';
+  static const getDemoProfiles = '/get-demo-profile';
+  static const transferData = '/influencerProfileDataTransferTransition';
   
 }

@@ -17,3 +17,4 @@ final Uri url = Uri.parse("https://wa.me/$number?text=${Uri.encodeComponent(mess
     throw 'Could not open WhatsApp';
   }
 }
+
