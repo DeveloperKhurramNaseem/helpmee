@@ -409,7 +409,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           doctorContacts: state.userProfile.doctorContacts,
                         ),
                         // Location Part
-                        EpLocationBox(locationSharing: false),
+                        BlocBuilder<GetLocationNotificationSettingsBloc, GetLocationNotificationSettingsState>(
+                          builder: (context, state) {                             
+                            return EpLocationBox(locationSharing: state.locationNotificationModel.locationSharing);
+                          },
+                        ),
                         if (widget.profileType == ProfileType.pet)
                           // Pet Characterestics Part
                           EpPetCharacteresticsBox(

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:help_mee/data/models/location_notification_model.dart';
+import 'package:help_mee/data/models/requests/location_notification_info.dart';
 import 'package:help_mee/domain/repositories/user_location_notification_repo.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
@@ -31,7 +31,7 @@ class UpdateLocationAndNotificationSettingsBloc
       emit(UpdateLocationAndNotificationSettingsLoadingState());
       var result = await userLocationNotificationRepo
           .updateLocationNotificationSettings(
-            LocationNotificationModel(
+            LocationNotificationInfo(
               pushNotification: event.pushNotification,
               emailNotification: event.emailNotification,
               inAppNotification: event.inAppNotification,

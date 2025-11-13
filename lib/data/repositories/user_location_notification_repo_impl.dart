@@ -1,5 +1,6 @@
 import 'package:help_mee/data/models/location_notification_model.dart';
 import 'package:help_mee/data/models/notification_user_model.dart';
+import 'package:help_mee/data/models/requests/location_notification_info.dart';
 import 'package:help_mee/data/models/requests/notification_user_info.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
@@ -31,7 +32,7 @@ class UserLocationNotificationRepoImpl extends UserLocationNotificationRepo {
   @override
   Future<(bool, String, LocationNotificationModel)>
   updateLocationNotificationSettings(
-    LocationNotificationModel locationNotificationModel,
+    LocationNotificationInfo locationNotificationModel,
   ) async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();

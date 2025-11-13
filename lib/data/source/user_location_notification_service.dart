@@ -1,5 +1,6 @@
 import 'package:help_mee/data/models/location_notification_model.dart';
 import 'package:help_mee/data/models/notification_user_model.dart';
+import 'package:help_mee/data/models/requests/location_notification_info.dart';
 import 'package:help_mee/data/models/requests/notification_user_info.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
@@ -40,7 +41,7 @@ class UserLocationNotificationService extends ApiService {
   updateLocationNotificationSettings(
     String token,
     String language,
-    LocationNotificationModel locationNotificationModel,
+    LocationNotificationInfo locationNotificationModel,
   ) async {
     var result = await post(
       EndPoints.updateLocationNotificationSettings,
