@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_reset_success.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
-import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class ProductRestoreSheet extends StatelessWidget {
   const ProductRestoreSheet({super.key});
@@ -77,15 +77,11 @@ class ProductRestoreSheet extends StatelessWidget {
                   flex: 60,
                   child: AppButton(
                     onPressed: () {
-                      Navigator.pop(context);
-                      m.showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        showDragHandle: true,
-                        builder: (context) {
-                          return ProductResetSuccess();
-                        },
-                      );
+                      Navigator.of(context).pop();
+                      context.push(
+                        ActivationMethodScreen.path,
+                        extra: ('', ActivationMethodState.restoreProduct),
+                      );                      
                     },
                     gradient: Theme.of(
                       context,

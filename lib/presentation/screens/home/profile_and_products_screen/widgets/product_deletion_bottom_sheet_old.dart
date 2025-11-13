@@ -69,7 +69,7 @@ class ProductDeletionBottomSheetOld extends StatelessWidget {
                         : () {
                             context.read<UnmapProductBloc>().add(
                               UnmapCurrentProduct(
-                                productId: productModel.serialNumber,
+                                productId: productModel.id.toString(),
                               ),
                             );
                           },

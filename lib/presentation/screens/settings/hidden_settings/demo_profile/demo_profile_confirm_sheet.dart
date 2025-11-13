@@ -117,7 +117,7 @@ class DemoProfileConfirmSheet extends StatelessWidget {
     TransferDataState state,
   ) {
     if (state is TransferDataLoadedState) {
-      Navigator.of(context).pop();
+      Navigator.of(context)..pop()..pop();
     }
   }
 }

@@ -321,6 +321,11 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
+/*************  ✨ Windsurf Command ⭐  *************/
+  /// Delete the user's voice note from the server.
+  ///
+
+/*******  9e6a0b2b-6b3e-4583-8c9a-565929a2fd99  *******/
   Future<(bool, String)> deleteVoice(String token, String language) async {
     var result = await delete(
       EndPoints.deleteVoice,
@@ -353,13 +358,14 @@ class UserService extends ApiService {
     Future<(bool, String, List<DemoProfileModel>)> getDemoProfiles(String token, String language) async {
       var result = await get(
         endPoint: EndPoints.getDemoProfiles,
+        header: NetworkConstants.getHeaders(language, token),
       );
       if (result != null) {
         final decodedResponse = decodeResponse(result);
         return (
           decodedResponse.success,
           decodedResponse.message,
-          (decodedResponse.data as List)
+          (decodedResponse.data['users'] as List)
               .map((e) => DemoProfileModel.fromMap(e))
               .toList(),
         );
@@ -367,7 +373,7 @@ class UserService extends ApiService {
       return (false, ErrorConstants.errorMessage, <DemoProfileModel>[]);
     }
 
-    Future<(bool,String)> transferData(String token, String language, String userName) async{
+    Future<(bool,String,AppUserModel?)> transferData(String token, String language, String userName) async{
       var result = await post(
       EndPoints.transferData,
       {'username' : userName},
@@ -375,8 +381,8 @@ class UserService extends ApiService {
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success, decodedResponse.message);
+      return (decodedResponse.success, decodedResponse.message, AppUserModel.fromMap(decodedResponse.data));
     }
-    return (false, ErrorConstants.errorMessage);
+    return (false, ErrorConstants.errorMessage,null);
     }
 }

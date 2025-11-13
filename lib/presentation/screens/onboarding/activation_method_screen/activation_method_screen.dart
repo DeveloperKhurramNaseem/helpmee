@@ -122,6 +122,22 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
           return ProductResetSuccess();
         },
       );
+    }else if(state is RestoreProductErrorState){
+      context.pop();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(state.message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 }

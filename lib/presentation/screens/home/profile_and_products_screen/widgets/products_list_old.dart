@@ -33,6 +33,7 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log(product.serialNumber, name: 'serial number');
+    log(product.id.toString(), name: 'product id');
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

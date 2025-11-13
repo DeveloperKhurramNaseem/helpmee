@@ -1,12 +1,43 @@
+
 import 'package:flutter/material.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
-class NamesSheet extends StatelessWidget {
+class NamesSheet extends StatefulWidget {
   const NamesSheet({super.key});
 
+  @override
+  State<NamesSheet> createState() => _NamesSheetState();
+}
+
+class _NamesSheetState extends State<NamesSheet> {
+
+  bool enabled = false;
+
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    firstNameController = TextEditingController();
+    lastNameController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    super.dispose();
+  }
+
+  void listener(){
+    setState(() {
+      enabled = firstNameController.text.isNotEmpty && lastNameController.text.isNotEmpty;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,9 +92,9 @@ class NamesSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
             child: AppButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: enabled ? () {
+                
+              } : null,
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,

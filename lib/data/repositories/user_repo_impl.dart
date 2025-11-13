@@ -251,6 +251,12 @@ class UserRepoImpl extends UserRepo {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
 
-    return await userService.transferData(token, lang, userName);
+    var result = await userService.transferData(token, lang, userName);
+    if(result.$1){
+      if(result.$3 != null){
+        storageService.saveUser(result.$3!);
+      }      
+    }
+    return (result.$1 , result.$2);
   }
 }
