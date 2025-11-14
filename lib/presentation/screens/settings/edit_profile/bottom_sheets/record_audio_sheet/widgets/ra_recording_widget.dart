@@ -251,7 +251,7 @@ class RecordingInitialWidget extends StatelessWidget {
             : Expanded(
                 child: Row(
                   children: [
-                    Text(countDown),
+                    Text('00:$countDown'),
                     Expanded(
                       child: Container(
                         alignment: Alignment.center,

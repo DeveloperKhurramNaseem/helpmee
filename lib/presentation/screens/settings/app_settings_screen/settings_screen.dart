@@ -8,6 +8,7 @@ import 'package:help_mee/presentation/blocs/settings/app_settings/get_notificati
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/delete_profile_bottom_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/switch_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/profile_validity_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_sheet.dart';
@@ -86,7 +87,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 context,
               )!.switchAccountOrAddProfile,
               image: AppIcons.switchIcon,
-              onTap: () {},
+              onTap: () {
+                m.showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return SwitchProfileBottomSheet();
+                  },
+                );
+              },
             ),
             SettingsBaseTile(
               titleText: AppLocalizations.of(context)!.notificationsLabel,

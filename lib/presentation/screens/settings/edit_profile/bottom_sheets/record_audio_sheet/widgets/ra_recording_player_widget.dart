@@ -152,7 +152,7 @@ class _RecordingPlayerWidgetState extends State<RecordingPlayerWidget> {
               padding: const EdgeInsets.only(bottom: 6.0),
               child: Text(
                 _position == Duration.zero
-                    ? ' 00:${widget.maxSeconds < 10 ? '0' : ''}${widget.maxSeconds.toString()}'
+                    ? ' 00:${_duration.inSeconds < 10 ? '0' : ''}${_duration.inSeconds.toString()}'
                     : ' 00:${_position.inSeconds < 10 ? '0' : ''}${_position.inSeconds.toString()}',
               ),
             ),
