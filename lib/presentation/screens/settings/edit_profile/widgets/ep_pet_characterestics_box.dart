@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/date_picker_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_header_info_fields.dart';
+import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
-import 'package:intl/intl.dart';
 
 class EpPetCharacteresticsBox extends StatelessWidget {
   final TextEditingController characterController,
@@ -19,6 +22,7 @@ class EpPetCharacteresticsBox extends StatelessWidget {
   final void Function(String? status) onCastratedChanged;
   final String castratedValue;
   final void Function(DateTime date) onBirthdayChanged;
+  final DateTime initialBirthdayDate;
 
   const EpPetCharacteresticsBox({
     super.key,
@@ -32,6 +36,7 @@ class EpPetCharacteresticsBox extends StatelessWidget {
     required this.castratedValue,
     required this.onCastratedChanged,
     required this.onBirthdayChanged,
+    required this.initialBirthdayDate,
   });
 
   @override
@@ -66,6 +71,7 @@ class EpPetCharacteresticsBox extends StatelessWidget {
                 weightController: weightController,
               ),
               EpPetCastratedAndBirthdayTile(
+                initialBirthdayDate: initialBirthdayDate,
                 onCastratedChanged: onCastratedChanged,
                 birthdayController: birthdayController,
                 onBirthdayChanged: onBirthdayChanged,
@@ -154,12 +160,14 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
   final String castratedValue;
   final TextEditingController birthdayController;
   final void Function(DateTime date) onBirthdayChanged;
+  final DateTime initialBirthdayDate;
   const EpPetCastratedAndBirthdayTile({
     super.key,
     required this.castratedValue,
     required this.onCastratedChanged,
     required this.birthdayController,
     required this.onBirthdayChanged,
+    required this.initialBirthdayDate,
   });
 
   @override
@@ -183,18 +191,37 @@ class EpPetCastratedAndBirthdayTile extends StatelessWidget {
             controller: birthdayController,
             trailing: GestureDetector(
               onTap: () {
-                showDatePicker(
-                  context: context,
-                  firstDate: DateTime.now().subtract(Duration(days: 365 * 100)),
-                  lastDate: DateTime.now(),
-                ).then((value) {
-                  if (value != null) {
-                    onBirthdayChanged(value);
-                    birthdayController.text = DateFormat(
-                      'MMMM dd, yyyy',
-                    ).format(value);
-                  }
-                });
+                if (Platform.isIOS) {
+                  showModalBottomSheet(
+                    context: context,
+                    enableDrag: true,
+                    showDragHandle: true,
+                    builder: (context) {
+                      return DatePickerSheet(
+                        initialDate: initialBirthdayDate,
+                        onDateTimeSelect: (value) {
+                          onBirthdayChanged(value);
+                          birthdayController.text =
+                              DateFormatting.formatDateForTextField(value);
+                        },
+                      );
+                    },
+                  );
+                } else {
+                  showDatePicker(
+                    context: context,
+                    firstDate: DateTime.now().subtract(
+                      Duration(days: 365 * 100),
+                    ),
+                    lastDate: DateTime.now(),
+                  ).then((value) {
+                    if (value != null) {
+                      onBirthdayChanged(value);
+                      birthdayController.text =
+                          DateFormatting.formatDateForTextField(value);
+                    }
+                  });
+                }
               },
               child: SvgPicture.asset(AppIcons.calender),
             ),

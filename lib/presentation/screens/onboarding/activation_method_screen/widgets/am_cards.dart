@@ -9,6 +9,7 @@ import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/nfc_scan_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
@@ -94,6 +95,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<ActivateProductBloc>();
+    var addProductBloc = context.read<AddProductBloc>();
     var restoreProductBloc = context.read<RestoreProductBloc>();
     return GestureDetector(
       onTap: () async {
@@ -153,6 +155,8 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                           token: widget.token,
                         ),
                       );
+                    } else{
+                       addProductBloc.add(AddNewProductEvent(code: code, device: device));
                     }
                     if (Platform.isAndroid) {
                       if (mounted) {

@@ -1,0 +1,64 @@
+{
+  "project_info": {
+    "project_number": "576560526503",
+    "project_id": "helpmee-29b5d",
+    "storage_bucket": "helpmee-29b5d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576560526503:android:5a8ce1118cce0faac19782",
+        "android_client_info": {
+          "package_name": "com.helpmee.HelpMee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQkFKveitUvURhCx5Q5N0AuJIytszi45I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576560526503-ids9oqqbpt7u86q3l3t65t60sdr2b18a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.help-mee.app.HelpMee"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:576560526503:android:b0fd4ab9bce32f4cc19782",
+        "android_client_info": {
+          "package_name": "com.helpmee.app.help_mee"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQkFKveitUvURhCx5Q5N0AuJIytszi45I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "576560526503-ids9oqqbpt7u86q3l3t65t60sdr2b18a.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.help-mee.app.HelpMee"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

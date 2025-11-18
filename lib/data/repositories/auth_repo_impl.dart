@@ -1,5 +1,6 @@
 import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/data/source/auth_service.dart';
+import 'package:help_mee/data/source/social_signin_service.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
@@ -8,8 +9,9 @@ class AuthRepoImpl extends AuthRepo {
   final AuthService authService;
   final TokenService tokenService;
   final StorageService storageService;
+  final SocialSigninService socialSigninService;
 
-  AuthRepoImpl(this.authService, this.tokenService, this.storageService);
+  AuthRepoImpl(this.authService, this.tokenService, this.storageService, this.socialSigninService);
 
   @override
   Future<SigninResponse> signIn(String email, String password) async {
@@ -63,6 +65,26 @@ class AuthRepoImpl extends AuthRepo {
   Future<(bool, String)> resendOtp(String email) {
     var lang = storageService.getLanguage();
     return authService.resendOtp(email, lang);
+  }
+  
+  @override
+  Future<SigninResponse?> signInWithApple() async{
+    var lang = storageService.getLanguage();
+    var idToken = await socialSigninService.signInWithApple();
+    if(idToken != null){
+      return authService.socialSignIn(idToken,lang);
+    }
+    return null;
+  }
+  
+  @override
+  Future<SigninResponse?> signInWithGoogle() async{ 
+    var lang = storageService.getLanguage();
+    var socialSignInData = await socialSigninService.signInWithGoogle();
+    if(socialSignInData != null){
+      return authService.socialSignIn(socialSignInData,lang);
+    }
+    return null;    
   }
 
 }

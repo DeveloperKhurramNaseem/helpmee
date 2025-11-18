@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_app_bar.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_cards.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_support_text.dart';
@@ -40,9 +42,13 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         BlocListener<ActivateProductBloc, ActivateProductState>(
           listener: _handleActivateProductBloc,
         ),
+        BlocListener<AddProductBloc, AddProductState>(
+          listener: _handleAddProductBloc,
+        ),
         BlocListener<RestoreProductBloc, RestoreProductState>(
           listener: _handleRestoreProductBloc,
         ),
+
       ],
       child: Scaffold(
         appBar: AmAppBar(),
@@ -84,7 +90,7 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         showDragHandle: true,
         context: context,
         builder: (context) {
-          return PopScope(canPop: false, child: CongratulationsSheet());
+          return PopScope(canPop: false, child: CongratulationsSheet(isDismissible: false, productType: state.device,));
         },
       );
     } else if (state is ActivateProductErrorState) {
@@ -123,6 +129,39 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         },
       );
     }else if(state is RestoreProductErrorState){
+      context.pop();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(state.message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void _handleAddProductBloc(BuildContext context, AddProductState state) {
+    if (state is AddProductDoneState) {
+      context.pop();
+      context.read<GetProductsBloc>().add(GetAllProductsEvent());
+      m.showModalBottomSheet(
+        isDismissible: true,
+        enableDrag: false,
+        isScrollControlled: true,
+        showDragHandle: true,
+        context: context,
+        builder: (context) {
+          return CongratulationsSheet(isDismissible: true, productType: state.device,);
+        },
+      );
+    } else if (state is AddProductErrorState) {
       context.pop();
       showDialog(
         context: context,

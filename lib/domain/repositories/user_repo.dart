@@ -23,6 +23,10 @@ abstract class UserRepo {
     String device,
     String token,
   );
+  Future<(bool, String)> addProduct(
+    String code,
+    String device,    
+  );
   Future<(bool, NotificationSetting)> getNotificationSetting();
   Future<(bool, String)> updateNotificationSetting(NotificationSetting setting);
   Future<(bool, String)> setNewPin(PinData pinData);

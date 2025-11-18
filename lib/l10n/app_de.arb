@@ -356,7 +356,12 @@
 
 "cityLabel" : "Stadt",
 
-"countryLabel" : "Land"
+"countryLabel" : "Land",
+"selectDateTitel" : "Datum auswählen",
+"selectDatebtnTtitle" : "Auswählen",
+"addProduct" : "Produkt hinzufügen",
+"myProductsTitle" : "Meine Produkte"
+
 
 
 }

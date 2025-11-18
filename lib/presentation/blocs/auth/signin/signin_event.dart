@@ -13,3 +13,8 @@ class ShowErrorEvent extends SigninEvent{
   final String message;
   ShowErrorEvent({required this.message});
 }
+
+
+class SignInWithGoogleEvent extends SigninEvent{}
+
+class SignInWithAppleEvent extends SigninEvent{}

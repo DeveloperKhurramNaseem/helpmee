@@ -14,24 +14,94 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
   SigninBloc(this.authRepo) : super(SigninInitialState()) {
     on<SignInUserEvent>(_handleSignInEvent);
     on<ShowErrorEvent>(_handleShowErrorEvent);
+    on<SignInWithGoogleEvent>(_handleGoogleSignInEvent);
+    on<SignInWithAppleEvent>(_handleAppleSignInEvent);
   }
 
-  FutureOr<void> _handleSignInEvent(SignInUserEvent event, Emitter<SigninState> emit) async {
-    try{
+  FutureOr<void> _handleSignInEvent(
+    SignInUserEvent event,
+    Emitter<SigninState> emit,
+  ) async {
+    try {
       emit(SigninLoadingState());
-     var result = await authRepo.signIn(event.email, event.password);     
-     if(result.success){
-      emit(SigninLoadedState(message:result.message,activatedProducts:result.activatedProducts,token: result.data.accessToken.accessToken));
-     }else{
-      emit(SigninErrorState(result.message));
-     }
-    }catch(e){
-      log(e.toString() , name: 'SignInBloc Error');
+      var result = await authRepo.signIn(event.email, event.password);
+      if (result.success) {
+        emit(
+          SigninLoadedState(
+            message: result.message,
+            activatedProducts: result.activatedProducts,
+            token: result.data.accessToken.accessToken,
+          ),
+        );
+      } else {
+        emit(SigninErrorState(result.message));
+      }
+    } catch (e) {
+      log(e.toString(), name: 'SignInBloc Error');
       emit(SigninErrorState(ErrorConstants.errorMessage));
     }
   }
 
-  FutureOr<void> _handleShowErrorEvent(ShowErrorEvent event, Emitter<SigninState> emit) {
+  FutureOr<void> _handleShowErrorEvent(
+    ShowErrorEvent event,
+    Emitter<SigninState> emit,
+  ) {
     emit(SigninErrorState(event.message));
+  }
+
+  FutureOr<void> _handleGoogleSignInEvent(
+    SignInWithGoogleEvent event,
+    Emitter<SigninState> emit,
+  ) async {
+    try {
+      emit(SigninLoadingState());
+      var result = await authRepo.signInWithGoogle();
+      if (result != null) {
+        if (result.success) {
+          emit(
+            SigninLoadedState(
+              message: result.message,
+              activatedProducts: result.activatedProducts,
+              token: result.data.accessToken.accessToken,
+            ),
+          );
+        } else {
+          emit(SigninErrorState(result.message));
+        }
+      }else{
+        emit(SigninErrorState(ErrorConstants.errorMessageGoogleSignIn));
+      }
+    } catch (e) {
+      log(e.toString(), name: 'SignInBloc Error');
+      emit(SigninErrorState(ErrorConstants.errorMessage));
+    }
+  }
+
+  FutureOr<void> _handleAppleSignInEvent(
+    SignInWithAppleEvent event,
+    Emitter<SigninState> emit,
+  ) async {
+    try {
+      emit(SigninLoadingState());
+      var result = await authRepo.signInWithApple();
+      if (result != null) {
+        if (result.success) {
+          emit(
+            SigninLoadedState(
+              message: result.message,
+              activatedProducts: result.activatedProducts,
+              token: result.data.accessToken.accessToken,
+            ),
+          );
+        } else {
+          emit(SigninErrorState(result.message));
+        }
+      }else{
+        emit(SigninErrorState(ErrorConstants.errorMessageAppleSignIn));
+      }
+    } catch (e) {
+      log(e.toString(), name: 'SignInBloc Error');
+      emit(SigninErrorState(ErrorConstants.errorMessage));
+    }
   }
 }

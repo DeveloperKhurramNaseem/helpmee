@@ -6,4 +6,6 @@ class ErrorConstants {
   static const String _serverErrorDe = 'Server-Fehler, bitte versuche es erneut';
 
   static String get errorMessage => sl<StorageService>().getLanguage() == 'en' ? _serverErrorEn : _serverErrorDe;
-}
+  static String errorMessageGoogleSignIn = 'Google sign in failed';
+  static String errorMessageAppleSignIn = 'Apple sign in failed';
+ }

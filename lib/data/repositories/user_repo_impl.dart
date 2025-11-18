@@ -259,4 +259,12 @@ class UserRepoImpl extends UserRepo {
     }
     return (result.$1 , result.$2);
   }
+  
+  @override
+  Future<(bool, String)> addProduct(String code, String device) async {
+    var lang = storageService.getLanguage();
+    var token = await tokenService.getToken();
+    var result = await userService.activateProduct(code, device, token, lang);    
+    return result;
+  }
 }

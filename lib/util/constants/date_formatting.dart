@@ -1,3 +1,5 @@
+import 'package:help_mee/data/source/storage_service.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:intl/intl.dart';
 
 class DateFormatting {
@@ -20,10 +22,10 @@ class DateFormatting {
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
   }
 
-
-  static String formatDateForTextField(DateTime dateTime){
-    return DateFormat(
-                  'MMMM dd, yyyy',
-                ).format(dateTime);
+  static String formatDateForTextField(DateTime dateTime) {
+    var lang = sl<StorageService>().getLanguage();
+    return lang == 'en'
+        ? DateFormat('MMMM dd, yyyy').format(dateTime)
+        : DateFormat('dd.MM.yyyy', 'de_DE').format(dateTime);
   }
 }

@@ -1435,6 +1435,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Country'**
   String get countryLabel;
+
+  /// No description provided for @selectDateTitel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDateTitel;
+
+  /// No description provided for @selectDatebtnTtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get selectDatebtnTtitle;
+
+  /// No description provided for @myProductsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My products'**
+  String get myProductsTitle;
 }
 
 class _AppLocalizationsDelegate

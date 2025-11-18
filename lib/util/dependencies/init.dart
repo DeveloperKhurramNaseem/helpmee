@@ -5,6 +5,7 @@ import 'package:help_mee/data/repositories/user_location_notification_repo_impl.
 import 'package:help_mee/data/repositories/user_profile_repo_impl.dart';
 import 'package:help_mee/data/repositories/user_repo_impl.dart';
 import 'package:help_mee/data/source/auth_service.dart';
+import 'package:help_mee/data/source/social_signin_service.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_location_notification_service.dart';
@@ -27,7 +28,8 @@ Future<void> init() async{
 
 Future<void> initAuth(){
   sl.registerFactory<AuthService>(() => AuthService());
-  sl.registerFactory<AuthRepo>(() => AuthRepoImpl(sl(),sl(),sl()));  
+  sl.registerFactory<SocialSigninService>(() => SocialSigninService());
+  sl.registerFactory<AuthRepo>(() => AuthRepoImpl(sl(),sl(),sl(),sl()));  
   return Future.value(null);
 }
 

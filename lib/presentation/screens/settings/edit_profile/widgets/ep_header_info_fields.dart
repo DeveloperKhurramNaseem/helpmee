@@ -1,14 +1,18 @@
+import 'dart:io';
+
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/date_picker_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_dropdown_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
-import 'package:intl/intl.dart';
 
 class EpHeaderInfoBaseField extends StatelessWidget {
   final String label;
@@ -337,6 +341,7 @@ class EpHeaderHeightAndWeight extends StatelessWidget {
 
 class EpHeaderGenderAndBirthday extends StatelessWidget {
   final TextEditingController birthdayController;
+  final DateTime initialDate;
   final ValueChanged<int?> onGenderChanged;
   final int initialGenderValue;
   final void Function(DateTime) onDobChanged;
@@ -346,6 +351,7 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
     required this.onGenderChanged,
     required this.birthdayController,
     required this.onDobChanged,
+    required this.initialDate,
   });
 
   @override
@@ -371,20 +377,35 @@ class EpHeaderGenderAndBirthday extends StatelessWidget {
               controller: birthdayController,
               trailing: GestureDetector(
                 onTap: () {
-                  showDatePicker(
-                    context: context,
-                    firstDate: DateTime.now().subtract(
-                      Duration(days: 365 * 100),
-                    ),
-                    lastDate: DateTime.now(),
-                  ).then((value) {
-                    if (value != null) {
-                      onDobChanged(value);
-                      birthdayController.text = DateFormat(
-                        'MMMM dd, yyyy',
-                      ).format(value);
-                    }
-                  });
+                  if (Platform.isIOS) {
+                    showModalBottomSheet(
+                      context: context,
+                      enableDrag: true,
+                      showDragHandle: true,
+                      builder: (context) {
+                        return DatePickerSheet(
+                          initialDate: initialDate,
+                          onDateTimeSelect: (value) {
+                            onDobChanged(value);
+                            birthdayController.text = DateFormatting.formatDateForTextField(value);
+                          },
+                        );
+                      },
+                    );
+                  } else {
+                    showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now().subtract(
+                        Duration(days: 365 * 100),
+                      ),
+                      lastDate: DateTime.now(),
+                    ).then((value) {
+                      if (value != null) {
+                        onDobChanged(value);
+                        birthdayController.text = DateFormatting.formatDateForTextField(value);
+                      }
+                    });
+                  }
                 },
                 child: SvgPicture.asset(AppIcons.calender),
               ),

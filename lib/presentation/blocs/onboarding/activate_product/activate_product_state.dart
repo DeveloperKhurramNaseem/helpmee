@@ -7,7 +7,12 @@ class ActivateProductInitialState extends ActivateProductState {}
 
 class ActivateProductLoadingState extends ActivateProductState {}
 
-class ActivateProductDoneState extends ActivateProductState {}
+class ActivateProductDoneState extends ActivateProductState {
+  final String device;
+
+  ActivateProductDoneState({required this.device});
+}
+
 
 class ActivateProductErrorState extends ActivateProductState {
   final String message;

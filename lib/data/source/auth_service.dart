@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:help_mee/data/models/signin_response.dart';
+import 'package:help_mee/data/models/social_signin.dart';
 import 'package:help_mee/data/models/token_model.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
@@ -147,5 +148,18 @@ class AuthService extends ApiService {
       return (decodedResponse.success, decodedResponse.message);
     }
     return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<SigninResponse> socialSignIn(SocialSignin socialData,  String language) async{
+    var result = await post(
+      EndPoints.socialSignIn,
+      socialData.toMap(),
+      header: NetworkConstants.getHeaders(language)
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return SigninResponse.fromMap(decodedResponse.toMap());
+    }
+    return SigninResponse.empty(ErrorConstants.errorMessage);
   }
  }

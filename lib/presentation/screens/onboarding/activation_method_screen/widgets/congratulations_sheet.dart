@@ -9,7 +9,13 @@ import 'package:help_mee/util/constants/gifs.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class CongratulationsSheet extends StatelessWidget {
-  const CongratulationsSheet({super.key});
+  final bool isDismissible;
+  final String productType;
+  const CongratulationsSheet({
+    super.key,
+    required this.isDismissible,
+    required this.productType,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +47,7 @@ class CongratulationsSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     // color: Theme.of(context).colorScheme.secondary,
                   ),
-                  child: GifView.asset(AppGifs.toddler),
+                  child: GifOrImage(productType: productType),
                 ),
               ],
             ),
@@ -62,7 +68,11 @@ class CongratulationsSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: AppButton(
               onPressed: () {
-                context.go(Dashboard.path, extra: true);
+                if (isDismissible) {
+                  context.pop();
+                } else {
+                  context.go(Dashboard.path, extra: true);
+                }
               },
               gradient: Theme.of(
                 context,
@@ -76,25 +86,27 @@ class CongratulationsSheet extends StatelessWidget {
   }
 }
 
-// "s": ["Personal", "SOS", "Pet"],
-//         "sc": ["Personal"],
-//         "c": ["Personal"],
-//         "cc": ["Personal"],
-//         "t": ["Personal"],
-//         "tc": ["Personal"],
-//         "k": ["Personal", "SOS", "Pet"],
-//         "kc": ["Personal", "SOS", "Pet"],
-//         "p": ["Pet"],
-//         "pc": ["Pet"],
-//         "mc": ["Personal"],
-//         "bc": ["Personal"],
-//         "wb": ["SOS"],
-//         "sb": ["SOS"],
-//         "ss": ["SOS"],
-//         "sk": ["SOS"],
-//         "ssc": ["SOS"],
-//         "sbk": ["SOS"],
-//         "td": ["Personal"],
-//         "sbj": ["SOS"],
-//         "sbb": ["SOS"],
-//         "dt": ["Pet"]
+class GifOrImage extends StatelessWidget {
+  final String productType;
+  const GifOrImage({super.key, required this.productType});
+
+  @override
+  Widget build(BuildContext context) {
+    return isGif
+        ? GifView.asset(getGif(productType))
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(image: NetworkImage(getUrl(productType))),
+            ),
+          );
+  }
+
+  bool get isGif =>
+      productType == AppProductCodeForGif.sb ||
+      productType == AppProductCodeForGif.ssc ||
+      productType == AppProductCodeForGif.sbk ||
+      productType == AppProductCodeForGif.sbj ||
+      productType == AppProductCodeForGif.sbb ||
+      productType == AppProductCodeForGif.dt;
+}

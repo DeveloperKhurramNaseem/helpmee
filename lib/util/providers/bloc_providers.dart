@@ -14,6 +14,7 @@ import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_not
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
@@ -88,6 +89,7 @@ List<BlocProvider> getActivateProductBlocProviders() {
     BlocProvider<ActivateProductBloc>(
       create: (context) => ActivateProductBloc(sl()),
     ),
+    BlocProvider<AddProductBloc>(create: (context) => AddProductBloc(sl(),),),
   ];
 }
 

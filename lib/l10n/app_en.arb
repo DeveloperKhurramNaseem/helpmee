@@ -363,7 +363,11 @@
 
 "cityLabel" : "City",
 
-"countryLabel" : "Country"
+"countryLabel" : "Country",
+"selectDateTitel" : "Select date",
+"selectDatebtnTtitle" : "Select",
+"addProduct" : "Add product",
+"myProductsTitle" : "My products"
 
 
 

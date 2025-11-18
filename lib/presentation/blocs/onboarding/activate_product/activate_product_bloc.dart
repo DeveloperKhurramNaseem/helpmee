@@ -20,7 +20,7 @@ class ActivateProductBloc
       emit(ActivateProductLoadingState());
       var result = await userRepo.activateProduct(event.code , event.device, event.token);
       if(result.$1){
-        emit(ActivateProductDoneState());
+        emit(ActivateProductDoneState(device: event.device));
       }else{
         emit(ActivateProductErrorState(message: result.$2));
       }

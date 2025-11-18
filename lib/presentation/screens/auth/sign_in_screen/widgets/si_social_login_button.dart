@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:provider/provider.dart';
 
 class SISocialLoginsRow extends StatelessWidget {
   const SISocialLoginsRow({super.key});
@@ -38,14 +39,11 @@ class SISocialGoogleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var bloc = context.read<SigninBloc>();
     return SISocialLoginButton(
       image: AppIcons.google,
-      onPressed: () {
-        if (GoogleSignIn.instance.supportsAuthenticate()) {
-          try {
-            GoogleSignIn.instance.authenticate();
-          } catch (_) {}
-        }
+      onPressed: () async {
+        bloc.add(SignInWithGoogleEvent());
       },
     );
   }
@@ -56,7 +54,13 @@ class SISocialAppleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SISocialLoginButton(image: AppIcons.apple, onPressed: () {});
+    var bloc = context.read<SigninBloc>();
+    return SISocialLoginButton(
+      image: AppIcons.apple,
+      onPressed: () {
+        bloc.add(SignInWithAppleEvent());
+      },
+    );
   }
 }
 
@@ -69,7 +73,7 @@ class SISocialLoginButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  @override
+  @override 
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,

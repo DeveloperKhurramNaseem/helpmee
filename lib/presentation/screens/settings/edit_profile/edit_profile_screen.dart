@@ -29,7 +29,6 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_p
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_pictures_and_documents.dart';
 import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
-import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
@@ -294,7 +293,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       specialFeatures: specialFeatureController.text.trim(),
                       castrated: castrated,
                       bloodGroup: bloodGroupController.text.trim(),
-                      dateOfBirth: DateFormat('yyyy-MM-dd').format(petBirthday),
+                      dateOfBirth: petBirthday.toIso8601String(),
                       gender: petGenderValue,
                       size: petSizeController.text.trim(),
                       weight: petWeightController.text.trim(),
@@ -314,7 +313,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           double.tryParse(weightController.text.trim()) ?? 0,
                       bloodGroup: currentBloodGroup,
                       imageFile: pickedImage,
-                      dob: DateFormat('yyyy-MM-dd').format(dateOfBirth),
+                      dob: dateOfBirth.toIso8601String(),
                       insuranceCompany: insuranceCompanyController.text.trim(),
                       insuranceId: insuranceIdController.text.trim(),
                     ),
@@ -367,6 +366,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           EpHeaderGenderAndBirthday(
                             initialGenderValue: currentGenderValue,
                             birthdayController: birthdayController,
+                          initialDate: dateOfBirth,
                             onDobChanged: (value) {
                               dateOfBirth = value;
                             },
@@ -438,6 +438,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     castrated != userProfile!.user.castrated;
                               });
                             },
+                            initialBirthdayDate: petBirthday,
                             onBirthdayChanged: (value) {
                               petBirthday = value;
                             },

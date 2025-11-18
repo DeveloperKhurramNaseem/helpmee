@@ -51,7 +51,7 @@ class DashboardBottomBar extends StatelessWidget {
                 child: ColoredBox(
                   color: Colors.transparent,
                   child: DashboardBottomBarIcon(
-                    title: 'Profiles & Products',
+                    title: AppLocalizations.of(context)!.myProductsTitle,
                     isSelected: selectedIndex == 1,
                     selectedIcon: AppIcons.plusSelected,
                     icon: AppIcons.plus,

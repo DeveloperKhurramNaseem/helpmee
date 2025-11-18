@@ -727,4 +727,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get countryLabel => 'Country';
+
+  @override
+  String get selectDateTitel => 'Select date';
+
+  @override
+  String get selectDatebtnTtitle => 'Select';
+
+  @override
+  String get myProductsTitle => 'My products';
 }

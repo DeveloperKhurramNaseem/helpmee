@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/widgets/sq_app_bar.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -90,6 +91,8 @@ class _ScanQrCodeScreenState extends State<ScanQrCodeScreen> {
                   context.read<RestoreProductBloc>().add(
                     RestoreThisProductEvent(code: code),
                   );
+                }else{
+                  context.read<AddProductBloc>().add(AddNewProductEvent(code: code, device: device));
                 }
                 isScanned = true;
               }
