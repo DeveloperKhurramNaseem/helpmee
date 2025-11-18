@@ -44,6 +44,7 @@ abstract class UserRepo {
   Future<(bool, String)> restoreProduct(String code);
   Future<(bool, String, List<ProductModel>)> getProductsList();
   Future<(bool, String)> unmapProduct(String prodcutCode);
+  Future<(bool,String)> editProductName(String productName, String productId);
   Future<(bool, String)> deleteVoice();
   Future<(bool, String)> updateLocationSharingSetting(bool value);
   Future<(bool,String,List<DemoProfileModel>)> getDemoProfiles();

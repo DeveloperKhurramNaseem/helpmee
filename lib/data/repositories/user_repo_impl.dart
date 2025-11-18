@@ -267,4 +267,12 @@ class UserRepoImpl extends UserRepo {
     var result = await userService.activateProduct(code, device, token, lang);    
     return result;
   }
+  
+  @override
+  Future<(bool, String)> editProductName(String productName, String productId) async {
+     var lang = storageService.getLanguage();
+    var token = await tokenService.getToken();
+    var result = await userService.editProductName(productName, productId ,token, lang);    
+    return result;
+  }
 }

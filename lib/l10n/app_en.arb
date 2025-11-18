@@ -367,7 +367,15 @@
 "selectDateTitel" : "Select date",
 "selectDatebtnTtitle" : "Select",
 "addProduct" : "Add product",
-"myProductsTitle" : "My products"
+"myProductsTitle" : "My products",
+"productName" : "Product name:",
+"productType" : "Product type:",
+
+"serialNumber" : "Serial number:",
+
+"activationDate" : "Activation date:",
+
+"expirationDatee" : "Expiration date:"
 
 
 

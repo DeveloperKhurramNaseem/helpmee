@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,9 +30,7 @@ class ProductTile extends StatelessWidget {
   const ProductTile({super.key, required this.product});
 
   @override
-  Widget build(BuildContext context) {
-    log(product.serialNumber, name: 'serial number');
-    log(product.id.toString(), name: 'product id');
+  Widget build(BuildContext context) {    
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

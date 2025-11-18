@@ -15,6 +15,7 @@ import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/edit_name/edit_name_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
@@ -180,12 +181,13 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<GetCooperationPartnersBloc>(create: (context) => GetCooperationPartnersBloc(sl()),),
     BlocProvider<UpdateCooperationPartnerStatusBloc>(create: (context) => UpdateCooperationPartnerStatusBloc(sl(),),),
 
-    // Hidden Features
+    // Hidden Features  
     BlocProvider<RestoreProductBloc>(create: (context) => RestoreProductBloc(sl(),),),
 
     // Profiles & Products
     BlocProvider<GetProductsBloc>(create: (context) => GetProductsBloc(sl()),),
     BlocProvider<UnmapProductBloc>(create: (context) => UnmapProductBloc(sl()),),
+    BlocProvider<EditNameBloc>(create: (context) => EditNameBloc(sl())),
 
     // Demo profiles
     BlocProvider<GetDemoProfilesBloc>(create: (context) => GetDemoProfilesBloc(sl()),),

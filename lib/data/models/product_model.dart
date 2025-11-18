@@ -38,7 +38,7 @@ class ProductModel {
       productType: json[productTypeKey] ?? '',
       activatedOn: json[activatedOnKey] ?? '',
       expiresOn: json[expiresOnKey] ?? '',
-      lastScannedOn: json[lastScannedOnKey] ?? '',
+      lastScannedOn: json[lastScannedOnKey] ?? DateTime.now().toIso8601String(),
       lastScannedAt: json[lastScannedAtKey] ?? '',
       productImage: json[productImageKey] ?? '',
     );

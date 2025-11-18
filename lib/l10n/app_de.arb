@@ -360,7 +360,15 @@
 "selectDateTitel" : "Datum auswählen",
 "selectDatebtnTtitle" : "Auswählen",
 "addProduct" : "Produkt hinzufügen",
-"myProductsTitle" : "Meine Produkte"
+"myProductsTitle" : "Meine Produkte",
+"productName" : "Produkt-Name:",
+"productType" : "Produkt-Typ:",
+
+"serialNumber" : "Seriennummer:",
+
+"activationDate" : "Aktivierungsdatum:",
+
+"expirationDatee" : "Ablaufdatum:"
 
 
 

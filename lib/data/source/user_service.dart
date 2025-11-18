@@ -91,6 +91,24 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
+  Future<(bool, String)> editProductName(
+    String productName,
+    String productId,
+    String token,
+    String language,
+  ) async {
+    var result = await post(
+      EndPoints.updateProductName,
+      {"device_name": productName, "device_id": productId},
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
   Future<(bool, NotificationSettingModel)> getNotificationSetting(
     String token,
     String language,
@@ -321,11 +339,11 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-/*************  ✨ Windsurf Command ⭐  *************/
+  /*************  ✨ Windsurf Command ⭐  *************/
   /// Delete the user's voice note from the server.
   ///
 
-/*******  9e6a0b2b-6b3e-4583-8c9a-565929a2fd99  *******/
+  /*******  9e6a0b2b-6b3e-4583-8c9a-565929a2fd99  *******/
   Future<(bool, String)> deleteVoice(String token, String language) async {
     var result = await delete(
       EndPoints.deleteVoice,
@@ -345,7 +363,7 @@ class UserService extends ApiService {
   ) async {
     var result = await post(
       EndPoints.locationSharingSetting,
-      {'location_sharing' : '$sharing'},
+      {'location_sharing': '$sharing'},
       header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
@@ -355,34 +373,43 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-    Future<(bool, String, List<DemoProfileModel>)> getDemoProfiles(String token, String language) async {
-      var result = await get(
-        endPoint: EndPoints.getDemoProfiles,
-        header: NetworkConstants.getHeaders(language, token),
-      );
-      if (result != null) {
-        final decodedResponse = decodeResponse(result);
-        return (
-          decodedResponse.success,
-          decodedResponse.message,
-          (decodedResponse.data['users'] as List)
-              .map((e) => DemoProfileModel.fromMap(e))
-              .toList(),
-        );
-      }
-      return (false, ErrorConstants.errorMessage, <DemoProfileModel>[]);
-    }
-
-    Future<(bool,String,AppUserModel?)> transferData(String token, String language, String userName) async{
-      var result = await post(
-      EndPoints.transferData,
-      {'username' : userName},
+  Future<(bool, String, List<DemoProfileModel>)> getDemoProfiles(
+    String token,
+    String language,
+  ) async {
+    var result = await get(
+      endPoint: EndPoints.getDemoProfiles,
       header: NetworkConstants.getHeaders(language, token),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success, decodedResponse.message, AppUserModel.fromMap(decodedResponse.data));
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        (decodedResponse.data['users'] as List)
+            .map((e) => DemoProfileModel.fromMap(e))
+            .toList(),
+      );
     }
-    return (false, ErrorConstants.errorMessage,null);
+    return (false, ErrorConstants.errorMessage, <DemoProfileModel>[]);
+  }
+
+  Future<(bool, String, AppUserModel?)> transferData(
+    String token,
+    String language,
+    String userName,
+  ) async {
+    var result = await post(EndPoints.transferData, {
+      'username': userName,
+    }, header: NetworkConstants.getHeaders(language, token));
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (
+        decodedResponse.success,
+        decodedResponse.message,
+        AppUserModel.fromMap(decodedResponse.data),
+      );
     }
+    return (false, ErrorConstants.errorMessage, null);
+  }
 }

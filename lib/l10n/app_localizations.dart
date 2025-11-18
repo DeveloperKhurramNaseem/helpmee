@@ -1453,6 +1453,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My products'**
   String get myProductsTitle;
+
+  /// No description provided for @productName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name:'**
+  String get productName;
+
+  /// No description provided for @productType.
+  ///
+  /// In en, this message translates to:
+  /// **'Product type:'**
+  String get productType;
+
+  /// No description provided for @serialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial number:'**
+  String get serialNumber;
+
+  /// No description provided for @activationDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activation date:'**
+  String get activationDate;
+
+  /// No description provided for @expirationDatee.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiration date:'**
+  String get expirationDatee;
 }
 
 class _AppLocalizationsDelegate

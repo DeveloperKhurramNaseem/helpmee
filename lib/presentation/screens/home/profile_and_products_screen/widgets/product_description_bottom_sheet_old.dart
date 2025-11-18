@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/data/models/product_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/edit_name/edit_name_bloc.dart';
+import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/images.dart';
 
@@ -40,6 +43,7 @@ class _ProductDescriptionBottomSheetOldState
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return Padding(
       padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
       child: Padding(
@@ -84,11 +88,11 @@ class _ProductDescriptionBottomSheetOldState
                       spacing: 7,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        TitleText(title: 'Product Name:'),
-                        TitleText(title: 'Product Type:'),
-                        TitleText(title: 'Serial Number:'),
-                        TitleText(title: 'Activation Date:'),
-                        // TitleText(title: 'Expiration Date:'),
+                        TitleText(title: localization.productName),
+                        TitleText(title: localization.productType),
+                        TitleText(title: localization.serialNumber),
+                        TitleText(title: localization.activationDate),
+                        // TitleText(title: localization.expirationDatee),
                       ],
                     ),
                     Expanded(
@@ -114,6 +118,15 @@ class _ProductDescriptionBottomSheetOldState
                                       isEditable = !isEditable;
                                       if (isEditable) {
                                         focusNode.requestFocus();
+                                      } else {
+                                        context.read<EditNameBloc>().add(
+                                          EditProductNameEvent(
+                                            productName: controller.text.trim(),
+                                            productId: widget
+                                                .productModel
+                                                .serialNumber,
+                                          ),
+                                        );
                                       }
                                     });
                                   },
@@ -122,6 +135,7 @@ class _ProductDescriptionBottomSheetOldState
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(
                                         horizontal: 12,
+                                        vertical: 5,
                                       ),
                                       child: SvgPicture.asset(
                                         color: Colors.black,
@@ -134,9 +148,17 @@ class _ProductDescriptionBottomSheetOldState
                                 ),
                               ],
                             ),
-                            MessageText(message: 'Sticker'),
-                            MessageText(message: '763692E75E779'),
-                            MessageText(message: 'May 1, 2025'),
+                            MessageText(
+                              message: widget.productModel.productType,
+                            ),
+                            MessageText(
+                              message: widget.productModel.serialNumber,
+                            ),
+                            MessageText(
+                              message: DateFormatting.formatDateForTextField(
+                                DateTime.parse(widget.productModel.activatedOn),
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -145,7 +167,7 @@ class _ProductDescriptionBottomSheetOldState
                 ),
               ),
             ),
-            BottomSheetBottomText(),
+            BottomSheetBottomText(productModel: widget.productModel),
           ],
         ),
       ),
@@ -244,14 +266,18 @@ class MessageTextField extends StatelessWidget {
 }
 
 class BottomSheetBottomText extends StatelessWidget {
-  const BottomSheetBottomText({super.key});
+  final ProductModel productModel;
+  const BottomSheetBottomText({super.key, required this.productModel});
 
   @override
   Widget build(BuildContext context) {
+    DateTime date = productModel.lastScannedOn.isEmpty
+        ? DateTime.now()
+        : DateTime.parse(productModel.lastScannedOn);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
       child: Text(
-        'This product was last sanned on July 22, 2024 3:15 pm at Gulberg Greens, Islamabad',
+        'This product was last scanned on ${DateFormatting.formatDateForTextField(date)} ${DateFormatting.formatTimeForTextField(date)} at ${productModel.lastScannedAt}',
         textAlign: TextAlign.center,
         style: TextStyle(color: Color.fromRGBO(0, 0, 0, 0.42), fontSize: 11),
       ),

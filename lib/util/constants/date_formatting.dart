@@ -28,4 +28,11 @@ class DateFormatting {
         ? DateFormat('MMMM dd, yyyy').format(dateTime)
         : DateFormat('dd.MM.yyyy', 'de_DE').format(dateTime);
   }
+
+  static String formatTimeForTextField(DateTime dateTime) {
+    var lang = sl<StorageService>().getLanguage();
+    return lang == 'en'
+        ? DateFormat('hh:mm a').format(dateTime)
+        : DateFormat('HH:mm', 'de_DE').format(dateTime);
+  }
 }

@@ -736,4 +736,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myProductsTitle => 'My products';
+
+  @override
+  String get productName => 'Product name:';
+
+  @override
+  String get productType => 'Product type:';
+
+  @override
+  String get serialNumber => 'Serial number:';
+
+  @override
+  String get activationDate => 'Activation date:';
+
+  @override
+  String get expirationDatee => 'Expiration date:';
 }
