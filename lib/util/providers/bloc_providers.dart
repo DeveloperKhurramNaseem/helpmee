@@ -10,6 +10,7 @@ import 'package:help_mee/presentation/blocs/hidden_features/get_demo_profiles/ge
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/transfer_data/transfer_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/get_user_profile/get_user_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
@@ -20,6 +21,7 @@ import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/g
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/delete_voice/delete_voice_bloc.dart';
@@ -65,6 +67,7 @@ List<BlocProvider> getUniversalBlocProviders() {
       create: (context) =>
           LanguageBloc(LanguageState(LocalizationUtil.locales[key]!), sl()),
     ),
+    BlocProvider<GetUserProfileBloc>(create: (context) => GetUserProfileBloc(sl()))
   ];
 }
 
@@ -192,6 +195,8 @@ List<BlocProvider> getUserProfileBlocProviders() {
     // Demo profiles
     BlocProvider<GetDemoProfilesBloc>(create: (context) => GetDemoProfilesBloc(sl()),),
     BlocProvider<TransferDataBloc>(create: (context) => TransferDataBloc(sl())),
+
+    BlocProvider<SwitchAccountBloc>(create: (context) => SwitchAccountBloc(sl())),
     
   ];
 }

@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/record_audio_sheet/widgets/ra_recording_player_widget.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/painter/waveform_painter.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -246,7 +247,7 @@ class RecordingInitialWidget extends StatelessWidget {
         !recording
             ? Padding(
                 padding: const EdgeInsets.only(left: 6.0),
-                child: Text('Press microphone to record audio'),
+                child: Text(AppLocalizations.of(context)!.holdMiroPhoneTitle),
               )
             : Expanded(
                 child: Row(

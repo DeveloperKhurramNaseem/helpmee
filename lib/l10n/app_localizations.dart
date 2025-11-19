@@ -1483,6 +1483,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expiration date:'**
   String get expirationDatee;
+
+  /// No description provided for @holdMiroPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Press & hold microphone to record'**
+  String get holdMiroPhoneTitle;
+
+  /// No description provided for @addAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add account'**
+  String get addAccountButton;
+
+  /// No description provided for @signInToExistingAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In to existing account'**
+  String get signInToExistingAccount;
+
+  /// No description provided for @createWithNewEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Create with new email'**
+  String get createWithNewEmail;
 }
 
 class _AppLocalizationsDelegate

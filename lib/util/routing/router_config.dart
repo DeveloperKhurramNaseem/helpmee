@@ -6,8 +6,10 @@ import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_
 import 'package:help_mee/presentation/screens/auth/forgot_password_screen/forgot_password_screen.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/home/profile_and_products_screen/products_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
+import 'package:help_mee/presentation/screens/settings/app_settings_screen/settings_screen.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
@@ -29,8 +31,10 @@ class Routing {
     routes: [
       GoRoute(
         path: Dashboard.path,
-        builder: (context, state) =>
-            Dashboard(showNameSheet: (state.extra as bool?) ?? false),
+        builder: (context, state) {
+          var [showNameSheet , callProfile] = ((state.extra ?? [false,false]) as List);
+          return Dashboard(showNameSheet: showNameSheet , callProfile: callProfile,);
+        },
       ),
       GoRoute(
         path: SignInScreen.path,
@@ -79,6 +83,8 @@ class Routing {
         builder: (context, state) =>
             EditProfileScreen(profileType: (state.extra ?? ProfileType.personal) as ProfileType),
       ),
+      GoRoute(path: SettingsScreen.path , builder: (context, state) => SettingsScreen()),
+      GoRoute(path: ProductsScreen.path , builder: (context, state) => ProductsScreen(),),
     ],
   );
 }

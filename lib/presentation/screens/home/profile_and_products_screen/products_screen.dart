@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/screens/home/profile_and_products_screen/w
 import 'package:help_mee/util/constants/app_size.dart';
 
 class ProductsScreen extends StatefulWidget {
+  static const path = '/products-screen';
   const ProductsScreen({super.key});
 
   @override

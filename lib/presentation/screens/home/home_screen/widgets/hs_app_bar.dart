@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/settings_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -40,9 +41,8 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => SettingsScreen()),
-                      );
+                      context.push(SettingsScreen.path);
+
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),

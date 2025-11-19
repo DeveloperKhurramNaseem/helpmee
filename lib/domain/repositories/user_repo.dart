@@ -1,7 +1,9 @@
+import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/domain/entities/notification_data.dart';
 import 'package:help_mee/domain/entities/notification_setting.dart';
 import 'package:help_mee/domain/entities/pin_data.dart';
@@ -49,5 +51,7 @@ abstract class UserRepo {
   Future<(bool, String)> updateLocationSharingSetting(bool value);
   Future<(bool,String,List<DemoProfileModel>)> getDemoProfiles();
   Future<(bool, String)> transferData(String userName);
+  Future<(bool, AppDataModel)> getUserProfile();
+  Future<SigninResponse> switchAccount(int accountId);
 
 }

@@ -751,4 +751,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expirationDatee => 'Expiration date:';
+
+  @override
+  String get holdMiroPhoneTitle => 'Press & hold microphone to record';
+
+  @override
+  String get addAccountButton => 'Add account';
+
+  @override
+  String get signInToExistingAccount => 'Sign In to existing account';
+
+  @override
+  String get createWithNewEmail => 'Create with new email';
 }

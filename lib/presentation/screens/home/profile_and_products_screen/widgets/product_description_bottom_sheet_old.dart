@@ -149,7 +149,7 @@ class _ProductDescriptionBottomSheetOldState
                                       child: Padding(
                                         padding: const EdgeInsets.symmetric(
                                           horizontal: 12,
-                                          vertical: 5,
+                                          // vertical: 5,
                                         ),
                                         child: SvgPicture.asset(
                                           color: Colors.black,
@@ -192,9 +192,11 @@ class _ProductDescriptionBottomSheetOldState
   }
 
   void editNameListener(BuildContext context, EditNameState state) {
-    if(state is EditNameLoadedState){
+    if (state is EditNameLoadedState) {
       Navigator.of(context).pop();
-      context.read<GetProductsBloc>().add(GetAllProductsEvent(showLoading: false));
+      context.read<GetProductsBloc>().add(
+        GetAllProductsEvent(showLoading: false),
+      );
     }
   }
 }

@@ -7,6 +7,7 @@ import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
+import 'package:help_mee/presentation/screens/home/profile_and_products_screen/products_screen.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/delete_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/switch_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
@@ -26,6 +27,7 @@ import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class SettingsScreen extends StatefulWidget {
+  static const path = '/settings-screen';
   const SettingsScreen({super.key});
 
   @override
@@ -63,9 +65,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               category: AppLocalizations.of(context)!.productsAndServices,
             ),
             SettingsBaseTile(
-              titleText: 'Products & Profiles',
+              titleText: AppLocalizations.of(context)!.myProductsTitle,
               image: AppIcons.plusSettings,
-              onTap: () {},
+              onTap: () {
+                context.push(ProductsScreen.path);
+              },
             ),
             SettingsBaseTile(
               titleText: AppLocalizations.of(

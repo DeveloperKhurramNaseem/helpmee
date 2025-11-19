@@ -18,6 +18,7 @@ class EndPoints {
   static const deleteAccount = '/delete-user-account';
   static const changePassword = '/change-password';
   static const resendOtp = '/send_otp';
+  static const userProfile = '/user_profile';
 
   // User Profile Endpoints
   static const getUserProfile = '/get-edit-profile-data';
@@ -66,5 +67,6 @@ class EndPoints {
   static const unmapProduct = '/unmap-device';
   static const getDemoProfiles = '/get-demo-profiles';
   static const transferData = '/influencerProfileDataTransferTransition';
+  static const switchAccount = '/switch-account';
   
 }

@@ -375,7 +375,12 @@
 
 "activationDate" : "Activation date:",
 
-"expirationDatee" : "Expiration date:"
+"expirationDatee" : "Expiration date:",
+"holdMiroPhoneTitle" : "Press & hold microphone to record",
+"switchAccountOrAddProfile" : "Add / switch profile",
+"addAccountButton" : "Add account",
+"signInToExistingAccount" : "Sign In to existing account",
+"createWithNewEmail" : "Create with new email"
 
 
 

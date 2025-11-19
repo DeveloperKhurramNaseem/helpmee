@@ -21,7 +21,7 @@ class AuthRepoImpl extends AuthRepo {
     if (result.activatedProducts != 0) {
       await tokenService.saveToken(result.data.accessToken.accessToken);
     }
-    await storageService.saveUser(result.user);
+    await storageService.saveUser(result.user);    
     return result;
   }
 

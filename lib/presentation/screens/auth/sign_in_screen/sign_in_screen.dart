@@ -137,7 +137,7 @@ class _SignInScreenState extends State<SignInScreen> {
   void _handleSignInBlocListener(BuildContext context, SigninState state) {
     if (state is SigninLoadedState) {
       if (state.activatedProducts != 0) {
-        context.go(Dashboard.path);
+        context.go(Dashboard.path , extra: [false, true]);
       } else {
         m.showModalBottomSheet(
           context: context,

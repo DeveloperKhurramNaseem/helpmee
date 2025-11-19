@@ -71,7 +71,7 @@ class CongratulationsSheet extends StatelessWidget {
                 if (isDismissible) {
                   context.pop();
                 } else {
-                  context.go(Dashboard.path, extra: true);
+                  context.go(Dashboard.path, extra: [true , true]);
                 }
               },
               gradient: Theme.of(

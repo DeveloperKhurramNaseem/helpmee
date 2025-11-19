@@ -1,3 +1,7 @@
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/demo_profile_model.dart';
@@ -5,6 +9,7 @@ import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:help_mee/util/network/end_points.dart';
@@ -411,5 +416,40 @@ class UserService extends ApiService {
       );
     }
     return (false, ErrorConstants.errorMessage, null);
+  }
+
+  Future<(bool, AppDataModel)> getUserProfile(
+    String token,
+    String language,
+  ) async {
+    var result = await get(
+      endPoint: EndPoints.userProfile,
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      log('User data : ${decodedResponse.data}');
+      return (
+        decodedResponse.success,
+        AppDataModel.fromMap(decodedResponse.data),
+      );
+    }
+    return (false, AppDataModel(user: AppUserModel()));
+  }
+
+  Future<SigninResponse> switchAccount(
+    int accountId,
+    String token,
+    String lang,
+  ) async {
+    var result = await post(EndPoints.switchAccount, {
+      'id': accountId.toString(),
+    }, header: NetworkConstants.getHeaders(lang, token));
+    if (result != null) {
+      log(result , name: 'Switch Account response');
+      final decodedResponse = jsonDecode(result);
+      return SigninResponse.fromMap(decodedResponse);
+    }
+    return SigninResponse.empty(ErrorConstants.errorMessage);
   }
 }

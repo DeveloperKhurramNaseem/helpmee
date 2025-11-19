@@ -1,9 +1,12 @@
+import 'package:help_mee/data/models/app_data_model.dart';
+import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_service.dart';
@@ -207,13 +210,13 @@ class UserRepoImpl extends UserRepo {
   }
 
   @override
-  Future<(bool, String, List<ProductModel>)> getProductsList() async{
+  Future<(bool, String, List<ProductModel>)> getProductsList() async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
 
     return await userService.getProductsList(token, lang);
   }
-  
+
   @override
   Future<(bool, String)> unmapProduct(String prodcutCode) async {
     var token = await tokenService.getToken();
@@ -221,21 +224,21 @@ class UserRepoImpl extends UserRepo {
 
     return await userService.unmapProduct(token, lang, prodcutCode);
   }
-  
+
   @override
-  Future<(bool, String)> deleteVoice() async{
+  Future<(bool, String)> deleteVoice() async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
 
     return await userService.deleteVoice(token, lang);
   }
-  
+
   @override
-  Future<(bool, String)> updateLocationSharingSetting(bool value) async{
+  Future<(bool, String)> updateLocationSharingSetting(bool value) async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
 
-    return await userService.updateLocationSharingSetting(token, lang,value );
+    return await userService.updateLocationSharingSetting(token, lang, value);
   }
 
   @override
@@ -245,34 +248,66 @@ class UserRepoImpl extends UserRepo {
 
     return await userService.getDemoProfiles(token, lang);
   }
-  
+
   @override
   Future<(bool, String)> transferData(String userName) async {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
 
     var result = await userService.transferData(token, lang, userName);
-    if(result.$1){
-      if(result.$3 != null){
+    if (result.$1) {
+      if (result.$3 != null) {
         storageService.saveUser(result.$3!);
-      }      
+      }
     }
-    return (result.$1 , result.$2);
+    return (result.$1, result.$2);
   }
-  
+
   @override
   Future<(bool, String)> addProduct(String code, String device) async {
     var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
-    var result = await userService.activateProduct(code, device, token, lang);    
+    var result = await userService.activateProduct(code, device, token, lang);
     return result;
   }
-  
+
   @override
-  Future<(bool, String)> editProductName(String productName, String productId) async {
-     var lang = storageService.getLanguage();
+  Future<(bool, String)> editProductName(
+    String productName,
+    String productId,
+  ) async {
+    var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
-    var result = await userService.editProductName(productName, productId ,token, lang);    
+    var result = await userService.editProductName(
+      productName,
+      productId,
+      token,
+      lang,
+    );
+    return result;
+  }
+
+  @override
+  Future<(bool, AppDataModel)> getUserProfile() async {
+    var lang = storageService.getLanguage();
+    var token = await tokenService.getToken();
+    var result = await userService.getUserProfile(token, lang);
+    var user = storageService.getUser();
+    var childAccounts = [
+      user,
+      ...(result.$2.childAccounts ?? <AppUserModel>[]),
+    ];
+    await storageService.saveChildAccounts(childAccounts);
+    return result;
+  }
+
+  @override
+  Future<SigninResponse> switchAccount(int accountId) async {
+    var token = await tokenService.getToken();
+    var lang = storageService.getLanguage();
+    var result = await userService.switchAccount(accountId, token, lang);
+    await tokenService.saveToken(result.data.accessToken.accessToken);   
+    await storageService.saveUser(result.user); 
     return result;
   }
 }

@@ -368,7 +368,12 @@
 
 "activationDate" : "Aktivierungsdatum:",
 
-"expirationDatee" : "Ablaufdatum:"
+"expirationDatee" : "Ablaufdatum:",
+"holdMiroPhoneTitle" : "Mikrofon zum Aufzeichnen gedrückt halten",
+"switchAccountOrAddProfile" : "Profil wechseln / hinzufügen",
+"addAccountButton" : "Benutzerkonto hinzufügen",
+"signInToExistingAccount" : "In existierendes Benutzerkonto einloggen",
+"createWithNewEmail" : "Mit neuer Email erstellen"
 
 
 

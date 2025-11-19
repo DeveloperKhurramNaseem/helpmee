@@ -755,4 +755,17 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get expirationDatee => 'Ablaufdatum:';
+
+  @override
+  String get holdMiroPhoneTitle => 'Mikrofon zum Aufzeichnen gedrückt halten';
+
+  @override
+  String get addAccountButton => 'Benutzerkonto hinzufügen';
+
+  @override
+  String get signInToExistingAccount =>
+      'In existierendes Benutzerkonto einloggen';
+
+  @override
+  String get createWithNewEmail => 'Mit neuer Email erstellen';
 }

@@ -1,58 +1,95 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:help_mee/data/models/app_user_model.dart';
+import 'package:help_mee/data/source/storage_service.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/add_account_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/dependencies/init.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class SwitchProfileBottomSheet extends StatelessWidget {
   const SwitchProfileBottomSheet({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-      child: Wrap(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 10.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Add/Switch Account',
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                ),
-              ],
+    var localization = AppLocalizations.of(context)!;
+    var childAccounts = sl<StorageService>().getChildAccounts();
+    return BlocListener<SwitchAccountBloc, SwitchAccountState>(
+      listener: _handleSwitchAccountBloc,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    localization.switchAccountOrAddProfile,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                  ),
+                ],
+              ),
             ),
-          ),
-          ProfileTile(
-            name: 'Aleesha',
-            email: 'aleesha@yopmail.com',
-            imagePath: '',
-            onTap: () {},
-          ),
-          AddProfileTile(title: 'Add Account', onTap: () {}),
-        ],
+            for (var child in childAccounts) ProfileTile(child: child),
+            AddProfileTile(
+              title: localization.addAccountButton,
+              onTap: () {
+                m.showModalBottomSheet(
+                  context: context,
+                  showDragHandle: true,
+                  isScrollControlled: true,
+                  builder: (context) {
+                    return AddAccountBottomSheet();
+                  },
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _handleSwitchAccountBloc(
+    BuildContext context,
+    SwitchAccountState state,
+  ) {
+    if (state is SwitchAccountLoadedState) {
+      context.pop();
+      context.go(Dashboard.path, extra: [false, false]);
+      context.read<LatestNotificationsBloc>().add(
+        GetLatestNotificationsEvent(),
+      );
+      context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent());
+      context.read<GetProductsBloc>().add(GetAllProductsEvent());
+    }
   }
 }
 
 class ProfileTile extends StatelessWidget {
-  final String name, email, imagePath;
-  final void Function() onTap;
-  const ProfileTile({
-    super.key,
-    required this.name,
-    required this.email,
-    required this.imagePath,
-    required this.onTap,
-  });
+  final AppUserModel child;
+  const ProfileTile({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: () {
+        context.read<SwitchAccountBloc>().add(
+          SwitchIntoNewAccountEvent(child.id ?? 0),
+        );
+      },
       child: Container(
         height: AppSize.instance.height * 0.065,
         decoration: BoxDecoration(
@@ -64,7 +101,12 @@ class ProfileTile extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 6),
         child: Row(
           children: [
-            CircleAvatar(),
+            CircleAvatar(
+              backgroundColor: Colors.transparent,
+              backgroundImage: child.logo == null || child.logo!.isEmpty
+                  ? AssetImage(AppImages.placeHolderPerson)
+                  : NetworkImage(child.logo!),
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(left: 10.0),
@@ -73,13 +115,13 @@ class ProfileTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      name,
+                      '${child.firstName ?? ''} ${child.lastName ?? ''}',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      email,
+                      child.email ?? '',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -91,11 +133,12 @@ class ProfileTile extends StatelessWidget {
                 ),
               ),
             ),
-            Icon(
-              Icons.check_circle,
-              color: Theme.of(context).colorScheme.primary,
-              size: 23,
-            ),
+            if (child.id == sl<StorageService>().getUser().id)
+              Icon(
+                Icons.check_circle,
+                color: Theme.of(context).colorScheme.primary,
+                size: 23,
+              ),
           ],
         ),
       ),

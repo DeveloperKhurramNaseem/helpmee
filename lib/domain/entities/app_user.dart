@@ -1,3 +1,5 @@
+
+
 class AppUser { 
 
   int? id;
@@ -151,5 +153,5 @@ class AppUser {
     this.createdAt,
     this.updatedAt,
     this.profileImage,
-    this.profileBanner,});
+    this.profileBanner});
 }
