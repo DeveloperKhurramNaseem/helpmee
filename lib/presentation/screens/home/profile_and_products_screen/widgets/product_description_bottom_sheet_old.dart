@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/data/models/product_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/edit_name/edit_name_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/util/constants/date_formatting.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/images.dart';
@@ -44,134 +45,157 @@ class _ProductDescriptionBottomSheetOldState
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context)!;
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.viewInsetsOf(context).bottom),
+    return BlocListener<EditNameBloc, EditNameState>(
+      listener: editNameListener,
       child: Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-        child: Wrap(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.productDescription,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: [
-                Spacer(flex: 30),
-                Expanded(flex: 40, child: Image.asset(AppImages.productImage)),
-                Spacer(flex: 30),
-              ],
-            ),
-            Card(
-              elevation: 0,
-              child: Container(
-                margin: EdgeInsets.all(12),
-                padding: EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(249, 249, 249, 0.55),
-                  borderRadius: BorderRadius.circular(10),
-                  border: Border.all(
-                    color: Color.fromRGBO(237, 237, 237, 1),
-                    width: 1,
-                  ),
-                ),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.viewInsetsOf(context).bottom,
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).padding.bottom,
+          ),
+          child: Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Column(
-                      spacing: 7,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TitleText(title: localization.productName),
-                        TitleText(title: localization.productType),
-                        TitleText(title: localization.serialNumber),
-                        TitleText(title: localization.activationDate),
-                        // TitleText(title: localization.expirationDatee),
-                      ],
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.only(left: 5.0),
-                        child: Column(
-                          spacing: 7,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: MessageTextField(
-                                    controller: controller,
-                                    isEditable: isEditable,
-                                    focusNode: focusNode,
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      isEditable = !isEditable;
-                                      if (isEditable) {
-                                        focusNode.requestFocus();
-                                      } else {
-                                        context.read<EditNameBloc>().add(
-                                          EditProductNameEvent(
-                                            productName: controller.text.trim(),
-                                            productId: widget
-                                                .productModel
-                                                .serialNumber,
-                                          ),
-                                        );
-                                      }
-                                    });
-                                  },
-                                  child: ColoredBox(
-                                    color: Colors.transparent,
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 12,
-                                        vertical: 5,
-                                      ),
-                                      child: SvgPicture.asset(
-                                        color: Colors.black,
-                                        isEditable
-                                            ? AppIcons.tickIcon
-                                            : AppIcons.edit,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            MessageText(
-                              message: widget.productModel.productType,
-                            ),
-                            MessageText(
-                              message: widget.productModel.serialNumber,
-                            ),
-                            MessageText(
-                              message: DateFormatting.formatDateForTextField(
-                                DateTime.parse(widget.productModel.activatedOn),
-                              ),
-                            ),
-                          ],
-                        ),
+                    Text(
+                      AppLocalizations.of(context)!.productDescription,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            BottomSheetBottomText(productModel: widget.productModel),
-          ],
+              Row(
+                children: [
+                  Spacer(flex: 30),
+                  Expanded(
+                    flex: 40,
+                    child: Image.asset(AppImages.productImage),
+                  ),
+                  Spacer(flex: 30),
+                ],
+              ),
+              Card(
+                elevation: 0,
+                child: Container(
+                  margin: EdgeInsets.all(12),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Color.fromRGBO(249, 249, 249, 0.55),
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(
+                      color: Color.fromRGBO(237, 237, 237, 1),
+                      width: 1,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      Column(
+                        spacing: 7,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TitleText(title: localization.productName),
+                          TitleText(title: localization.productType),
+                          TitleText(title: localization.serialNumber),
+                          TitleText(title: localization.activationDate),
+                          // TitleText(title: localization.expirationDatee),
+                        ],
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(left: 5.0),
+                          child: Column(
+                            spacing: 7,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Expanded(
+                                    child: MessageTextField(
+                                      controller: controller,
+                                      isEditable: isEditable,
+                                      focusNode: focusNode,
+                                    ),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isEditable = !isEditable;
+                                        if (isEditable) {
+                                          focusNode.requestFocus();
+                                        } else {
+                                          context.read<EditNameBloc>().add(
+                                            EditProductNameEvent(
+                                              productName: controller.text
+                                                  .trim(),
+                                              productId: widget.productModel.id
+                                                  .toString(),
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    },
+                                    child: ColoredBox(
+                                      color: Colors.transparent,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 5,
+                                        ),
+                                        child: SvgPicture.asset(
+                                          color: Colors.black,
+                                          isEditable
+                                              ? AppIcons.tickIcon
+                                              : AppIcons.edit,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              MessageText(
+                                message: widget.productModel.productType,
+                              ),
+                              MessageText(
+                                message: widget.productModel.serialNumber,
+                              ),
+                              MessageText(
+                                message: DateFormatting.formatDateForTextField(
+                                  DateTime.parse(
+                                    widget.productModel.activatedOn,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              // BottomSheetBottomText(productModel: widget.productModel),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  void editNameListener(BuildContext context, EditNameState state) {
+    if(state is EditNameLoadedState){
+      Navigator.of(context).pop();
+      context.read<GetProductsBloc>().add(GetAllProductsEvent(showLoading: false));
+    }
   }
 }
 
