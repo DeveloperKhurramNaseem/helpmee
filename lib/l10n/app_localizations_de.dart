@@ -768,4 +768,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get createWithNewEmail => 'Mit neuer Email erstellen';
+
+  @override
+  String get buyHelpMeeProductLink => 'https://help-mee.com/collections/all';
 }

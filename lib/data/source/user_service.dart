@@ -344,11 +344,6 @@ class UserService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-  /*************  ✨ Windsurf Command ⭐  *************/
-  /// Delete the user's voice note from the server.
-  ///
-
-  /*******  9e6a0b2b-6b3e-4583-8c9a-565929a2fd99  *******/
   Future<(bool, String)> deleteVoice(String token, String language) async {
     var result = await delete(
       EndPoints.deleteVoice,
@@ -452,4 +447,15 @@ class UserService extends ApiService {
     }
     return SigninResponse.empty(ErrorConstants.errorMessage);
   }
+
+    Future<SigninResponse> makeChildWithExistingEmail(String code, String token, String lang) async{
+      var result = await post(EndPoints.makeChildWithExistingEmail, {
+        'code': code,
+      }, header: NetworkConstants.getHeaders(lang, token));
+      if (result != null) {
+        final decodedResponse = jsonDecode(result);
+        return SigninResponse.fromMap(decodedResponse);
+      }
+      return SigninResponse.empty(ErrorConstants.errorMessage);
+    } 
 }

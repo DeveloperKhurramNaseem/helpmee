@@ -68,5 +68,6 @@ class EndPoints {
   static const getDemoProfiles = '/get-demo-profiles';
   static const transferData = '/influencerProfileDataTransferTransition';
   static const switchAccount = '/switch-account';
+  static const makeChildWithExistingEmail = '/make_child_with_existing_email';
   
 }

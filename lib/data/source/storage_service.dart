@@ -36,4 +36,8 @@ class StorageService {
   Future<void> saveLanguage(String language) async {
     await sharedPreferences.setString(langKey, language);
   }
+
+  Future<void> clearData() async{
+    await sharedPreferences.clear();
+  }
 }

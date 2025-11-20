@@ -53,5 +53,6 @@ abstract class UserRepo {
   Future<(bool, String)> transferData(String userName);
   Future<(bool, AppDataModel)> getUserProfile();
   Future<SigninResponse> switchAccount(int accountId);
+  Future<SigninResponse> makeChildWithExistingEmail(String code);
 
 }

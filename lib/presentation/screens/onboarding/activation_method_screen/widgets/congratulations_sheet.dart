@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gif_view/gif_view.dart';
-import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/gifs.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class CongratulationsSheet extends StatelessWidget {
-  final bool isDismissible;
   final String productType;
+  final void Function() onContiuePressed;
   const CongratulationsSheet({
     super.key,
-    required this.isDismissible,
     required this.productType,
+    required this.onContiuePressed
   });
 
   @override
@@ -67,13 +65,7 @@ class CongratulationsSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: AppButton(
-              onPressed: () {
-                if (isDismissible) {
-                  context.pop();
-                } else {
-                  context.go(Dashboard.path, extra: [true , true]);
-                }
-              },
+              onPressed: onContiuePressed,
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,

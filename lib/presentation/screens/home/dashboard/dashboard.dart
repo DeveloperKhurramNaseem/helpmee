@@ -41,8 +41,12 @@ class _DashboardState extends State<Dashboard> {
     context.read<GetProductsBloc>().add(GetAllProductsEvent());
     if(widget.callProfile){
       context.read<GetUserProfileBloc>().add(GetUserProfileEvent());
-    }    
-    
+    }        
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     if (widget.showNameSheet) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         m.showModalBottomSheet(

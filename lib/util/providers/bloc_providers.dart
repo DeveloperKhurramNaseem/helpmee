@@ -21,6 +21,7 @@ import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/g
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/make_child_with_existing_email/make_child_with_existing_email_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/update_notification_setting/update_notification_setting_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/change_password/change_password_bloc.dart';
@@ -197,6 +198,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<TransferDataBloc>(create: (context) => TransferDataBloc(sl())),
 
     BlocProvider<SwitchAccountBloc>(create: (context) => SwitchAccountBloc(sl())),
+    BlocProvider<MakeChildWithExistingEmailBloc>(create: (context) => MakeChildWithExistingEmailBloc(sl())),
     
   ];
 }

@@ -763,4 +763,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createWithNewEmail => 'Create with new email';
+
+  @override
+  String get buyHelpMeeProductLink => 'https://help-mee.com/collections/all';
 }

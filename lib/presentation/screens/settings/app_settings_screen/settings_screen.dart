@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
@@ -217,6 +218,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: AppLocalizations.of(context)!.signOutLabel,
               image: AppIcons.signOutIcon,
               onTap: () {
+                sl<StorageService>().clearData();
                 sl<TokenService>().saveToken('').then((_) {
                   context.go(SignInScreen.path);
                 });
@@ -250,6 +252,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     DeleteProfileState state,
   ) {
     if (state is DeleteProfileDoneState) {
+      sl<StorageService>().clearData();
       sl<TokenService>().saveToken('').then((_) {
         context.go(SignInScreen.path);
       });

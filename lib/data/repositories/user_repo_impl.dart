@@ -310,4 +310,18 @@ class UserRepoImpl extends UserRepo {
     await storageService.saveUser(result.user); 
     return result;
   }
+  
+  @override
+  Future<SigninResponse> makeChildWithExistingEmail(String code) async {
+     var token = await tokenService.getToken();     
+    var lang = storageService.getLanguage();
+    var result = await userService.makeChildWithExistingEmail(code, token, lang);
+    await tokenService.saveToken(result.data.accessToken.accessToken);   
+    await storageService.saveUser(result.user); 
+    var childAccounts = [      
+      ...(storageService.getChildAccounts()) , result.user,
+    ];
+    await storageService.saveChildAccounts(childAccounts);
+    return result;
+  }
 }

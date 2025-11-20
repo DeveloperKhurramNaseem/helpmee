@@ -1507,6 +1507,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create with new email'**
   String get createWithNewEmail;
+
+  /// No description provided for @buyHelpMeeProductLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/collections/all'**
+  String get buyHelpMeeProductLink;
 }
 
 class _AppLocalizationsDelegate

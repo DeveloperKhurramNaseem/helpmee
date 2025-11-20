@@ -32,8 +32,12 @@ class Routing {
       GoRoute(
         path: Dashboard.path,
         builder: (context, state) {
-          var [showNameSheet , callProfile] = ((state.extra ?? [false,false]) as List);
-          return Dashboard(showNameSheet: showNameSheet , callProfile: callProfile,);
+          var [showNameSheet, callProfile] =
+              ((state.extra ?? [false, false]) as List);
+          return Dashboard(
+            showNameSheet: showNameSheet,
+            callProfile: callProfile,
+          );
         },
       ),
       GoRoute(
@@ -54,15 +58,23 @@ class Routing {
       GoRoute(
         path: ActivationMethodScreen.path,
         builder: (context, state) {
-          var (token, activationState) = state.extra as (String ,ActivationMethodState);
-          return ActivationMethodScreen(token: token , activationMethodState: activationState,);
+          var (token, activationState) =
+              state.extra as (String, ActivationMethodState);
+          return ActivationMethodScreen(
+            token: token,
+            activationMethodState: activationState,
+          );
         },
       ),
       GoRoute(
         path: ScanQrCodeScreen.path,
         builder: (context, state) {
-          var (token, activationState) = state.extra as (String ,ActivationMethodState);
-          return ScanQrCodeScreen(token: token, activationMethodState: activationState);
+          var (token, activationState) =
+              state.extra as (String, ActivationMethodState);
+          return ScanQrCodeScreen(
+            token: token,
+            activationMethodState: activationState,
+          );
         },
       ),
       GoRoute(
@@ -80,11 +92,18 @@ class Routing {
       ),
       GoRoute(
         path: EditProfileScreen.path,
-        builder: (context, state) =>
-            EditProfileScreen(profileType: (state.extra ?? ProfileType.personal) as ProfileType),
+        builder: (context, state) => EditProfileScreen(
+          profileType: (state.extra ?? ProfileType.personal) as ProfileType,
+        ),
       ),
-      GoRoute(path: SettingsScreen.path , builder: (context, state) => SettingsScreen()),
-      GoRoute(path: ProductsScreen.path , builder: (context, state) => ProductsScreen(),),
+      GoRoute(
+        path: SettingsScreen.path,
+        builder: (context, state) => SettingsScreen(),
+      ),
+      GoRoute(
+        path: ProductsScreen.path,
+        builder: (context, state) => ProductsScreen(),
+      ),
     ],
   );
 }

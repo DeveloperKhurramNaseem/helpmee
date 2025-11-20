@@ -8,7 +8,12 @@ import 'package:url_launcher/url_launcher.dart';
 
 class ProductMapBottomSheet extends StatelessWidget {
   final String token;
-  const ProductMapBottomSheet({super.key, required this.token});
+  final bool makeChildWithExistingEmail;
+  const ProductMapBottomSheet({
+    super.key,
+    required this.token,
+    this.makeChildWithExistingEmail = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,10 +42,20 @@ class ProductMapBottomSheet extends StatelessWidget {
             child: AppButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                context.push(
-                  ActivationMethodScreen.path,
-                  extra: (token, ActivationMethodState.activateFirstProduct),
-                );
+                if (makeChildWithExistingEmail) {
+                  context.push(
+                    ActivationMethodScreen.path,
+                    extra: (
+                      token,
+                      ActivationMethodState.makeChildWithExistingEmail,
+                    ),
+                  );
+                } else {
+                  context.push(
+                    ActivationMethodScreen.path,
+                    extra: (token, ActivationMethodState.activateFirstProduct),
+                  );
+                }
               },
               gradient: Theme.of(
                 context,
@@ -55,7 +70,11 @@ class ProductMapBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
             child: AppButtonOutlined(
               onPressed: () {
-                launchUrl(Uri.parse("https://help-mee.com/collections/all"));
+                launchUrl(
+                  Uri.parse(
+                    AppLocalizations.of(context)!.buyHelpMeeProductLink,
+                  ),
+                );
               },
               child: Text(
                 AppLocalizations.of(context)!.goToHelpMeeShop,

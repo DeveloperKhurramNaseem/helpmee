@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/make_child_with_existing_email/make_child_with_existing_email_bloc.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_app_bar.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_cards.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/am_support_text.dart';
@@ -18,6 +22,7 @@ enum ActivationMethodState {
   activateFirstProduct,
   activateNewProduct,
   restoreProduct,
+  makeChildWithExistingEmail,
 }
 
 class ActivationMethodScreen extends StatefulWidget {
@@ -48,7 +53,10 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         BlocListener<RestoreProductBloc, RestoreProductState>(
           listener: _handleRestoreProductBloc,
         ),
-
+        BlocListener<
+          MakeChildWithExistingEmailBloc,
+          MakeChildWithExistingEmailState
+        >(listener: _handleMakeChildWithExistingEmailBloc),
       ],
       child: Scaffold(
         appBar: AmAppBar(),
@@ -90,7 +98,15 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         showDragHandle: true,
         context: context,
         builder: (context) {
-          return PopScope(canPop: false, child: CongratulationsSheet(isDismissible: false, productType: state.device,));
+          return PopScope(
+            canPop: false,
+            child: CongratulationsSheet(
+              productType: state.device,
+              onContiuePressed: () {
+                context.go(Dashboard.path, extra: [true, true]);
+              },
+            ),
+          );
         },
       );
     } else if (state is ActivateProductErrorState) {
@@ -128,7 +144,7 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
           return ProductResetSuccess();
         },
       );
-    }else if(state is RestoreProductErrorState){
+    } else if (state is RestoreProductErrorState) {
       context.pop();
       showDialog(
         context: context,
@@ -158,7 +174,12 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
         showDragHandle: true,
         context: context,
         builder: (context) {
-          return CongratulationsSheet(isDismissible: true, productType: state.device,);
+          return CongratulationsSheet(
+            productType: state.device,
+            onContiuePressed: () {
+              context.pop();
+            },
+          );
         },
       );
     } else if (state is AddProductErrorState) {
@@ -174,6 +195,40 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
                 child: Text('Ok'),
               ),
             ],
+          );
+        },
+      );
+    }
+  }
+
+  void _handleMakeChildWithExistingEmailBloc(
+    BuildContext context,
+    MakeChildWithExistingEmailState state,
+  ) {
+    if (state is MakeChildWithExistingEmailDoneState) {
+      context.pop();
+      m.showModalBottomSheet(
+        isDismissible: false,
+        enableDrag: false,
+        isScrollControlled: true,
+        showDragHandle: true,
+        context: context,
+        builder: (context) {
+          return PopScope(
+            canPop: false,
+            child: CongratulationsSheet(
+              productType: state.device,
+              onContiuePressed: () {
+                context.read<LatestNotificationsBloc>().add(
+                  GetLatestNotificationsEvent(),
+                );
+                context.read<AllNotificationsBloc>().add(
+                  GetAllNotificationsEvent(),
+                );
+                context.read<GetProductsBloc>().add(GetAllProductsEvent());
+                context.go(Dashboard.path, extra: [true, false]);
+              },
+            ),
           );
         },
       );

@@ -1,12 +1,29 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/auth/sign_in_screen/sign_in_screen.dart';
+import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
-import 'package:help_mee/util/localication_util/localization_util.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
-class AddAccountBottomSheet extends StatelessWidget {
+class AddAccountBottomSheet extends StatefulWidget {
   const AddAccountBottomSheet({super.key});
+
+  @override
+  State<AddAccountBottomSheet> createState() => _AddAccountBottomSheetState();
+}
+
+class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
+  bool updated = false;
+
+  clearDataAndLogOut() {
+    sl<StorageService>().clearData();
+    context.go(SignInScreen.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +38,7 @@ class AddAccountBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  AppLocalizations.of(context)!.addAccountButton,
+                 AppLocalizations.of(context)!.addAccountButton,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
@@ -31,11 +48,31 @@ class AddAccountBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
             child: AppButton(
               onPressed: () {
-                
+                if (updated) {
+                  m.showModalBottomSheet(
+                    context: context,
+                    isDismissible: false,
+                    isScrollControlled: true,
+                    enableDrag: false,
+                    showDragHandle: true,
+                    builder: (context) {
+                      return PopScope(
+                        canPop: false,
+                        child: ProductMapBottomSheet(token: '' , makeChildWithExistingEmail: true,),
+                      );
+                    },
+                  );
+                } else {
+                  clearDataAndLogOut();
+                }
               },
-              gradient: Theme.of(context).extension<AppGradients>()!.primaryButton,
+              gradient: Theme.of(
+                context,
+              ).extension<AppGradients>()!.primaryButton,
               child: Text(
-                AppLocalizations.of(context)!.signInToExistingAccount,
+                 updated
+                      ? 'Create with existing email'
+                      :  AppLocalizations.of(context)!.signInToExistingAccount,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
@@ -49,10 +86,18 @@ class AddAccountBottomSheet extends StatelessWidget {
             ),
             child: AppButtonOutlined(
               onPressed: () {
-                
+                if (updated) {
+                  clearDataAndLogOut();
+                } else {
+                  setState(() {
+                    updated = true;
+                  });
+                }
               },
               child: Text(
-                AppLocalizations.of(context)!.createWithNewEmail,
+                updated
+                    ? 'Create with new email'
+                    : AppLocalizations.of(context)!.createWithNewEmail,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
