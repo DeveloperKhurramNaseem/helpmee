@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
@@ -6,6 +9,7 @@ import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/requests/feedback_info.dart';
 import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
@@ -14,12 +18,20 @@ import 'package:help_mee/domain/entities/notification_data.dart';
 import 'package:help_mee/domain/entities/notification_setting.dart';
 import 'package:help_mee/domain/entities/pin_data.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class UserRepoImpl extends UserRepo {
   final UserService userService;
   final TokenService tokenService;
   final StorageService storageService;
-  UserRepoImpl(this.userService, this.tokenService, this.storageService);
+  final DeviceInfoPlugin deviceInfoPlugin;
+
+  UserRepoImpl(
+    this.userService,
+    this.tokenService,
+    this.storageService,
+    this.deviceInfoPlugin,
+  );
   @override
   Future<(bool, List<NotificationData>)> getLatestNotifications() async {
     var token = await tokenService.getToken();
@@ -306,22 +318,51 @@ class UserRepoImpl extends UserRepo {
     var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
     var result = await userService.switchAccount(accountId, token, lang);
-    await tokenService.saveToken(result.data.accessToken.accessToken);   
-    await storageService.saveUser(result.user); 
+    await tokenService.saveToken(result.data.accessToken.accessToken);
+    await storageService.saveUser(result.user);
     return result;
   }
-  
+
   @override
   Future<SigninResponse> makeChildWithExistingEmail(String code) async {
-     var token = await tokenService.getToken();     
+    var token = await tokenService.getToken();
     var lang = storageService.getLanguage();
-    var result = await userService.makeChildWithExistingEmail(code, token, lang);
-    await tokenService.saveToken(result.data.accessToken.accessToken);   
-    await storageService.saveUser(result.user); 
-    var childAccounts = [      
-      ...(storageService.getChildAccounts()) , result.user,
-    ];
+    var result = await userService.makeChildWithExistingEmail(
+      code,
+      token,
+      lang,
+    );
+    await tokenService.saveToken(result.data.accessToken.accessToken);
+    await storageService.saveUser(result.user);
+    var childAccounts = [...(storageService.getChildAccounts()), result.user];
     await storageService.saveChildAccounts(childAccounts);
+    return result;
+  }
+
+  @override
+  Future<(bool, String)> sendFeedback(FeedbackInfo feedbackInfo) async {
+    var lang = storageService.getLanguage();
+    var token = await tokenService.getToken();
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    if (Platform.isAndroid) {
+      var androidInfo = await deviceInfoPlugin.androidInfo;
+      var result = await userService.sendFeedbackAndroid(
+        token,
+        lang,
+        feedbackInfo,
+        packageInfo,
+        androidInfo,
+      );
+      return result;
+    }
+    var iosInfo = await deviceInfoPlugin.iosInfo;
+    var result = await userService.sendFeedbackIos(
+      token,
+      lang,
+      feedbackInfo,
+      packageInfo,
+      iosInfo,
+    );
     return result;
   }
 }

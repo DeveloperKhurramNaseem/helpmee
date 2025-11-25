@@ -776,6 +776,12 @@ abstract class AppLocalizations {
   /// **'https://help-mee.com/pages/terms-and-conditions'**
   String get termsAndConditionsLink;
 
+  /// No description provided for @endUserLicenseAgreementLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/eula-addmee-app'**
+  String get endUserLicenseAgreementLink;
+
   /// No description provided for @generalServerError.
   ///
   /// In en, this message translates to:
@@ -1513,6 +1519,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'https://help-mee.com/collections/all'**
   String get buyHelpMeeProductLink;
+
+  /// No description provided for @subjectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subjectLabel;
+
+  /// No description provided for @messageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get messageLabel;
+
+  /// No description provided for @sendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get sendButton;
+
+  /// No description provided for @feedbackReadAndAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and agreed to the following:'**
+  String get feedbackReadAndAgree;
+
+  /// No description provided for @errorAcceptPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the Privacy Policy to proceed.'**
+  String get errorAcceptPrivacyPolicy;
+
+  /// No description provided for @enterMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter message'**
+  String get enterMessage;
+
+  /// No description provided for @enterLastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter last name'**
+  String get enterLastName;
+
+  /// No description provided for @enterFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter first name'**
+  String get enterFirstName;
+
+  /// No description provided for @enterSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter subject'**
+  String get enterSubject;
 }
 
 class _AppLocalizationsDelegate

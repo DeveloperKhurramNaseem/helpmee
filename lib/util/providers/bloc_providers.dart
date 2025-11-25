@@ -1,3 +1,4 @@
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/blocs/auth/create_password_bloc/create_password_bloc.dart';
@@ -20,6 +21,7 @@ import 'package:help_mee/presentation/blocs/profiles_and_products/edit_name/edit
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile/delete_profile_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/feedback/feedback_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/get_notifications_settings/get_notifications_settings_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/make_child_with_existing_email/make_child_with_existing_email_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
@@ -199,6 +201,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
 
     BlocProvider<SwitchAccountBloc>(create: (context) => SwitchAccountBloc(sl())),
     BlocProvider<MakeChildWithExistingEmailBloc>(create: (context) => MakeChildWithExistingEmailBloc(sl())),
+    BlocProvider<FeedbackBloc>(create: (context) => FeedbackBloc(sl())),
     
   ];
 }

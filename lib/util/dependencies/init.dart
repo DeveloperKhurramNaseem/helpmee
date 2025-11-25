@@ -1,3 +1,4 @@
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:help_mee/data/repositories/auth_repo_impl.dart';
@@ -34,8 +35,9 @@ Future<void> initAuth(){
 }
 
 Future<void> initUser(){
+  sl.registerFactory<DeviceInfoPlugin>(() => DeviceInfoPlugin());
   sl.registerFactory<UserService>(() => UserService());
-  sl.registerFactory<UserRepo>(() => UserRepoImpl(sl(),sl(),sl()));
+  sl.registerFactory<UserRepo>(() => UserRepoImpl(sl(),sl(),sl(),sl()));
   sl.registerFactory<UserProfileService>(() => UserProfileService());
   sl.registerFactory<UserProfileRepo>(() => UserProfileRepoImpl(sl(), sl(), sl()));
   sl.registerFactory<UserLocationNotificationService>(() => UserLocationNotificationService());

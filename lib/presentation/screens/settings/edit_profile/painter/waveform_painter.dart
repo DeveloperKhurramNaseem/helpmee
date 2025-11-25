@@ -10,12 +10,14 @@ class WaveformPainter extends CustomPainter {
   final double? progress; // 0..1 (null when recording)
   final Color barColor;
   final Color playedColor;
+  final double maxBarHeight;
 
   WaveformPainter({
     required this.samples,
     required this.progress,
     required this.barColor,
     required this.playedColor,
+    required this.maxBarHeight,
   });
 
   @override
@@ -52,8 +54,7 @@ class WaveformPainter extends CustomPainter {
     }
 
     final bars = reduced.length;
-    final centerY = size.height / 2;
-    final maxBarHeight = size.height * 0.8;
+    final centerY = size.height / 2;                      
 
     final progressBars = progress == null ? -1 : (bars * progress!).floor();
 

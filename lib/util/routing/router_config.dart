@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/create_account_screen.dart';
@@ -12,6 +13,7 @@ import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/sca
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/settings_screen.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
+import 'package:help_mee/presentation/screens/settings/feedback_screen/feedback_screen.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 
@@ -31,12 +33,15 @@ class Routing {
     routes: [
       GoRoute(
         path: Dashboard.path,
-        builder: (context, state) {
+        pageBuilder: (context, state) {
           var [showNameSheet, callProfile] =
               ((state.extra ?? [false, false]) as List);
-          return Dashboard(
-            showNameSheet: showNameSheet,
-            callProfile: callProfile,
+          return MaterialPage(
+            key: state.pageKey,
+            child: Dashboard(
+              showNameSheet: showNameSheet,
+              callProfile: callProfile,
+            ),
           );
         },
       ),
@@ -103,6 +108,10 @@ class Routing {
       GoRoute(
         path: ProductsScreen.path,
         builder: (context, state) => ProductsScreen(),
+      ),
+      GoRoute(
+        path: FeedbackScreen.path,
+        builder: (context, state) => FeedbackScreen(),
       ),
     ],
   );

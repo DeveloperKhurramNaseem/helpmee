@@ -371,6 +371,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'https://help-mee.com/pages/terms-and-conditions';
 
   @override
+  String get endUserLicenseAgreementLink =>
+      'https://help-mee.com/pages/eula-addmee-app';
+
+  @override
   String get generalServerError => 'Server error, please try again';
 
   @override
@@ -766,4 +770,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get buyHelpMeeProductLink => 'https://help-mee.com/collections/all';
+
+  @override
+  String get subjectLabel => 'Subject';
+
+  @override
+  String get messageLabel => 'Message';
+
+  @override
+  String get sendButton => 'Send';
+
+  @override
+  String get feedbackReadAndAgree => 'I have read and agreed to the following:';
+
+  @override
+  String get errorAcceptPrivacyPolicy =>
+      'You must accept the Privacy Policy to proceed.';
+
+  @override
+  String get enterMessage => 'Enter message';
+
+  @override
+  String get enterLastName => 'Enter last name';
+
+  @override
+  String get enterFirstName => 'Enter first name';
+
+  @override
+  String get enterSubject => 'Enter subject';
 }

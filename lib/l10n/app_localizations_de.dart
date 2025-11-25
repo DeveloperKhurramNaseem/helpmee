@@ -374,6 +374,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String get termsAndConditionsLink => 'https://help-mee.com/pages/agb';
 
   @override
+  String get endUserLicenseAgreementLink =>
+      'https://help-mee.com/pages/nutzungsvertrag-addmee-app';
+
+  @override
   String get generalServerError => 'Server-Fehler, bitte versuche es erneut';
 
   @override
@@ -771,4 +775,33 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get buyHelpMeeProductLink => 'https://help-mee.com/collections/all';
+
+  @override
+  String get subjectLabel => 'Subject';
+
+  @override
+  String get messageLabel => 'Message';
+
+  @override
+  String get sendButton => 'Send';
+
+  @override
+  String get feedbackReadAndAgree =>
+      'Ich habe folgendes gelesen und zugestimmt:';
+
+  @override
+  String get errorAcceptPrivacyPolicy =>
+      'Sie müssen die Datenschutzerklärung akzeptieren, um fortzufahren';
+
+  @override
+  String get enterMessage => 'Nachricht eingeben';
+
+  @override
+  String get enterLastName => 'Nachnamen eingeben';
+
+  @override
+  String get enterFirstName => 'Vornamen eingeben';
+
+  @override
+  String get enterSubject => 'Thema eingeben';
 }

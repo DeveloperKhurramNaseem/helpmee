@@ -10,10 +10,12 @@ import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class EpImportantWidget extends StatelessWidget {
   final TextEditingController controller;
   final String url;
+  final List<num> waveforms;
   const EpImportantWidget({
     super.key,
     required this.controller,
     required this.url,
+    required this.waveforms,
   });
 
   @override
@@ -35,7 +37,7 @@ class EpImportantWidget extends StatelessWidget {
                 controller: controller,
               ),
               if (url.isNotEmpty)
-                EpVoiceNote(url: url)
+                EpVoiceNote(url: url , waveforms: waveforms,)
               else
                 Row(
                   children: [

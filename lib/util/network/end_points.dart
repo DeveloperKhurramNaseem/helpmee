@@ -69,5 +69,6 @@ class EndPoints {
   static const transferData = '/influencerProfileDataTransferTransition';
   static const switchAccount = '/switch-account';
   static const makeChildWithExistingEmail = '/make_child_with_existing_email';
+  static const sendFeedback = '/feedback';
   
 }

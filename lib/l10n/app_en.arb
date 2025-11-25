@@ -124,6 +124,7 @@
 "resendCode" : "Resend code",
 "privacyPolicyLink" : "https://help-mee.com/pages/privacy-policy-addmee-app",
 "termsAndConditionsLink" : "https://help-mee.com/pages/terms-and-conditions",
+"endUserLicenseAgreementLink" : "https://help-mee.com/pages/eula-addmee-app",
 "errorPasswordTooShort" : "Your password must be at least 6 characters long",
 "errorPasswordMismatch" : "Password does not match",
 "generalServerError" : "Server error, please try again",
@@ -381,7 +382,20 @@
 "addAccountButton" : "Add account",
 "signInToExistingAccount" : "Sign In to existing account",
 "createWithNewEmail" : "Create with new email",
-"buyHelpMeeProductLink" : "https://help-mee.com/collections/all"
+"buyHelpMeeProductLink" : "https://help-mee.com/collections/all",
+"subjectLabel" : "Subject",
+"messageLabel" : "Message",
+"sendButton" : "Send",
+"feedbackReadAndAgree" : "I have read and agreed to the following:",
+"errorAcceptPrivacyPolicy" : "You must accept the Privacy Policy to proceed.",
+"enterMessage" : "Enter message",
+
+"enterLastName" : "Enter last name",
+
+"enterFirstName" : "Enter first name",
+
+"enterSubject" : "Enter subject"
+
 
 
 

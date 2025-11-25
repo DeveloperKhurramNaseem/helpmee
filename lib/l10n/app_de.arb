@@ -120,6 +120,7 @@
 "resendCode" : "Code erneut senden",
 "privacyPolicyLink" : "https://help-mee.com/pages/datenschutzerklaerung-addmee-app",
 "termsAndConditionsLink" : "https://help-mee.com/pages/agb",
+"endUserLicenseAgreementLink" : "https://help-mee.com/pages/nutzungsvertrag-addmee-app",
 "errorPasswordTooShort" : "Ihr Passwort muss mindestens 6 Zeichen lang sein",
 "errorPasswordMismatch" : "Passwort stimmt nicht überein",
 "generalServerError" : "Server-Fehler, bitte versuche es erneut",
@@ -374,7 +375,20 @@
 "addAccountButton" : "Benutzerkonto hinzufügen",
 "signInToExistingAccount" : "In existierendes Benutzerkonto einloggen",
 "createWithNewEmail" : "Mit neuer Email erstellen",
-"buyHelpMeeProductLink" : "https://help-mee.com/collections/all"
+"buyHelpMeeProductLink" : "https://help-mee.com/collections/all",
+"subjectLabel" : "Subject",
+"messageLabel" : "Message",
+"sendButton" : "Send",
+"feedbackReadAndAgree" : "Ich habe folgendes gelesen und zugestimmt:",
+"errorAcceptPrivacyPolicy" : "Sie müssen die Datenschutzerklärung akzeptieren, um fortzufahren",
+"enterMessage" : "Nachricht eingeben",
+
+"enterLastName" : "Nachnamen eingeben",
+
+"enterFirstName" : "Vornamen eingeben",
+
+"enterSubject" : "Thema eingeben"
+
 
 
 }

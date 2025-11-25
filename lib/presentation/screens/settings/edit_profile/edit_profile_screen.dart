@@ -400,7 +400,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         // Important Box (Containing important note and voice note)
                         EpImportantWidget(
                           controller: importantNoteController,
-                          url: state.userProfile.user.importantNote,
+                          url: state.userProfile.user.importantNote.url,
+                          waveforms: state.userProfile.user.importantNote.waveforms,
                         ),
                         // Emergency contacts Part
                         EpEmergencyContacts(

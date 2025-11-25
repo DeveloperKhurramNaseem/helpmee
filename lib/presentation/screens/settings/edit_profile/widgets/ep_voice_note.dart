@@ -19,7 +19,8 @@ import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class EpVoiceNote extends StatefulWidget {
   final String url;
-  const EpVoiceNote({super.key, required this.url});
+  final List<num> waveforms;
+  const EpVoiceNote({super.key, required this.url, required this.waveforms});
 
   @override
   State<EpVoiceNote> createState() => _EpVoiceNoteState();
@@ -32,7 +33,7 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
   Duration _position = Duration.zero;
   bool _loading = true;
   StreamSubscription<PlayerState>? _stateSub;
-  List<double> _bars = [];
+  // List<double> _bars = [];
 
   @override
   void initState() {
@@ -42,7 +43,7 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
 
   Future<void> _init() async {
     try {
-      final barsFuture = getWaveformForUrl(widget.url, maxBars: 240);
+      // final barsFuture = getWaveformForUrl(widget.url, maxBars: 240);
       await _player.setUrl(widget.url);
       _duration = _player.duration ?? Duration.zero;
 
@@ -59,9 +60,9 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
         }
       });
 
-      final bars = await barsFuture;
-      if (!mounted) return;
-      setState(() => _bars = bars);
+      // final bars = await barsFuture;
+      // if (!mounted) return;
+      // setState(() => _bars = bars);
 
       _posSub = _player.positionStream.listen((pos) {
         setState(() => _position = pos);
@@ -183,63 +184,75 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
     // final secondsLeft = max(0, (_duration - _position).inSeconds);
     // final countdown = secondsLeft.toString().padLeft(2, '0');
     dev.log(_loading.toString(), name: 'loading');
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      spacing: 10,
-      children: [
-        GestureDetector(
-          onTap: () {
-            _togglePlay();
-          },
-          child: _player.playing
-              ? Container(
-                  decoration: BoxDecoration(shape: BoxShape.circle),
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(left: 5),
-                  child: SvgPicture.asset(AppIcons.pauseIcon),
-                )
-              : Container(
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(
-                      color: AppLightThemeColors.gradientFirstColor,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
+        color: AppLightThemeColors.textfieldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        spacing: 10,
+        children: [
+          GestureDetector(
+            onTap: () {
+              _togglePlay();
+            },
+            child: _player.playing
+                ? Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle),
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(left: 5),
+                    child: SvgPicture.asset(AppIcons.pauseIcon),
+                  )
+                : Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: AppLightThemeColors.gradientFirstColor,
+                      ),
                     ),
+                    padding: EdgeInsets.all(10),
+                    margin: EdgeInsets.only(left: 5),
+                    child: SvgPicture.asset(AppIcons.playIcon),
                   ),
-                  padding: EdgeInsets.all(10),
-                  margin: EdgeInsets.only(left: 5),
-                  child: SvgPicture.asset(AppIcons.playIcon),
+          ),
+          Expanded(
+            child: SizedBox(
+              height: AppSize.instance.height * 0.065,
+              child: CustomPaint(
+                painter: WaveformPainter(
+                  maxBarHeight: AppSize.instance.height * 0.035,
+                  samples: widget.waveforms.map((e) => e.toDouble()).toList(),
+                  progress: _loading ? 0 : _progressFrac,
+                  barColor: Colors.black,
+                  playedColor: Colors.grey,
                 ),
-        ),
-        Expanded(
-          child: SizedBox(
-            height: AppSize.instance.height * 0.065,
-            child: CustomPaint(
-              painter: WaveformPainter(
-                samples: _bars,
-                progress: _loading ? 0 : _progressFrac,
-                barColor: Colors.black,
-                playedColor: Colors.grey,
               ),
             ),
           ),
-        ),
-        GestureDetector(
-          onTap: () {
-            m.showModalBottomSheet(
-              context: context,
-              showDragHandle: true,
-              isScrollControlled: true,
-              builder: (context) {
-                return RecordAudioSheet(url: widget.url, amps: _bars);
-              },
-            );
-          },
-          child: Padding(
-            padding: EdgeInsets.only(right: 5),
-            child: SvgPicture.asset(AppIcons.edit, height: 20, width: 20),
+          GestureDetector(
+            onTap: () {
+              m.showModalBottomSheet(
+                context: context,
+                showDragHandle: true,
+                isScrollControlled: true,
+                builder: (context) {
+                  return RecordAudioSheet(
+                    url: widget.url,
+                    amps: widget.waveforms.map((e) => e.toDouble()).toList(),
+                  );
+                },
+              );
+            },
+            child: Padding(
+              padding: EdgeInsets.only(right: 5),
+              child: SvgPicture.asset(AppIcons.edit, height: 20, width: 20),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

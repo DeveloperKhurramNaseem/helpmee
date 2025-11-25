@@ -42,11 +42,6 @@ class _DashboardState extends State<Dashboard> {
     if(widget.callProfile){
       context.read<GetUserProfileBloc>().add(GetUserProfileEvent());
     }        
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
     if (widget.showNameSheet) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         m.showModalBottomSheet(
@@ -70,6 +65,34 @@ class _DashboardState extends State<Dashboard> {
       });
     }
   }
+
+  @override
+  void didUpdateWidget (Dashboard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if(oldWidget.showNameSheet != widget.showNameSheet){
+      SchedulerBinding.instance.addPostFrameCallback((_) {
+        m.showModalBottomSheet(
+          isDismissible: false,
+          enableDrag: false,
+          showDragHandle: true,
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            return PopScope(
+              canPop: false,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                child: NamesSheet(),
+              ),
+            );
+          },
+        );
+      });
+    }        
+  }
+
 
   @override
   Widget build(BuildContext context) {

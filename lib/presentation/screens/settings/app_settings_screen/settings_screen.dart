@@ -13,6 +13,7 @@ import 'package:help_mee/presentation/screens/settings/app_settings_screen/botto
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/switch_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/profile_validity_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/feedback_screen/feedback_screen.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_sheet.dart';
 // import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_restore_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/language_bottom_sheet.dart';
@@ -26,6 +27,7 @@ import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
+import 'package:help_mee/util/extension/string_modification.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const path = '/settings-screen';
@@ -46,6 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
     return MultiBlocListener(
       listeners: [
         BlocListener<
@@ -63,10 +66,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
             SettingsHeader(),
             SettingsDivider(),
             SettingsCategoryText(
-              category: AppLocalizations.of(context)!.productsAndServices,
+              category: localization.productsAndServices,
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.myProductsTitle,
+              titleText: localization.myProductsTitle,
               image: AppIcons.plusSettings,
               onTap: () {
                 context.push(ProductsScreen.path);
@@ -77,20 +80,22 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 context,
               )!.orderHelpMeeProductsLabel,
               image: AppIcons.sos,
-              onTap: () {},
+              onTap: () {
+                localization.buyHelpMeeProductLink.launchUrl();
+              },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.feedbackLabel,
+              titleText: localization.feedbackLabel,
               image: AppIcons.feedback,
-              onTap: () {},
+              onTap: () {
+                context.push(FeedbackScreen.path);
+              },
             ),
             SettingsCategoryText(
-              category: AppLocalizations.of(context)!.accountSettingsLabel,
+              category: localization.accountSettingsLabel,
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(
-                context,
-              )!.switchAccountOrAddProfile,
+              titleText: localization.switchAccountOrAddProfile,
               image: AppIcons.switchIcon,
               onTap: () {
                 m.showModalBottomSheet(
@@ -104,7 +109,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.notificationsLabel,
+              titleText: localization.notificationsLabel,
               image: AppIcons.lock,
               onTap: () {
                 m.showModalBottomSheet(
@@ -118,14 +123,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.changePasswordButton,
+              titleText: localization.changePasswordButton,
               image: AppIcons.lock,
               onTap: () {
                 context.push(ChangePasswordScreen.path);
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.languageLabel,
+              titleText: localization.languageLabel,
               image: AppIcons.language,
               onTap: () {
                 m.showModalBottomSheet(
@@ -139,7 +144,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.profileValidityLabel,
+              titleText: localization.profileValidityLabel,
               image: AppIcons.profileValidity,
               onTap: () {
                 m.showModalBottomSheet(
@@ -153,7 +158,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.deleteProfilLabel,
+              titleText: localization.deleteProfilLabel,
               image: AppIcons.delete,
               onTap: () {
                 m.showModalBottomSheet(
@@ -167,26 +172,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsCategoryText(
-              category: AppLocalizations.of(context)!.legalLabel,
+              category: localization.legalLabel,
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.privacyPolicyLabel,
+              titleText: localization.privacyPolicyLabel,
               image: AppIcons.privacyIcon,
-              onTap: () {},
+              onTap: () {
+                localization.privacyPolicyLink.launchUrl();
+              },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.termsAndConditionsLabel,
+              titleText: localization.termsAndConditionsLabel,
               image: AppIcons.privacyIcon,
-              onTap: () {},
+              onTap: () {
+                localization.termsAndConditionsLink.launchUrl();
+              },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.endUserAgreementTitle,
+              titleText: localization.endUserAgreementTitle,
               image: AppIcons.privacyIcon,
-              onTap: () {},
+              onTap: () {
+                localization.endUserLicenseAgreementLink.launchUrl();
+              },
             ),
             SettingsCategoryText(category: 'Testing'),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.demoProfileTitle,
+              titleText: localization.demoProfileTitle,
               image: AppIcons.profileValidity,
               onTap: () {
                 m.showModalBottomSheet(
@@ -200,7 +211,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.resetProductTitle,
+              titleText: localization.resetProductTitle,
               image: AppIcons.profileValidity,
               onTap: () {
                 m.showModalBottomSheet(
@@ -215,7 +226,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsDivider(),
             SettingsBaseTile(
-              titleText: AppLocalizations.of(context)!.signOutLabel,
+              titleText: localization.signOutLabel,
               image: AppIcons.signOutIcon,
               onTap: () {
                 sl<StorageService>().clearData();
@@ -226,7 +237,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
 
             SettingsVersionText(
-              version: '${AppLocalizations.of(context)!.version} 3.5.0',
+              version: '${localization.version} 3.5.0',
             ),
           ],
         ),

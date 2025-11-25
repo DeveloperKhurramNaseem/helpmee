@@ -263,6 +263,7 @@ class RecordingInitialWidget extends StatelessWidget {
                         child: CustomPaint(
                           painter: WaveformPainter(
                             samples: amplitudes,
+                            maxBarHeight: AppSize.instance.height * 0.8,
                             // during recording, nothing is "played", so progress = null
                             progress: null,
                             barColor: Colors.black,

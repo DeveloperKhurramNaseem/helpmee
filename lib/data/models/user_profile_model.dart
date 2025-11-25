@@ -98,7 +98,7 @@ class User {
   String height;
   String weight;
   String bloodGroup;
-  String importantNote;
+  ImportantNote importantNote;
   String insuranceCompany;
   String insuranceId;
   String bio;
@@ -151,7 +151,7 @@ class User {
       height: map[heightKey] ?? '',
       weight: map[weightKey] ?? '',
       bloodGroup: map[bloodGroupKey] ?? 'A+',
-      importantNote: map[importantNoteKey] ?? '',
+      importantNote: ImportantNote.fromMap(map[importantNoteKey] ?? {}),
       insuranceCompany: map[insuranceCompanyKey] ?? '',
       insuranceId: map[insuranceIdKey] ?? '',
       bio: map[bioKey] ?? '',
@@ -177,7 +177,7 @@ class User {
       height: '',
       weight: '',
       bloodGroup: 'A+',
-      importantNote: '',
+      importantNote: ImportantNote(url: '', waveforms: []),
       insuranceCompany: '',
       insuranceId: '',
       bio: '',
@@ -219,6 +219,23 @@ class User {
       tassoNoKey: tassoNo,
       specialFeaturesKey: specialFeatures,
     };
+  }
+}
+
+class ImportantNote{
+
+  static const urlKey = 'url', waveformsKey = 'waveform';
+
+  String url;
+  List<num> waveforms;
+
+  ImportantNote({required this.url, required this.waveforms}); 
+
+  factory ImportantNote.fromMap(Map<String, dynamic> map) {
+    return ImportantNote(
+      url: map[urlKey] ?? '',
+      waveforms: List<num>.from((map[waveformsKey] ?? [])),
+    );
   }
 }
 

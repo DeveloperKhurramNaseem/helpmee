@@ -163,6 +163,7 @@ class _RecordingPlayerWidgetState extends State<RecordingPlayerWidget> {
             height: AppSize.instance.height * 0.065,
             child: CustomPaint(
               painter: WaveformPainter(
+                maxBarHeight: AppSize.instance.height * 0.035,
                 samples: widget.waveform,
                 progress: _loading ? 0 : _progressFrac,
                 barColor: Colors.black,

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/app_user_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
@@ -9,11 +11,13 @@ import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/notification_setting_model.dart';
 import 'package:help_mee/data/models/pin_data_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/requests/feedback_info.dart';
 import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:help_mee/util/network/end_points.dart';
 import 'package:help_mee/util/network/network_constants.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class UserService extends ApiService {
   @override
@@ -441,21 +445,73 @@ class UserService extends ApiService {
       'id': accountId.toString(),
     }, header: NetworkConstants.getHeaders(lang, token));
     if (result != null) {
-      log(result , name: 'Switch Account response');
+      log(result, name: 'Switch Account response');
       final decodedResponse = jsonDecode(result);
       return SigninResponse.fromMap(decodedResponse);
     }
     return SigninResponse.empty(ErrorConstants.errorMessage);
   }
 
-    Future<SigninResponse> makeChildWithExistingEmail(String code, String token, String lang) async{
-      var result = await post(EndPoints.makeChildWithExistingEmail, {
-        'code': code,
-      }, header: NetworkConstants.getHeaders(lang, token));
-      if (result != null) {
-        final decodedResponse = jsonDecode(result);
-        return SigninResponse.fromMap(decodedResponse);
-      }
-      return SigninResponse.empty(ErrorConstants.errorMessage);
-    } 
+  Future<SigninResponse> makeChildWithExistingEmail(
+    String code,
+    String token,
+    String lang,
+  ) async {
+    var result = await post(
+      EndPoints.makeChildWithExistingEmail,
+      {'code': code},
+      header: NetworkConstants.getHeaders(lang, token),
+    );
+    if (result != null) {
+      final decodedResponse = jsonDecode(result);
+      return SigninResponse.fromMap(decodedResponse);
+    }
+    return SigninResponse.empty(ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> sendFeedbackAndroid(
+    String token,
+    String language,
+    FeedbackInfo feedbackInfo,
+    PackageInfo packageInfo,
+    AndroidDeviceInfo androidDeviceInfo,    
+  ) async {
+    log(androidDeviceInfo.data.toString(), name: 'Android Info');
+    
+    var result = await post(EndPoints.sendFeedback, {
+      ...feedbackInfo.toJson(),
+      'addmee_version': packageInfo.version,
+      'device_name_version': 
+          '${androidDeviceInfo.name} ${androidDeviceInfo.version.release}',          
+      'device': androidDeviceInfo.brand,          
+      'os': 'Android'
+    }, header: NetworkConstants.getHeaders(language, token));
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
+
+  Future<(bool, String)> sendFeedbackIos(
+    String token,
+    String language,
+    FeedbackInfo feedbackInfo,
+    PackageInfo packageInfo,    
+    IosDeviceInfo iosDeviceInfo,
+  ) async {
+    log(iosDeviceInfo.data.toString(), name: 'iOS Info');
+    var result = await post(EndPoints.sendFeedback, {
+      ...feedbackInfo.toJson(),
+      'addmee_version': packageInfo.version,
+      'device_name_version':'${iosDeviceInfo.modelName} ${iosDeviceInfo.systemVersion}',
+      'device': iosDeviceInfo.model,
+      'os': 'iOS',
+    }, header: NetworkConstants.getHeaders(language, token));
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);
+  }
 }

@@ -5,6 +5,11 @@ class TextFieldsConstants {
     borderRadius: BorderRadius.circular(10),
     borderSide: BorderSide(color: Colors.black, width: 1),
   );
+  static final filledBorder = OutlineInputBorder(
+    borderRadius: BorderRadius.circular(10),
+    borderSide: BorderSide(width: 1, color: Colors.white),
+    
+  );
   static final dullBorder = OutlineInputBorder(
     borderRadius: BorderRadius.circular(10),
     borderSide: BorderSide(color: Color.fromRGBO(0, 0, 0, 0.42), width: 1),

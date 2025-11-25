@@ -29,35 +29,40 @@ class SwitchProfileBottomSheet extends StatelessWidget {
       listener: _handleSwitchAccountBloc,
       child: Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-        child: Wrap(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    localization.switchAccountOrAddProfile,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                  ),
-                ],
+        child: SingleChildScrollView(
+          child: Wrap(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      localization.switchAccountOrAddProfile,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            for (var child in childAccounts) ProfileTile(child: child),
-            AddProfileTile(
-              title: localization.addAccountButton,
-              onTap: () {
-                m.showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return AddAccountBottomSheet();
-                  },
-                );
-              },
-            ),
-          ],
+              for (var child in childAccounts) ProfileTile(child: child),
+              AddProfileTile(
+                title: localization.addAccountButton,
+                onTap: () {
+                  m.showModalBottomSheet(
+                    context: context,
+                    showDragHandle: true,
+                    isScrollControlled: true,
+                    builder: (context) {
+                      return AddAccountBottomSheet();
+                    },
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

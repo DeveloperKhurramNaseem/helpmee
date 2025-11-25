@@ -1,8 +1,10 @@
+
 import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
 import 'package:help_mee/data/models/product_model.dart';
+import 'package:help_mee/data/models/requests/feedback_info.dart';
 import 'package:help_mee/data/models/signin_response.dart';
 import 'package:help_mee/domain/entities/notification_data.dart';
 import 'package:help_mee/domain/entities/notification_setting.dart';
@@ -54,5 +56,6 @@ abstract class UserRepo {
   Future<(bool, AppDataModel)> getUserProfile();
   Future<SigninResponse> switchAccount(int accountId);
   Future<SigninResponse> makeChildWithExistingEmail(String code);
+  Future<(bool, String)> sendFeedback(FeedbackInfo feedbackInfo);
 
 }

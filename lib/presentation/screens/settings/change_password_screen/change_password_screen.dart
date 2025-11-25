@@ -64,71 +64,69 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               right: 14.0,
               top: MediaQuery.of(context).padding.top,
             ),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CpArrowBack(),
-                  SizedBox(height: AppSize.instance.height * 0.05),
-                  CpText(isChangePassword: true),
-                  SizedBox(height: AppSize.instance.height * 0.02),
-                  CppErrorText(),
-                  SizedBox(height: AppSize.instance.height * 0.02),
-                  CppFields(
-                    currentPasswordController: currentPasswordController,
-                    currentPasswordKey: currentPasswordKey,
-                    passwordController: newPasswordController,
-                    confirmationPasswordController: confirmPasswordController,
-                    passwordKey: newPasswordKey,
-                    confirmationPasswordKey: confirmPasswordKey,
-                  ),
-                  SizedBox(height: AppSize.instance.height * 0.01),
-                  CppButton(
-                    onPressed: () {
-                      var createPasswordBloc = context
-                          .read<ChangePasswordBloc>();
-                      if (!(currentPasswordKey.currentState?.validate() ??
-                          false))
-                        return;
-                      if (!(newPasswordKey.currentState?.validate() ?? false))
-                        return;
-                      if (!(confirmPasswordKey.currentState?.validate() ??
-                          false))
-                        return;
-                      if (newPasswordController.text.length < 6) {
-                        createPasswordBloc.add(
-                          ShowErrorEvent(
-                            message: AppLocalizations.of(
-                              context,
-                            )!.errorPasswordTooShort,
-                          ),
-                        );
-                        return;
-                      }
-                      if (newPasswordController.text.trim() !=
-                          confirmPasswordController.text.trim()) {
-                        createPasswordBloc.add(
-                          ShowErrorEvent(
-                            message: AppLocalizations.of(
-                              context,
-                            )!.errorPasswordMismatch,
-                          ),
-                        );
-                        return;
-                      }
-
-                      context.read<ChangePasswordBloc>().add(
-                        ChangeCurrentPasswordEvent(
-                          currentPassword: currentPasswordController.text
-                              .trim(),
-                          newPassword: newPasswordController.text.trim(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CpArrowBack(),
+                SizedBox(height: AppSize.instance.height * 0.05),
+                CpText(isChangePassword: true),
+                SizedBox(height: AppSize.instance.height * 0.02),
+                CppErrorText(),
+                SizedBox(height: AppSize.instance.height * 0.02),
+                CppFields(
+                  currentPasswordController: currentPasswordController,
+                  currentPasswordKey: currentPasswordKey,
+                  passwordController: newPasswordController,
+                  confirmationPasswordController: confirmPasswordController,
+                  passwordKey: newPasswordKey,
+                  confirmationPasswordKey: confirmPasswordKey,
+                ),
+                SizedBox(height: AppSize.instance.height * 0.01),
+                CppButton(
+                  onPressed: () {
+                    var createPasswordBloc = context
+                        .read<ChangePasswordBloc>();
+                    if (!(currentPasswordKey.currentState?.validate() ??
+                        false))
+                      return;
+                    if (!(newPasswordKey.currentState?.validate() ?? false))
+                      return;
+                    if (!(confirmPasswordKey.currentState?.validate() ??
+                        false))
+                      return;
+                    if (newPasswordController.text.length < 6) {
+                      createPasswordBloc.add(
+                        ShowErrorEvent(
+                          message: AppLocalizations.of(
+                            context,
+                          )!.errorPasswordTooShort,
                         ),
                       );
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
-                  ),
-                ],
-              ),
+                      return;
+                    }
+                    if (newPasswordController.text.trim() !=
+                        confirmPasswordController.text.trim()) {
+                      createPasswordBloc.add(
+                        ShowErrorEvent(
+                          message: AppLocalizations.of(
+                            context,
+                          )!.errorPasswordMismatch,
+                        ),
+                      );
+                      return;
+                    }
+            
+                    context.read<ChangePasswordBloc>().add(
+                      ChangeCurrentPasswordEvent(
+                        currentPassword: currentPasswordController.text
+                            .trim(),
+                        newPassword: newPasswordController.text.trim(),
+                      ),
+                    );
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                ),
+              ],
             ),
           ),
         ),
