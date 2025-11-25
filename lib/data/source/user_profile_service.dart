@@ -394,4 +394,26 @@ class UserProfileService extends ApiService {
       return (false, ErrorConstants.errorMessage);
     }
   }
+
+  Future<(bool, String)> updateName(
+    String token,
+    String language,
+    String firstName,
+    String lastName,
+  ) async {
+    var result = await post(
+      EndPoints.updateName,
+      {
+        'first_name': firstName,
+        'last_name': lastName,
+      },
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
 }

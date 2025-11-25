@@ -13,6 +13,7 @@ import 'package:help_mee/presentation/blocs/hidden_features/transfer_data/transf
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/get_user_profile/get_user_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/update_name/update_name_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
@@ -202,6 +203,7 @@ List<BlocProvider> getUserProfileBlocProviders() {
     BlocProvider<SwitchAccountBloc>(create: (context) => SwitchAccountBloc(sl())),
     BlocProvider<MakeChildWithExistingEmailBloc>(create: (context) => MakeChildWithExistingEmailBloc(sl())),
     BlocProvider<FeedbackBloc>(create: (context) => FeedbackBloc(sl())),
+    BlocProvider<UpdateNameBloc>(create: (context) => UpdateNameBloc(sl())),
     
   ];
 }

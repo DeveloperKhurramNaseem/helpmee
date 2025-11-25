@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:help_mee/data/models/app_data_model.dart';

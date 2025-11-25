@@ -269,5 +269,18 @@ class UserProfileRepoImpl extends UserProfileRepo {
     );
     return result;
   }
+  
+  @override
+  Future<(bool, String)> updateName(String firstName, String lastName) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.updateName(
+      token,
+      language,
+      firstName,
+      lastName,      
+    );
+    return result;
+  }
 
 }
