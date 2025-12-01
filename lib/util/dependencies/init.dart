@@ -16,15 +16,22 @@ import 'package:help_mee/domain/repositories/auth_repo.dart';
 import 'package:help_mee/domain/repositories/user_location_notification_repo.dart';
 import 'package:help_mee/domain/repositories/user_profile_repo.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 var sl = GetIt.instance;
 
 Future<void> init() async{
+  await loadAppInfo();
   await initStorage();
   await initAuth();
   await initUser();  
   return Future.value(null);
+}
+
+Future<void> loadAppInfo() async{
+  var packageInfo = await PackageInfo.fromPlatform();
+  sl.registerFactory<PackageInfo>(() => packageInfo);
 }
 
 Future<void> initAuth(){

@@ -71,5 +71,6 @@ class EndPoints {
   static const makeChildWithExistingEmail = '/make_child_with_existing_email';
   static const sendFeedback = '/feedback';
   static const updateName = '/update-user';
+  static const deleteProfileAndMakeChildParent = '/delete-user-account';
   
 }

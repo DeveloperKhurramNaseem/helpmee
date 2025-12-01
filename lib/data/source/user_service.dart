@@ -513,4 +513,16 @@ class UserService extends ApiService {
     }
     return (false, ErrorConstants.errorMessage);
   }
+
+  Future<(bool,String)> deleteProfileAndMakeChildParent(String token, String lang) async{
+    var result = await delete(
+      EndPoints.deleteProfileAndMakeChildParent,
+      header: NetworkConstants.getHeaders(lang, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    }
+    return (false, ErrorConstants.errorMessage);    
+  }
 }

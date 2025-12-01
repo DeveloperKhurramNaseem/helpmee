@@ -39,5 +39,5 @@ class StorageService {
 
   Future<void> clearData() async{
     await sharedPreferences.clear();
-  }
+  }  
 }

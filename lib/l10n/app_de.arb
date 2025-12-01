@@ -387,7 +387,9 @@
 
 "enterFirstName" : "Vornamen eingeben",
 
-"enterSubject" : "Thema eingeben"
+"enterSubject" : "Thema eingeben",
+"createNewAccountButton" : "Neues Benutzerkonto erstellen",
+"createWithExistingEmail" : "Mit existierender Email erstellen"
 
 
 

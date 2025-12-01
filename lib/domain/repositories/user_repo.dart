@@ -57,5 +57,6 @@ abstract class UserRepo {
   Future<SigninResponse> switchAccount(int accountId);
   Future<SigninResponse> makeChildWithExistingEmail(String code);
   Future<(bool, String)> sendFeedback(FeedbackInfo feedbackInfo);
+  Future<(bool,String)> deleteProfileAndMakeChildParent();
 
 }

@@ -24,7 +24,7 @@ class UserProfileRepoImpl extends UserProfileRepo {
   Future<(bool, String, UserProfileModel)> getUserProfile() async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.getUserProfileData(token, language);
+    var result = await userProfileService.getUserProfileData(token, language);    
     return result;
   }
 
@@ -274,8 +274,8 @@ class UserProfileRepoImpl extends UserProfileRepo {
   }
   
   @override
-  Future<(bool, String)> updateName(String firstName, String lastName) async {
-    var token = await tokenService.getToken();
+  Future<(bool, String)> updateName(String firstName, String lastName,String? accessToken) async {    
+    var token = accessToken ?? await tokenService.getToken();
     var language = storageService.getLanguage();
     var result = await userProfileService.updateName(
       token,
@@ -283,12 +283,12 @@ class UserProfileRepoImpl extends UserProfileRepo {
       firstName,
       lastName,      
     );
-    if(result.$1){
-      var user = storageService.getUser();
-      user.firstName = firstName;
-      user.lastName = lastName;
-      await storageService.saveUser(user);
-    }
+    // if(result.$1){
+    //   var user = storageService.getUser();
+    //   user.firstName = firstName;
+    //   user.lastName = lastName;
+    //   await storageService.saveUser(user);
+    // }
     return result;
   }
 

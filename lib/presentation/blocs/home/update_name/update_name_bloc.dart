@@ -23,9 +23,10 @@ class UpdateNameBloc extends Bloc<UpdateNameEvent, UpdateNameState> {
       var result = await userProfileRepo.updateName(
         event.firstName,
         event.lastName,
+        event.token,        
       );
       if (result.$1) {
-        emit(UpdateNameDoneState());
+        emit(UpdateNameDoneState(event.accountId));
       } else {
         emit(UpdateNameErrorState(message: result.$2));
       }

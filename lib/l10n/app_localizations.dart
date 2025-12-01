@@ -1573,6 +1573,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter subject'**
   String get enterSubject;
+
+  /// No description provided for @createNewAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new account'**
+  String get createNewAccountButton;
+
+  /// No description provided for @createWithExistingEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Create with existing email'**
+  String get createWithExistingEmail;
 }
 
 class _AppLocalizationsDelegate

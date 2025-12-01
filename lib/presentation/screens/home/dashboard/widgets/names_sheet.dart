@@ -1,15 +1,21 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/home/get_user_profile/get_user_profile_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/update_name/update_name_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 import 'package:provider/provider.dart';
 
 class NamesSheet extends StatefulWidget {
-  const NamesSheet({super.key});
+  final String? token;
+  final int? accountId;
+  const NamesSheet({super.key, this.token, this.accountId});
 
   @override
   State<NamesSheet> createState() => _NamesSheetState();
@@ -113,6 +119,8 @@ class _NamesSheetState extends State<NamesSheet> {
                                 UpdateNameInitEvent(
                                   firstName: firstNameController.text.trim(),
                                   lastName: lastNameController.text.trim(),
+                                  token: widget.token,
+                                  accountId: widget.accountId,
                                 ),
                               );
                             }
@@ -120,7 +128,9 @@ class _NamesSheetState extends State<NamesSheet> {
                       gradient: Theme.of(
                         context,
                       ).extension<AppGradients>()?.primaryButton,
-                      child: state is UpdateNameLoadingState ? CupertinoActivityIndicator(color: Colors.white) : Text(AppLocalizations.of(context)!.next),
+                      child: state is UpdateNameLoadingState
+                          ? CupertinoActivityIndicator(color: Colors.white)
+                          : Text(AppLocalizations.of(context)!.next),
                     ),
                   );
                 },
@@ -138,6 +148,11 @@ class _NamesSheetState extends State<NamesSheet> {
   ) {
     if (state is UpdateNameDoneState) {
       Navigator.pop(context);
+      if (widget.token != null && widget.accountId != null) {
+        context.read<GetUserProfileBloc>().add(GetUserProfileEvent());
+        context.read<SwitchAccountBloc>().add(SwitchIntoNewAccountEvent(widget.accountId!));        
+        context.go(Dashboard.path, extra: [true, false]);
+      }
     }
   }
 }

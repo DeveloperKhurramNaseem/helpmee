@@ -38,7 +38,7 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                 AppLocalizations.of(context)!.addAccountButton,
+                  AppLocalizations.of(context)!.addAccountButton,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
@@ -49,6 +49,7 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
             child: AppButton(
               onPressed: () {
                 if (updated) {
+                  Navigator.of(context).pop();
                   m.showModalBottomSheet(
                     context: context,
                     isDismissible: false,
@@ -58,7 +59,10 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
                     builder: (context) {
                       return PopScope(
                         canPop: false,
-                        child: ProductMapBottomSheet(token: '' , makeChildWithExistingEmail: true,),
+                        child: ProductMapBottomSheet(
+                          token: '',
+                          makeChildWithExistingEmail: true,
+                        ),
                       );
                     },
                   );
@@ -70,9 +74,9 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
                 context,
               ).extension<AppGradients>()!.primaryButton,
               child: Text(
-                 updated
-                      ? 'Create with existing email'
-                      :  AppLocalizations.of(context)!.signInToExistingAccount,
+                updated
+                    ? AppLocalizations.of(context)!.createWithExistingEmail
+                    : AppLocalizations.of(context)!.signInToExistingAccount,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
@@ -96,8 +100,8 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
               },
               child: Text(
                 updated
-                    ? 'Create with new email'
-                    : AppLocalizations.of(context)!.createWithNewEmail,
+                    ? AppLocalizations.of(context)!.createWithNewEmail
+                    : AppLocalizations.of(context)!.createNewAccountButton,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),

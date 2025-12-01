@@ -20,7 +20,11 @@ class Dashboard extends StatefulWidget {
   static const path = '/';
   final bool showNameSheet;
   final bool callProfile;
-  const Dashboard({super.key, required this.showNameSheet, required this.callProfile});
+  const Dashboard({
+    super.key,
+    required this.showNameSheet,
+    required this.callProfile,
+  });
 
   @override
   State<Dashboard> createState() => _DashboardState();
@@ -35,13 +39,14 @@ class _DashboardState extends State<Dashboard> {
     log(
       sl<StorageService>().getUser().toMap().toString(),
       name: 'User Information',
-    );    
+    );
     context.read<LatestNotificationsBloc>().add(GetLatestNotificationsEvent());
     context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent());
     context.read<GetProductsBloc>().add(GetAllProductsEvent());
-    if(widget.callProfile){
+    if (widget.callProfile) {
       context.read<GetUserProfileBloc>().add(GetUserProfileEvent());
-    }        
+    }
+
     if (widget.showNameSheet) {
       SchedulerBinding.instance.addPostFrameCallback((_) {
         m.showModalBottomSheet(
@@ -65,34 +70,6 @@ class _DashboardState extends State<Dashboard> {
       });
     }
   }
-
-  @override
-  void didUpdateWidget (Dashboard oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    if(oldWidget.showNameSheet != widget.showNameSheet){
-      SchedulerBinding.instance.addPostFrameCallback((_) {
-        m.showModalBottomSheet(
-          isDismissible: false,
-          enableDrag: false,
-          showDragHandle: true,
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            return PopScope(
-              canPop: false,
-              child: Padding(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom,
-                ),
-                child: NamesSheet(),
-              ),
-            );
-          },
-        );
-      });
-    }        
-  }
-
 
   @override
   Widget build(BuildContext context) {

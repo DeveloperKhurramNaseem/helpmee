@@ -305,13 +305,13 @@ class UserRepoImpl extends UserRepo {
   Future<(bool, AppDataModel)> getUserProfile() async {
     var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
-    var result = await userService.getUserProfile(token, lang);
-    var user = storageService.getUser();
+    var result = await userService.getUserProfile(token, lang);    
     var childAccounts = [
-      user,
+      result.$2.user,
       ...(result.$2.childAccounts ?? <AppUserModel>[]),
     ];
-    await storageService.saveChildAccounts(childAccounts);
+    await storageService.saveUser(result.$2.user);
+    await storageService.saveChildAccounts(childAccounts);    
     return result;
   }
 
@@ -334,10 +334,7 @@ class UserRepoImpl extends UserRepo {
       token,
       lang,
     );
-    await tokenService.saveToken(result.data.accessToken.accessToken);
-    await storageService.saveUser(result.user);
-    var childAccounts = [...(storageService.getChildAccounts()), result.user];
-    await storageService.saveChildAccounts(childAccounts);
+    await getUserProfile();    
     return result;
   }
 
@@ -365,6 +362,14 @@ class UserRepoImpl extends UserRepo {
       packageInfo,
       iosInfo,
     );
+    return result;
+  }
+  
+  @override
+  Future<(bool, String)> deleteProfileAndMakeChildParent() async{
+    var lang = storageService.getLanguage();
+    var token = await tokenService.getToken();
+    var result = await userService.deleteProfileAndMakeChildParent(token,lang);
     return result;
   }
 }

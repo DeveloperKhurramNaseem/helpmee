@@ -804,4 +804,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get enterSubject => 'Thema eingeben';
+
+  @override
+  String get createNewAccountButton => 'Neues Benutzerkonto erstellen';
+
+  @override
+  String get createWithExistingEmail => 'Mit existierender Email erstellen';
 }

@@ -28,6 +28,7 @@ import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 import 'package:help_mee/util/extension/string_modification.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class SettingsScreen extends StatefulWidget {
   static const path = '/settings-screen';
@@ -43,7 +44,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     context.read<GetNotificationsSettingsBloc>().add(
       GetGeneralNotificationSettingsEvent(),
-    );
+    );    
   }
 
   @override
@@ -229,8 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 });
               },
             ),
-
-            SettingsVersionText(version: '${localization.version} 3.5.0'),
+            SettingsVersionText(version: '${localization.version} ${sl<PackageInfo>().version}'),
           ],
         ),
       ),

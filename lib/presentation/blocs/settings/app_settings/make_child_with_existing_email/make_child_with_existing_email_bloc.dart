@@ -23,7 +23,7 @@ class MakeChildWithExistingEmailBloc
       emit(MakeChildWithExistingEmailLoadingState());
       var result = await userRepo.makeChildWithExistingEmail(event.code);
       if(result.success){
-        emit(MakeChildWithExistingEmailDoneState(device: event.device , acccountId: result.user.id ?? 0));
+        emit(MakeChildWithExistingEmailDoneState(device: event.device , acccountId: result.user.id ?? 0, token: result.data.accessToken.accessToken));
       }else{
         emit(MakeChildWithExistingEmailErrorState(result.message));
       }

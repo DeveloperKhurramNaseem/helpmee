@@ -14,7 +14,8 @@ class MakeChildWithExistingEmailInitialState
     extends MakeChildWithExistingEmailState {
       final String device;
       final int acccountId;
-      MakeChildWithExistingEmailDoneState({required this.device , required this.acccountId});
+      final String token;
+      MakeChildWithExistingEmailDoneState({required this.device , required this.acccountId , required this.token});
     }
 
 

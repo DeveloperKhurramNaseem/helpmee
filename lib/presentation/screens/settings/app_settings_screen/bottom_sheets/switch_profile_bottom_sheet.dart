@@ -9,6 +9,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/delete_profile_and_make_child_parent/delete_profile_and_make_child_parent_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/app_settings/switch_account/switch_account_bloc.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/add_account_bottom_sheet.dart';
@@ -51,6 +52,7 @@ class SwitchProfileBottomSheet extends StatelessWidget {
               AddProfileTile(
                 title: localization.addAccountButton,
                 onTap: () {
+                  Navigator.of(context).pop();
                   m.showModalBottomSheet(
                     context: context,
                     showDragHandle: true,
@@ -139,6 +141,16 @@ class ProfileTile extends StatelessWidget {
                 ),
               ),
             ),
+            if (child.id == sl<StorageService>().getUser().id)
+              GestureDetector(
+                onTap: () {
+                  context.read<DeleteProfileAndMakeChildParentBloc>().add(DeleteProfileAndMakeChildParentEvent());
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: SvgPicture.asset(AppIcons.del, width: 20, height: 20),
+                ),
+              ),
             if (child.id == sl<StorageService>().getUser().id)
               Icon(
                 Icons.check_circle,

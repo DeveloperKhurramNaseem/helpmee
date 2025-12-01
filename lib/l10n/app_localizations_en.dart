@@ -798,4 +798,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enterSubject => 'Enter subject';
+
+  @override
+  String get createNewAccountButton => 'Create new account';
+
+  @override
+  String get createWithExistingEmail => 'Create with existing email';
 }

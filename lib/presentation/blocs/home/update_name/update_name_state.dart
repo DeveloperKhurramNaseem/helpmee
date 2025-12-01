@@ -7,7 +7,10 @@ class UpdateNameInitialState extends UpdateNameState {}
 
 class UpdateNameLoadingState extends UpdateNameState {}
 
-class UpdateNameDoneState extends UpdateNameState {}
+class UpdateNameDoneState extends UpdateNameState {
+  final int? accountId;
+  UpdateNameDoneState(this.accountId);
+}
 
 class UpdateNameErrorState extends UpdateNameState {
   final String message;

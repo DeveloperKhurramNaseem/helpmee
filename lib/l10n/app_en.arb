@@ -394,7 +394,9 @@
 
 "enterFirstName" : "Enter first name",
 
-"enterSubject" : "Enter subject"
+"enterSubject" : "Enter subject",
+"createNewAccountButton" : "Create new account",
+"createWithExistingEmail" : "Create with existing email"
 
 
 
