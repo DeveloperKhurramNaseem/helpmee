@@ -15,7 +15,7 @@ class SISocialLoginsRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Spacer(),
-          Expanded(child: SISocialFbLoginButton()),
+          // Expanded(child: SISocialFbLoginButton()),
           Expanded(child: SISocialGoogleLoginButton()),
           Expanded(child: SISocialAppleLoginButton()),
           Spacer(),
@@ -73,7 +73,7 @@ class SISocialLoginButton extends StatelessWidget {
     required this.onPressed,
   });
 
-  @override 
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,

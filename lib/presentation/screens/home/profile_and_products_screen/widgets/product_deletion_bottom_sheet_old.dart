@@ -6,6 +6,7 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
 import 'package:help_mee/presentation/blocs/profiles_and_products/unmap_product/unmap_product_bloc.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
@@ -123,6 +124,8 @@ class ProductDeletionBottomSheetOld extends StatelessWidget {
         GetAllProductsEvent(showLoading: false),
       );
       Navigator.of(context).pop();
+    } else if(state is UnmapProductErrorState){
+      showError(state.message);
     }
   }
 }

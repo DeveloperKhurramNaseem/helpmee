@@ -14,9 +14,12 @@ import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_social_login_button.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_space.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class CreateAccountScreen extends StatefulWidget {
   static const path = '/create-account-screen';
@@ -199,6 +202,24 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         EnterCodeScreen.path,
         extra: [emailController.text.trim(), EnterCodeScreenState.signUp],
       );
+    }else if(state is SocialSignUpDoneState){
+      if (state.activatedProducts != 0) {
+        context.go(Dashboard.path , extra: [false, true]);
+      } else {
+        m.showModalBottomSheet(
+          context: context,
+          isDismissible: false,
+          isScrollControlled: true,
+          enableDrag: false,
+          showDragHandle: true,
+          builder: (context) {
+            return PopScope(
+              canPop: false,
+              child: ProductMapBottomSheet(token: state.token),
+            );
+          },
+        );
+      }
     }
   }
 }

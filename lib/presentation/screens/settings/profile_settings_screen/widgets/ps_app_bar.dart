@@ -1,9 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/edit_profile_screen.dart';
+import 'package:help_mee/presentation/screens/settings/profile_preview_screen/profile_preview_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
-import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 
 class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
   const PsAppBar({super.key});
@@ -35,10 +34,12 @@ class PsAppBar extends StatelessWidget implements PreferredSizeWidget {
             child: UnconstrainedBox(
               child: GestureDetector(
                 onTap: () {
-                  context.push(
-                    EditProfileScreen.path,
-                    extra: ProfileType.personal,
-                  );
+                  showCupertinoSheet(
+                              context: context,
+                              enableDrag: true,
+                              useNestedNavigation: true,
+                              builder: (context) => ProfilePreviewSheet(),
+                            );
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(right: 10.0),

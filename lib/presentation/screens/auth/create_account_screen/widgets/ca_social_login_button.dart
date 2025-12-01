@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/util/constants/icons.dart';
 
 class CASocialLoginsRow extends StatelessWidget {
@@ -13,7 +15,7 @@ class CASocialLoginsRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Spacer(),
-          Expanded(child: CASocialFbLoginButton()),
+          // Expanded(child: CASocialFbLoginButton()),
           Expanded(child: CASocialGoogleLoginButton()),
           Expanded(child: CASocialAppleLoginButton()),
           Spacer(),
@@ -37,7 +39,12 @@ class CASocialGoogleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CASocialLoginButton(image: AppIcons.google, onPressed: () {});
+    return CASocialLoginButton(
+      image: AppIcons.google,
+      onPressed: () {
+        context.read<SignupBloc>().add(SignUpWithGoogleEvent());
+      },
+    );
   }
 }
 
@@ -46,7 +53,9 @@ class CASocialAppleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CASocialLoginButton(image: AppIcons.apple, onPressed: () {});
+    return CASocialLoginButton(image: AppIcons.apple, onPressed: () {
+      context.read<SignupBloc>().add(SignUpWithAppleEvent());
+    });
   }
 }
 

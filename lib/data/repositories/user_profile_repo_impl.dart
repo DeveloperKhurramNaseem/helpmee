@@ -283,6 +283,12 @@ class UserProfileRepoImpl extends UserProfileRepo {
       firstName,
       lastName,      
     );
+    if(result.$1){
+      var user = storageService.getUser();
+      user.firstName = firstName;
+      user.lastName = lastName;
+      await storageService.saveUser(user);
+    }
     return result;
   }
 

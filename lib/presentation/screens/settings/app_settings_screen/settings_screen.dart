@@ -65,9 +65,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           slivers: [
             SettingsHeader(),
             SettingsDivider(),
-            SettingsCategoryText(
-              category: localization.productsAndServices,
-            ),
+            SettingsCategoryText(category: localization.productsAndServices),
             SettingsBaseTile(
               titleText: localization.myProductsTitle,
               image: AppIcons.plusSettings,
@@ -91,9 +89,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 context.push(FeedbackScreen.path);
               },
             ),
-            SettingsCategoryText(
-              category: localization.accountSettingsLabel,
-            ),
+            SettingsCategoryText(category: localization.accountSettingsLabel),
             SettingsBaseTile(
               titleText: localization.switchAccountOrAddProfile,
               image: AppIcons.switchIcon,
@@ -171,9 +167,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               },
             ),
-            SettingsCategoryText(
-              category: localization.legalLabel,
-            ),
+            SettingsCategoryText(category: localization.legalLabel),
             SettingsBaseTile(
               titleText: localization.privacyPolicyLabel,
               image: AppIcons.privacyIcon,
@@ -236,9 +230,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
 
-            SettingsVersionText(
-              version: '${localization.version} 3.5.0',
-            ),
+            SettingsVersionText(version: '${localization.version} 3.5.0'),
           ],
         ),
       ),
@@ -268,7 +260,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         context.go(SignInScreen.path);
       });
     } else if (state is DeleteProfileErrorState) {
-      showToast(state.message);
+      showError(state.message);
     }
   }
 }

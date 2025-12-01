@@ -42,7 +42,6 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                   GestureDetector(
                     onTap: () {
                       context.push(SettingsScreen.path);
-
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),

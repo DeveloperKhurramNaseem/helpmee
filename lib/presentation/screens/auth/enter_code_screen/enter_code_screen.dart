@@ -119,10 +119,10 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
 
   void _listenResendOtpStates(BuildContext context, ResendOtpState state) {
     if (state is ResendOtpDoneState) {
-      showToast(state.message);
+      showError(state.message);
       duration = Duration(minutes: 5);
     } else if (state is ResendOtpErrorState) {
-      showToast(state.message);
+      showError(state.message);
     }
   }
 }

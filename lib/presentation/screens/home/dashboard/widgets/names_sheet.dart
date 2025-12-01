@@ -24,8 +24,8 @@ class _NamesSheetState extends State<NamesSheet> {
   @override
   void initState() {
     super.initState();
-    firstNameController = TextEditingController();
-    lastNameController = TextEditingController();
+    firstNameController = TextEditingController()..addListener(listener);
+    lastNameController = TextEditingController()..addListener(listener);
   }
 
   @override
@@ -67,6 +67,7 @@ class _NamesSheetState extends State<NamesSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: TextFormField(
+                controller: firstNameController,
                 decoration: InputDecoration(
                   border: TextFieldsConstants.border,
                   labelText: AppLocalizations.of(context)!.firstNameLabel,
@@ -83,6 +84,7 @@ class _NamesSheetState extends State<NamesSheet> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 12),
               child: TextFormField(
+                controller: lastNameController,
                 decoration: InputDecoration(
                   border: TextFieldsConstants.border,
                   labelText: AppLocalizations.of(context)!.lastNameLabel,
@@ -100,23 +102,26 @@ class _NamesSheetState extends State<NamesSheet> {
               padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
               child: BlocBuilder<UpdateNameBloc, UpdateNameState>(
                 builder: (context, state) {
-                  return AppButton(
-                    onPressed: state is UpdateNameLoadingState
-                        ? null
-                        : enabled
-                        ? () {
-                            context.read<UpdateNameBloc>().add(
-                              UpdateNameInitEvent(
-                                firstName: firstNameController.text.trim(),
-                                lastName: lastNameController.text.trim(),
-                              ),
-                            );
-                          }
-                        : null,
-                    gradient: Theme.of(
-                      context,
-                    ).extension<AppGradients>()?.primaryButton,
-                    child: state is UpdateNameLoadingState ? CupertinoActivityIndicator(color: Colors.white) : Text(AppLocalizations.of(context)!.next),
+                  return Opacity(
+                    opacity: enabled ? 1 : 0.7,
+                    child: AppButton(
+                      onPressed: state is UpdateNameLoadingState
+                          ? null
+                          : enabled
+                          ? () {
+                              context.read<UpdateNameBloc>().add(
+                                UpdateNameInitEvent(
+                                  firstName: firstNameController.text.trim(),
+                                  lastName: lastNameController.text.trim(),
+                                ),
+                              );
+                            }
+                          : null,
+                      gradient: Theme.of(
+                        context,
+                      ).extension<AppGradients>()?.primaryButton,
+                      child: state is UpdateNameLoadingState ? CupertinoActivityIndicator(color: Colors.white) : Text(AppLocalizations.of(context)!.next),
+                    ),
                   );
                 },
               ),

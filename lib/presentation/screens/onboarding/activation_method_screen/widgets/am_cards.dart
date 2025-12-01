@@ -112,7 +112,7 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
         }
         final availability = await NfcManager.instance.checkAvailability();
         if (availability == NfcAvailability.unsupported) {
-          showToast('NFC not available on this device');
+          showError('NFC not available on this device');
           return;
         }
         try {
@@ -157,11 +157,18 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                           token: widget.token,
                         ),
                       );
-                    } else if(widget.activationMethodState == ActivationMethodState.makeChildWithExistingEmail){
-                      makeChildBloc.add(MakeChildWithExistingEmailEvent(code: code,device: device));
-                    }
-                     else{
-                       addProductBloc.add(AddNewProductEvent(code: code, device: device));
+                    } else if (widget.activationMethodState ==
+                        ActivationMethodState.makeChildWithExistingEmail) {
+                      makeChildBloc.add(
+                        MakeChildWithExistingEmailEvent(
+                          code: code,
+                          device: device,
+                        ),
+                      );
+                    } else {
+                      addProductBloc.add(
+                        AddNewProductEvent(code: code, device: device),
+                      );
                     }
                     if (Platform.isAndroid) {
                       if (mounted) {

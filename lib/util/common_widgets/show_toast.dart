@@ -1,11 +1,10 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-void showToast(String message) {
+void showError(String message) {
   Fluttertoast.showToast(
     msg: message,
     toastLength: Toast.LENGTH_LONG,
-    backgroundColor: Color.fromRGBO(151, 0, 0, 0.8),
+    backgroundColor: Colors.grey,
   );
 }

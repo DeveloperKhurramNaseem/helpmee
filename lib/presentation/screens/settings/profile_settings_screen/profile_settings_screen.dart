@@ -51,7 +51,7 @@ class _ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
         GetAllNotificationsEvent(isLoading: false),
       );
     } else if (state is SetPinErrorState) {
-      showToast(state.message);
+      showError(state.message);
       Navigator.of(context).pop();
     }
   }
