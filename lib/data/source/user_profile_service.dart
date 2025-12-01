@@ -89,7 +89,7 @@ class UserProfileService extends ApiService {
     return (false, ErrorConstants.errorMessage, AppUserModel());
   }
 
-  Future<(bool, String)> updateBasicPetUserInfo(
+  Future<(bool, String, AppUserModel)> updateBasicPetUserInfo(
     String token,
     String language,
     BasicPetProfileInfo info,
@@ -112,9 +112,9 @@ class UserProfileService extends ApiService {
     }
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success, decodedResponse.message);
+      return (decodedResponse.success, decodedResponse.message, AppUserModel.fromMap(decodedResponse.data['user']));
     }
-    return (false, ErrorConstants.errorMessage);
+    return (false, ErrorConstants.errorMessage,AppUserModel());
   }
 
   Future<(bool, String)> addFamilyContact(

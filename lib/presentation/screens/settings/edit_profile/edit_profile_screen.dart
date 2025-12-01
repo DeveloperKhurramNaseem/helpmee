@@ -72,8 +72,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController petDateOfBirthController;
   int petGenderValue = 1;
 
-  String castrated = 'yes';
-  String chipped = 'yes';
+  String castrated = 'no';
+  String chipped = 'no';
   DateTime petBirthday = DateTime.now();
 
   @override
@@ -229,7 +229,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
     petGenderValue = userProfile.user.gender;
     petSizeController.text = userProfile.user.size;
-    castrated = userProfile.user.castrated;
+    castrated = userProfile.user.castrated;    
+    chipped = userProfile.user.chipped;    
     petWeightController.text = userProfile.user.weight;
     petInsuranceCompanyController.text = userProfile.user.insuranceCompany;
     petInsuranceIdInformationController.text = userProfile.user.insuranceId;

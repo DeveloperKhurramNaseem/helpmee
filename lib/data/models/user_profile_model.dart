@@ -140,6 +140,8 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     var currentDate = DateTime.now();
+    var castrated =  ((map[castratedKey] ?? '') as String);
+    var chipped = ((map[chippedKey] ?? '') as String);
     return User(
       id: map[idKey] ?? 0,
       firstName: map[firstNameKey] ?? '',
@@ -159,8 +161,8 @@ class User {
       race: map[raceKey] ?? '',
       petCharacter: map[petCharacterKey] ?? '',
       size: map[sizeKey] ?? '',
-      castrated: ((map[castratedKey] ?? '') as String).toLowerCase(),
-      chipped: ((map[chippedKey] ?? '') as String).toLowerCase(),
+      castrated:castrated.isEmpty ? 'no' : castrated.toLowerCase(),
+      chipped: chipped.isEmpty ? 'no' : chipped.toLowerCase(),
       chipPosition: map[chipPositionKey] ?? '',
       taxNo: map[taxNoKey] ?? '',
       tassoNo: map[tassoNoKey] ?? '',

@@ -19,9 +19,11 @@ abstract class ApiService {
       Uri.parse(baseUrl + apiUrl + endPoint),
       headers: header,
     );
+
     if (response.statusCode == 500) {
       return null;
     }
+
     return response.body;
   }
 
@@ -34,11 +36,11 @@ abstract class ApiService {
       Uri.parse(baseUrl + apiUrl + endPoint),
       body: jsonEncode(body),
       headers: header,
-    );    
+    );
     if (response.statusCode == 500) {
       return null;
     }
-    log(response.body , name: 'Response');
+    log(response.body, name: 'Response');
     return response.body;
   }
 
@@ -96,7 +98,6 @@ abstract class ApiService {
     return await response.stream.bytesToString();
   }
 
-
   Future<String?> postFile(
     String endPoint,
     Map<String, dynamic> body,
@@ -107,15 +108,15 @@ abstract class ApiService {
     var request = http.MultipartRequest(
       'POST',
       Uri.parse(baseUrl + apiUrl + endPoint),
-    );    
+    );
     var mimeType = lookupMimeType(file.path) ?? 'application/octet-stream';
     request.files.add(
       http.MultipartFile(
         fieldKey,
         file.readAsBytes().asStream(),
         file.lengthSync(),
-        filename: file.path.split('/').last, 
-        contentType: MediaType.parse(mimeType)       
+        filename: file.path.split('/').last,
+        contentType: MediaType.parse(mimeType),
       ),
     );
     request.fields.addAll(
@@ -134,7 +135,6 @@ abstract class ApiService {
     }
     return await response.stream.bytesToString();
   }
-
 
   Future<String?> delete(
     String endPoint, {

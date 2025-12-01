@@ -223,7 +223,7 @@ class _EpVoiceNoteState extends State<EpVoiceNote> {
               height: AppSize.instance.height * 0.065,
               child: CustomPaint(
                 painter: WaveformPainter(
-                  maxBarHeight: AppSize.instance.height * 0.035,
+                  maxBarHeight: AppSize.instance.height * 0.002,
                   samples: widget.waveforms.map((e) => e.toDouble()).toList(),
                   progress: _loading ? 0 : _progressFrac,
                   barColor: Colors.black,

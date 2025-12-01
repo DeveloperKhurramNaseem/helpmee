@@ -90,6 +90,9 @@ class _DemoProfileSheetState extends State<DemoProfileSheet> {
             BlocBuilder<GetDemoProfilesBloc, GetDemoProfilesState>(
               builder: (context, state) {
                 if (state is GetDemoProfilesLoadedState) {
+                  if (state.demoProfiles.isEmpty) {
+                    return SizedBox();
+                  }
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(12, 12, 12, 8),
                     child: Stack(
@@ -193,24 +196,33 @@ class _DemoProfileSheetState extends State<DemoProfileSheet> {
                   Spacer(flex: 20),
                   Expanded(
                     flex: 60,
-                    child: AppButton(
-                      onPressed: () {
-                        m.showModalBottomSheet(
-                          context: context,
-                          isScrollControlled: true,
-                          showDragHandle: true,
-                          builder: (context) {
-                            return DemoProfileConfirmSheet(
-                              demoProfileModel:
-                                  bloc.demoProfiles[selectedIndex],
-                            );
-                          },
+                    child: BlocBuilder<GetDemoProfilesBloc, GetDemoProfilesState>(
+                      builder: (context, state) {
+                        return Opacity(
+                          opacity: state is GetDemoProfilesLoadedState && state.demoProfiles.isNotEmpty ? 1 : 0.7,
+                          child: AppButton(
+                            onPressed: state is GetDemoProfilesLoadedState && state.demoProfiles.isNotEmpty ? () {
+                              m.showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                showDragHandle: true,
+                                builder: (context) {
+                                  return DemoProfileConfirmSheet(
+                                    demoProfileModel:
+                                        bloc.demoProfiles[selectedIndex],
+                                  );
+                                },
+                              );
+                            } : null,
+                            gradient: Theme.of(
+                              context,
+                            ).extension<AppGradients>()?.primaryButton,
+                            child: Text(
+                              AppLocalizations.of(context)!.continueButton,
+                            ),
+                          ),
                         );
                       },
-                      gradient: Theme.of(
-                        context,
-                      ).extension<AppGradients>()?.primaryButton,
-                      child: Text(AppLocalizations.of(context)!.continueButton),
                     ),
                   ),
                   Spacer(flex: 20),

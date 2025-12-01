@@ -267,7 +267,10 @@ class UserProfileRepoImpl extends UserProfileRepo {
       language,
       info,
     );
-    return result;
+    if(result.$1){
+      await storageService.saveUser(result.$3);
+    }    
+    return (result.$1 , result.$2);
   }
   
   @override

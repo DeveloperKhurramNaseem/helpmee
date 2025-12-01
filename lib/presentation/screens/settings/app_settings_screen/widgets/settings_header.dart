@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/profile_preview_screen/profile_preview_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/profile_settings_screen.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/dependencies/init.dart';
@@ -61,23 +63,40 @@ class SettingsHeader extends StatelessWidget {
                       // AppButtonOutlined(onPressed: onPressed, child: child)
                       Expanded(
                         flex: 46,
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.secondary.withAlpha(100),
-                            ),
-                          ),
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              AppLocalizations.of(context)!.profilePreviewLabel,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            showCupertinoSheet(
+                              context: context,
+                              enableDrag: true,
+                              useNestedNavigation: true,
+                              builder: (context) => ProfilePreviewSheet(),
+                            );
+                          },
+                          child: ColoredBox(
+                            color: Colors.transparent,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(100),
+                                ),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.profilePreviewLabel,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

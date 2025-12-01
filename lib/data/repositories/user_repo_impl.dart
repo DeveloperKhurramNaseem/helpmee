@@ -100,7 +100,9 @@ class UserRepoImpl extends UserRepo {
   ) async {
     var lang = storageService.getLanguage();
     var result = await userService.activateProduct(code, device, token, lang);
-    await tokenService.saveToken(token);
+    if(result.$1){
+      await tokenService.saveToken(token);
+    }    
     return result;
   }
 
