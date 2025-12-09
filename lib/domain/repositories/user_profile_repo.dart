@@ -26,6 +26,6 @@ abstract class UserProfileRepo {
   Future<(bool,String)> deleteDocument(int docId);
   Future<(bool,String)> lockDocument(int docId,String status);
   Future<(bool,String)> uploadVoice(File voiceFile);    
-  Future<(bool,String)> updateName(String firstName, String lastName, String? token);
+  Future<(bool,String)> updateName(String firstName, String lastName);  
 
 }

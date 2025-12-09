@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:help_mee/data/models/app_data_model.dart';
 import 'package:help_mee/data/models/app_user_model.dart';
+import 'package:help_mee/data/models/child_account_model.dart';
 import 'package:help_mee/data/models/cooperation_partners.dart';
 import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/data/models/notification_model.dart';
@@ -100,9 +101,9 @@ class UserRepoImpl extends UserRepo {
   ) async {
     var lang = storageService.getLanguage();
     var result = await userService.activateProduct(code, device, token, lang);
-    if(result.$1){
+    if (result.$1) {
       await tokenService.saveToken(token);
-    }    
+    }
     return result;
   }
 
@@ -305,13 +306,15 @@ class UserRepoImpl extends UserRepo {
   Future<(bool, AppDataModel)> getUserProfile() async {
     var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
-    var result = await userService.getUserProfile(token, lang);    
+    var result = await userService.getUserProfile(token, lang);
     var childAccounts = [
       result.$2.user,
       ...(result.$2.childAccounts ?? <AppUserModel>[]),
-    ];
+    ];    
     await storageService.saveUser(result.$2.user);
-    await storageService.saveChildAccounts(childAccounts);    
+    await storageService.addMultipleChilds([      
+      ...childAccounts.map((e) => e.toChildModel()),
+    ]);
     return result;
   }
 
@@ -334,7 +337,22 @@ class UserRepoImpl extends UserRepo {
       token,
       lang,
     );
-    await getUserProfile();    
+    if (result.success) {
+      var currentUser = result.user;
+      await storageService.addChild(
+        ChildAccountModel(
+          id: 0,
+          logo: currentUser.logo,
+          firstName: currentUser.firstName,
+          lastName: currentUser.lastName,
+          email: currentUser.email,
+          accountId: currentUser.id!,
+          userGroupId: currentUser.userGroupId
+        ),
+      );
+      await tokenService.saveToken(result.data.accessToken.accessToken);
+      await storageService.saveUser(result.user);
+    }
     return result;
   }
 
@@ -364,12 +382,12 @@ class UserRepoImpl extends UserRepo {
     );
     return result;
   }
-  
+
   @override
-  Future<(bool, String)> deleteProfileAndMakeChildParent() async{
+  Future<(bool, String)> deleteProfileAndMakeChildParent() async {
     var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
-    var result = await userService.deleteProfileAndMakeChildParent(token,lang);
+    var result = await userService.deleteProfileAndMakeChildParent(token, lang);
     return result;
   }
 }

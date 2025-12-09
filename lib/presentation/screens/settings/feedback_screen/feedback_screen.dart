@@ -148,7 +148,14 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
 
   void _handleFeedbackListener(BuildContext context, FeedbackState state) {
     if (state is FeedbackDoneState) {
-      context.pop();
+      showDialog(context: context, builder: (context) => CupertinoAlertDialog(
+        content: Text(state.message),
+        actions: [
+          TextButton(onPressed: (){
+            context.pop();
+          }, child: Text('Ok'),),
+        ],
+      ),);            
     }
   }
 }

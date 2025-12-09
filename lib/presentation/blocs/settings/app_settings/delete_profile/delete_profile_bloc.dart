@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
@@ -27,6 +28,7 @@ class DeleteProfileBloc extends Bloc<DeleteProfileEvent, DeleteProfileState> {
       emit(DeleteProfileErrorState(result.$2));
       }
     } catch (e) {
+      log(e.toString() , name: 'Delete Profile Bloc');
       emit(DeleteProfileErrorState(ErrorConstants.errorMessage));
     }
   }

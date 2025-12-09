@@ -224,7 +224,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: localization.signOutLabel,
               image: AppIcons.signOutIcon,
               onTap: () {
-                sl<StorageService>().clearData();
+                sl<StorageService>().clearData();                
                 sl<TokenService>().saveToken('').then((_) {
                   context.go(SignInScreen.path);
                 });

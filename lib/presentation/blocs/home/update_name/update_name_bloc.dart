@@ -19,12 +19,11 @@ class UpdateNameBloc extends Bloc<UpdateNameEvent, UpdateNameState> {
     Emitter<UpdateNameState> emit,
   ) async {
     try {
-      emit(UpdateNameLoadingState());
-      var result = await userProfileRepo.updateName(
+      emit(UpdateNameLoadingState()); 
+      (bool, String) result = await  userProfileRepo.updateName(
         event.firstName,
-        event.lastName,
-        event.token,        
-      );
+        event.lastName,           
+      );      
       if (result.$1) {
         emit(UpdateNameDoneState(event.accountId));
       } else {

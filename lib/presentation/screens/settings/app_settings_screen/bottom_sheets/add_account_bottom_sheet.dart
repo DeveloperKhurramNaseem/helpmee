@@ -102,7 +102,11 @@ class _AddAccountBottomSheetState extends State<AddAccountBottomSheet> {
                 updated
                     ? AppLocalizations.of(context)!.createWithNewEmail
                     : AppLocalizations.of(context)!.createNewAccountButton,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+                style: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 14,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
               ),
             ),
           ),

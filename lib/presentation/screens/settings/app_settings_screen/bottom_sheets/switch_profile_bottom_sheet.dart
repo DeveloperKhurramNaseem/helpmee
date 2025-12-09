@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'package:help_mee/data/models/app_user_model.dart';
+import 'package:help_mee/data/models/child_account_model.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
@@ -16,16 +16,30 @@ import 'package:help_mee/presentation/screens/settings/app_settings_screen/botto
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
-class SwitchProfileBottomSheet extends StatelessWidget {
+class SwitchProfileBottomSheet extends StatefulWidget {
   const SwitchProfileBottomSheet({super.key});
+
+  @override
+  State<SwitchProfileBottomSheet> createState() =>
+      _SwitchProfileBottomSheetState();
+}
+
+class _SwitchProfileBottomSheetState extends State<SwitchProfileBottomSheet> {
+  Future<List<ChildAccountModel>>? childAccountsFuture;
+
+  @override
+  void initState() {
+    super.initState();
+    childAccountsFuture = sl<StorageService>().getChildAccounts();
+  }
 
   @override
   Widget build(BuildContext context) {
     var localization = AppLocalizations.of(context)!;
-    var childAccounts = sl<StorageService>().getChildAccounts();
     return BlocListener<SwitchAccountBloc, SwitchAccountState>(
       listener: _handleSwitchAccountBloc,
       child: Padding(
@@ -48,7 +62,22 @@ class SwitchProfileBottomSheet extends StatelessWidget {
                   ],
                 ),
               ),
-              for (var child in childAccounts) ProfileTile(child: child),
+              FutureBuilder<List<ChildAccountModel>>(
+                future: childAccountsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasData && snapshot.data != null) {
+                      return Column(
+                        children: [
+                          for (var child in snapshot.data!)
+                            ProfileTile(child: child),
+                        ],
+                      );
+                    }
+                  }
+                  return SizedBox();
+                },
+              ),
               AddProfileTile(
                 title: localization.addAccountButton,
                 onTap: () {
@@ -87,7 +116,7 @@ class SwitchProfileBottomSheet extends StatelessWidget {
 }
 
 class ProfileTile extends StatelessWidget {
-  final AppUserModel child;
+  final ChildAccountModel child;
   const ProfileTile({super.key, required this.child});
 
   @override
@@ -95,7 +124,7 @@ class ProfileTile extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         context.read<SwitchAccountBloc>().add(
-          SwitchIntoNewAccountEvent(child.id ?? 0),
+          SwitchIntoNewAccountEvent(child.accountId),
         );
       },
       child: Container(
@@ -123,7 +152,7 @@ class ProfileTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '${child.firstName ?? ''} ${child.lastName ?? ''}',
+                      '${child.firstName ?? ''} ${child.lastName ?? ''} (${getTextFromProfileType(getProfileType(child.userGroupId!))})',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontWeight: FontWeight.w500),
@@ -141,17 +170,19 @@ class ProfileTile extends StatelessWidget {
                 ),
               ),
             ),
-            if (child.id == sl<StorageService>().getUser().id)
+            if (child.accountId == sl<StorageService>().getUser().id)
               GestureDetector(
                 onTap: () {
-                  context.read<DeleteProfileAndMakeChildParentBloc>().add(DeleteProfileAndMakeChildParentEvent());
+                  context.read<DeleteProfileAndMakeChildParentBloc>().add(
+                    DeleteProfileAndMakeChildParentEvent(),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: SvgPicture.asset(AppIcons.del, width: 20, height: 20),
                 ),
               ),
-            if (child.id == sl<StorageService>().getUser().id)
+            if (child.accountId == sl<StorageService>().getUser().id)
               Icon(
                 Icons.check_circle,
                 color: Theme.of(context).colorScheme.primary,
@@ -161,6 +192,15 @@ class ProfileTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String getTextFromProfileType(ProfileType profileType) {
+    if (profileType == ProfileType.sos) {
+      return 'Emergency';
+    } else if (profileType == ProfileType.pet) {
+      return 'Pet';
+    }
+    return 'Personal';
   }
 }
 

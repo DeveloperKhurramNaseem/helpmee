@@ -1,4 +1,4 @@
-
+import 'package:help_mee/data/models/child_account_model.dart';
 import 'package:help_mee/domain/entities/app_user.dart';
 
 class AppUserModel extends AppUser {
@@ -75,7 +75,7 @@ class AppUserModel extends AppUser {
       createdAtKey = 'created_at',
       updatedAtKey = 'updated_at';
   static const profileImageKey = 'profile_image',
-      profileBannerKey = 'profile_banner';     
+      profileBannerKey = 'profile_banner';
 
   AppUserModel({
     super.id,
@@ -231,7 +231,7 @@ class AppUserModel extends AppUser {
       createdAt: map[createdAtKey],
       updatedAt: map[updatedAtKey],
       profileImage: map[profileImageKey],
-      profileBanner: map[profileBannerKey],    
+      profileBanner: map[profileBannerKey],
     );
   }
 
@@ -311,7 +311,7 @@ class AppUserModel extends AppUser {
       createdAtKey: createdAt,
       updatedAtKey: updatedAt,
       profileImageKey: profileImage,
-      profileBannerKey: profileBanner,     
+      profileBannerKey: profileBanner,
     };
   }
 
@@ -469,6 +469,18 @@ class AppUserModel extends AppUser {
       updatedAt: updatedAt ?? super.updatedAt,
       profileImage: profileImage ?? super.profileImage,
       profileBanner: profileBanner ?? super.profileBanner,
+    );
+  }
+
+  ChildAccountModel toChildModel() {
+    return ChildAccountModel(
+      id: 0,
+      logo: logo,
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      accountId: id ?? 0,
+      userGroupId: userGroupId
     );
   }
 }

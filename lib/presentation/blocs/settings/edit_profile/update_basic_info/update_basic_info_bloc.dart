@@ -86,6 +86,7 @@ class UpdateBasicInfoBloc
         emit(UpdateBasicInfoErrorState(message: result.$2));
       }
     } catch (e) {
+      log(e.toString() , name: 'Update Basic Info Bloc');
       emit(UpdateBasicInfoErrorState(message: ErrorConstants.errorMessage));
     }
   }

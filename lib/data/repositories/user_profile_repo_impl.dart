@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:help_mee/data/models/basic_profile_info.dart';
+import 'package:help_mee/data/models/child_account_model.dart';
 import 'package:help_mee/data/models/requests/address_info.dart';
 import 'package:help_mee/data/models/requests/contact_info.dart';
 import 'package:help_mee/data/models/requests/disease_info.dart';
@@ -9,6 +10,7 @@ import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/data/source/token_service.dart';
 import 'package:help_mee/data/source/user_profile_service.dart';
 import 'package:help_mee/domain/repositories/user_profile_repo.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 
 class UserProfileRepoImpl extends UserProfileRepo {
   final UserProfileService userProfileService;
@@ -24,7 +26,7 @@ class UserProfileRepoImpl extends UserProfileRepo {
   Future<(bool, String, UserProfileModel)> getUserProfile() async {
     var token = await tokenService.getToken();
     var language = storageService.getLanguage();
-    var result = await userProfileService.getUserProfileData(token, language);    
+    var result = await userProfileService.getUserProfileData(token, language);
     return result;
   }
 
@@ -267,29 +269,52 @@ class UserProfileRepoImpl extends UserProfileRepo {
       language,
       info,
     );
-    if(result.$1){
-      await storageService.saveUser(result.$3);
-    }    
-    return (result.$1 , result.$2);
+    if (result.$1) {
+      var user = storageService.getUser();
+      user.firstName = result.$3.firstName;
+      user.lastName = result.$3.lastName;
+      user.logo = result.$3.profileImage;
+      storageService.saveUser(user);
+    }
+    return (result.$1, result.$2);
   }
-  
+
   @override
-  Future<(bool, String)> updateName(String firstName, String lastName,String? accessToken) async {    
-    var token = accessToken ?? await tokenService.getToken();
+  Future<(bool, String)> updateName(String firstName, String lastName) async {
+    var token = await tokenService.getToken();
     var language = storageService.getLanguage();
+    var user = storageService.getUser();
+    String fName, lName;
+    if(getProfileType(user.userGroupId ?? 8) == ProfileType.pet){
+      lName = '';
+      fName = '$firstName $lastName';
+    }else{
+      fName = firstName;
+      lName = lastName;
+    }
     var result = await userProfileService.updateName(
       token,
       language,
-      firstName,
-      lastName,      
+      fName,
+      lName,
     );
-    // if(result.$1){
-    //   var user = storageService.getUser();
-    //   user.firstName = firstName;
-    //   user.lastName = lastName;
-    //   await storageService.saveUser(user);
-    // }
+    if (result.$1) {
+      var user = storageService.getUser();
+      user.firstName = fName;
+      user.lastName = lName;
+      await storageService.saveUser(user);
+      await storageService.updateChild(
+        ChildAccountModel(
+          id: 0,
+          logo: user.logo,
+          firstName: fName,
+          lastName: lName,
+          email: user.email,
+          accountId: user.id ?? 0,
+          userGroupId: user.userGroupId
+        ),
+      );
+    }
     return result;
   }
-
 }

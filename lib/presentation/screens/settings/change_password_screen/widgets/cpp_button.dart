@@ -36,7 +36,7 @@ class CppButton extends StatelessWidget {
                         );
                       }
                       return Text(
-                        AppLocalizations.of(context)!.next,
+                        AppLocalizations.of(context)!.changePasswordButton,
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           fontSize: 14,

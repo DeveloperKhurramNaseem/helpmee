@@ -33,7 +33,7 @@ class GetProfileDataBloc
         data = await userProfileRepo.getUserProfile();        
       }            
       if(data.$1){
-        userProfileModel = data.$3;
+        userProfileModel = data.$3;        
         emit(GetProfileDataLoadedState(data.$3));
       }else{
         emit(GetProfileDataErrorState(data.$2));
