@@ -246,6 +246,22 @@ class _ActivationMethodScreenState extends State<ActivationMethodScreen> {
           );
         },
       );
+    }else if(state is MakeChildWithExistingEmailErrorState){
+      context.pop();
+      showDialog(
+        context: context,
+        builder: (context) {
+          return CupertinoAlertDialog(
+            content: Text(state.message),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text('Ok'),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 }
