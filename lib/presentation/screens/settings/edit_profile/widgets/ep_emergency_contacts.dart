@@ -4,9 +4,11 @@ import 'package:help_mee/data/models/user_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_address_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/create_new_contact.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/select_map_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/util_functions.dart';
+import 'package:help_mee/util/extension/string_modification.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
@@ -301,6 +303,7 @@ class AddressTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var addressText = '${address.streetName} ${address.houseNumber}\n${address.zip} ${address.city}, ${address.country}';
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -325,7 +328,7 @@ class AddressTile extends StatelessWidget {
                   spacing: 2,
                   children: [
                     Text(
-                      '${address.streetName} ${address.houseNumber}\n${address.zip} ${address.city}, ${address.country}',
+                      addressText,
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
@@ -335,15 +338,25 @@ class AddressTile extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              spacing: 10,
-              children: [SvgPicture.asset(AppIcons.locationIcon)],
+            GestureDetector(
+              onTap: () {
+                showModalBottomSheet(context: context, isDismissible: true, showDragHandle: true ,builder: (context){
+                  return SelectMapBottomSheet(address: addressText);
+                });
+              },
+              child: Row(
+                spacing: 10,
+                children: [SvgPicture.asset(AppIcons.locationIcon)],
+              ),
             ),
           ],
         ),
       ),
     );
   }
+
+ 
+
 }
 
 class ContactsTitleRow extends StatelessWidget {

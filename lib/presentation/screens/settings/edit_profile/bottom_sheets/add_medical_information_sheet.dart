@@ -6,12 +6,14 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheet
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 
 class AddMedicalInformationSheet extends StatelessWidget {
-  final List<Disease> notAddedDiseaseTypes;
+  final List<Disease> notAddedDiseaseTypes;  
   const AddMedicalInformationSheet({
     super.key,
     required this.notAddedDiseaseTypes,
+ 
   });
 
   @override
@@ -45,7 +47,7 @@ class AddMedicalInformationSheet extends StatelessWidget {
                       notAddedDiseaseTypes[i].id,
                       context,
                     );
-                    return AddDiseaseSheet(
+                    return AddDiseaseSheet(                      
                       id: notAddedDiseaseTypes[i].id,
                       title: notAddedDiseaseTypes[i].name,
                       description: diseaseInfo.description,

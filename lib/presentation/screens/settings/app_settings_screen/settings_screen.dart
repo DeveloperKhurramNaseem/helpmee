@@ -163,7 +163,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   showDragHandle: true,
                   isScrollControlled: true,
                   builder: (context) {
-                    return DeleteProfileBottomSheet();
+                    return DeleteProfileBottomSheet(
+                      makeChildParent: false,
+                    );
                   },
                 );
               },

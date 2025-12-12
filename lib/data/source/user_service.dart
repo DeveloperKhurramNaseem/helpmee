@@ -518,6 +518,7 @@ class UserService extends ApiService {
     var result = await delete(
       EndPoints.deleteProfileAndMakeChildParent,
       header: NetworkConstants.getHeaders(lang, token),
+      body: {"reason" : "Delete"}
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);

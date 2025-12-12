@@ -97,7 +97,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Add address',
+AppLocalizations.of(context)!.addAddress,
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         fontSize: 20,
@@ -106,7 +106,7 @@ class _AddAddressSheetState extends State<AddAddressSheet> {
                   ],
                 ),
               ),
-              EpHeaderInfoBaseField(label: 'Name', controller: nameController),
+              EpHeaderInfoBaseField(label: localization.addressDescription, controller: nameController),
               EpHeaderInfoBaseField(
                 label: localization.streetNameLabel,
                 controller: streetNameController,

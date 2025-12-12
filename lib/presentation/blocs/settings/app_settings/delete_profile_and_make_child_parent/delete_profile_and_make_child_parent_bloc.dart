@@ -29,7 +29,7 @@ class DeleteProfileAndMakeChildParentBloc
   ) async {
     try {
       emit(DeleteProfileAndMakeChildParentLoadingState());
-      var result = await userRepo.deleteProfileAndMakeChildParent();
+      var result = await userRepo.deleteProfileAndMakeChildParent(event.deleteId);
       if (result.$1) {
         emit(DeleteProfileAndMakeChildParentDoneState());
       } else {

@@ -21,7 +21,12 @@ class DeleteProfileBloc extends Bloc<DeleteProfileEvent, DeleteProfileState> {
   ) async {
     try {
       emit(DeleteProfileLoadingState());
-      var result = await userRepo.deleteAccount();
+      (bool, String) result;
+      if(event.makeChildParent && event.accountId != null){       
+          result = await userRepo.deleteProfileAndMakeChildParent(event.accountId!);       
+      }else{
+        result = await userRepo.deleteAccount();
+      }      
       if(result.$1){
         emit(DeleteProfileDoneState());
       }else{

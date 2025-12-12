@@ -7,14 +7,15 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_inform
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_disease_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_medical_information_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class EpMedicalInformation extends StatelessWidget {
-  final List<Disease> notAddedDiseaseTypes, addedDiseaseType;
+  final List<Disease> notAddedDiseaseTypes, addedDiseaseType;  
   const EpMedicalInformation({
     super.key,
     required this.addedDiseaseType,
-    required this.notAddedDiseaseTypes,
+    required this.notAddedDiseaseTypes,    
   });
 
   @override
@@ -39,7 +40,7 @@ class EpMedicalInformation extends StatelessWidget {
                   status: addedDiseaseType[i].diseaseDetails.status,
                 ),
               AddMedicalInformationTile(
-                notAddedDiseaseTypes: notAddedDiseaseTypes,
+                notAddedDiseaseTypes: notAddedDiseaseTypes,                
               ),
             ],
           ),
@@ -50,10 +51,10 @@ class EpMedicalInformation extends StatelessWidget {
 }
 
 class AddMedicalInformationTile extends StatelessWidget {
-  final List<Disease> notAddedDiseaseTypes;
+  final List<Disease> notAddedDiseaseTypes;  
   const AddMedicalInformationTile({
     super.key,
-    required this.notAddedDiseaseTypes,
+    required this.notAddedDiseaseTypes,    
   });
 
   @override
@@ -67,7 +68,7 @@ class AddMedicalInformationTile extends StatelessWidget {
           isScrollControlled: true,
           builder: (context) {
             return AddMedicalInformationSheet(
-              notAddedDiseaseTypes: notAddedDiseaseTypes,
+              notAddedDiseaseTypes: notAddedDiseaseTypes,              
             );
           },
         );

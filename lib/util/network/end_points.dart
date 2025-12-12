@@ -44,6 +44,7 @@ class EndPoints {
 
   // Disease Endpoints
   static const addDisease = '/add-disease';
+  static const addPetDisease = '/add-pet-disease';
   static const updateDisease = '/update-disease';
   static const deleteDisease = '/delete-disease';
   static const lockDisease = '/lock-disease';

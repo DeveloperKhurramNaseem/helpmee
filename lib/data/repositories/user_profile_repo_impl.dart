@@ -164,6 +164,18 @@ class UserProfileRepoImpl extends UserProfileRepo {
     return result;
   }
 
+    @override
+  Future<(bool, String)> addPetDisease(DiseaseInfo diseaseInfo) async {
+    var token = await tokenService.getToken();
+    var language = storageService.getLanguage();
+    var result = await userProfileService.addPetDisease(
+      token,
+      language,
+      diseaseInfo,
+    );
+    return result;
+  }
+
   @override
   Future<(bool, String)> deleteDisease(int diseaseId) async {
     var token = await tokenService.getToken();

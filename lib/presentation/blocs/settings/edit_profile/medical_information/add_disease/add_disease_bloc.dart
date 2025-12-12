@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:help_mee/data/models/requests/disease_info.dart';
 import 'package:help_mee/domain/repositories/user_profile_repo.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:meta/meta.dart';
 
 part 'add_disease_event.dart';
@@ -22,7 +23,18 @@ class AddDiseaseBloc extends Bloc<AddDiseaseEvent, AddDiseaseState> {
   ) async {
     try {
       emit(AddDiseaseLoadingState());
-      var result = await userProfileRepo.addDisease(
+      (bool, String) result;
+      if(event.profileType == ProfileType.pet){
+        result = await userProfileRepo.addPetDisease(
+        DiseaseInfo(
+          name: event.diseaseName,
+          medications: event.medications,
+          details: event.details,
+          isCheck: "${event.isCheck}",
+        ),
+      );       
+      } else{
+        result = await userProfileRepo.addDisease(
         DiseaseInfo(
           name: event.diseaseName,
           medications: event.medications,
@@ -30,6 +42,7 @@ class AddDiseaseBloc extends Bloc<AddDiseaseEvent, AddDiseaseState> {
           isCheck: "${event.isCheck}",
         ),
       );
+      }     
       if (result.$1) {
         emit(AddDiseaseDoneState());
       } else {

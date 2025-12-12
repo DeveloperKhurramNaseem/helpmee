@@ -16,7 +16,7 @@ class SigninResponse {
       success: map[successKey],
       message: map[messageKey],
       data: TokenModel.fromMap(map[dataKey] ?? ''),
-      user: AppUserModel.fromMap(map[dataKey]['user'] ?? ''),
+      user: AppUserModel.fromMap(map[dataKey]['user'] ?? {}),
       activatedProducts: map[dataKey][activatedProductsKey] ?? 0
     );
   }

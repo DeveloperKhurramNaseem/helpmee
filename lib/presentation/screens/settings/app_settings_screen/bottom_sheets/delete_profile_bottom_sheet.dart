@@ -8,7 +8,9 @@ import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class DeleteProfileBottomSheet extends StatelessWidget {
-  const DeleteProfileBottomSheet({super.key});
+  final bool makeChildParent;
+  final int? accountId;
+  const DeleteProfileBottomSheet({super.key, required this.makeChildParent , this.accountId});
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +56,7 @@ class DeleteProfileBottomSheet extends StatelessWidget {
                 return AppButton(
                   onPressed: () {
                     context.read<DeleteProfileBloc>().add(
-                      DeleteProfileAccountEvent(),
+                      DeleteProfileAccountEvent(makeChildParent: makeChildParent, accountId: accountId),
                     );
                   },
                   gradient: Theme.of(

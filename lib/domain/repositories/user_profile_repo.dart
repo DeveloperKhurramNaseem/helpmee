@@ -19,6 +19,7 @@ abstract class UserProfileRepo {
   Future<(bool, String)> deleteAddress(int addressId);
   Future<(bool, String)> updateAddress(int addressId,AddressInfo addressInfo);
   Future<(bool,String)> addDisease(DiseaseInfo diseaseInfo);
+  Future<(bool,String)> addPetDisease(DiseaseInfo diseaseInfo);
   Future<(bool,String)> deleteDisease(int diseaseId);
   Future<(bool,String)> lockDisease(int diseaseId,String status);
   Future<(bool,String)> uploadSimpleDocument(String fileName , File file);

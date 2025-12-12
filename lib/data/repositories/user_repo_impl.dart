@@ -384,10 +384,14 @@ class UserRepoImpl extends UserRepo {
   }
 
   @override
-  Future<(bool, String)> deleteProfileAndMakeChildParent() async {
+  Future<(bool, String)> deleteProfileAndMakeChildParent(int id) async {
     var lang = storageService.getLanguage();
     var token = await tokenService.getToken();
     var result = await userService.deleteProfileAndMakeChildParent(token, lang);
+    if(result.$1){
+      await storageService.deleteChild(id);      
+
+    }
     return result;
   }
 }

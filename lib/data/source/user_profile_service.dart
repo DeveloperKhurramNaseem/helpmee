@@ -261,6 +261,24 @@ class UserProfileService extends ApiService {
     }
   }
 
+  Future<(bool, String)> addPetDisease(
+    String token,
+    String language,
+    DiseaseInfo diseaseInfo,
+  ) async {
+    var result = await post(
+      EndPoints.addPetDisease,
+      diseaseInfo.toMap(),
+      header: NetworkConstants.getHeaders(language, token),
+    );
+    if (result != null) {
+      final decodedResponse = decodeResponse(result);
+      return (decodedResponse.success, decodedResponse.message);
+    } else {
+      return (false, ErrorConstants.errorMessage);
+    }
+  }
+
   Future<(bool, String)> deleteDisease(
     String token,
     String language,

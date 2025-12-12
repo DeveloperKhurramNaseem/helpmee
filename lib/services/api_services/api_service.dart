@@ -19,11 +19,9 @@ abstract class ApiService {
       Uri.parse(baseUrl + apiUrl + endPoint),
       headers: header,
     );
-
     if (response.statusCode == 500) {
       return null;
     }
-
     return response.body;
   }
 
@@ -144,7 +142,7 @@ abstract class ApiService {
     var response = await http.delete(
       Uri.parse(baseUrl + apiUrl + endPoint),
       headers: header,
-      body: jsonEncode(body),
+      body: body != null ? jsonEncode(body) : body,
     );
     if (response.statusCode == 500) {
       return null;
