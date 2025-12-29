@@ -129,50 +129,52 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   inputListener() {
     if (userProfile != null) {
-      setState(() {
-        if (widget.profileType == ProfileType.pet) {
-          showButton =
-              petNameController.text != userProfile!.user.firstName ||
-              petRaceController.text != userProfile!.user.race ||
-              characterController.text != userProfile!.user.petCharacter ||
-              bloodGroupController.text != userProfile!.user.bloodGroup ||
-              petSizeController.text != userProfile!.user.size ||
-              petWeightController.text != userProfile!.user.weight ||
-              petDateOfBirthController.text !=
-                  DateFormatting.formatDateForTextField(
-                    DateTime.parse(userProfile!.user.dateOfBirth),
-                  ) ||
-              petGenderValue != userProfile!.user.gender ||
-              castrated != userProfile!.user.castrated ||
-              chipped != userProfile!.user.chipped ||
-              chipPositionController.text != userProfile!.user.chipPosition ||
-              taxNoController.text != userProfile!.user.taxNo ||
-              tassoNoController.text != userProfile!.user.tassoNo ||
-              petInsuranceCompanyController.text !=
-                  userProfile!.user.insuranceCompany ||
-              petInsuranceIdInformationController.text !=
-                  userProfile!.user.insuranceId ||
-              specialFeatureController.text !=
-                  userProfile!.user.specialFeatures ||
-              importantNoteController.text != userProfile!.user.bio;
-          log(showButton.toString());
-          log(userProfile!.user.toMap().toString());
-        } else {
-          showButton =
-              firstNameController.text != userProfile!.user.firstName ||
-              lastNameController.text != userProfile!.user.lastName ||
-              birthdayController.text !=
-                  DateFormatting.formatDateForTextField(
-                    DateTime.parse(userProfile!.user.dateOfBirth),
-                  ) ||
-              heightController.text != userProfile!.user.height ||
-              weightController.text != userProfile!.user.weight ||
-              insuranceCompanyController.text !=
-                  userProfile!.user.insuranceCompany ||
-              insuranceIdController.text != userProfile!.user.insuranceId ||
-              importantNoteController.text != userProfile!.user.bio;
-        }
-      });
+      if (mounted) {
+        setState(() {
+          if (widget.profileType == ProfileType.pet) {
+            showButton =
+                petNameController.text != userProfile!.user.firstName ||
+                petRaceController.text != userProfile!.user.race ||
+                characterController.text != userProfile!.user.petCharacter ||
+                bloodGroupController.text != userProfile!.user.bloodGroup ||
+                petSizeController.text != userProfile!.user.size ||
+                petWeightController.text != userProfile!.user.weight ||
+                petDateOfBirthController.text !=
+                    DateFormatting.formatDateForTextField(
+                      DateTime.parse(userProfile!.user.dateOfBirth),
+                    ) ||
+                petGenderValue != userProfile!.user.gender ||
+                castrated != userProfile!.user.castrated ||
+                chipped != userProfile!.user.chipped ||
+                chipPositionController.text != userProfile!.user.chipPosition ||
+                taxNoController.text != userProfile!.user.taxNo ||
+                tassoNoController.text != userProfile!.user.tassoNo ||
+                petInsuranceCompanyController.text !=
+                    userProfile!.user.insuranceCompany ||
+                petInsuranceIdInformationController.text !=
+                    userProfile!.user.insuranceId ||
+                specialFeatureController.text !=
+                    userProfile!.user.specialFeatures ||
+                importantNoteController.text != userProfile!.user.bio;
+            log(showButton.toString());
+            log(userProfile!.user.toMap().toString());
+          } else {
+            showButton =
+                firstNameController.text != userProfile!.user.firstName ||
+                lastNameController.text != userProfile!.user.lastName ||
+                birthdayController.text !=
+                    DateFormatting.formatDateForTextField(
+                      DateTime.parse(userProfile!.user.dateOfBirth),
+                    ) ||
+                heightController.text != userProfile!.user.height ||
+                weightController.text != userProfile!.user.weight ||
+                insuranceCompanyController.text !=
+                    userProfile!.user.insuranceCompany ||
+                insuranceIdController.text != userProfile!.user.insuranceId ||
+                importantNoteController.text != userProfile!.user.bio;
+          }
+        });
+      }
     }
   }
 
@@ -229,8 +231,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     );
     petGenderValue = userProfile.user.gender;
     petSizeController.text = userProfile.user.size;
-    castrated = userProfile.user.castrated;    
-    chipped = userProfile.user.chipped;    
+    castrated = userProfile.user.castrated;
+    chipped = userProfile.user.chipped;
     petWeightController.text = userProfile.user.weight;
     petInsuranceCompanyController.text = userProfile.user.insuranceCompany;
     petInsuranceIdInformationController.text = userProfile.user.insuranceId;
@@ -367,7 +369,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           EpHeaderGenderAndBirthday(
                             initialGenderValue: currentGenderValue,
                             birthdayController: birthdayController,
-                          initialDate: dateOfBirth,
+                            initialDate: dateOfBirth,
                             onDobChanged: (value) {
                               dateOfBirth = value;
                             },
@@ -402,7 +404,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         EpImportantWidget(
                           controller: importantNoteController,
                           url: state.userProfile.user.importantNote.url,
-                          waveforms: state.userProfile.user.importantNote.waveforms,
+                          waveforms:
+                              state.userProfile.user.importantNote.waveforms,
                         ),
                         // Emergency contacts Part
                         EpEmergencyContacts(
@@ -411,9 +414,16 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           doctorContacts: state.userProfile.doctorContacts,
                         ),
                         // Location Part
-                        BlocBuilder<GetLocationNotificationSettingsBloc, GetLocationNotificationSettingsState>(
-                          builder: (context, state) {                             
-                            return EpLocationBox(locationSharing: state.locationNotificationModel.locationSharing);
+                        BlocBuilder<
+                          GetLocationNotificationSettingsBloc,
+                          GetLocationNotificationSettingsState
+                        >(
+                          builder: (context, state) {
+                            return EpLocationBox(
+                              locationSharing: state
+                                  .locationNotificationModel
+                                  .locationSharing,
+                            );
                           },
                         ),
                         if (widget.profileType == ProfileType.pet)

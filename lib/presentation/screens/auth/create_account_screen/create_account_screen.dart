@@ -198,6 +198,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
+      // FocusManager.instance.primaryFocus?.unfocus();
       context.push(
         EnterCodeScreen.path,
         extra: [emailController.text.trim(), EnterCodeScreenState.signUp],

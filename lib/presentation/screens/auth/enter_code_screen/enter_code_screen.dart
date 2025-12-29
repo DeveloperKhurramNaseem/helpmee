@@ -32,7 +32,7 @@ class EnterCodeScreen extends StatefulWidget {
 
 class _EnterCodeScreenState extends State<EnterCodeScreen> {
   Timer? timer;
-  Duration duration = Duration(minutes: 5);
+  Duration duration = Duration(minutes: 1);
 
   @override
   void initState() {
@@ -99,6 +99,8 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
 
   void _verifyOtpListener(BuildContext context, VerifyOtpState state) {
     if (state is VerifyOtpDoneState) {
+      // context.pop();
+      timer?.cancel();
       m.showModalBottomSheet(
         context: context,
         isDismissible: false,
