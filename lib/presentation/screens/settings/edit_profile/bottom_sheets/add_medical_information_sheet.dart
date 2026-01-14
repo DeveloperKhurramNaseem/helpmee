@@ -6,7 +6,6 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheet
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
-import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 
 class AddMedicalInformationSheet extends StatelessWidget {
   final List<Disease> notAddedDiseaseTypes;  

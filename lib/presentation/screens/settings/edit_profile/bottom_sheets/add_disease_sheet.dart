@@ -7,7 +7,6 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/emergency_cont
 import 'package:help_mee/presentation/blocs/settings/edit_profile/get_profile_data/get_profile_data_bloc.dart';
 import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_information/add_disease/add_disease_bloc.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
-import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 

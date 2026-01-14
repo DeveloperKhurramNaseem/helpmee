@@ -74,11 +74,13 @@ class _CreatePasswordScreenState extends State<CreatePasswordScreen> {
                       onPressed: () {
                         var createPasswordBloc = context
                             .read<CreatePasswordBloc>();
-                        if (!(passwordKey.currentState?.validate() ?? false))
+                        if (!(passwordKey.currentState?.validate() ?? false)) {
                           return;
+                        }
                         if (!(confirmPasswordKey.currentState?.validate() ??
-                            false))
+                            false)) {
                           return;
+                        }
                         if (passwordController.text.length < 6) {
                           createPasswordBloc.add(
                             ShowErrorEvent(

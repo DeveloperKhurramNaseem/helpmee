@@ -13,7 +13,6 @@ import 'package:help_mee/presentation/screens/home/profile_and_products_screen/p
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/delete_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/bottom_sheets/switch_profile_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/change_password_screen/change_password_screen.dart';
-import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/profile_validity_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/feedback_screen/feedback_screen.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_sheet.dart';
 // import 'package:help_mee/presentation/screens/settings/hidden_settings/product_restore/product_restore_sheet.dart';

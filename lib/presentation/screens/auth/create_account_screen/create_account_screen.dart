@@ -133,14 +133,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CAScreenButton(
                         onPressed: () {
                           final signUpBloc = context.read<SignupBloc>();
-                          if (!(emailKey.currentState?.validate() ?? false))
+                          if (!(emailKey.currentState?.validate() ?? false)) {
                             return;
-                          if (!(passwordKey.currentState?.validate() ?? false))
+                          }
+                          if (!(passwordKey.currentState?.validate() ?? false)) {
                             return;
+                          }
                           if (!(confirmationPasswordKey.currentState
                                   ?.validate() ??
-                              false))
+                              false)) {
                             return;
+                          }
                           if (passwordController.text.trim() !=
                               confirmPasswordController.text.trim()) {
                             signUpBloc.add(

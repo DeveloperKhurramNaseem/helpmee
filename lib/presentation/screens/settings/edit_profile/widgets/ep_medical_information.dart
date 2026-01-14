@@ -7,7 +7,6 @@ import 'package:help_mee/presentation/blocs/settings/edit_profile/medical_inform
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_disease_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/add_medical_information_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
-import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 class EpMedicalInformation extends StatelessWidget {

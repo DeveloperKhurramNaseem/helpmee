@@ -8,7 +8,6 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_h
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/theme/app_colors.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
-import 'package:provider/provider.dart';
 
 class AddNewPersonSheet extends StatefulWidget {
   final String initialName, initialEmail;

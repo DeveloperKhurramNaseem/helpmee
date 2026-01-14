@@ -87,13 +87,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     var createPasswordBloc = context
                         .read<ChangePasswordBloc>();
                     if (!(currentPasswordKey.currentState?.validate() ??
-                        false))
+                        false)) {
                       return;
-                    if (!(newPasswordKey.currentState?.validate() ?? false))
+                    }
+                    if (!(newPasswordKey.currentState?.validate() ?? false)) {
                       return;
+                    }
                     if (!(confirmPasswordKey.currentState?.validate() ??
-                        false))
+                        false)) {
                       return;
+                    }
                     if (newPasswordController.text.length < 6) {
                       createPasswordBloc.add(
                         ShowErrorEvent(

@@ -106,10 +106,12 @@ class _SignInScreenState extends State<SignInScreen> {
                       // Sign up button
                       SIScreenButton(
                         onPressed: () {
-                          if (!(emailKey.currentState?.validate() ?? false))
+                          if (!(emailKey.currentState?.validate() ?? false)) {
                             return;
-                          if (!(passwordKey.currentState?.validate() ?? false))
+                          }
+                          if (!(passwordKey.currentState?.validate() ?? false)) {
                             return;
+                          }
                           context.read<SigninBloc>().add(
                             SignInUserEvent(
                               email: emailController.text.trim(),
