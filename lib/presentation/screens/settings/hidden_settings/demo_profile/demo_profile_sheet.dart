@@ -7,8 +7,10 @@ import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/get_demo_profiles/get_demo_profiles_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_confirm_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/profile_preview_screen/profile_preview_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
+import 'package:help_mee/util/constants/util_functions.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 import 'package:provider/provider.dart';
 import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
@@ -196,34 +198,43 @@ class _DemoProfileSheetState extends State<DemoProfileSheet> {
                   Spacer(flex: 20),
                   Expanded(
                     flex: 60,
-                    child: BlocBuilder<GetDemoProfilesBloc, GetDemoProfilesState>(
-                      builder: (context, state) {
-                        return Opacity(
-                          opacity: state is GetDemoProfilesLoadedState && state.demoProfiles.isNotEmpty ? 1 : 0.7,
-                          child: AppButton(
-                            onPressed: state is GetDemoProfilesLoadedState && state.demoProfiles.isNotEmpty ? () {
-                              m.showModalBottomSheet(
-                                context: context,
-                                isScrollControlled: true,
-                                showDragHandle: true,
-                                builder: (context) {
-                                  return DemoProfileConfirmSheet(
-                                    demoProfileModel:
-                                        bloc.demoProfiles[selectedIndex],
-                                  );
-                                },
-                              );
-                            } : null,
-                            gradient: Theme.of(
-                              context,
-                            ).extension<AppGradients>()?.primaryButton,
-                            child: Text(
-                              AppLocalizations.of(context)!.continueButton,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
+                    child:
+                        BlocBuilder<GetDemoProfilesBloc, GetDemoProfilesState>(
+                          builder: (context, state) {
+                            return Opacity(
+                              opacity:
+                                  state is GetDemoProfilesLoadedState &&
+                                      state.demoProfiles.isNotEmpty
+                                  ? 1
+                                  : 0.7,
+                              child: AppButton(
+                                onPressed:
+                                    state is GetDemoProfilesLoadedState &&
+                                        state.demoProfiles.isNotEmpty
+                                    ? () {
+                                        m.showModalBottomSheet(
+                                          context: context,
+                                          isScrollControlled: true,
+                                          showDragHandle: true,
+                                          builder: (context) {
+                                            return DemoProfileConfirmSheet(
+                                              demoProfileModel: bloc
+                                                  .demoProfiles[selectedIndex],
+                                            );
+                                          },
+                                        );
+                                      }
+                                    : null,
+                                gradient: Theme.of(
+                                  context,
+                                ).extension<AppGradients>()?.primaryButton,
+                                child: Text(
+                                  AppLocalizations.of(context)!.continueButton,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                   ),
                   Spacer(flex: 20),
                 ],
@@ -261,21 +272,36 @@ class DemoProfileTile extends StatelessWidget {
         Row(
           spacing: 10,
           children: [
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 2,
+            GestureDetector(
+              onTap: () {
+                showCupertinoSheet(
+                  context: context,
+                  enableDrag: true,
+                  useNestedNavigation: true,
+                  builder: (context) => ProfilePreviewSheet(
+                    url: getProfilePreviewUrl(
+                      getProfileType(demoProfileModel.userGroupId).name,
+                      demoProfileModel.userName,
+                    ),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              padding: EdgeInsets.symmetric(horizontal: 11, vertical: 5.5),
-              child: Text(
-                AppLocalizations.of(context)!.previewTitle,
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 0, 0, 0.8),
-                  fontWeight: FontWeight.w500,
-                  fontSize: 13,
+                padding: EdgeInsets.symmetric(horizontal: 11, vertical: 5.5),
+                child: Text(
+                  AppLocalizations.of(context)!.previewTitle,
+                  style: TextStyle(
+                    color: Color.fromRGBO(0, 0, 0, 0.8),
+                    fontWeight: FontWeight.w500,
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ),

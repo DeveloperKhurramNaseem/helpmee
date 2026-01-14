@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -44,7 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     super.initState();
     context.read<GetNotificationsSettingsBloc>().add(
       GetGeneralNotificationSettingsEvent(),
-    );    
+    );
   }
 
   @override
@@ -71,7 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: localization.myProductsTitle,
               image: AppIcons.plusSettings,
               onTap: () {
-                context.push(ProductsScreen.path);
+                context.push(ProductsScreen.path , extra: true);
               },
             ),
             SettingsBaseTile(
@@ -140,20 +141,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 );
               },
             ),
-            SettingsBaseTile(
-              titleText: localization.profileValidityLabel,
-              image: AppIcons.profileValidity,
-              onTap: () {
-                m.showModalBottomSheet(
-                  context: context,
-                  showDragHandle: true,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return ProfileValiditySheet(isUnlimitedExpiry: false);
-                  },
-                );
-              },
-            ),
+            // SettingsBaseTile(
+            //   titleText: localization.profileValidityLabel,
+            //   image: AppIcons.profileValidity,
+            //   onTap: () {
+            //     m.showModalBottomSheet(
+            //       context: context,
+            //       showDragHandle: true,
+            //       isScrollControlled: true,
+            //       builder: (context) {
+            //         return ProfileValiditySheet(isUnlimitedExpiry: false);
+            //       },
+            //     );
+            //   },
+            // ),
             SettingsBaseTile(
               titleText: localization.deleteProfilLabel,
               image: AppIcons.delete,
@@ -163,9 +164,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   showDragHandle: true,
                   isScrollControlled: true,
                   builder: (context) {
-                    return DeleteProfileBottomSheet(
-                      makeChildParent: false,
-                    );
+                    return DeleteProfileBottomSheet(makeChildParent: false);
                   },
                 );
               },
@@ -226,13 +225,35 @@ class _SettingsScreenState extends State<SettingsScreen> {
               titleText: localization.signOutLabel,
               image: AppIcons.signOutIcon,
               onTap: () {
-                sl<StorageService>().clearData();                
-                sl<TokenService>().saveToken('').then((_) {
-                  context.go(SignInScreen.path);
-                });
+                showDialog(
+                  context: context,
+                  builder: (context) => CupertinoAlertDialog(
+                    content: Text(
+                      localization.logoutConfirmation,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          sl<StorageService>().clearData();
+                          sl<TokenService>().saveToken('').then((_) {
+                            context.go(SignInScreen.path);
+                          });
+                        },
+                        child: Text(localization.logoutButton),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context),
+                        child: Text(localization.cancelText),
+                      ),
+                    ],
+                  ),
+                );
               },
             ),
-            SettingsVersionText(version: '${localization.version} ${sl<PackageInfo>().version}'),
+            SettingsVersionText(
+              version: '${localization.version} ${sl<PackageInfo>().version}',
+            ),
           ],
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +19,7 @@ class CASocialLoginsRow extends StatelessWidget {
           Spacer(),
           // Expanded(child: CASocialFbLoginButton()),
           Expanded(child: CASocialGoogleLoginButton()),
-          Expanded(child: CASocialAppleLoginButton()),
+          if (Platform.isIOS) Expanded(child: CASocialAppleLoginButton()),
           Spacer(),
         ],
       ),
@@ -53,9 +55,12 @@ class CASocialAppleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CASocialLoginButton(image: AppIcons.apple, onPressed: () {
-      context.read<SignupBloc>().add(SignUpWithAppleEvent());
-    });
+    return CASocialLoginButton(
+      image: AppIcons.apple,
+      onPressed: () {
+        context.read<SignupBloc>().add(SignUpWithAppleEvent());
+      },
+    );
   }
 }
 

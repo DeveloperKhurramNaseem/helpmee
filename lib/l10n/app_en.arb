@@ -396,7 +396,9 @@
 
 "enterSubject" : "Enter subject",
 "createNewAccountButton" : "Create new account",
-"createWithExistingEmail" : "Create with existing email"
+"createWithExistingEmail" : "Create with existing email",
+"logoutConfirmation" : "Are you sure you want to sign out?",
+"logoutButton" : "SIGN OUT"
 
 
 

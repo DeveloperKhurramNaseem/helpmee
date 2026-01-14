@@ -8,7 +8,8 @@ import 'package:help_mee/util/constants/app_size.dart';
 
 class ProductsScreen extends StatefulWidget {
   static const path = '/products-screen';
-  const ProductsScreen({super.key});
+  final bool showBack;
+  const ProductsScreen({super.key , this.showBack = false});
 
   @override
   State<ProductsScreen> createState() => _ProductsScreenState();
@@ -18,7 +19,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ProductsAppBar(),
+      appBar: ProductsAppBar(showBack: widget.showBack,),
       body: CustomScrollView(
         slivers: [
           // ProfilesList(),

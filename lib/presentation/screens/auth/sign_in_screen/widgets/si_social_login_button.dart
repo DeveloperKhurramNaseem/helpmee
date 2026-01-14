@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
@@ -17,7 +19,7 @@ class SISocialLoginsRow extends StatelessWidget {
           Spacer(),
           // Expanded(child: SISocialFbLoginButton()),
           Expanded(child: SISocialGoogleLoginButton()),
-          Expanded(child: SISocialAppleLoginButton()),
+          if (Platform.isIOS) Expanded(child: SISocialAppleLoginButton()),
           Spacer(),
         ],
       ),

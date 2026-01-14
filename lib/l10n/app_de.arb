@@ -389,7 +389,9 @@
 
 "enterSubject" : "Thema eingeben",
 "createNewAccountButton" : "Neues Benutzerkonto erstellen",
-"createWithExistingEmail" : "Mit existierender Email erstellen"
+"createWithExistingEmail" : "Mit existierender Email erstellen",
+"logoutConfirmation" : "Möchten Sie sich wirklich abmelden?",
+"logoutButton" : "Ausloggen"
 
 
 

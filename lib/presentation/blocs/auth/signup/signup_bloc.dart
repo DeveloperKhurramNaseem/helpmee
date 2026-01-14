@@ -2,9 +2,11 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:flutter/services.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -52,11 +54,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       var result = await authRepo.signInWithGoogle();
       if (result != null) {
         if (result.success) {
-          emit(SocialSignUpDoneState(
-            message: result.message,
-            token: result.data.accessToken.accessToken,
-            activatedProducts: result.activatedProducts,
-          ));
+          emit(
+            SocialSignUpDoneState(
+              message: result.message,
+              token: result.data.accessToken.accessToken,
+              activatedProducts: result.activatedProducts,
+            ),
+          );
         } else {
           emit(SignupErrorState(result.message));
         }
@@ -78,20 +82,28 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       var result = await authRepo.signInWithApple();
       if (result != null) {
         if (result.success) {
-          emit(SocialSignUpDoneState(
-            message: result.message,
-            token: result.data.accessToken.accessToken,
-            activatedProducts: result.activatedProducts,
-          ));
+          emit(
+            SocialSignUpDoneState(
+              message: result.message,
+              token: result.data.accessToken.accessToken,
+              activatedProducts: result.activatedProducts,
+            ),
+          );
         } else {
           emit(SignupErrorState(result.message));
         }
       } else {
-        emit(SignupErrorState(ErrorConstants.errorMessageGoogleSignIn));
+        emit(SignupErrorState(ErrorConstants.errorMessageAppleSignIn));
+      }
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled) {
+        emit(SignupInitialState()); // user canceled → silent exit
+      } else {
+        emit(SignupErrorState(ErrorConstants.errorMessage));
       }
     } catch (e) {
-      log(e.toString(), name: 'SignUpBloc Error');
-      emit(SignupErrorState(ErrorConstants.errorMessage));
+      log(e.runtimeType.toString(), name: 'SignUpBloc Error');      
+        emit(SignupErrorState(ErrorConstants.errorMessage));      
     }
   }
 }

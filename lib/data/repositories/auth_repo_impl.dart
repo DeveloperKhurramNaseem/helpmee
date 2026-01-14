@@ -84,7 +84,7 @@ class AuthRepoImpl extends AuthRepo {
   }
 
   @override
-  Future<SigninResponse?> signInWithApple() async {
+  Future<SigninResponse?> signInWithApple() async  {
     var lang = storageService.getLanguage();
     var idToken = await socialSigninService.signInWithApple();
     if (idToken != null) {

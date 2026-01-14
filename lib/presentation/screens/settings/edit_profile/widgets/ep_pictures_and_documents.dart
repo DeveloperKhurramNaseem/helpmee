@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
@@ -29,7 +31,9 @@ class EpPicturesAndDocuments extends StatelessWidget {
               for (var i = 0; i < documents.length; i++)
                 PictureAndDocuemntsTile(
                   text: documents[i].name,
-                  image: documents[i].image,
+                  image: isImage(documents[i].imageExtension.toLowerCase())
+                      ? documents[i].image
+                      : null,
                   status: documents[i].status,
                   docId: documents[i].id,
                 ),
@@ -39,6 +43,15 @@ class EpPicturesAndDocuments extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool isImage(String extension) {
+    var isImage = (RegExp(
+      r'(jpg|jpeg|png|gif|webp|bmp)',
+      caseSensitive: false,
+    ).hasMatch(extension));
+    log('isImage : $isImage , Image extension : $extension');
+    return isImage;
   }
 }
 

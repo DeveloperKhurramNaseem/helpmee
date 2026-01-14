@@ -810,4 +810,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get createWithExistingEmail => 'Mit existierender Email erstellen';
+
+  @override
+  String get logoutConfirmation => 'Möchten Sie sich wirklich abmelden?';
+
+  @override
+  String get logoutButton => 'Ausloggen';
 }

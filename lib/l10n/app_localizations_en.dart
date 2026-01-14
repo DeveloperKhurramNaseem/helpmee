@@ -804,4 +804,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createWithExistingEmail => 'Create with existing email';
+
+  @override
+  String get logoutConfirmation => 'Are you sure you want to sign out?';
+
+  @override
+  String get logoutButton => 'SIGN OUT';
 }

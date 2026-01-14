@@ -1,3 +1,4 @@
+import 'package:help_mee/services/api_services/api_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 Future<void> launchPhone(String number) async{
@@ -18,3 +19,6 @@ final Uri url = Uri.parse("https://wa.me/$number?text=${Uri.encodeComponent(mess
   }
 }
 
+String getProfilePreviewUrl(String profileType, String userName){  
+  return '${ApiService.baseUrl}/$profileType/profile/$userName';
+}

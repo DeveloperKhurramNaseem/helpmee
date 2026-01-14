@@ -5,6 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/repositories/auth_repo.dart';
 import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 part 'signin_event.dart';
 part 'signin_state.dart';
@@ -68,7 +69,7 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         } else {
           emit(SigninErrorState(result.message));
         }
-      }else{
+      } else {
         emit(SigninErrorState(ErrorConstants.errorMessageGoogleSignIn));
       }
     } catch (e) {
@@ -96,11 +97,17 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
         } else {
           emit(SigninErrorState(result.message));
         }
-      }else{
+      } else {
         emit(SigninErrorState(ErrorConstants.errorMessageAppleSignIn));
       }
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code == AuthorizationErrorCode.canceled) {
+        emit(SigninInitialState()); // user canceled → silent exit
+      } else {
+        emit(SigninErrorState(ErrorConstants.errorMessage));
+      }
     } catch (e) {
-      log(e.toString(), name: 'SignInBloc Error');
+      log(e.runtimeType.toString(), name: 'SignInBloc Error');
       emit(SigninErrorState(ErrorConstants.errorMessage));
     }
   }

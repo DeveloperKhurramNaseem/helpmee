@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
+import 'package:help_mee/util/constants/util_functions.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class ProfilePreviewSheet extends StatefulWidget {
-  const ProfilePreviewSheet({super.key});
+  final String? url;
+  const ProfilePreviewSheet({super.key , this.url});
 
   @override
   State<ProfilePreviewSheet> createState() => _ProfilePreviewSheetState();
@@ -21,11 +23,12 @@ class _ProfilePreviewSheetState extends State<ProfilePreviewSheet> {
 
   @override
   void initState() {
-    super.initState();
+    super.initState();    
     var storageService = sl<StorageService>();
     var user = storageService.getUser();
     var profileType = getProfileType(user.userGroupId!).name.toString();
     var username = user.username;
+    var url = widget.url ?? getProfilePreviewUrl(profileType, username ?? '');
     controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setNavigationDelegate(
@@ -52,10 +55,10 @@ class _ProfilePreviewSheetState extends State<ProfilePreviewSheet> {
         ),
       )
       ..loadRequest(
-        Uri.parse('http://31.97.190.94:2100/$profileType/profile/$username'),
+        Uri.parse(url),
       );
     log(
-      'Url : ${'http://31.97.190.94:2100/$profileType/profile/$username'}',
+      'Url : $url',
       name: 'ProfilePreviewSheet',
     );
   }

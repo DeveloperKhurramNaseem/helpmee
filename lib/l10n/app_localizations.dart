@@ -1585,6 +1585,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create with existing email'**
   String get createWithExistingEmail;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'SIGN OUT'**
+  String get logoutButton;
 }
 
 class _AppLocalizationsDelegate

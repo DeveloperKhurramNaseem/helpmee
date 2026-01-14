@@ -107,7 +107,9 @@ class Routing {
       ),
       GoRoute(
         path: ProductsScreen.path,
-        builder: (context, state) => ProductsScreen(),
+        builder: (context, state) {
+          return ProductsScreen(showBack: (state.extra as bool?) ?? false,);
+        },
       ),
       GoRoute(
         path: FeedbackScreen.path,

@@ -3,7 +3,8 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 
 class ProductsAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const ProductsAppBar({super.key});
+  final bool showBack;
+  const ProductsAppBar({super.key, required this.showBack});
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +17,30 @@ class ProductsAppBar extends StatelessWidget implements PreferredSizeWidget {
           child: SizedBox(
             height: kToolbarHeight,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: showBack
+                  ? MainAxisAlignment.spaceBetween
+                  : MainAxisAlignment.center,
               children: [
+                if (showBack)
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(Icons.arrow_back),
+                    ),
+                  ),
                 Text(
-AppLocalizations.of(context)!.myProductsTitle,
+                  AppLocalizations.of(context)!.myProductsTitle,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
                 ),
+                if (showBack)
+                  Opacity(
+                    opacity: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Icon(Icons.arrow_back),
+                    ),
+                  ),
               ],
             ),
           ),

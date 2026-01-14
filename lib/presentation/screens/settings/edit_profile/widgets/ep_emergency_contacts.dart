@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:help_mee/data/models/user_profile_model.dart';
@@ -6,6 +8,7 @@ import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheet
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/create_new_contact.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/select_map_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
+import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/icons.dart';
 import 'package:help_mee/util/constants/util_functions.dart';
 import 'package:help_mee/util/extension/string_modification.dart';
@@ -271,19 +274,23 @@ class ContactTile extends StatelessWidget {
               children: [
                 if (contact.whatsappNo.isNotEmpty)
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       try {
-                        launchWhatsapp(contact.whatsappNo);
-                      } catch (e) {}
+                        await launchWhatsapp(contact.whatsappNo);
+                      } catch (e) {
+                        showError(e.toString());
+                      }
                     },
                     child: SvgPicture.asset(AppIcons.whatsapp),
                   ),
                 if (contact.phoneNo.isNotEmpty)
                   GestureDetector(
-                    onTap: () {
+                    onTap: () async {
                       try {
-                        launchPhone(contact.phoneNo);
-                      } catch (e) {}
+                        await launchPhone(contact.phoneNo);
+                      } catch (e) {
+                        showError(e.toString());
+                      }
                     },
                     child: SvgPicture.asset(AppIcons.phone),
                   ),
@@ -303,7 +310,8 @@ class AddressTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var addressText = '${address.streetName} ${address.houseNumber}\n${address.zip} ${address.city}, ${address.country}';
+    var addressText =
+        '${address.streetName} ${address.houseNumber}\n${address.zip} ${address.city}, ${address.country}';
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -340,9 +348,20 @@ class AddressTile extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                showModalBottomSheet(context: context, isDismissible: true, showDragHandle: true ,builder: (context){
-                  return SelectMapBottomSheet(address: addressText);
-                });
+                if (Platform.isIOS) {
+                  showModalBottomSheet(
+                    context: context,
+                    isDismissible: true,
+                    showDragHandle: true,
+                    builder: (context) {
+                      return SelectMapBottomSheet(address: addressText);
+                    },
+                  );
+                } else {
+                  addressText.openAddressInGoogleMap()
+                    ..then((_) {})
+                    ..catchError((_) {});
+                }
               },
               child: Row(
                 spacing: 10,
@@ -354,9 +373,6 @@ class AddressTile extends StatelessWidget {
       ),
     );
   }
-
- 
-
 }
 
 class ContactsTitleRow extends StatelessWidget {
@@ -376,7 +392,7 @@ class ContactsTitleRow extends StatelessWidget {
       child: SizedBox(
         width: MediaQuery.sizeOf(context).width,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10.0),
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 2),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             spacing: 15,
