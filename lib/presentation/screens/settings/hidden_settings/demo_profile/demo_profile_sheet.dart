@@ -7,7 +7,7 @@ import 'package:help_mee/data/models/demo_profile_model.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/hidden_features/get_demo_profiles/get_demo_profiles_bloc.dart';
 import 'package:help_mee/presentation/screens/settings/hidden_settings/demo_profile/demo_profile_confirm_sheet.dart';
-import 'package:help_mee/presentation/screens/settings/profile_preview_screen/profile_preview_sheet.dart';
+import 'package:help_mee/services/native_services/native_safari_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/constants/util_functions.dart';
@@ -23,6 +23,7 @@ class DemoProfileSheet extends StatefulWidget {
 
 class _DemoProfileSheetState extends State<DemoProfileSheet> {
   int selectedIndex = 0;
+  
   @override
   void initState() {
     super.initState();
@@ -273,17 +274,10 @@ class DemoProfileTile extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                showCupertinoSheet(
-                  context: context,
-                  enableDrag: true,
-                  useNestedNavigation: true,
-                  builder: (context) => ProfilePreviewSheet(
-                    url: getProfilePreviewUrl(
+                NativeSheet.open(getProfilePreviewUrl(
                       getProfileType(demoProfileModel.userGroupId).name,
                       demoProfileModel.userName,
-                    ),
-                  ),
-                );
+                    ),);                
               },
               child: Container(
                 decoration: BoxDecoration(

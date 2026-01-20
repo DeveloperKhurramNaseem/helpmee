@@ -202,6 +202,21 @@ class _UploadDocumentSheetState extends State<UploadDocumentSheet> {
   ) {
     if (state is UploadDocumentLoaded) {
       Navigator.of(context, rootNavigator: true).pop();
+    } else if (state is UploadDocumentDialogError) {
+      showDialog(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          content: Text(state.message, style: TextStyle(fontSize: 16)),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('Ok'),
+            ),
+          ],
+        ),
+      );
     }
   }
 }

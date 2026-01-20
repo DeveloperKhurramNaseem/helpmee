@@ -9,5 +9,7 @@ class AddNewDiseaseEvent extends AddDiseaseEvent{
   final String details;
   final bool isCheck;
   final ProfileType profileType;
-  AddNewDiseaseEvent({required this.diseaseName , required this.medications , required this.details , required this.isCheck , required this.profileType});}
+  final bool isEdit;
+  AddNewDiseaseEvent({required this.diseaseName , required this.medications , required this.details , required this.isCheck , required this.profileType , this.isEdit = false});}
+
 

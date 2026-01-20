@@ -51,6 +51,7 @@ class AddMedicalInformationSheet extends StatelessWidget {
                       title: notAddedDiseaseTypes[i].name,
                       description: diseaseInfo.description,
                       hasCheck: diseaseInfo.hasCheck,
+                      isEdit: false,
                     );
                   },
                 );

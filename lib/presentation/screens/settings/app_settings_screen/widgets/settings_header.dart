@@ -1,16 +1,38 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/settings/profile_preview_screen/profile_preview_sheet.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/profile_settings_screen.dart';
+import 'package:help_mee/services/native_services/native_safari_sheet.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
 import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
-class SettingsHeader extends StatelessWidget {
+import '../../../../../util/constants/util_functions.dart';
+
+class SettingsHeader extends StatefulWidget {
   const SettingsHeader({super.key});
+
+  @override
+  State<SettingsHeader> createState() => _SettingsHeaderState();
+}
+
+class _SettingsHeaderState extends State<SettingsHeader> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> openNativeSheet() async {
+    var storageService = sl<StorageService>();
+    var user = storageService.getUser();
+    var profileType = getProfileType(user.userGroupId!).name.toString();
+    var username = user.username;
+    var url = getProfilePreviewUrl(profileType, username ?? '');
+
+    NativeSheet.open(url);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,12 +87,13 @@ class SettingsHeader extends StatelessWidget {
                         flex: 46,
                         child: GestureDetector(
                           onTap: () {
-                            showCupertinoSheet(
-                              context: context,
-                              enableDrag: true,
-                              useNestedNavigation: true,
-                              builder: (context) => ProfilePreviewSheet(),
-                            );
+                            // showCupertinoSheet(
+                            //   context: context,
+                            //   enableDrag: true,
+                            //   useNestedNavigation: true,
+                            //   builder: (context) => ProfilePreviewSheet(),
+                            // );
+                            openNativeSheet();
                           },
                           child: ColoredBox(
                             color: Colors.transparent,

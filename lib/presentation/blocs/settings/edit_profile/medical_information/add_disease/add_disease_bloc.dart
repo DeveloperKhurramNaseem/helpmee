@@ -44,7 +44,7 @@ class AddDiseaseBloc extends Bloc<AddDiseaseEvent, AddDiseaseState> {
       );
       }     
       if (result.$1) {
-        emit(AddDiseaseDoneState());
+        emit(AddDiseaseDoneState(isEdit: event.isEdit));
       } else {
         emit(AddDiseaseErrorState(message: result.$2));
       }

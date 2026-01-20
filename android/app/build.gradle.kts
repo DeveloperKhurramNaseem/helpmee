@@ -41,6 +41,9 @@ android {
         }
     }
 }
+dependencies {
+    implementation("androidx.browser:browser:1.9.0")
+}
 
 flutter {
     source = "../.."

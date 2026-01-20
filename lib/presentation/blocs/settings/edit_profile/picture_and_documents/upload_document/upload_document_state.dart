@@ -14,3 +14,9 @@ class UploadDocumentError extends UploadDocumentState {
 
   UploadDocumentError({required this.message});
 }
+
+class UploadDocumentDialogError extends UploadDocumentState {
+  final String message;
+
+  UploadDocumentDialogError({required this.message});
+}

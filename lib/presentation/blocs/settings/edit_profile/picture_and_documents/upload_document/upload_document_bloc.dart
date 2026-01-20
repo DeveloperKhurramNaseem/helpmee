@@ -11,11 +11,18 @@ import 'package:meta/meta.dart';
 part 'upload_document_event.dart';
 part 'upload_document_state.dart';
 
-class UploadDocumentBloc
+class   UploadDocumentBloc
     extends Bloc<UploadDocumentEvent, UploadDocumentState> {
   final UserProfileRepo userProfileRepo;
-  UploadDocumentBloc(this.userProfileRepo) : super(UploadDocumentInitialState()) {
+  UploadDocumentBloc(this.userProfileRepo)
+    : super(UploadDocumentInitialState()) {
     on<UploadNewDocumentEvent>(_handleUploadNewDocumentEvent);
+  }
+
+  Future<bool> isFileUnder19MB(String filePath) async {
+    final file = File(filePath);
+    final sizeInBytes = await file.length();
+    return sizeInBytes <= 19 * 1024 * 1024;
   }
 
   FutureOr<void> _handleUploadNewDocumentEvent(
@@ -25,22 +32,26 @@ class UploadDocumentBloc
     try {
       emit(UploadDocumentLoading());
       (bool, String) result;
-      if (event.documentType == DocumentType.simple) {
-        result = await userProfileRepo.uploadSimpleDocument(
-          event.documentName,
-          event.documentFile,
-        );
+      var isFileSizeOk = await isFileUnder19MB(event.documentFile.path);
+      if (isFileSizeOk) {
+        if (event.documentType == DocumentType.simple) {
+          result = await userProfileRepo.uploadSimpleDocument(
+            event.documentName,
+            event.documentFile,
+          );
+        } else {
+          result = await userProfileRepo.uploadMedicationDocument(
+            event.documentName,
+            event.documentFile,
+          );
+        }
+        if (result.$1) {
+          emit(UploadDocumentLoaded());
+        } else {
+          emit(UploadDocumentError(message: result.$2));
+        }
       } else {
-        result = await userProfileRepo.uploadMedicationDocument(
-          event.documentName,
-          event.documentFile,
-        );
-      }
-      if(result.$1){
-        emit(UploadDocumentLoaded());
-      }
-      else{
-        emit(UploadDocumentError(message:result.$2));
+        emit(UploadDocumentDialogError(message: 'The maximum file upload size is 19MB.'));
       }
     } catch (e) {
       log(e.toString(), name: 'UploadDocumentBloc');

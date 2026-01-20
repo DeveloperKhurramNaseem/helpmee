@@ -15,6 +15,7 @@ class AddDiseaseSheet extends StatefulWidget {
   final String description;
   final bool hasCheck;
   final int id;
+  final bool isEdit;
   
   final DiseaseDetails? diseaseDetails;
   const AddDiseaseSheet({
@@ -24,6 +25,7 @@ class AddDiseaseSheet extends StatefulWidget {
     this.hasCheck = false,
     required this.id,
     this.diseaseDetails,
+    required this.isEdit,
   
   });
 
@@ -225,6 +227,7 @@ class _AddDiseaseSheetState extends State<AddDiseaseSheet> {
                                     medications: '',
                                     details: detailsController.text.trim(),
                                     isCheck: isChecked,
+                                    isEdit: widget.isEdit,
                                   ),
                                 );
                                 FocusManager.instance.primaryFocus?.unfocus();
@@ -256,9 +259,14 @@ class _AddDiseaseSheetState extends State<AddDiseaseSheet> {
       context.read<GetProfileDataBloc>().add(
         GetUserProfileDataEvent(showLoading: false),
       );
-      Navigator.of(context, rootNavigator: true)
+      if(state.isEdit){
+        Navigator.of(context, rootNavigator: true)
+        .pop();
+      }else{
+        Navigator.of(context, rootNavigator: true)
         ..pop()
         ..pop();
+      }      
     }
   }
 }

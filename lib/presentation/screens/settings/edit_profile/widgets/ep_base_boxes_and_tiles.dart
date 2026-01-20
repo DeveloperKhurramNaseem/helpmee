@@ -270,7 +270,7 @@ class EpBaseTile extends StatelessWidget {
                           context: context,
                           builder: (context) => CupertinoAlertDialog(
                             title: Text('Error'),
-                            content: Text('Please set pin code'),
+                            content: Text('You must set a PIN to lock your profile items'),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context),

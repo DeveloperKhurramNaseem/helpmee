@@ -7,9 +7,12 @@ class AddDiseaseInitialState extends AddDiseaseState {}
 
 class AddDiseaseLoadingState extends AddDiseaseState {}
 
-class AddDiseaseDoneState extends AddDiseaseState {}
+class AddDiseaseDoneState extends AddDiseaseState {
+  final bool isEdit;
+  AddDiseaseDoneState({required this.isEdit});
+}
 
 class AddDiseaseErrorState extends AddDiseaseState {
-  final String message;
+  final String message;  
   AddDiseaseErrorState({required this.message});
 }

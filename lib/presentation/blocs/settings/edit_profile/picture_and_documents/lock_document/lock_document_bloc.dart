@@ -15,17 +15,23 @@ class LockDocumentBloc extends Bloc<LockDocumentEvent, LockDocumentState> {
     on<LockCurrentDocumentEvent>(_handleLockCurrentDocument);
   }
 
-  FutureOr<void> _handleLockCurrentDocument(LockCurrentDocumentEvent event, Emitter<LockDocumentState> emit) async {
-    try{
+  FutureOr<void> _handleLockCurrentDocument(
+    LockCurrentDocumentEvent event,
+    Emitter<LockDocumentState> emit,
+  ) async {
+    try {
       emit(LockDocumentLoading(docId: event.docId));
-      var result = await userProfileRepo.lockDocument(event.docId , event.status);
-      if(result.$1){
+      var result = await userProfileRepo.lockDocument(
+        event.docId,
+        event.status,
+      );
+      if (result.$1) {
         emit(LockDocumentLoaded());
-      }else{
+      } else {
         emit(LockDocumentError(message: result.$2));
-      }
-    }catch(e){
-      log(e.toString() , name: 'LockDocumentBloc');
+      } 
+    } catch (e) {
+      log(e.toString(), name: 'LockDocumentBloc');
       emit(LockDocumentError(message: ErrorConstants.errorMessage));
     }
   }

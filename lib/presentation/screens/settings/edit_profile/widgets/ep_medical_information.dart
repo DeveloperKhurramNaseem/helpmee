@@ -128,7 +128,8 @@ class MedicalInformationTile extends StatelessWidget {
                       title: addedDiseaseTypes[index].name,
                       description: diseaseInfo.description,
                       hasCheck: diseaseInfo.hasCheck,
-                      diseaseDetails: addedDiseaseTypes[index].diseaseDetails,
+                      diseaseDetails: addedDiseaseTypes[index].diseaseDetails,  
+                      isEdit: true,                  
                     );
                   },
                 );

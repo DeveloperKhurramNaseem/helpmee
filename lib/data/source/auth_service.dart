@@ -17,15 +17,11 @@ class AuthService extends ApiService {
     String password,
     String language,
   ) async {
-    var result = await post(
-      EndPoints.signUp,
-      {
-        'email': email,
-        'password': password,
-        'device_type': Platform.isAndroid ? 'ANDROID' : 'IOS',
-      },
-      header: NetworkConstants.getHeaders(language),
-    );
+    var result = await post(EndPoints.signUp, {
+      'email': email,
+      'password': password,
+      'device_type': Platform.isAndroid ? 'ANDROID' : 'IOS',
+    }, header: NetworkConstants.getHeaders(language));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
@@ -38,21 +34,32 @@ class AuthService extends ApiService {
     String password,
     String language,
   ) async {
-    var result = await post(
-      EndPoints.signIn,
-      {'email': email, 'password': password},
-      header: NetworkConstants.getHeaders(language),
-    );
+    var result = await post(EndPoints.signIn, {
+      'email': email,
+      'password': password,
+    }, header: NetworkConstants.getHeaders(language));
 
     if (result != null) {
-      final decodedResponse = decodeResponse(result);
+      final decodedResponseWithList = decodeResponseWithMessagesList(result);
+      final decodedResponse = DecodedResponse(
+        success: decodedResponseWithList.success,
+        message: decodedResponseWithList.message.isNotEmpty
+            ? decodedResponseWithList.message.first
+            : '',
+        data: decodedResponseWithList.data,
+      );
+
       log(decodedResponse.toMap().toString(), name: 'SignInResponse');
       if (decodedResponse.success) {
         return SigninResponse.fromMap(decodedResponse.toMap());
       } else {
-        return SigninResponse.empty(decodedResponse.message);
+        return SigninResponse.empty(
+          decodedResponse.message.isNotEmpty
+              ? decodedResponse.message
+              : ErrorConstants.errorMessage,
+        );
       }
-    }
+    } 
     return SigninResponse.empty(ErrorConstants.errorMessage);
   }
 
@@ -61,11 +68,10 @@ class AuthService extends ApiService {
     String otp,
     String language,
   ) async {
-    var result = await post(
-      EndPoints.verifySignUpOtp,
-      {'email': email, 'otp': otp},
-      header: NetworkConstants.getHeaders(language),
-    );
+    var result = await post(EndPoints.verifySignUpOtp, {
+      'email': email,
+      'otp': otp,
+    }, header: NetworkConstants.getHeaders(language));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return TokenResponse.fromMap(decodedResponse.toMap());
@@ -77,12 +83,10 @@ class AuthService extends ApiService {
     );
   }
 
-  Future<TokenResponse> forgetPassword(String email, String language) async {    
-    var result = await post(
-      EndPoints.forgetPassword,
-      {'email': email},
-      header: NetworkConstants.getHeaders(language),
-    );
+  Future<TokenResponse> forgetPassword(String email, String language) async {
+    var result = await post(EndPoints.forgetPassword, {
+      'email': email,
+    }, header: NetworkConstants.getHeaders(language));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return TokenResponse.fromMap(decodedResponse.toMap());
@@ -94,20 +98,23 @@ class AuthService extends ApiService {
     );
   }
 
-    Future<(bool,String)> forgetPasswordSendCode(String email, String language) async{
-     var result = await post(
+  Future<(bool, String)> forgetPasswordSendCode(
+    String email,
+    String language,
+  ) async {
+    var result = await post(
       EndPoints.forgetPasswordSendCode,
       {'email': email},
       header: NetworkConstants.getHeaders(language),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
-      return (decodedResponse.success , decodedResponse.message);
+      return (decodedResponse.success, decodedResponse.message);
     }
     return (false, ErrorConstants.errorMessage);
   }
 
-    Future<(bool,String)> verifyForgetPasswordOtp(
+  Future<(bool, String)> verifyForgetPasswordOtp(
     String email,
     String otp,
     String language,
@@ -124,12 +131,15 @@ class AuthService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-  Future<(bool,String)> createNewPassword(String email, String password, String language) async{
-    var result = await post(
-      EndPoints.createNewPassword,
-      {'email': email, 'password': password},
-      header: NetworkConstants.getHeaders(language)
-    );
+  Future<(bool, String)> createNewPassword(
+    String email,
+    String password,
+    String language,
+  ) async {
+    var result = await post(EndPoints.createNewPassword, {
+      'email': email,
+      'password': password,
+    }, header: NetworkConstants.getHeaders(language));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
@@ -137,12 +147,10 @@ class AuthService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-  Future<(bool,String)> resendOtp(String email , String language) async{
-    var result = await post(
-      EndPoints.resendOtp,
-      {'email': email,},
-      header: NetworkConstants.getHeaders(language)
-    );
+  Future<(bool, String)> resendOtp(String email, String language) async {
+    var result = await post(EndPoints.resendOtp, {
+      'email': email,
+    }, header: NetworkConstants.getHeaders(language));
     if (result != null) {
       final decodedResponse = decodeResponse(result);
       return (decodedResponse.success, decodedResponse.message);
@@ -150,11 +158,14 @@ class AuthService extends ApiService {
     return (false, ErrorConstants.errorMessage);
   }
 
-  Future<SigninResponse> socialSignIn(SocialSignin socialData,  String language) async{
+  Future<SigninResponse> socialSignIn(
+    SocialSignin socialData,
+    String language,
+  ) async {
     var result = await post(
       EndPoints.socialSignIn,
       socialData.toMap(),
-      header: NetworkConstants.getHeaders(language)
+      header: NetworkConstants.getHeaders(language),
     );
     if (result != null) {
       final decodedResponse = decodeResponse(result);
@@ -162,4 +173,4 @@ class AuthService extends ApiService {
     }
     return SigninResponse.empty(ErrorConstants.errorMessage);
   }
- }
+}
