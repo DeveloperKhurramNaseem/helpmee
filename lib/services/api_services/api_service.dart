@@ -7,6 +7,7 @@ import 'package:mime/mime.dart';
 import 'package:path/path.dart' as path;
 
 abstract class ApiService {
+  
   static const baseUrl = "http://31.97.190.94:2100";
 
   String get apiUrl;
@@ -41,6 +42,7 @@ abstract class ApiService {
     log(response.body, name: 'Response');
     return response.body;
   }
+
 
   Future<String?> put(
     String endPoint,
