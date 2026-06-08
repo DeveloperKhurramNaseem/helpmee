@@ -6,5 +6,11 @@ sealed class VerifyOtpEvent {}
 class VerifySignUpOtpEvent extends VerifyOtpEvent{
   final String otp;
   final String email;
-  VerifySignUpOtpEvent(this.otp, this.email);
+  final EnterCodeScreenState currentState;
+  VerifySignUpOtpEvent(this.otp, this.email, this.currentState);
+}
+
+
+class VerifySignUpOtpResetEvent extends VerifyOtpEvent{ 
+  VerifySignUpOtpResetEvent();
 }

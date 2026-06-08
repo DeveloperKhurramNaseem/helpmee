@@ -34,7 +34,7 @@ class SettingsCategoryText extends StatelessWidget {
         ),
         title: Text(
           category,
-          style: TextStyle(fontWeight: FontWeight.w500),
+          style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           textAlign: TextAlign.start,
         ),
       ),

@@ -13,6 +13,14 @@ class SignupDoneState extends SignupState {
   SignupDoneState(this.message);
 }
 
+class SocialSignUpDoneState extends SignupState{
+  final String message;
+  final int activatedProducts;
+  final String token;
+
+  SocialSignUpDoneState({required this.message , required this.activatedProducts , required this.token});
+}
+
 class SignupErrorState extends SignupState {
   final String message;
 

@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:help_mee/domain/entities/pin_data.dart';
 import 'package:help_mee/domain/repositories/user_repo.dart';
+import 'package:help_mee/util/constants/error_constants.dart';
 import 'package:meta/meta.dart';
 
 part 'set_pin_event.dart';
@@ -18,7 +19,12 @@ class SetPinBloc extends Bloc<SetPinEvent, SetPinState> {
   FutureOr<void> _handleSetNewPinEvent(SetNewPinEvent event, Emitter<SetPinState> emit) async{
     try {
       emit(SetPinLoadingState());
-      var result = await userRepo.setNewPin(event.pinData);
+      (bool,String) result;
+      if(event.setPin){
+        result = await userRepo.setNewPin(event.pinData);
+      }else{
+        result = await userRepo.updatePin(event.pinData);
+      }
       if (result.$1) {
         emit(SetPinDoneState(result.$2));
       } else {
@@ -26,7 +32,7 @@ class SetPinBloc extends Bloc<SetPinEvent, SetPinState> {
       }
     } catch (e) {
       log(e.toString(), name: 'SetPinBloc');
-      emit(SetPinErrorState('Something went wrong'));
+      emit(SetPinErrorState(ErrorConstants.errorMessage));
     }
   }
 }

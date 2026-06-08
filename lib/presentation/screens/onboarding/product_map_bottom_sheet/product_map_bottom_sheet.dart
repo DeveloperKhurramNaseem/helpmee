@@ -3,11 +3,17 @@ import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/extension/string_modification.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ProductMapBottomSheet extends StatelessWidget {
-  const ProductMapBottomSheet({super.key});
+  final String token;
+  final bool makeChildWithExistingEmail;
+  const ProductMapBottomSheet({
+    super.key,
+    required this.token,
+    this.makeChildWithExistingEmail = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,20 @@ class ProductMapBottomSheet extends StatelessWidget {
             child: AppButton(
               onPressed: () {
                 Navigator.of(context, rootNavigator: true).pop();
-                context.push(ActivationMethodScreen.path);
+                if (makeChildWithExistingEmail) {
+                  context.push(
+                    ActivationMethodScreen.path,
+                    extra: (
+                      token,
+                      ActivationMethodState.makeChildWithExistingEmail,
+                    ),
+                  );
+                } else {
+                  context.push(
+                    ActivationMethodScreen.path,
+                    extra: (token, ActivationMethodState.activateFirstProduct),
+                  );
+                }
               },
               gradient: Theme.of(
                 context,
@@ -51,7 +70,7 @@ class ProductMapBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
             child: AppButtonOutlined(
               onPressed: () {
-                launchUrl(Uri.parse("https://help-mee.com/collections/all"));
+                AppLocalizations.of(context)!.buyHelpMeeProductLink.launchUrl();
               },
               child: Text(
                 AppLocalizations.of(context)!.goToHelpMeeShop,

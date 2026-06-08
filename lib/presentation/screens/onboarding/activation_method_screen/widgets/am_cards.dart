@@ -1,17 +1,26 @@
 import 'dart:convert' show ascii, utf8;
 import 'dart:developer';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/hidden_features/restore_product_bloc/restore_product_bloc.dart';
 import 'package:help_mee/presentation/blocs/onboarding/activate_product/activate_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/add_product/add_product_bloc.dart';
+import 'package:help_mee/presentation/blocs/settings/app_settings/make_child_with_existing_email/make_child_with_existing_email_bloc.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
+import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/widgets/nfc_scan_bottom_sheet.dart';
 import 'package:help_mee/presentation/screens/onboarding/scan_qr_code_screen/scan_qr_code_screen.dart';
+import 'package:help_mee/util/common_widgets/show_toast.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:nfc_manager/ndef_record.dart';
 import 'package:nfc_manager/nfc_manager.dart';
 import 'package:nfc_manager_ndef/nfc_manager_ndef.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class AmCard extends StatelessWidget {
   final String title, description, imagePath;
@@ -58,39 +67,63 @@ class AmCard extends StatelessWidget {
 }
 
 class AmNfcScanCard extends StatefulWidget {
-  const AmNfcScanCard({super.key});
+  final String token;
+  final ActivationMethodState activationMethodState;
+  const AmNfcScanCard({
+    super.key,
+    required this.token,
+    required this.activationMethodState,
+  });
 
   @override
   State<AmNfcScanCard> createState() => _AmNfcScanCardState();
 }
 
 class _AmNfcScanCardState extends State<AmNfcScanCard> {
-
+  bool sessionActivated = false;
   @override
   void dispose() {
-    NfcManager.instance.stopSession();
+    NfcManager.instance.checkAvailability().then((_) {
+      try {
+        if (sessionActivated) {
+          NfcManager.instance.stopSession();
+        }
+      } catch (_) {}
+    });
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var bloc = context.read<ActivateProductBloc>();
+    var addProductBloc = context.read<AddProductBloc>();
+    var restoreProductBloc = context.read<RestoreProductBloc>();
+    var makeChildBloc = context.read<MakeChildWithExistingEmailBloc>();
     return GestureDetector(
       onTap: () async {
-        final available = await NfcManager.instance.isAvailable();
-        if (!available) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('NFC not available on this device')),
+        if (Platform.isAndroid) {
+          m.showModalBottomSheet(
+            context: context,
+            showDragHandle: true,
+            enableDrag: true,
+            isScrollControlled: true,
+            builder: (context) => NfcScanBottomSheet(),
           );
+        }
+        final availability = await NfcManager.instance.checkAvailability();
+        if (availability == NfcAvailability.unsupported) {
+          showError('NFC not available on this device');
           return;
         }
         try {
           // await NfcManager.instance.stopSession();
+          sessionActivated = true;
           NfcManager.instance.startSession(
             pollingOptions: {
               NfcPollingOption.iso14443,
               NfcPollingOption.iso15693,
             },
-            onDiscovered: (NfcTag tag) async {              
+            onDiscovered: (NfcTag tag) async {
               try {
                 final ndef = Ndef.from(tag);
                 if (ndef == null) {
@@ -110,12 +143,42 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
                   if (parts.isNotEmpty) {
                     var code = parts.last;
                     var device = parts[parts.length - 2];
-                    bloc.add(
-                      ActivateNewProductEvent(code: code, device: device),
-                    );
+                    if (widget.activationMethodState ==
+                        ActivationMethodState.restoreProduct) {
+                      restoreProductBloc.add(
+                        RestoreThisProductEvent(code: code),
+                      );
+                    } else if (widget.activationMethodState ==
+                        ActivationMethodState.activateFirstProduct) {
+                      bloc.add(
+                        ActivateNewProductEvent(
+                          code: code,
+                          device: device,
+                          token: widget.token,
+                        ),
+                      );
+                    } else if (widget.activationMethodState ==
+                        ActivationMethodState.makeChildWithExistingEmail) {
+                      makeChildBloc.add(
+                        MakeChildWithExistingEmailEvent(
+                          code: code,
+                          device: device,
+                        ),
+                      );
+                    } else {
+                      addProductBloc.add(
+                        AddNewProductEvent(code: code, device: device),
+                      );
+                    }
+                    if (Platform.isAndroid) {
+                      if (mounted) {
+                        context.pop();
+                      }
+                    }
                   }
-                }                
+                }
               } catch (e) {
+                sessionActivated = false;
                 await NfcManager.instance.stopSession(errorMessageIos: '$e');
               }
             },
@@ -137,15 +200,22 @@ class _AmNfcScanCardState extends State<AmNfcScanCard> {
 }
 
 class AmQRScanCard extends StatelessWidget {
-  const AmQRScanCard({super.key});
+  final String token;
+  final ActivationMethodState activationMethodState;
+  const AmQRScanCard({
+    super.key,
+    required this.token,
+    required this.activationMethodState,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(
-          context,
-        ).push(MaterialPageRoute(builder: (_) => ScanQrCodeScreen()));
+        context.push(
+          ScanQrCodeScreen.path,
+          extra: (token, activationMethodState),
+        );
         // context.read<ActivateProductBloc>().add(ActivateNewProductEvent(code: '79FAD9', device: 's'));
       },
       child: AmCard(

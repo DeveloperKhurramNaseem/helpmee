@@ -1,13 +1,42 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/profile_settings_screen.dart';
+import 'package:help_mee/services/native_services/native_safari_sheet.dart';
+import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/constants/profile_type_from_group_id.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
-class SettingsHeader extends StatelessWidget {
+import '../../../../../util/constants/util_functions.dart';
+
+class SettingsHeader extends StatefulWidget {
   const SettingsHeader({super.key});
 
   @override
+  State<SettingsHeader> createState() => _SettingsHeaderState();
+}
+
+class _SettingsHeaderState extends State<SettingsHeader> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future<void> openNativeSheet() async {
+    var storageService = sl<StorageService>();
+    var user = storageService.getUser();
+    var profileType = getProfileType(user.userGroupId!).name.toString();
+    var username = user.username;
+    var url = getProfilePreviewUrl(profileType, username ?? '');
+
+    NativeSheet.open(url);
+  }
+
+  @override
   Widget build(BuildContext context) {
+    var user = sl<StorageService>().getUser();
     return SliverPadding(
       padding: const EdgeInsets.all(8.0),
       sliver: SliverToBoxAdapter(
@@ -17,13 +46,23 @@ class SettingsHeader extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primary,
                 shape: BoxShape.circle,
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2.5,
+                ),
+                // image: DecorationImage(
+                //   image: AssetImage(AppImages.placeHolderPerson),
+                // ),
               ),
-              padding: EdgeInsets.all(2),
+              // padding: EdgeInsets.all(2),
               child: CircleAvatar(
+                backgroundColor: Colors.transparent,
                 radius: 40,
-                child: Icon(Icons.person, size: 30),
+                foregroundImage: user.logo != null
+                    ? CachedNetworkImageProvider(user.logo!)
+                    : AssetImage(AppImages.placeHolderPerson),
+                backgroundImage: AssetImage(AppImages.placeHolderPerson),
               ),
             ),
             SizedBox(width: 15),
@@ -33,7 +72,7 @@ class SettingsHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Khuram Naseem',
+                    '${user.firstName ?? ''} ${user.lastName ?? ''}',
                     // '',
                     style: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
@@ -46,23 +85,41 @@ class SettingsHeader extends StatelessWidget {
                       // AppButtonOutlined(onPressed: onPressed, child: child)
                       Expanded(
                         flex: 46,
-                        child: Ink(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: Theme.of(
-                                context,
-                              ).colorScheme.secondary.withAlpha(100),
-                            ),
-                          ),
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.symmetric(vertical: 8),
-                            child: Text(
-                              AppLocalizations.of(context)!.profilePreviewLabel,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.secondary,
-                                fontWeight: FontWeight.w500,
+                        child: GestureDetector(
+                          onTap: () {
+                            // showCupertinoSheet(
+                            //   context: context,
+                            //   enableDrag: true,
+                            //   useNestedNavigation: true,
+                            //   builder: (context) => ProfilePreviewSheet(),
+                            // );
+                            openNativeSheet();
+                          },
+                          child: ColoredBox(
+                            color: Colors.transparent,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                border: Border.all(
+                                  color: Theme.of(
+                                    context,
+                                  ).colorScheme.secondary.withAlpha(100),
+                                ),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  AppLocalizations.of(
+                                    context,
+                                  )!.profilePreviewLabel,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.secondary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -79,23 +136,28 @@ class SettingsHeader extends StatelessWidget {
                               ),
                             );
                           },
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: Theme.of(
-                                context,
-                              ).extension<AppGradients>()?.primaryButton,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(vertical: 8),
-                              child: Text(
-                                AppLocalizations.of(context)!.editProfileLabel,
-                                style: TextStyle(
-                                  color: Theme.of(
+                          child: ColoredBox(
+                            color: Colors.transparent,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: Theme.of(
+                                  context,
+                                ).extension<AppGradients>()?.primaryButton,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                padding: EdgeInsets.symmetric(vertical: 8),
+                                child: Text(
+                                  AppLocalizations.of(
                                     context,
-                                  ).colorScheme.onPrimary,
-                                  fontWeight: FontWeight.w500,
+                                  )!.editProfileLabel,
+                                  style: TextStyle(
+                                    color: Theme.of(
+                                      context,
+                                    ).colorScheme.onPrimary,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                 ),
                               ),
                             ),

@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:gif_view/gif_view.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
-import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
+import 'package:help_mee/util/constants/gifs.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class CongratulationsSheet extends StatelessWidget {
-  const CongratulationsSheet({super.key});
+  final String productType;
+  final void Function() onContiuePressed;
+  const CongratulationsSheet({
+    super.key,
+    required this.productType,
+    required this.onContiuePressed
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +43,9 @@ class CongratulationsSheet extends StatelessWidget {
                   width: AppSize.instance.height * 0.2,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Theme.of(context).colorScheme.secondary,
+                    // color: Theme.of(context).colorScheme.secondary,
                   ),
+                  child: GifOrImage(productType: productType),
                 ),
               ],
             ),
@@ -58,9 +65,7 @@ class CongratulationsSheet extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 12),
             child: AppButton(
-              onPressed: () {
-                context.go(Dashboard.path , extra: true);   
-              },
+              onPressed: onContiuePressed,
               gradient: Theme.of(
                 context,
               ).extension<AppGradients>()?.primaryButton,
@@ -71,4 +76,29 @@ class CongratulationsSheet extends StatelessWidget {
       ),
     );
   }
+}
+
+class GifOrImage extends StatelessWidget {
+  final String productType;
+  const GifOrImage({super.key, required this.productType});
+
+  @override
+  Widget build(BuildContext context) {
+    return isGif
+        ? GifView.asset(getGif(productType))
+        : Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(image: NetworkImage(getUrl(productType))),
+            ),
+          );
+  }
+
+  bool get isGif =>
+      productType == AppProductCodeForGif.sb ||
+      productType == AppProductCodeForGif.ssc ||
+      productType == AppProductCodeForGif.sbk ||
+      productType == AppProductCodeForGif.sbj ||
+      productType == AppProductCodeForGif.sbb ||
+      productType == AppProductCodeForGif.dt;
 }

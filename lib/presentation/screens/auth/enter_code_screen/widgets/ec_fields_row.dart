@@ -4,7 +4,7 @@ import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class EcFieldsRow extends StatefulWidget {
   final void Function(String value) onUpdate;
-  const EcFieldsRow({super.key , required this.onUpdate});
+  const EcFieldsRow({super.key, required this.onUpdate});
 
   @override
   State<EcFieldsRow> createState() => _EcFieldsRowState();

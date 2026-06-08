@@ -13,4 +13,6 @@ class AppSize {
   static AppSize get instance => _instance!;
 
   AppSize._({required this.height, required this.width});
+
+  static const bottomPadding = 10;
 }

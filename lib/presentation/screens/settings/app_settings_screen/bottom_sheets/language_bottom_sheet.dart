@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
@@ -32,7 +34,9 @@ class LanguageBottomSheet extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 24),
             child: AppButtonOutlined(
               onPressed: () {
-                context.read<LanguageBloc>().add(ChangeLanguageEvent(LocalizationUtil.english));
+                context.read<LanguageBloc>().add(
+                  ChangeLanguageEvent(LocalizationUtil.english),
+                );
                 Navigator.of(context).pop();
               },
               child: Text(
@@ -42,10 +46,17 @@ class LanguageBottomSheet extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 12),
+            padding: EdgeInsets.fromLTRB(
+              24.0,
+              8.0,
+              24.0,
+              Platform.isAndroid ? 12 : 8,
+            ),
             child: AppButtonOutlined(
               onPressed: () {
-                context.read<LanguageBloc>().add(ChangeLanguageEvent(LocalizationUtil.german));
+                context.read<LanguageBloc>().add(
+                  ChangeLanguageEvent(LocalizationUtil.german),
+                );
                 Navigator.of(context).pop();
               },
               child: Text(

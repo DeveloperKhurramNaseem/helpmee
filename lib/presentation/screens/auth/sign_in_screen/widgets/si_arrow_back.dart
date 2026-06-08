@@ -7,8 +7,11 @@ class SiArrowBack extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(onTap: (){
-      Navigator.pop(context);
-    },child: SvgPicture.asset(AppIcons.arrowBack));
+    return GestureDetector(
+      onTap: () {
+        Navigator.pop(context);
+      },
+      child: SvgPicture.asset(AppIcons.arrowBack),
+    );
   }
 }

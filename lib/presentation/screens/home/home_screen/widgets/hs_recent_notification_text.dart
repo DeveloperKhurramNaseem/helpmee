@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class NotificationsText extends StatelessWidget {
   final String text;
-  const NotificationsText({super.key , required this.text});
+  const NotificationsText({super.key, required this.text});
 
   @override
   Widget build(BuildContext context) {

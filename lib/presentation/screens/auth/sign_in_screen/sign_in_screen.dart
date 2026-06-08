@@ -14,8 +14,10 @@ import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_sig
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_social_login_button.dart';
 import 'package:help_mee/presentation/screens/auth/sign_in_screen/widgets/si_space.dart';
 import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class SignInScreen extends StatefulWidget {
   static const path = '/sign-in-screen';
@@ -27,12 +29,15 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   late TextEditingController emailController, passwordController;
+  late GlobalKey<FormFieldState> emailKey, passwordKey;
 
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    emailKey = GlobalKey<FormFieldState>();
+    passwordKey = GlobalKey<FormFieldState>();
   }
 
   @override
@@ -88,24 +93,23 @@ class _SignInScreenState extends State<SignInScreen> {
                       // Error Text
                       SIScreenErrorText(),
                       // Input Fields
-                      SIScreenTextEmailField(controller: emailController),
-                      SIScreenTextPasswordField(controller: passwordController),
+                      SIScreenTextEmailField(
+                        controller: emailController,
+                        fieldKey: emailKey,
+                      ),
+                      SIScreenTextPasswordField(
+                        controller: passwordController,
+                        fieldKey: passwordKey,
+                      ),
                       // Forgot password
                       SiForgetPassword(),
                       // Sign up button
                       SIScreenButton(
-                        onPressed: () {                          
-                          var bloc = context.read<SigninBloc>();
-                          if (emailController.text.isEmpty) {
-                            bloc.add(
-                              ShowErrorEvent(message: 'Email is required'),
-                            );
+                        onPressed: () {
+                          if (!(emailKey.currentState?.validate() ?? false)) {
                             return;
                           }
-                          if (passwordController.text.isEmpty) {
-                            bloc.add(
-                              ShowErrorEvent(message: 'Password is required'),
-                            );
+                          if (!(passwordKey.currentState?.validate() ?? false)) {
                             return;
                           }
                           context.read<SigninBloc>().add(
@@ -134,7 +138,23 @@ class _SignInScreenState extends State<SignInScreen> {
 
   void _handleSignInBlocListener(BuildContext context, SigninState state) {
     if (state is SigninLoadedState) {
-      context.go(Dashboard.path);
+      if (state.activatedProducts != 0) {
+        context.go(Dashboard.path , extra: [false, true]);
+      } else {
+        m.showModalBottomSheet(
+          context: context,
+          isDismissible: false,
+          isScrollControlled: true,
+          enableDrag: false,
+          showDragHandle: true,
+          builder: (context) {
+            return PopScope(
+              canPop: false,
+              child: ProductMapBottomSheet(token: state.token),
+            );
+          },
+        );
+      }
     }
   }
 }

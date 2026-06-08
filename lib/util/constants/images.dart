@@ -7,5 +7,6 @@ class AppImages{
   static const String qrCodeScanner = 'assets/images/qr_code_image.svg';
   static const String productImage = 'assets/images/product_des.png';
   static const String warningImage = 'assets/images/warning_img.png';
+  static const String placeHolderPerson = 'assets/images/placeholder_person.png'; 
 
 }

@@ -66,7 +66,7 @@ class _SetPinSheetState extends State<SetPinSheet> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+            padding: const EdgeInsets.fromLTRB(12, 8, 12, 8),
             child: EcFieldsRow(
               onUpdate: (value) {
                 pinCode = value;
@@ -98,7 +98,7 @@ class _SetPinSheetState extends State<SetPinSheet> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            padding: const EdgeInsets.fromLTRB(12, 0, 12, 12),
             child: BlocBuilder<SetPinBloc, SetPinState>(
               builder: (context, state) {
                 return AppButton(
@@ -107,6 +107,7 @@ class _SetPinSheetState extends State<SetPinSheet> {
                       : () {
                           context.read<SetPinBloc>().add(
                             SetNewPinEvent(
+                              setPin: widget.setPin,
                               pinData: PinData(
                                 pin: pinCode,
                                 pinReminderText: pinReminderTextController.text

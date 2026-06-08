@@ -7,13 +7,16 @@ import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/validations/email_validation.dart';
 
 class FpFieldAndButton extends StatelessWidget {
   final TextEditingController controller;
   final void Function() onPressed;
+  final GlobalKey<FormFieldState> fieldKey;
   const FpFieldAndButton({
     super.key,
     required this.controller,
+    required this.fieldKey,
     required this.onPressed,
   });
 
@@ -29,32 +32,49 @@ class FpFieldAndButton extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.only(top: 5.0),
           child: TextFormField(
+            key: fieldKey,
             controller: controller,
+            validator: (value) {
+              if (value!.isEmpty) {
+                return AppLocalizations.of(context)!.enterEmail;
+              } else if (!isValidEmail(value)) {
+                return AppLocalizations.of(context)!.errorInvalidEmail;
+              }
+              return null;
+            },
             decoration: InputDecoration(
               border: TextFieldsConstants.border,
               labelText: AppLocalizations.of(context)!.emailLabel,
               helperText: '',
               focusedBorder: TextFieldsConstants.border,
               labelStyle: labelStyle,
+              errorStyle: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
             cursorColor: Theme.of(context).colorScheme.secondary,
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.symmetric(vertical: 8),
           child: SizedBox(
             width: AppSize.instance.width * 0.58,
             child: BlocBuilder<ForgetPasswordBloc, ForgetPasswordState>(
-              builder: (context, state) {                
+              builder: (context, state) {
                 return AppButton(
-                  onPressed: state is ForgetPasswordLoadingState ? null : onPressed,
+                  onPressed: state is ForgetPasswordLoadingState
+                      ? null
+                      : onPressed,
                   gradient: Theme.of(
                     context,
                   ).extension<AppGradients>()?.primaryButton,
-                  child: state is ForgetPasswordLoadingState ? CupertinoActivityIndicator(color: Colors.white,) : Text(
-                    AppLocalizations.of(context)!.continueButton,
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-                  ),
+                  child: state is ForgetPasswordLoadingState
+                      ? CupertinoActivityIndicator(color: Colors.white)
+                      : Text(
+                          AppLocalizations.of(context)!.continueButton,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
                 );
               },
             ),

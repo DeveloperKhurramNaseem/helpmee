@@ -3,6 +3,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:help_mee/data/source/token_service.dart';
+import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_bloc.dart';
 import 'package:help_mee/presentation/blocs/language/language_state.dart';
 import 'package:help_mee/util/constants/app_size.dart';
@@ -11,12 +13,19 @@ import 'package:help_mee/util/localication_util/localization_util.dart';
 import 'package:help_mee/util/providers/bloc_providers.dart';
 import 'package:help_mee/util/routing/router_config.dart';
 import 'package:help_mee/util/theme/light_theme/light_theme.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await init();
   log(await sl<TokenService>().getToken());
   runApp(ProvidersWrapper(child: const MyApp()));
+  OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  // Initialize with your OneSignal App ID
+  OneSignal.initialize("843d4401-1feb-49d8-83b3-a55edef04ff7");
+  // Use this method to prompt for push notifications.
+  // We recommend removing this method after testing and instead use In-App Messages to prompt for notification permission.
+  OneSignal.Notifications.requestPermission(false);
 }
 
 class MyApp extends StatelessWidget {
@@ -24,23 +33,44 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // return VoiceNoteDemo();
     AppSize(MediaQuery.of(context).size);
-    return BlocBuilder<LanguageBloc, LanguageState>(
-      builder: (context, state) {
-        return Builder(
-          builder: (context) {
-            return MaterialApp.router(
-              title: 'HelpMee',
-              theme: LightTheme.data,
-              themeMode: ThemeMode.light,
-              localizationsDelegates: LocalizationUtil.delegates,
-              supportedLocales: LocalizationUtil.locales.values,
-              locale: state.locale,
-              routerConfig: Routing.routerConfig,
-            );
-          },
-        );
-      },
+    return BlocListener<LanguageBloc, LanguageState>(
+      listener: _listenToLanguageChangeEvents,
+      child: BlocBuilder<LanguageBloc, LanguageState>(
+        builder: (context, state) {
+          return Builder(
+            builder: (context) {
+              return MediaQuery(
+                data: MediaQuery.of(
+                  context,
+                ).copyWith(textScaler: TextScaler.linear(0.9)),
+                child: MaterialApp.router(
+                  title: 'HelpMee',
+                  theme: LightTheme.data,
+                  themeMode: ThemeMode.light,
+                  localizationsDelegates: LocalizationUtil.delegates,
+                  supportedLocales: LocalizationUtil.locales.values,
+                  locale: state.locale,
+                  routerConfig: Routing.routerConfig,
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
+
+  void _listenToLanguageChangeEvents(
+    BuildContext context,
+    LanguageState state,
+  ) {
+    context.read<LatestNotificationsBloc>().add(
+      GetLatestNotificationsEvent(isLoading: false),
+    );
+    context.read<AllNotificationsBloc>().add(
+      GetAllNotificationsEvent(isLoading: false),
     );
   }
 }
@@ -57,7 +87,8 @@ class ProvidersWrapper extends StatelessWidget {
         ...getAuthBlocProviders(),
         ...getDashboardBlocProviders(),
         ...getActivateProductBlocProviders(),
-        ...getSettingsBlocProviders()
+        ...getSettingsBlocProviders(),
+        ...getUserProfileBlocProviders(),
       ],
       child: child,
     );

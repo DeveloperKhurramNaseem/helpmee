@@ -1,77 +1,160 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/blocs/home/all_notifications/all_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/latest_notifications/latest_notifications_bloc.dart';
+import 'package:help_mee/presentation/blocs/home/update_name/update_name_bloc.dart';
+import 'package:help_mee/presentation/blocs/profiles_and_products/get_products/get_products_bloc.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
-class NamesSheet extends StatelessWidget {
-  const NamesSheet({super.key});
+class NamesSheet extends StatefulWidget {
+  final String? token;  
+  final int? accountId;
+  const NamesSheet({super.key, this.token, this.accountId,});
+
+  @override
+  State<NamesSheet> createState() => _NamesSheetState();
+}
+
+class _NamesSheetState extends State<NamesSheet> {
+  bool enabled = false;
+
+  late TextEditingController firstNameController;
+  late TextEditingController lastNameController;
+
+  @override
+  void initState() {
+    super.initState();
+    firstNameController = TextEditingController()..addListener(listener);
+    lastNameController = TextEditingController()..addListener(listener);
+  }
+
+  @override
+  void dispose() {
+    firstNameController.dispose();
+    lastNameController.dispose();
+    super.dispose();
+  }
+
+  void listener() {
+    setState(() {
+      enabled =
+          firstNameController.text.isNotEmpty &&
+          lastNameController.text.isNotEmpty;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
-      child: Wrap(
-        alignment: WrapAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppLocalizations.of(context)!.enterNamePrompt,
-                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: TextFieldsConstants.border,
-                labelText: AppLocalizations.of(context)!.firstNameLabel,
-                helperText: '',
-                focusedBorder: TextFieldsConstants.border,
-                labelStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 14,
-                ),
+    return BlocListener<UpdateNameBloc, UpdateNameState>(
+      listener: _handleUpdateNameBlocListener,
+      child: Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).padding.bottom),
+        child: Wrap(
+          alignment: WrapAlignment.center,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.enterNamePrompt,
+                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+                  ),
+                ],
               ),
-              cursorColor: Theme.of(context).colorScheme.secondary,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: TextFormField(
-              decoration: InputDecoration(
-                border: TextFieldsConstants.border,
-                labelText: AppLocalizations.of(context)!.lastNameLabel,
-                helperText: '',
-                focusedBorder: TextFieldsConstants.border,
-                labelStyle: TextStyle(
-                  color: Theme.of(context).colorScheme.secondary,
-                  fontSize: 14,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: TextFormField(
+                controller: firstNameController,
+                decoration: InputDecoration(
+                  border: TextFieldsConstants.border,
+                  labelText: AppLocalizations.of(context)!.firstNameLabel,
+                  helperText: '',
+                  focusedBorder: TextFieldsConstants.border,
+                  labelStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 14,
+                  ),
                 ),
+                cursorColor: Theme.of(context).colorScheme.secondary,
               ),
-              cursorColor: Theme.of(context).colorScheme.secondary,
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
-            child: AppButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              gradient: Theme.of(
-                context,
-              ).extension<AppGradients>()?.primaryButton,
-              child: Text(AppLocalizations.of(context)!.next),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: TextFormField(
+                controller: lastNameController,
+                decoration: InputDecoration(
+                  border: TextFieldsConstants.border,
+                  labelText: AppLocalizations.of(context)!.lastNameLabel,
+                  helperText: '',
+                  focusedBorder: TextFieldsConstants.border,
+                  labelStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontSize: 14,
+                  ),
+                ),
+                cursorColor: Theme.of(context).colorScheme.secondary,
+              ),
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.fromLTRB(12, 0, 12, 8),
+              child: BlocBuilder<UpdateNameBloc, UpdateNameState>(
+                builder: (context, state) {
+                  return Opacity(
+                    opacity: enabled ? 1 : 0.7,
+                    child: AppButton(
+                      onPressed: state is UpdateNameLoadingState
+                          ? null
+                          : enabled
+                          ? () {
+                              context.read<UpdateNameBloc>().add(
+                                UpdateNameInitEvent(
+                                  firstName: firstNameController.text.trim(),
+                                  lastName: lastNameController.text.trim(),
+                                  accountId: widget.accountId,                                  
+                                ),
+                              );
+                            }
+                          : null,
+                      gradient: Theme.of(
+                        context,
+                      ).extension<AppGradients>()?.primaryButton,
+                      child: state is UpdateNameLoadingState
+                          ? CupertinoActivityIndicator(color: Colors.white)
+                          : Text(AppLocalizations.of(context)!.next),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
+  }
+
+  void _handleUpdateNameBlocListener(
+    BuildContext context,
+    UpdateNameState state,
+  ) {
+    if (state is UpdateNameDoneState) {
+      Navigator.pop(context);
+      if (widget.token != null && widget.accountId != null) {
+        context.read<LatestNotificationsBloc>().add(
+          GetLatestNotificationsEvent(),
+        );
+        context.read<AllNotificationsBloc>().add(GetAllNotificationsEvent());
+        context.read<GetProductsBloc>().add(GetAllProductsEvent());
+        context.go(Dashboard.path, extra: [true, false]);
+      }
+    }
   }
 }

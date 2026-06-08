@@ -1,0 +1,107 @@
+import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/bottom_sheets/record_audio_sheet/record_audio_sheet.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_base_boxes_and_tiles.dart';
+import 'package:help_mee/presentation/screens/settings/edit_profile/widgets/ep_voice_note.dart';
+import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/theme/app_colors.dart';
+import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
+
+class EpImportantWidget extends StatelessWidget {
+  final TextEditingController controller;
+  final String url;
+  final List<num> waveforms;
+  const EpImportantWidget({
+    super.key,
+    required this.controller,
+    required this.url,
+    required this.waveforms,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    var localization = AppLocalizations.of(context)!;
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(vertical: 14.0),
+      sliver: SliverToBoxAdapter(
+        child: EpInfoBaseBox(
+          titleText: localization.important,
+          titleBorderColor: Theme.of(context).colorScheme.primary,
+          bodyBorderColor: Theme.of(context).colorScheme.primary,
+          child: Column(
+            spacing: 10,
+            children: [
+              EpHeaderImportantBoxField(
+                hint: localization.addImportantNote,
+                maxLines: 4,
+                controller: controller,
+              ),
+              if (url.isNotEmpty)
+                EpVoiceNote(url: url, waveforms: waveforms)
+              else
+                Row(
+                  children: [
+                    Spacer(flex: 29),
+                    Expanded(
+                      flex: 42,
+                      child: AppButton(
+                        onPressed: () {
+                          m.showModalBottomSheet(
+                            context: context,
+                            showDragHandle: true,
+                            isScrollControlled: true,
+                            builder: (context) {
+                              return RecordAudioSheet();
+                            },
+                          );
+                        },
+                        gradient: Theme.of(
+                          context,
+                        ).extension<AppGradients>()!.primaryButton,
+                        child: Text(
+                          localization.recordAudio,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Spacer(flex: 29),
+                  ],
+                ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class EpHeaderImportantBoxField extends StatelessWidget {
+  final String hint;
+  final int maxLines;
+  final TextEditingController controller;
+
+  const EpHeaderImportantBoxField({
+    super.key,
+    required this.hint,
+    this.maxLines = 1,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppLightThemeColors.textfieldBorderColor),
+        color: AppLightThemeColors.textfieldColor,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: TextFormField(
+        controller: controller,
+        maxLines: maxLines,
+        decoration: InputDecoration(border: InputBorder.none, hintText: hint),
+      ),
+    );
+  }
+}

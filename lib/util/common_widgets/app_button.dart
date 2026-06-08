@@ -4,11 +4,13 @@ class AppButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Widget child;
   final Gradient? gradient;
+  final EdgeInsetsGeometry? padding;
 
   const AppButton({
     super.key,
     required this.onPressed,
     required this.child,
+    this.padding,
     this.gradient = const LinearGradient(
       colors: [Color(0xFF4CAF50), Color(0xFF81C784)], // Default green gradient
     ),
@@ -29,9 +31,11 @@ class AppButton extends StatelessWidget {
           gradient: gradient,
           borderRadius: BorderRadius.circular(12),
         ),
-        child: Container(          
+        child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding:
+              padding ??
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),
@@ -40,10 +44,11 @@ class AppButton extends StatelessWidget {
 }
 
 class AppButtonOutlined extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final Widget child;
   final Color color;
   final Color? borderColor;
+  final EdgeInsetsGeometry? padding;
 
   const AppButtonOutlined({
     super.key,
@@ -51,6 +56,7 @@ class AppButtonOutlined extends StatelessWidget {
     required this.child,
     this.color = Colors.transparent,
     this.borderColor,
+    this.padding,
   });
 
   @override
@@ -73,7 +79,9 @@ class AppButtonOutlined extends StatelessWidget {
         ),
         child: Container(
           alignment: Alignment.center,
-          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
+          padding:
+              padding ??
+              const EdgeInsets.symmetric(vertical: 14, horizontal: 24),
           child: child,
         ),
       ),

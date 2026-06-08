@@ -4,4 +4,7 @@ part of 'latest_notifications_bloc.dart';
 sealed class LatestNotificationsEvent {}
 
 class GetLatestNotificationsEvent extends LatestNotificationsEvent {  
+  final bool isLoading;
+
+  GetLatestNotificationsEvent({this.isLoading = true});
 }

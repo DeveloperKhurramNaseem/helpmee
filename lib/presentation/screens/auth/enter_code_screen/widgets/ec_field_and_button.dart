@@ -5,12 +5,18 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/auth/verifyotp/verify_otp_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/widgets/ec_fields_row.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
 
 class EcFieldAndButton extends StatefulWidget {
   final String email;
-  const EcFieldAndButton({super.key, required this.email});
+  final EnterCodeScreenState currentState;
+  const EcFieldAndButton({
+    super.key,
+    required this.email,
+    required this.currentState,
+  });
 
   @override
   State<EcFieldAndButton> createState() => _EcFieldAndButtonState();
@@ -36,12 +42,16 @@ class _EcFieldAndButtonState extends State<EcFieldAndButton> {
           child: SizedBox(
             width: AppSize.instance.width * 0.58,
             child: BlocBuilder<VerifyOtpBloc, VerifyOtpState>(
-              builder: (context, state) {                
+              builder: (context, state) {
                 return AppButton(
                   onPressed: () {
                     if (otp.isNotEmpty && otp.length == 6) {
                       context.read<VerifyOtpBloc>().add(
-                        VerifySignUpOtpEvent(otp, widget.email),
+                        VerifySignUpOtpEvent(
+                          otp,
+                          widget.email,
+                          widget.currentState,
+                        ),
                       );
                     }
                   },
@@ -50,7 +60,7 @@ class _EcFieldAndButtonState extends State<EcFieldAndButton> {
                   ).extension<AppGradients>()?.primaryButton,
                   child: Builder(
                     builder: (context) {
-                      if(state is VerifyOtpLoadingState){
+                      if (state is VerifyOtpLoadingState) {
                         return CupertinoActivityIndicator(
                           color: Colors.white,
                           radius: 10,
@@ -58,9 +68,12 @@ class _EcFieldAndButtonState extends State<EcFieldAndButton> {
                       }
                       return Text(
                         AppLocalizations.of(context)!.verifyButton,
-                        style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
+                        ),
                       );
-                    }
+                    },
                   ),
                 );
               },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/blocs/auth/signup/signup_bloc.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_logo_bar.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_screen_button.dart';
@@ -13,8 +14,12 @@ import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_social_login_button.dart';
 import 'package:help_mee/presentation/screens/auth/create_account_screen/widgets/ca_space.dart';
 import 'package:help_mee/presentation/screens/auth/enter_code_screen/enter_code_screen.dart';
+import 'package:help_mee/presentation/screens/home/dashboard/dashboard.dart';
+import 'package:help_mee/presentation/screens/onboarding/product_map_bottom_sheet/product_map_bottom_sheet.dart';
+import 'package:help_mee/util/constants/app_enums.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class CreateAccountScreen extends StatefulWidget {
   static const path = '/create-account-screen';
@@ -28,6 +33,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   late TextEditingController emailController,
       passwordController,
       confirmPasswordController;
+  late GlobalKey<FormFieldState> emailKey, passwordKey, confirmationPasswordKey;
 
   bool isChecked = false;
 
@@ -37,6 +43,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+
+    emailKey = GlobalKey<FormFieldState>();
+    passwordKey = GlobalKey<FormFieldState>();
+    confirmationPasswordKey = GlobalKey<FormFieldState>();
   }
 
   @override
@@ -94,10 +104,17 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CaScreenErrorText(),
 
                       // Input Fields
-                      CAScreenTextEmailField(controller: emailController),
-                      CAScreenTextPasswordField(controller: passwordController),
+                      CAScreenTextEmailField(
+                        controller: emailController,
+                        fieldKey: emailKey,
+                      ),
+                      CAScreenTextPasswordField(
+                        controller: passwordController,
+                        fieldKey: passwordKey,
+                      ),
                       CAScreenTextConfirmPasswordField(
                         controller: confirmPasswordController,
+                        fieldKey: confirmationPasswordKey,
                       ),
                       // Check Field
                       StatefulBuilder(
@@ -116,34 +133,44 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       CAScreenButton(
                         onPressed: () {
                           final signUpBloc = context.read<SignupBloc>();
-                          if (emailController.text.isEmpty) {
-                            signUpBloc.add(ShowErrorEvent('Email is required'));
+                          if (!(emailKey.currentState?.validate() ?? false)) {
                             return;
                           }
-                          if (passwordController.text.isEmpty) {
-                            signUpBloc.add(
-                              ShowErrorEvent('Password is required'),
-                            );
+                          if (!(passwordKey.currentState?.validate() ?? false)) {
                             return;
                           }
-
-                          if (confirmPasswordController.text.isEmpty) {
-                            signUpBloc.add(
-                              ShowErrorEvent('All fields are required'),
-                            );
+                          if (!(confirmationPasswordKey.currentState
+                                  ?.validate() ??
+                              false)) {
                             return;
                           }
                           if (passwordController.text.trim() !=
                               confirmPasswordController.text.trim()) {
                             signUpBloc.add(
-                              ShowErrorEvent('Passwords don\'t match'),
+                              ShowErrorEvent(
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorPasswordMismatch,
+                              ),
+                            );
+                            return;
+                          }
+                          if (passwordController.text.length < 6) {
+                            signUpBloc.add(
+                              ShowErrorEvent(
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorPasswordTooShort,
+                              ),
                             );
                             return;
                           }
                           if (!isChecked) {
                             signUpBloc.add(
                               ShowErrorEvent(
-                                'Agree to privacy policy and terms and conditions',
+                                AppLocalizations.of(
+                                  context,
+                                )!.errorAcceptPrivacyPolicyEULA,
                               ),
                             );
                             return;
@@ -174,7 +201,29 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   void _signupBlocListener(BuildContext context, SignupState state) {
     if (state is SignupDoneState) {
-      context.push(EnterCodeScreen.path , extra: emailController.text.trim());
+      // FocusManager.instance.primaryFocus?.unfocus();
+      context.push(
+        EnterCodeScreen.path,
+        extra: [emailController.text.trim(), EnterCodeScreenState.signUp],
+      );
+    }else if(state is SocialSignUpDoneState){
+      if (state.activatedProducts != 0) {
+        context.go(Dashboard.path , extra: [false, true]);
+      } else {
+        m.showModalBottomSheet(
+          context: context,
+          isDismissible: false,
+          isScrollControlled: true,
+          enableDrag: false,
+          showDragHandle: true,
+          builder: (context) {
+            return PopScope(
+              canPop: false,
+              child: ProductMapBottomSheet(token: state.token),
+            );
+          },
+        );
+      }
     }
   }
 }

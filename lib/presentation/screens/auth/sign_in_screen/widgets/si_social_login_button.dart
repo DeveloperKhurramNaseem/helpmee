@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:help_mee/presentation/blocs/auth/signin/signin_bloc.dart';
 import 'package:help_mee/util/constants/icons.dart';
+import 'package:provider/provider.dart';
 
 class SISocialLoginsRow extends StatelessWidget {
   const SISocialLoginsRow({super.key});
@@ -13,9 +17,9 @@ class SISocialLoginsRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Spacer(),
-          Expanded(child: SISocialFbLoginButton()),
+          // Expanded(child: SISocialFbLoginButton()),
           Expanded(child: SISocialGoogleLoginButton()),
-          Expanded(child: SISocialAppleLoginButton()),
+          if (Platform.isIOS) Expanded(child: SISocialAppleLoginButton()),
           Spacer(),
         ],
       ),
@@ -37,7 +41,13 @@ class SISocialGoogleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SISocialLoginButton(image: AppIcons.google, onPressed: () {});
+    var bloc = context.read<SigninBloc>();
+    return SISocialLoginButton(
+      image: AppIcons.google,
+      onPressed: () async {
+        bloc.add(SignInWithGoogleEvent());
+      },
+    );
   }
 }
 
@@ -46,7 +56,13 @@ class SISocialAppleLoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SISocialLoginButton(image: AppIcons.apple, onPressed: () {});
+    var bloc = context.read<SigninBloc>();
+    return SISocialLoginButton(
+      image: AppIcons.apple,
+      onPressed: () {
+        bloc.add(SignInWithAppleEvent());
+      },
+    );
   }
 }
 

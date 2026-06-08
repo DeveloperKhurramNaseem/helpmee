@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/settings/profile_settings_screen/bottom_sheets/set_pin_sheet.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
+import 'package:help_mee/util/dependencies/init.dart';
+import 'package:help_mee/util/common_widgets/show_bottom_sheet.dart' as m;
 
 class PsPinCard extends StatelessWidget {
   const PsPinCard({super.key});
@@ -58,7 +61,7 @@ class PsPinCard extends StatelessWidget {
                       flex: 80,
                       child: AppButtonOutlined(
                         onPressed: () {
-                          showModalBottomSheet(
+                          m.showModalBottomSheet(
                             context: context,
                             isScrollControlled: true,
                             isDismissible: true,
@@ -71,7 +74,11 @@ class PsPinCard extends StatelessWidget {
                                     context,
                                   ).viewInsets.bottom,
                                 ),
-                                child: SetPinSheet(),
+                                child: SetPinSheet(
+                                  setPin:
+                                      sl<StorageService>().getUser().pinCode ==
+                                      null,
+                                ),
                               );
                             },
                           );

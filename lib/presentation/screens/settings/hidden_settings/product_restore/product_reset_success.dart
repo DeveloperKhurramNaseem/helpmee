@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/presentation/screens/onboarding/activation_method_screen/activation_method_screen.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
@@ -36,28 +39,29 @@ class ProductResetSuccess extends StatelessWidget {
               ),
             ),
           ),
-          Row(
-            children: [
-              Spacer(flex: 15),
-              Expanded(
-                flex: 70,
-                child: AppButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => ActivationMethodScreen(),
-                      ),
-                    );
-                  },
-                  gradient: Theme.of(
-                    context,
-                  ).extension<AppGradients>()?.primaryButton,
-                  child: Text(AppLocalizations.of(context)!.restAnotherTitle),
+          Padding(
+            padding: EdgeInsets.only(bottom: Platform.isAndroid ? 12.0 : 0.0),
+            child: Row(
+              children: [
+                Spacer(flex: 15),
+                Expanded(
+                  flex: 70,
+                  child: AppButton(
+                    onPressed: () {
+                      context.push(
+                        ActivationMethodScreen.path,
+                        extra: ('', ActivationMethodState.restoreProduct),
+                      );    
+                    },
+                    gradient: Theme.of(
+                      context,
+                    ).extension<AppGradients>()?.primaryButton,
+                    child: Text(AppLocalizations.of(context)!.restAnotherTitle),
+                  ),
                 ),
-              ),
-              Spacer(flex: 15),
-            ],
+                Spacer(flex: 15),
+              ],
+            ),
           ),
         ],
       ),

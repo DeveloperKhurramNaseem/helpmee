@@ -13,3 +13,12 @@ class ShowErrorEvent extends SignupEvent{
   final String message;
   ShowErrorEvent(this.message);
 }
+
+class SignUpWithGoogleEvent extends SignupEvent{  
+  SignUpWithGoogleEvent();
+}
+
+
+class SignUpWithAppleEvent extends SignupEvent{  
+  SignUpWithAppleEvent();
+}

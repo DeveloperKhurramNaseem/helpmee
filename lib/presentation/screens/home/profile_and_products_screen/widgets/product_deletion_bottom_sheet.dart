@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/common_widgets/app_button.dart';
 import 'package:help_mee/util/constants/images.dart';
 import 'package:help_mee/util/theme/light_theme/theme_data/light_app_gradient.dart';
@@ -19,7 +20,7 @@ class ProductDeletionBottomSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  'Confirm Deletion',
+                  AppLocalizations.of(context)!.confirmDeletion,
                   style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                 ),
               ],
@@ -53,7 +54,7 @@ class ProductDeletionBottomSheet extends StatelessWidget {
                 context,
               ).extension<AppGradients>()?.primaryButton,
               child: Text(
-                'Confirm',
+                AppLocalizations.of(context)!.confirmText,
                 style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               ),
             ),
@@ -65,7 +66,7 @@ class ProductDeletionBottomSheet extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               child: Text(
-                'Cancel',
+               AppLocalizations.of(context)!.cancelText,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 14,

@@ -3,16 +3,41 @@ import 'package:help_mee/l10n/app_localizations.dart';
 import 'package:help_mee/util/constants/text_fields_constants.dart';
 
 class CpFields extends StatelessWidget {
-  const CpFields({super.key});
+  final TextEditingController passwordController,
+      confirmationPasswordController;
+  final GlobalKey<FormFieldState> passwordKey, confirmationPasswordKey;
+  const CpFields({
+    super.key,
+    required this.passwordController,
+    required this.confirmationPasswordController,
+    required this.passwordKey,
+    required this.confirmationPasswordKey,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [CpPasswordField(), CpConfirmPasswordField()]);
+    return Column(
+      children: [
+        CpPasswordField(controller: passwordController, fieldKey: passwordKey),
+        CpConfirmPasswordField(
+          controller: confirmationPasswordController,
+          fieldKey: confirmationPasswordKey,
+        ),
+      ],
+    );
   }
 }
 
 class CpPasswordField extends StatelessWidget {
-  const CpPasswordField({super.key});
+  final TextEditingController controller;
+  final GlobalKey<FormFieldState> fieldKey;
+  final String label;
+  const CpPasswordField({
+    super.key,
+    required this.controller,
+    required this.fieldKey,
+    this.label = '',
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +49,16 @@ class CpPasswordField extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return TextFormField(
+          controller: controller,
+          key: fieldKey,
+          validator: (value) => value!.isEmpty
+              ? AppLocalizations.of(context)!.enterPassword
+              : null,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
-            labelText: AppLocalizations.of(context)!.passwordLabel,
+            labelText: label.isEmpty
+                ? AppLocalizations.of(context)!.passwordLabel
+                : label,
             helperText: '',
             focusedBorder: TextFieldsConstants.border,
             labelStyle: labelStyle,
@@ -39,7 +71,6 @@ class CpPasswordField extends StatelessWidget {
             ),
           ),
           obscureText: isObscure,
-          obscuringCharacter: TextFieldsConstants.obscuringCharacter,
           cursorColor: Theme.of(context).colorScheme.secondary,
         );
       },
@@ -48,7 +79,13 @@ class CpPasswordField extends StatelessWidget {
 }
 
 class CpConfirmPasswordField extends StatelessWidget {
-  const CpConfirmPasswordField({super.key});
+  final TextEditingController controller;
+  final GlobalKey<FormFieldState> fieldKey;
+  const CpConfirmPasswordField({
+    super.key,
+    required this.controller,
+    required this.fieldKey,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +97,11 @@ class CpConfirmPasswordField extends StatelessWidget {
     return StatefulBuilder(
       builder: (context, setState) {
         return TextFormField(
+          controller: controller,
+          key: fieldKey,
+          validator: (value) => value!.isEmpty
+              ? AppLocalizations.of(context)!.enterConfirmPassword
+              : null,
           decoration: InputDecoration(
             border: TextFieldsConstants.border,
             labelText: AppLocalizations.of(context)!.confirmPasswordLabel,
@@ -75,7 +117,6 @@ class CpConfirmPasswordField extends StatelessWidget {
             ),
           ),
           obscureText: isObscure,
-          obscuringCharacter: TextFieldsConstants.obscuringCharacter,
           cursorColor: Theme.of(context).colorScheme.secondary,
         );
       },

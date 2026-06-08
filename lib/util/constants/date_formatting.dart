@@ -1,3 +1,5 @@
+import 'package:help_mee/data/source/storage_service.dart';
+import 'package:help_mee/util/dependencies/init.dart';
 import 'package:intl/intl.dart';
 
 class DateFormatting {
@@ -11,12 +13,26 @@ class DateFormatting {
         return 'Now';
       }
       return duration.inHours >= 1
-          ? '${duration.inHours} hours ago'
+          ? '${duration.inHours} ${duration.inHours == 1 ? 'hour' : 'hours'} ago'
           : '${duration.inMinutes} ${duration.inMinutes == 1 ? 'minute' : 'minutes'} ago';
     }
     if (todayDate.difference(dateTime).inDays == 1) {
       return 'Yesterday\n${DateFormat('hh:mm a').format(dateTime)}';
     }
     return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+  }
+
+  static String formatDateForTextField(DateTime dateTime) {
+    var lang = sl<StorageService>().getLanguage();
+    return lang == 'en'
+        ? DateFormat('MMMM dd, yyyy').format(dateTime)
+        : DateFormat('dd.MM.yyyy', 'de_DE').format(dateTime);
+  }
+
+  static String formatTimeForTextField(DateTime dateTime) {
+    var lang = sl<StorageService>().getLanguage();
+    return lang == 'en'
+        ? DateFormat('hh:mm a').format(dateTime)
+        : DateFormat('HH:mm', 'de_DE').format(dateTime);
   }
 }

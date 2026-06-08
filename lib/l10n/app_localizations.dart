@@ -143,7 +143,7 @@ abstract class AppLocalizations {
   /// No description provided for @signUpTitle.
   ///
   /// In en, this message translates to:
-  /// **'Sign Up'**
+  /// **'Sign up'**
   String get signUpTitle;
 
   /// No description provided for @passwordLabel.
@@ -257,7 +257,7 @@ abstract class AppLocalizations {
   /// No description provided for @enterCodeTitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter code'**
+  /// **'Enter Code'**
   String get enterCodeTitle;
 
   /// No description provided for @enterCodeDescription.
@@ -751,6 +751,852 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'PIN reminder text (optional)'**
   String get pinReminderTextOptional;
+
+  /// No description provided for @didntReceiveCodePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn’t receive 6 digit code?'**
+  String get didntReceiveCodePrompt;
+
+  /// No description provided for @resendCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend code'**
+  String get resendCode;
+
+  /// No description provided for @privacyPolicyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/privacy-policy-addmee-app'**
+  String get privacyPolicyLink;
+
+  /// No description provided for @termsAndConditionsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/terms-and-conditions'**
+  String get termsAndConditionsLink;
+
+  /// No description provided for @endUserLicenseAgreementLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/pages/eula-addmee-app'**
+  String get endUserLicenseAgreementLink;
+
+  /// No description provided for @generalServerError.
+  ///
+  /// In en, this message translates to:
+  /// **'Server error, please try again'**
+  String get generalServerError;
+
+  /// No description provided for @enterEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter email'**
+  String get enterEmail;
+
+  /// No description provided for @enterPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter password'**
+  String get enterPassword;
+
+  /// No description provided for @enterConfirmPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter confirmation password'**
+  String get enterConfirmPassword;
+
+  /// No description provided for @errorAcceptPrivacyPolicyEULA.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the Privacy Policy & End User Licence Agreement to proceed.'**
+  String get errorAcceptPrivacyPolicyEULA;
+
+  /// No description provided for @confirmDeletion.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm deletion'**
+  String get confirmDeletion;
+
+  /// No description provided for @deleteAccountPopupDescriptionChild.
+  ///
+  /// In en, this message translates to:
+  /// **'By pressing the confirm button you will permanently delete your account. Afterwards you won\'t be able to reactivate your account or retrieve any of the information you\'ve added. As this is a sub-profile, the main profile will remain.'**
+  String get deleteAccountPopupDescriptionChild;
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordLabel;
+
+  /// No description provided for @currentPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Current password'**
+  String get currentPasswordLabel;
+
+  /// No description provided for @genderLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get genderLabel;
+
+  /// No description provided for @heightCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm)'**
+  String get heightCm;
+
+  /// No description provided for @weightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get weightKg;
+
+  /// No description provided for @bloodGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood group'**
+  String get bloodGroup;
+
+  /// No description provided for @birthday.
+  ///
+  /// In en, this message translates to:
+  /// **'Birthday'**
+  String get birthday;
+
+  /// No description provided for @enterDOB.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter date of birth'**
+  String get enterDOB;
+
+  /// No description provided for @addImportantNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an important text note...'**
+  String get addImportantNote;
+
+  /// No description provided for @important.
+  ///
+  /// In en, this message translates to:
+  /// **'Important'**
+  String get important;
+
+  /// No description provided for @emergencyContacts.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergency contacts'**
+  String get emergencyContacts;
+
+  /// No description provided for @doctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor'**
+  String get doctor;
+
+  /// No description provided for @address.
+  ///
+  /// In en, this message translates to:
+  /// **'Address'**
+  String get address;
+
+  /// No description provided for @medicalInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Medical Information'**
+  String get medicalInformation;
+
+  /// No description provided for @picturesAndDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Pictures and documents'**
+  String get picturesAndDocuments;
+
+  /// No description provided for @addPicturesAndDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Add pictures & documents'**
+  String get addPicturesAndDocuments;
+
+  /// No description provided for @addPicturesORDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Add picture / document'**
+  String get addPicturesORDocuments;
+
+  /// No description provided for @insuranceInformation.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance information'**
+  String get insuranceInformation;
+
+  /// No description provided for @insuranceCompany.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance company'**
+  String get insuranceCompany;
+
+  /// No description provided for @insuranceID.
+  ///
+  /// In en, this message translates to:
+  /// **'Insurance ID'**
+  String get insuranceID;
+
+  /// No description provided for @selectedDateOlderThanCurrentDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Selected date is older than current date'**
+  String get selectedDateOlderThanCurrentDate;
+
+  /// No description provided for @writeDetailsHere.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your details here'**
+  String get writeDetailsHere;
+
+  /// No description provided for @doYouHaveAllergies.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have allergies? \n Then please enter the details in the field below.'**
+  String get doYouHaveAllergies;
+
+  /// No description provided for @doYouSufferFromInfectiousDiseases.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you suffer from infectious diseases? \n Then please enter the details in the field below.'**
+  String get doYouSufferFromInfectiousDiseases;
+
+  /// No description provided for @yesSufferingFromCoagulationDisorders.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I’m suffering from coagulation disorders'**
+  String get yesSufferingFromCoagulationDisorders;
+
+  /// No description provided for @yesUsingPacemakerOrDefibrillator.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I use a pacemaker or defibrillator'**
+  String get yesUsingPacemakerOrDefibrillator;
+
+  /// No description provided for @haveYouHadHeartAttacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Have you had one or more heart attacks? \n Then please enter the details in the field below.'**
+  String get haveYouHadHeartAttacks;
+
+  /// No description provided for @doYouSufferFromDiabetes.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you suffer from diabetes? \n Then please enter the details in the field below.'**
+  String get doYouSufferFromDiabetes;
+
+  /// No description provided for @yesOnDialysis.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I am on dialysis'**
+  String get yesOnDialysis;
+
+  /// No description provided for @yesSufferingFromAsthmaOrCOPD.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I suffer from asthma or COPD'**
+  String get yesSufferingFromAsthmaOrCOPD;
+
+  /// No description provided for @yesSufferingFromSeizureDisorder.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes, I suffer from seizure disorder (like epilepsy)'**
+  String get yesSufferingFromSeizureDisorder;
+
+  /// No description provided for @doYouHaveMentalIllness.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have a mental illness? \n Then please enter the details in the field below.'**
+  String get doYouHaveMentalIllness;
+
+  /// No description provided for @doYouHaveOtherIllnesses.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you have any other illnesses or conditions? \n Then please enter the details in the field below.'**
+  String get doYouHaveOtherIllnesses;
+
+  /// No description provided for @fileName.
+  ///
+  /// In en, this message translates to:
+  /// **'File name'**
+  String get fileName;
+
+  /// No description provided for @upload.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload'**
+  String get upload;
+
+  /// No description provided for @chooseFileType.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose file type'**
+  String get chooseFileType;
+
+  /// No description provided for @photoFromLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo from library'**
+  String get photoFromLibrary;
+
+  /// No description provided for @photoFromCamera.
+  ///
+  /// In en, this message translates to:
+  /// **'Photo from camera'**
+  String get photoFromCamera;
+
+  /// No description provided for @document.
+  ///
+  /// In en, this message translates to:
+  /// **'Document'**
+  String get document;
+
+  /// No description provided for @cameraNotAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera not available'**
+  String get cameraNotAvailable;
+
+  /// No description provided for @cameraNotAvailableOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera is not available on this device'**
+  String get cameraNotAvailableOnDevice;
+
+  /// No description provided for @genderMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get genderMale;
+
+  /// No description provided for @genderFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get genderFemale;
+
+  /// No description provided for @genderPreferNotSay.
+  ///
+  /// In en, this message translates to:
+  /// **'Prefer not to say'**
+  String get genderPreferNotSay;
+
+  /// No description provided for @genderCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Diverse'**
+  String get genderCustom;
+
+  /// No description provided for @uploadImageOrDocument.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload image / document'**
+  String get uploadImageOrDocument;
+
+  /// No description provided for @recentNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent notifications'**
+  String get recentNotifications;
+
+  /// No description provided for @notifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notifications;
+
+  /// No description provided for @addProduct.
+  ///
+  /// In en, this message translates to:
+  /// **'Add product'**
+  String get addProduct;
+
+  /// No description provided for @productDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Product description'**
+  String get productDescription;
+
+  /// No description provided for @uploadImportantDocuments.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload all important documents here: \n Vaccination card, heart card, allergy passport, other.'**
+  String get uploadImportantDocuments;
+
+  /// No description provided for @backButtonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get backButtonTitle;
+
+  /// No description provided for @deactivateService.
+  ///
+  /// In en, this message translates to:
+  /// **'Deactivate service'**
+  String get deactivateService;
+
+  /// No description provided for @updateDoctorContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Doctor'**
+  String get updateDoctorContact;
+
+  /// No description provided for @updateContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Contact'**
+  String get updateContact;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get name;
+
+  /// No description provided for @race.
+  ///
+  /// In en, this message translates to:
+  /// **'Race'**
+  String get race;
+
+  /// No description provided for @character.
+  ///
+  /// In en, this message translates to:
+  /// **'Character'**
+  String get character;
+
+  /// No description provided for @characteristics.
+  ///
+  /// In en, this message translates to:
+  /// **'Characteristics'**
+  String get characteristics;
+
+  /// No description provided for @identification.
+  ///
+  /// In en, this message translates to:
+  /// **'Identification'**
+  String get identification;
+
+  /// No description provided for @chipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Chipped'**
+  String get chipped;
+
+  /// No description provided for @tassoNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasso no.'**
+  String get tassoNumber;
+
+  /// No description provided for @chipLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Chip position'**
+  String get chipLocation;
+
+  /// No description provided for @taxNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Tax no.'**
+  String get taxNumber;
+
+  /// No description provided for @specialFeatures.
+  ///
+  /// In en, this message translates to:
+  /// **' Special features'**
+  String get specialFeatures;
+
+  /// No description provided for @connectivityError.
+  ///
+  /// In en, this message translates to:
+  /// **'Connection lost. Please check your internet connection and try again.'**
+  String get connectivityError;
+
+  /// No description provided for @accountSettings.
+  ///
+  /// In en, this message translates to:
+  /// **'Account settings'**
+  String get accountSettings;
+
+  /// No description provided for @recordAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Record voice'**
+  String get recordAudio;
+
+  /// No description provided for @contactsTabTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Contacts'**
+  String get contactsTabTitle;
+
+  /// No description provided for @addContactButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add contact'**
+  String get addContactButton;
+
+  /// No description provided for @emergencySubTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'In an emergency, a first aider can send their location to you to navigate there.'**
+  String get emergencySubTitle;
+
+  /// No description provided for @locationSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Location settings'**
+  String get locationSetting;
+
+  /// No description provided for @addMedicationInformationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medical information'**
+  String get addMedicationInformationButton;
+
+  /// No description provided for @addMedicationPlanButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add medication plan'**
+  String get addMedicationPlanButton;
+
+  /// No description provided for @medicationPlanLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Medication plan'**
+  String get medicationPlanLabel;
+
+  /// No description provided for @recordAudioDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can save a voice recording of up to 15sec that can be played back in an emergency. \n\n Examples \n Instructions for the first aider or a reassuring, familiar voice for the person in distress.'**
+  String get recordAudioDetail;
+
+  /// No description provided for @createNewContact.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new contact'**
+  String get createNewContact;
+
+  /// No description provided for @createNewContactDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Add the details below to create a new contact'**
+  String get createNewContactDetail;
+
+  /// No description provided for @contactNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Contact Name'**
+  String get contactNameLabel;
+
+  /// No description provided for @whatsappNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'WhatsApp number (optional)'**
+  String get whatsappNumberLabel;
+
+  /// No description provided for @phoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneNumberLabel;
+
+  /// No description provided for @registerNewDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Register new doctor'**
+  String get registerNewDoctor;
+
+  /// No description provided for @registerNewDoctorDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Provide the information below to register your doctor.'**
+  String get registerNewDoctorDetail;
+
+  /// No description provided for @doctorNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor Name'**
+  String get doctorNameLabel;
+
+  /// No description provided for @doctorConsentVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'I have received the consent of my doctor to publish the contact details in my profile'**
+  String get doctorConsentVerification;
+
+  /// No description provided for @contactConsentVerification.
+  ///
+  /// In en, this message translates to:
+  /// **'I have received the consent of this contact to publish the contact details in my profile'**
+  String get contactConsentVerification;
+
+  /// No description provided for @diseaseInformationConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree that this information is accessible to all persons who have access to my HelpMee profile. I have the choice to protect this information with a PIN code after saving it.'**
+  String get diseaseInformationConsent;
+
+  /// No description provided for @addDoctorButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add doctor'**
+  String get addDoctorButton;
+
+  /// No description provided for @locationSettingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can decide how you want to be notified when a first aider sends their location to you.'**
+  String get locationSettingSubtitle;
+
+  /// No description provided for @sendsEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Sends you an email'**
+  String get sendsEmail;
+
+  /// No description provided for @addAddress.
+  ///
+  /// In en, this message translates to:
+  /// **'Add address'**
+  String get addAddress;
+
+  /// No description provided for @addressDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Address description'**
+  String get addressDescription;
+
+  /// No description provided for @uploadPictureOrDocumentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can upload a picture or a PDF document to be displayed in your HelpMee profile.'**
+  String get uploadPictureOrDocumentDetail;
+
+  /// No description provided for @uploadPictureOrDocumentExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccination card, organ donor card, living will, doctor\'s letters, ...'**
+  String get uploadPictureOrDocumentExamples;
+
+  /// No description provided for @examplesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get examplesLabel;
+
+  /// No description provided for @uploadDocumentButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload document'**
+  String get uploadDocumentButton;
+
+  /// No description provided for @uploadPdfDocumentDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can upload a PDF document to be displayed in your HelpMee profile'**
+  String get uploadPdfDocumentDetail;
+
+  /// No description provided for @uploadPdfDocumentExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaccination card, organ donor card, living will, doctor\'s letters, ...'**
+  String get uploadPdfDocumentExamples;
+
+  /// No description provided for @streetNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Street name'**
+  String get streetNameLabel;
+
+  /// No description provided for @houseNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'House number'**
+  String get houseNumberLabel;
+
+  /// No description provided for @zipLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'ZIP (optional)'**
+  String get zipLabel;
+
+  /// No description provided for @cityLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'City'**
+  String get cityLabel;
+
+  /// No description provided for @countryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Country'**
+  String get countryLabel;
+
+  /// No description provided for @selectDateTitel.
+  ///
+  /// In en, this message translates to:
+  /// **'Select date'**
+  String get selectDateTitel;
+
+  /// No description provided for @selectDatebtnTtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get selectDatebtnTtitle;
+
+  /// No description provided for @myProductsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My products'**
+  String get myProductsTitle;
+
+  /// No description provided for @productName.
+  ///
+  /// In en, this message translates to:
+  /// **'Product name:'**
+  String get productName;
+
+  /// No description provided for @productType.
+  ///
+  /// In en, this message translates to:
+  /// **'Product type:'**
+  String get productType;
+
+  /// No description provided for @serialNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Serial number:'**
+  String get serialNumber;
+
+  /// No description provided for @activationDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Activation date:'**
+  String get activationDate;
+
+  /// No description provided for @expirationDatee.
+  ///
+  /// In en, this message translates to:
+  /// **'Expiration date:'**
+  String get expirationDatee;
+
+  /// No description provided for @holdMiroPhoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Press & hold microphone to record'**
+  String get holdMiroPhoneTitle;
+
+  /// No description provided for @addAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Add account'**
+  String get addAccountButton;
+
+  /// No description provided for @signInToExistingAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign In to existing account'**
+  String get signInToExistingAccount;
+
+  /// No description provided for @createWithNewEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Create with new email'**
+  String get createWithNewEmail;
+
+  /// No description provided for @buyHelpMeeProductLink.
+  ///
+  /// In en, this message translates to:
+  /// **'https://help-mee.com/collections/all'**
+  String get buyHelpMeeProductLink;
+
+  /// No description provided for @subjectLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Subject'**
+  String get subjectLabel;
+
+  /// No description provided for @messageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get messageLabel;
+
+  /// No description provided for @sendButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get sendButton;
+
+  /// No description provided for @feedbackReadAndAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I have read and agreed to the following:'**
+  String get feedbackReadAndAgree;
+
+  /// No description provided for @errorAcceptPrivacyPolicy.
+  ///
+  /// In en, this message translates to:
+  /// **'You must accept the Privacy Policy to proceed.'**
+  String get errorAcceptPrivacyPolicy;
+
+  /// No description provided for @enterMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter message'**
+  String get enterMessage;
+
+  /// No description provided for @enterLastName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter last name'**
+  String get enterLastName;
+
+  /// No description provided for @enterFirstName.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter first name'**
+  String get enterFirstName;
+
+  /// No description provided for @enterSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter subject'**
+  String get enterSubject;
+
+  /// No description provided for @createNewAccountButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create new account'**
+  String get createNewAccountButton;
+
+  /// No description provided for @createWithExistingEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Create with existing email'**
+  String get createWithExistingEmail;
+
+  /// No description provided for @logoutConfirmation.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to sign out?'**
+  String get logoutConfirmation;
+
+  /// No description provided for @logoutButton.
+  ///
+  /// In en, this message translates to:
+  /// **'SIGN OUT'**
+  String get logoutButton;
 }
 
 class _AppLocalizationsDelegate

@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:help_mee/data/source/storage_service.dart';
 import 'package:help_mee/presentation/screens/settings/app_settings_screen/settings_screen.dart';
 import 'package:help_mee/util/constants/app_size.dart';
 import 'package:help_mee/util/constants/images.dart';
+import 'package:help_mee/util/dependencies/init.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeScreenAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
+    var logo = sl<StorageService>().getUser().logo;
     return ColoredBox(
       color: Theme.of(context).scaffoldBackgroundColor,
       child: Padding(
@@ -36,9 +41,7 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(builder: (_) => SettingsScreen()),
-                      );
+                      context.push(SettingsScreen.path);
                     },
                     child: Container(
                       margin: EdgeInsets.only(left: 10),
@@ -46,12 +49,19 @@ class HomeScreenAppBar extends StatelessWidget implements PreferredSizeWidget {
                         shape: BoxShape.circle,
                         border: Border.all(
                           color: Theme.of(context).colorScheme.primary,
-                          width: 2,
+                          width: 2.5,
                         ),
+                        // image: DecorationImage(
+                        //   image: AssetImage(AppImages.placeHolderPerson),
+                        // ),
                       ),
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                          'https://images.unsplash.com/photo-1757416654883-c73c67b3382b?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                        backgroundColor: Colors.transparent,
+                        foregroundImage: logo != null
+                            ? CachedNetworkImageProvider(logo)
+                            : AssetImage(AppImages.placeHolderPerson),
+                        backgroundImage: AssetImage(
+                          AppImages.placeHolderPerson,
                         ),
                       ),
                     ),

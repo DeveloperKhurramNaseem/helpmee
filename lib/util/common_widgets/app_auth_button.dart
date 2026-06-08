@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppAuthButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final Widget child;  
+  final Widget child;
 
   const AppAuthButton({
     super.key,
     required this.onPressed,
-    required this.child,    
+    required this.child,
   });
 
   @override
@@ -22,7 +22,7 @@ class AppAuthButton extends StatelessWidget {
       onPressed: onPressed,
       child: Ink(
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,          
+          color: Theme.of(context).colorScheme.secondary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Container(

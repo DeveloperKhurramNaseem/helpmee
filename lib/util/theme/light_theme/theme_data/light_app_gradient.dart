@@ -7,9 +7,7 @@ class AppGradients extends ThemeExtension<AppGradients> {
 
   @override
   AppGradients copyWith({Gradient? primaryButton}) {
-    return AppGradients(
-      primaryButton: primaryButton ?? this.primaryButton,
-    );
+    return AppGradients(primaryButton: primaryButton ?? this.primaryButton);
   }
 
   @override
